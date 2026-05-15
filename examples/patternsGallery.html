@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design System — Patterns</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <style>
+    /* ─── Tokens ────────────────────────────────────────── */
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --brand-primary-base: #12c35a; --brand-primary-light: #befcc8; --brand-primary-dark: #02422b;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --action-primary-base: #00893e; --action-primary-hover: #00560b;
+      --action-primary-active: #02422b; --action-primary-glow: #12c35a;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --action-inactive-base: #727677;
+      --ui-core-accent: #d6dddf;
+      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6; --ui-warning-contrast: #ad5a00; --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6; --ui-error-contrast: #b50016; --ui-error-accent: #b50016;
+      --ui-neutral-base: #f0f2f2; --ui-neutral-accent: #abb1b4;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
+      --shadow: 0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+    }
+
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Type ──────────────────────────────────────────── */
+    .t-display    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem; line-height: 1.15; color: var(--type-primary); }
+    .t-title-lg   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; line-height: 1.2; color: var(--type-primary); }
+    .t-title      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.9375rem; line-height: 1.3; color: var(--type-primary); }
+    .t-body       { font-size: 1rem; line-height: 1.5; }
+    .t-body-sm    { font-size: 0.875rem; line-height: 1.45; }
+    .t-caption    { font-size: 0.75rem; line-height: 1.4; color: var(--type-tertiary); }
+    .t-secondary  { color: var(--type-tertiary); }
+    .t-link       { color: var(--action-secondary-base); text-decoration: none; }
+    .t-link:hover { text-decoration: underline; }
+
+    /* ─── Nav ───────────────────────────────────────────── */
+    .nav {
+      background: var(--type-primary);
+      padding: 0.875rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 20;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-logo { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a.active { font-weight: 500; }
+    .nav-end { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-basket {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--action-primary-base); color: #fff;
+      border: none; border-radius: 9999px; padding: 0.5rem 1.125rem;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
+      cursor: pointer; transition: background 150ms;
+    }
+    .nav-basket:hover { background: var(--action-primary-hover); }
+    .nav-account { color: rgba(255,255,255,0.75); font-size: 0.875rem; text-decoration: none; display: flex; align-items: center; gap: 0.375rem; }
+    .nav-account:hover { color: #fff; }
+
+    /* ─── Page shell ─────────────────────────────────────── */
+    .page { max-width: 1140px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+
+    /* ─── Patterns nav ───────────────────────────────────── */
+    .patterns-nav { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .pattern-tab {
+      padding: 0.5rem 1.125rem; border-radius: 9999px;
+      font-size: 0.875rem; font-weight: 500; cursor: pointer;
+      border: 1px solid var(--gray-40); background: white; color: var(--type-tertiary);
+      transition: all 150ms;
+    }
+    .pattern-tab:hover { border-color: var(--gray-60); color: var(--type-secondary); }
+    .pattern-tab.active { background: var(--type-primary); border-color: var(--type-primary); color: #fff; }
+
+    /* ─── Pattern canvas ─────────────────────────────────── */
+    .pattern { display: none; }
+    .pattern.active { display: block; }
+
+    .pattern-header { margin-bottom: 2rem; }
+    .pattern-label {
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--brand-primary-dark); background: var(--brand-primary-light);
+      border-radius: var(--radius-xs); padding: 0.2rem 0.5rem;
+      display: inline-block; margin-bottom: 0.625rem;
+    }
+
+    /* Render frame — simulates a browser viewport */
+    .render-frame {
+      background: var(--gray-10); border: 1px solid var(--gray-30);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .render-frame-toolbar {
+      background: var(--gray-20); border-bottom: 1px solid var(--gray-30);
+      padding: 0.625rem 1rem; display: flex; align-items: center; gap: 0.625rem;
+    }
+    .toolbar-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* ─── Buttons ────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.6875rem 1.5rem; border-radius: 9999px;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 2px solid transparent; cursor: pointer;
+      transition: background 150ms, color 150ms, border-color 150ms;
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn-primary   { background: var(--action-primary-base); color: #fff; border-color: var(--action-primary-base); }
+    .btn-primary:hover   { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); }
+    .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover  { background: var(--gray-20); }
+    .btn-dark      { background: var(--type-primary); color: #fff; border-color: var(--type-primary); }
+    .btn-dark:hover      { background: var(--action-secondary-hover); }
+    .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
+    .btn-full { width: 100%; }
+    .btn-sm   { padding: 0.4375rem 1rem; font-size: 0.875rem; }
+    .btn-lg   { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
+    .btn-link { background: none; border: none; color: var(--action-secondary-base); font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 400; cursor: pointer; padding: 0; text-decoration: underline; }
+    .btn-link:hover { color: var(--action-secondary-hover); }
+
+    /* ─── Forms ──────────────────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+    .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
+    .field-input {
+      padding: 0.6875rem 0.75rem;
+      border: 1px solid var(--gray-40); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--type-secondary);
+      background: #fff; outline: none; width: 100%;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .field-input::placeholder { color: var(--gray-60); }
+    .field-input:focus { border-color: var(--action-secondary-base); box-shadow: 0 0 0 3px rgba(5,100,194,0.15); }
+    .field-input.is-error { border-color: var(--ui-error-accent); background: var(--ui-error-base); }
+    .field-msg { font-size: 0.8125rem; }
+    .field-msg.is-error { color: var(--ui-error-contrast); }
+    .field-msg.is-helper { color: var(--type-tertiary); }
+
+    /* ─── Cards ──────────────────────────────────────────── */
+    .card { background: #fff; border: 1px solid var(--gray-40); border-radius: var(--radius-md); }
+    .card-raised { box-shadow: var(--shadow-md); }
+    .card-body { padding: 1.5rem; }
+    .card-divider { height: 1px; background: var(--gray-30); margin: 0 1.5rem; }
+    .card-footer { padding: 1rem 1.5rem; background: var(--gray-10); border-top: 1px solid var(--gray-30); border-radius: 0 0 var(--radius-md) var(--radius-md); }
+
+    /* ─── Tags ───────────────────────────────────────────── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4; border: 1px solid transparent;
+    }
+    .tag-success  { background: var(--ui-success-base); color: var(--ui-success-contrast); border-color: var(--ui-success-accent); }
+    .tag-highlight{ background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral  { background: var(--ui-neutral-base); color: var(--type-secondary); border-color: var(--gray-40); }
+    .tag-warning  { background: var(--ui-warning-base); color: var(--ui-warning-contrast); border-color: var(--ui-warning-accent); }
+
+    /* ─── Notices ────────────────────────────────────────── */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem 1rem; border-radius: var(--radius-sm);
+      font-size: 0.875rem; border: 1px solid transparent;
+    }
+    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .notice-success   { background: var(--ui-success-base); color: var(--ui-success-contrast); border-color: var(--ui-success-accent); }
+    .notice-warning   { background: var(--ui-warning-base); color: var(--ui-warning-contrast); border-color: var(--ui-warning-accent); }
+    .notice-error     { background: var(--ui-error-base); color: var(--ui-error-contrast); border-color: var(--ui-error-accent); }
+
+    /* ─── Divider ────────────────────────────────────────── */
+    .divider { height: 1px; background: var(--gray-30); }
+    .divider-label {
+      display: flex; align-items: center; gap: 0.875rem;
+      color: var(--type-tertiary); font-size: 0.8125rem;
+    }
+    .divider-label::before, .divider-label::after { content: ''; flex: 1; height: 1px; background: var(--gray-30); }
+
+    /* ─── Breadcrumb ─────────────────────────────────────── */
+    .crumb { display: flex; gap: 0.375rem; align-items: center; list-style: none; }
+    .crumb li { display: flex; align-items: center; gap: 0.375rem; }
+    .crumb a { color: var(--action-secondary-base); text-decoration: none; font-size: 0.8125rem; }
+    .crumb a:hover { text-decoration: underline; }
+    .crumb span { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .crumb-sep { color: var(--gray-60); }
+
+    /* ─── Steps ──────────────────────────────────────────── */
+    .steps { display: flex; align-items: center; gap: 0; }
+    .step { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
+    .step:last-child { flex: none; }
+    .step-circle {
+      width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--gray-40);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600; color: var(--type-tertiary);
+      background: #fff; flex-shrink: 0; transition: all 150ms;
+    }
+    .step.done .step-circle { background: var(--ui-success-base); border-color: var(--ui-success-accent); color: var(--ui-success-contrast); }
+    .step.active .step-circle { background: var(--type-primary); border-color: var(--type-primary); color: #fff; }
+    .step-label { font-size: 0.8125rem; font-weight: 500; color: var(--type-tertiary); white-space: nowrap; }
+    .step.done .step-label { color: var(--ui-success-contrast); }
+    .step.active .step-label { color: var(--type-primary); }
+    .step-line { flex: 1; height: 1px; background: var(--gray-30); margin: 0 0.5rem; }
+    .step.done + .step .step-line, .step.done .step-line { background: var(--ui-success-accent); }
+
+    /* ─── Qty stepper ────────────────────────────────────── */
+    .qty-control {
+      display: inline-flex; align-items: stretch;
+      border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .qty-btn {
+      width: 36px; height: 36px; background: var(--gray-10); border: none;
+      font-size: 1.1rem; color: var(--type-secondary); cursor: pointer;
+      transition: background 150ms; display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--gray-20); }
+    .qty-val {
+      width: 44px; text-align: center; font-size: 0.9375rem; font-weight: 500;
+      line-height: 36px; color: var(--type-primary);
+      border-left: 1px solid var(--gray-40); border-right: 1px solid var(--gray-40);
+    }
+
+    /* ─── Summary row ────────────────────────────────────── */
+    .summary-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .summary-row + .summary-row { margin-top: 0.625rem; }
+    .summary-total { border-top: 2px solid var(--gray-30); padding-top: 0.875rem; margin-top: 0.875rem; }
+
+    /* ─── Product line ───────────────────────────────────── */
+    .basket-item { display: grid; grid-template-columns: 80px 1fr; gap: 1rem; align-items: start; }
+    .basket-item + .basket-item { padding-top: 1.25rem; }
+    .basket-img {
+      width: 80px; height: 80px; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-30); background: var(--gray-10);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; flex-shrink: 0;
+    }
+    .basket-item-name { font-weight: 500; font-size: 0.9375rem; color: var(--type-primary); line-height: 1.35; margin-bottom: 0.25rem; }
+    .basket-item-meta { font-size: 0.8125rem; color: var(--type-tertiary); margin-bottom: 0.625rem; }
+    .basket-item-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .basket-item-price { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; color: var(--type-primary); }
+
+    /* ─── Upsell ─────────────────────────────────────────── */
+    .upsell-item {
+      display: flex; align-items: center; gap: 0.875rem;
+      padding: 0.875rem 1rem; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-sm); cursor: pointer;
+      background: #fff; transition: border-color 150ms, background 150ms;
+    }
+    .upsell-item:hover { border-color: var(--action-secondary-base); background: var(--ui-highlight-base); }
+    .upsell-item input { accent-color: var(--action-secondary-base); width: 16px; height: 16px; flex-shrink: 0; }
+    .upsell-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .upsell-price { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.9375rem; color: var(--type-primary); margin-left: auto; flex-shrink: 0; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav { padding: 0.75rem 1rem; }
+      .page { padding: 1.25rem 1rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" data-aods="nav">
+  <span class="nav-logo">ao.</span>
+  <ul class="nav-links">
+    <li><a href="components.html">Components</a></li>
+    <li><a href="patterns.html" class="active">Patterns</a></li>
+  </ul>
+  <div class="nav-end">
+    <a href="#" class="nav-account" aria-label="My account">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      My account
+    </a>
+    <button class="nav-basket" data-aods="button">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Basket (2)
+    </button>
+  </div>
+</nav>
+
+<main class="page">
+
+  <div style="margin-bottom:2rem;">
+    <p class="t-caption" style="margin-bottom:0.375rem; text-transform:uppercase; letter-spacing:0.06em;">AO Design System</p>
+    <h1 class="t-display" style="margin-bottom:0.625rem;">Patterns</h1>
+    <p class="t-body t-secondary">Real-world form and page patterns composed from AO components.</p>
+  </div>
+
+  <!-- Pattern switcher tabs -->
+  <div class="patterns-nav" role="tablist">
+    <button class="pattern-tab active" role="tab" aria-selected="true"  onclick="switchPattern('login')">Login</button>
+    <button class="pattern-tab"        role="tab" aria-selected="false" onclick="switchPattern('basket')">Basket</button>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!--  PATTERN 1: LOGIN                                       -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="pattern active" id="pattern-login">
+
+    <div class="pattern-header">
+      <span class="pattern-label">Form pattern</span>
+      <h2 class="t-title-lg">Sign in</h2>
+      <p class="t-body-sm t-secondary" style="margin-top:0.375rem;">Email + password login with inline validation, forgot password, and a social sign-in divider.</p>
+    </div>
+
+    <!-- Render frame -->
+    <div class="render-frame">
+      <div class="render-frame-toolbar">
+        <div class="toolbar-dot" style="background:#f96155;"></div>
+        <div class="toolbar-dot" style="background:#ff9e36;"></div>
+        <div class="toolbar-dot" style="background:#12c35a;"></div>
+        <span class="t-caption" style="margin-left:0.5rem;">ao.com/sign-in</span>
+      </div>
+
+      <!-- Page content inside frame -->
+      <div style="background:var(--gray-10); padding:3rem 1rem; display:flex; justify-content:center; align-items:flex-start; min-height:480px;">
+        <div style="width:100%; max-width:420px;">
+
+          <!-- Logo -->
+          <div style="text-align:center; margin-bottom:2rem;">
+            <span style="font-family:'SmileyFace',Georgia,serif; font-weight:700; font-size:2.25rem; color:var(--type-primary); letter-spacing:-0.02em;">ao.</span>
+          </div>
+
+          <!-- Card -->
+          <div class="card card-raised" data-aods="card">
+            <div class="card-body" style="padding:2rem;">
+
+              <h1 class="t-title-lg" style="margin-bottom:0.375rem;">Sign in to your account</h1>
+              <p class="t-body-sm t-secondary" style="margin-bottom:1.75rem;">
+                New to AO? <a href="#" class="t-link">Create an account</a>
+              </p>
+
+              <!-- Error notice (shown on failed attempt) -->
+              <div class="notice notice-error" role="alert" style="margin-bottom:1.5rem;" data-aods="notice">
+                <i class="notice-icon">✗</i>
+                <div>The email address or password is incorrect. <a href="#" class="t-link" style="color:inherit;font-weight:600;">Forgot your password?</a></div>
+              </div>
+
+              <!-- Form -->
+              <form novalidate style="display:flex;flex-direction:column;gap:1.125rem;">
+
+                <div class="field">
+                  <label class="field-label field-label-required" for="login-email">Email address</label>
+                  <input class="field-input is-error" id="login-email" type="email" value="not-an-email"
+                    autocomplete="email" aria-invalid="true" aria-describedby="login-email-msg">
+                  <span class="field-msg is-error" id="login-email-msg">Enter a valid email address</span>
+                </div>
+
+                <div class="field">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;">
+                    <label class="field-label field-label-required" for="login-password">Password</label>
+                    <a href="#" class="t-link" style="font-size:0.8125rem;">Forgot password?</a>
+                  </div>
+                  <div style="position:relative;">
+                    <input class="field-input" id="login-password" type="password" value="••••••••"
+                      autocomplete="current-password" style="padding-right:3rem;">
+                    <button type="button" aria-label="Show password"
+                      style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-70);padding:0.25rem;">
+                      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:0.625rem;">
+                  <input type="checkbox" id="login-remember" style="accent-color:var(--action-secondary-base);width:16px;height:16px;">
+                  <label for="login-remember" class="t-body-sm">Keep me signed in</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full" data-aods="button"
+                  style="margin-top:0.375rem;">
+                  Sign in
+                </button>
+
+              </form>
+
+              <!-- Divider -->
+              <div class="divider-label" style="margin:1.75rem 0;">or sign in with</div>
+
+              <!-- Social / guest options -->
+              <div style="display:flex;flex-direction:column;gap:0.625rem;">
+                <button class="btn btn-tertiary btn-full" data-aods="button">
+                  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                  Continue with Google
+                </button>
+                <button class="btn btn-dark btn-full" data-aods="button">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-43.4-150.3-96.8-87.3-139.2-87.3-213c0-141.4 91.9-216.4 181.4-216.4 49.5 0 90.5 32.6 136 32.6 43.3 0 91.4-34.5 148.5-34.5zM546 34.1c29.8-35.4 51.2-85.1 51.2-134.8 0-6.9-.6-13.8-1.9-19.4-48.5 1.9-106 32.5-140.8 72.5-27.3 30.8-52.5 80.5-52.5 131.1 0 7.5 1.3 15.1 1.9 17.6 3.2.6 8.4 1.3 13.6 1.3 43.4 0 97.5-29.2 128.5-68.3z"/></svg>
+                  Continue with Apple
+                </button>
+              </div>
+
+            </div>
+
+            <div class="card-footer" style="text-align:center;">
+              <p class="t-caption">
+                By signing in, you agree to our <a href="#" class="t-link" style="font-size:inherit;">Terms &amp; Conditions</a>
+                and <a href="#" class="t-link" style="font-size:inherit;">Privacy Policy</a>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Pattern notes -->
+    <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">Validation</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Error notice at the top and inline field messages. <code style="font-family:monospace;font-size:0.7rem;">aria-invalid</code> + <code style="font-family:monospace;font-size:0.7rem;">aria-describedby</code> wired on the field.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">Password toggle</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Show/hide toggle overlaid with <code style="font-family:monospace;font-size:0.7rem;">position:absolute</code>. Button has <code style="font-family:monospace;font-size:0.7rem;">aria-label</code> — never icon-only without it.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">One primary CTA</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Sign In is the single <code style="font-family:monospace;font-size:0.7rem;">btn-primary</code>. Social buttons use <code style="font-family:monospace;font-size:0.7rem;">btn-tertiary</code> / <code style="font-family:monospace;font-size:0.7rem;">btn-dark</code> to stay subordinate.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!--  PATTERN 2: BASKET                                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="pattern" id="pattern-basket">
+
+    <div class="pattern-header">
+      <span class="pattern-label">Page pattern</span>
+      <h2 class="t-title-lg">Basket</h2>
+      <p class="t-body-sm t-secondary" style="margin-top:0.375rem;">Two-column basket layout with line items, upsells, order summary, and a promo code field.</p>
+    </div>
+
+    <!-- Render frame -->
+    <div class="render-frame">
+      <div class="render-frame-toolbar">
+        <div class="toolbar-dot" style="background:#f96155;"></div>
+        <div class="toolbar-dot" style="background:#ff9e36;"></div>
+        <div class="toolbar-dot" style="background:#12c35a;"></div>
+        <span class="t-caption" style="margin-left:0.5rem;">ao.com/basket</span>
+      </div>
+
+      <div style="background:var(--gray-10); padding:2rem 1.5rem;">
+
+        <!-- Breadcrumb + steps -->
+        <div style="margin-bottom:1.75rem;">
+          <nav aria-label="Checkout progress" style="margin-bottom:1.25rem;">
+            <div class="steps">
+              <div class="step active">
+                <div class="step-circle">1</div>
+                <span class="step-label">Basket</span>
+              </div>
+              <div class="step-line"></div>
+              <div class="step">
+                <div class="step-circle">2</div>
+                <span class="step-label">Delivery</span>
+              </div>
+              <div class="step-line"></div>
+              <div class="step">
+                <div class="step-circle">3</div>
+                <span class="step-label">Payment</span>
+              </div>
+              <div class="step-line"></div>
+              <div class="step">
+                <div class="step-circle">4</div>
+                <span class="step-label">Confirm</span>
+              </div>
+            </div>
+          </nav>
+          <h1 class="t-display">Your basket <span style="font-size:1.125rem;color:var(--type-tertiary);font-family:'Inter',sans-serif;font-weight:400;">(2 items)</span></h1>
+        </div>
+
+        <!-- Two-column layout -->
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start;">
+
+          <!-- Left: items + upsells -->
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+            <!-- Line items -->
+            <div class="card" data-aods="card">
+              <div class="card-body">
+
+                <!-- Item 1 -->
+                <div class="basket-item" data-aods="basket-item">
+                  <div class="basket-img">🫧</div>
+                  <div>
+                    <p class="basket-item-name">Samsung Series 5 9kg 1400rpm Washing Machine</p>
+                    <p class="basket-item-meta">Model WW90T4540AE/EU · White</p>
+                    <div class="basket-item-actions">
+                      <div class="qty-control" data-aods="quantity">
+                        <button class="qty-btn" aria-label="Decrease quantity">−</button>
+                        <span class="qty-val">1</span>
+                        <button class="qty-btn" aria-label="Increase quantity">+</button>
+                      </div>
+                      <button class="btn-link" type="button">Save for later</button>
+                      <button class="btn-link" type="button" style="color:var(--ui-error-contrast);">Remove</button>
+                    </div>
+                  </div>
+                  <div style="text-align:right;grid-column:2;margin-top:-0.25rem;">
+                    <div class="basket-item-price">£499</div>
+                    <span class="tag tag-success" style="margin-top:0.375rem;">✓ In stock</span>
+                  </div>
+                </div>
+
+                <div class="card-divider" style="margin:1.25rem 0;"></div>
+
+                <!-- Item 2 -->
+                <div class="basket-item" data-aods="basket-item">
+                  <div class="basket-img">🍽️</div>
+                  <div>
+                    <p class="basket-item-name">Bosch Series 4 14 Place Dishwasher</p>
+                    <p class="basket-item-meta">Model SMS4HVI00G · Stainless Steel</p>
+                    <div class="basket-item-actions">
+                      <div class="qty-control" data-aods="quantity">
+                        <button class="qty-btn" aria-label="Decrease quantity">−</button>
+                        <span class="qty-val">1</span>
+                        <button class="qty-btn" aria-label="Increase quantity">+</button>
+                      </div>
+                      <button class="btn-link" type="button">Save for later</button>
+                      <button class="btn-link" type="button" style="color:var(--ui-error-contrast);">Remove</button>
+                    </div>
+                  </div>
+                  <div style="text-align:right;grid-column:2;margin-top:-0.25rem;">
+                    <div class="basket-item-price">£629</div>
+                    <span class="tag tag-highlight" style="margin-top:0.375rem;">Free delivery</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Delivery notice -->
+            <div class="notice notice-success" role="note" data-aods="notice">
+              <i class="notice-icon">✓</i>
+              <div>
+                <strong>Free next-day delivery</strong> on both items.
+                Order before midnight — delivered tomorrow between 8am and 6pm.
+              </div>
+            </div>
+
+            <!-- Upsells -->
+            <div class="card" data-aods="card">
+              <div class="card-body">
+                <h2 class="t-title-sm" style="margin-bottom:1rem;">Add to your order</h2>
+                <div style="display:flex;flex-direction:column;gap:0.625rem;">
+
+                  <label class="upsell-item">
+                    <input type="checkbox" checked>
+                    <span class="upsell-icon">🔧</span>
+                    <div>
+                      <div class="t-body-sm" style="font-weight:500;color:var(--type-primary);">Professional installation</div>
+                      <div class="t-caption">Engineers fit, level &amp; test both appliances</div>
+                    </div>
+                    <span class="upsell-price">£69</span>
+                  </label>
+
+                  <label class="upsell-item">
+                    <input type="checkbox">
+                    <span class="upsell-icon">♻️</span>
+                    <div>
+                      <div class="t-body-sm" style="font-weight:500;color:var(--type-primary);">Recycle old appliances</div>
+                      <div class="t-caption">We collect on delivery</div>
+                    </div>
+                    <span class="upsell-price" style="color:var(--ui-success-contrast);">Free</span>
+                  </label>
+
+                  <label class="upsell-item">
+                    <input type="checkbox">
+                    <span class="upsell-icon">🛡️</span>
+                    <div>
+                      <div class="t-body-sm" style="font-weight:500;color:var(--type-primary);">5-year guarantee (both items)</div>
+                      <div class="t-caption">Extend beyond the standard 2 years</div>
+                    </div>
+                    <span class="upsell-price">£99</span>
+                  </label>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: order summary -->
+          <div style="display:flex;flex-direction:column;gap:1rem;position:sticky;top:90px;">
+
+            <div class="card card-raised" data-aods="card">
+              <div class="card-body">
+                <h2 class="t-title-sm" style="margin-bottom:1.25rem;">Order summary</h2>
+
+                <div style="display:flex;flex-direction:column;">
+                  <div class="summary-row">
+                    <span class="t-body-sm t-secondary">Samsung washing machine</span>
+                    <span class="t-body-sm">£499.00</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="t-body-sm t-secondary">Bosch dishwasher</span>
+                    <span class="t-body-sm">£629.00</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="t-body-sm t-secondary">Installation</span>
+                    <span class="t-body-sm">£69.00</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="t-body-sm t-secondary">Delivery</span>
+                    <span class="t-body-sm" style="color:var(--ui-success-contrast);font-weight:500;">Free</span>
+                  </div>
+
+                  <!-- Promo -->
+                  <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--gray-30);">
+                    <div class="field" style="margin-bottom:0.5rem;">
+                      <label class="field-label" for="promo" style="font-size:0.8125rem;">Promo code</label>
+                      <div style="display:flex;gap:0.5rem;">
+                        <input class="field-input" id="promo" type="text" placeholder="e.g. SAVE10" style="flex:1;">
+                        <button class="btn btn-tertiary" style="padding:0 1rem;font-size:0.875rem;white-space:nowrap;" data-aods="button">Apply</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="summary-row summary-total">
+                    <span class="t-title-sm">Total</span>
+                    <span style="font-family:'SmileyFace',Georgia,serif;font-weight:700;font-size:1.375rem;color:var(--type-primary);">£1,197</span>
+                  </div>
+                  <p class="t-caption" style="margin-top:0.375rem;text-align:right;">Inc. VAT</p>
+                </div>
+              </div>
+
+              <div class="card-divider"></div>
+
+              <div class="card-body">
+                <div style="display:flex;flex-direction:column;gap:0.625rem;">
+                  <button class="btn btn-primary btn-lg btn-full" data-aods="button">
+                    Checkout securely
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                  <button class="btn btn-tertiary btn-full" data-aods="button">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Pay with PayPal
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Trust signals -->
+            <div class="card">
+              <div class="card-body" style="padding:1rem;">
+                <div style="display:flex;flex-direction:column;gap:0.625rem;">
+                  <div style="display:flex;align-items:center;gap:0.625rem;">
+                    <span style="color:var(--ui-success-accent);font-size:0.875rem;">🔒</span>
+                    <span class="t-body-sm t-secondary">Secure 256-bit SSL checkout</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.625rem;">
+                    <span style="color:var(--ui-success-accent);font-size:0.875rem;">↩</span>
+                    <span class="t-body-sm t-secondary">Free 30-day returns</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.625rem;">
+                    <span style="color:var(--ui-success-accent);font-size:0.875rem;">📞</span>
+                    <span class="t-body-sm t-secondary">7-day customer support</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Pattern notes -->
+    <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">Checkout steps</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Progress indicator uses <code style="font-family:monospace;font-size:0.7rem;">done</code> / <code style="font-family:monospace;font-size:0.7rem;">active</code> state classes. Renders as <code style="font-family:monospace;font-size:0.7rem;">&lt;nav aria-label&gt;</code> for screen readers.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">Sticky summary</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Right column is <code style="font-family:monospace;font-size:0.7rem;">position:sticky</code> with <code style="font-family:monospace;font-size:0.7rem;">top:90px</code> (below the nav). One primary CTA in the summary.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">Upsell pattern</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Checkbox wrapped in <code style="font-family:monospace;font-size:0.7rem;">&lt;label&gt;</code> makes the entire row interactive. Uses <code style="font-family:monospace;font-size:0.7rem;">ui-highlight</code> hover state.</p>
+        </div>
+      </div>
+      <div class="card" style="border-color:var(--ui-highlight-accent);">
+        <div class="card-body" style="padding:1rem;">
+          <p class="t-title-sm" style="color:var(--ui-highlight-contrast);margin-bottom:0.375rem;">Inline promo field</p>
+          <p class="t-caption" style="color:var(--type-secondary);line-height:1.5;">Input + button in a flex row. The Apply button is <code style="font-family:monospace;font-size:0.7rem;">btn-tertiary</code> — promo entry is not the primary action.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  function switchPattern(id) {
+    document.querySelectorAll('.pattern').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.pattern-tab').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    document.getElementById('pattern-' + id).classList.add('active');
+    const tab = [...document.querySelectorAll('.pattern-tab')].find(t => t.textContent.toLowerCase().includes(id));
+    if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected', 'true'); }
+  }
+</script>
+
+</body>
+</html>

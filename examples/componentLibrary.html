@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design System — Components</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <style>
+    /* ─── Tokens ────────────────────────────────────────── */
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --brand-primary-base: #12c35a; --brand-primary-light: #befcc8; --brand-primary-dark: #02422b;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+      --action-primary-base: #00893e; --action-primary-hover: #00560b;
+      --action-primary-active: #02422b; --action-primary-glow: #12c35a;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --action-inactive-base: #727677;
+      --ui-core-base: #ffffff; --ui-core-contrast: #212121; --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2; --ui-neutral-contrast: #212121; --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6; --ui-warning-contrast: #ad5a00; --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6; --ui-error-contrast: #b50016; --ui-error-accent: #b50016;
+      --palette-bread: #ffe3c2; --palette-toast: #ffa878; --palette-jam: #422439;
+      --palette-simmer: #ffd8d2; --palette-heat: #f96155; --palette-burn: #60222f;
+      --palette-steam: #c8d1ff; --palette-ice: #4a6dce; --palette-water: #011f44;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
+      --shadow: 0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+    }
+
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Type ──────────────────────────────────────────── */
+    .t-display-headline { font-family: 'SmileyFace-Headline', Georgia, serif; font-size: 2.75rem; line-height: 1.1; color: var(--type-primary); }
+    .t-display    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;    line-height: 1.15; color: var(--type-primary); }
+    .t-title-lg   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; line-height: 1.2;  color: var(--type-primary); }
+    .t-title      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.9375rem; line-height: 1.3; color: var(--type-primary); }
+    .t-cta        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; }
+    .t-body       { font-size: 1rem;    line-height: 1.5; }
+    .t-body-sm    { font-size: 0.875rem; line-height: 1.45; }
+    .t-caption    { font-size: 0.75rem; line-height: 1.4; color: var(--type-tertiary); }
+    .t-secondary  { color: var(--type-tertiary); }
+    .t-link       { color: var(--action-secondary-base); text-decoration: underline; cursor: pointer; }
+
+    /* ─── Layout ────────────────────────────────────────── */
+    .nav {
+      background: var(--type-primary);
+      padding: 0.875rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 20;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-logo {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
+    .nav-links a:hover { color: #fff; }
+    .nav-badge {
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6);
+      font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+      border-radius: var(--radius-xs); padding: 0.2rem 0.5rem;
+    }
+
+    .page { max-width: 1140px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+
+    /* Sidebar layout */
+    .ds-layout { display: grid; grid-template-columns: 200px 1fr; gap: 2.5rem; align-items: start; }
+    @media (max-width: 900px) { .ds-layout { grid-template-columns: 1fr; } }
+
+    .ds-sidebar {
+      position: sticky; top: 80px;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .ds-sidebar a {
+      display: block; padding: 0.4375rem 0.75rem;
+      font-size: 0.875rem; color: var(--type-tertiary);
+      text-decoration: none; border-radius: var(--radius-xs);
+      transition: background 150ms, color 150ms;
+    }
+    .ds-sidebar a:hover { background: var(--gray-20); color: var(--type-secondary); }
+    .ds-sidebar a.active { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); font-weight: 500; }
+    .ds-sidebar-group {
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--gray-60);
+      padding: 0.75rem 0.75rem 0.25rem; margin-top: 0.5rem;
+    }
+    .ds-sidebar-group:first-child { margin-top: 0; }
+
+    .ds-main { display: flex; flex-direction: column; gap: 3rem; min-width: 0; }
+
+    /* ─── Section frame ──────────────────────────────────── */
+    .section { scroll-margin-top: 80px; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1rem;
+      border-bottom: 2px solid var(--brand-primary-base);
+      padding-bottom: 0.75rem; margin-bottom: 2rem;
+    }
+    .section-tag {
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      background: var(--brand-primary-light); color: var(--brand-primary-dark);
+      padding: 0.2rem 0.5rem; border-radius: var(--radius-xs);
+    }
+
+    /* Subsection */
+    .subsection { margin-bottom: 2rem; }
+    .subsection-title {
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--gray-70); margin-bottom: 0.875rem;
+    }
+
+    /* Demo canvas */
+    .demo {
+      background: white; border: 1px solid var(--gray-30);
+      border-radius: var(--radius-sm); padding: 1.5rem;
+    }
+    .demo-dark {
+      background: var(--type-primary); border-color: var(--type-primary);
+    }
+    .demo-neutral {
+      background: var(--gray-20); border-color: var(--gray-30);
+    }
+    .demo-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .demo-col { display: flex; flex-direction: column; gap: 0.625rem; }
+    .demo-divider { height: 1px; background: var(--gray-30); margin: 1.25rem 0; }
+
+    /* ─── Buttons ────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.6875rem 1.5rem; border-radius: 9999px;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 2px solid transparent; cursor: pointer;
+      transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
+      text-decoration: none; white-space: nowrap;
+    }
+    .btn svg { flex-shrink: 0; }
+    .btn-primary   { background: var(--action-primary-base);   color: #fff; border-color: var(--action-primary-base); }
+    .btn-primary:hover   { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-primary:focus-visible   { outline: 3px solid var(--action-primary-glow); outline-offset: 2px; }
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); }
+    .btn-secondary:focus-visible { outline: 3px solid var(--action-secondary-base); outline-offset: 2px; }
+    .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover  { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-white     { background: #fff; color: var(--type-primary); border-color: #fff; }
+    .btn-white:hover     { background: var(--gray-20); border-color: var(--gray-20); }
+    .btn-dark      { background: var(--type-primary); color: #fff; border-color: var(--type-primary); }
+    .btn-dark:hover      { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
+    .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
+    .btn-lg   { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
+    .btn-sm   { padding: 0.4375rem 1rem; font-size: 0.875rem; }
+    .btn-icon { padding: 0.6875rem; border-radius: 9999px; }
+    .btn-full { width: 100%; }
+
+    /* ─── Tags ───────────────────────────────────────────── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4; border: 1px solid transparent;
+    }
+    .tag-success  { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .tag-highlight{ background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral  { background: var(--ui-neutral-base);   color: var(--type-secondary);        border-color: var(--gray-40); }
+    .tag-warning  { background: var(--ui-warning-base);   color: var(--ui-warning-contrast);   border-color: var(--ui-warning-accent); }
+    .tag-error    { background: var(--ui-error-base);     color: var(--ui-error-contrast);     border-color: var(--ui-error-accent); }
+    .tag-dark     { background: var(--type-primary);      color: #fff;                         border-color: var(--type-primary); }
+    .tag-lg { padding: 0.35rem 0.875rem; font-size: 0.875rem; }
+
+    /* ─── Notices ────────────────────────────────────────── */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem 1rem; border-radius: var(--radius-sm);
+      font-size: 0.875rem; border: 1px solid transparent;
+    }
+    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .notice-warning   { background: var(--ui-warning-base);   color: var(--ui-warning-contrast);   border-color: var(--ui-warning-accent); }
+    .notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast);     border-color: var(--ui-error-accent); }
+
+    /* ─── Cards ──────────────────────────────────────────── */
+    .card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 1.5rem;
+    }
+    .card-raised { box-shadow: var(--shadow-md); }
+    .card-success { background: var(--ui-success-base); border-color: var(--ui-success-accent); }
+    .card-highlight { background: var(--ui-highlight-base); border-color: var(--ui-highlight-accent); }
+    .card-error { background: var(--ui-error-base); border-color: var(--ui-error-accent); }
+    .card-divider { height: 1px; background: var(--gray-30); margin: 1rem -1.5rem; }
+
+    /* ─── Forms ──────────────────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+    .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
+    .field-input {
+      padding: 0.6875rem 0.75rem;
+      border: 1px solid var(--gray-40); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--type-secondary);
+      background: #fff; outline: none; width: 100%;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .field-input::placeholder { color: var(--gray-60); }
+    .field-input:focus { border-color: var(--action-secondary-base); box-shadow: 0 0 0 3px rgba(5,100,194,0.15); }
+    .field-input:disabled { background: var(--gray-10); color: var(--gray-70); cursor: not-allowed; border-color: var(--gray-30); }
+    .field-input.is-error   { border-color: var(--ui-error-accent);   background: var(--ui-error-base); }
+    .field-input.is-success { border-color: var(--ui-success-accent); background: var(--ui-success-base); }
+    .field-input.is-highlight { border-color: var(--ui-highlight-accent); background: var(--ui-highlight-base); }
+    .field-msg { font-size: 0.8125rem; }
+    .field-msg.is-error   { color: var(--ui-error-contrast); }
+    .field-msg.is-success { color: var(--ui-success-contrast); }
+    .field-msg.is-helper  { color: var(--type-tertiary); }
+    .field-msg.is-highlight { color: var(--ui-highlight-contrast); }
+
+    /* Select arrow overlay */
+    .field-select-wrap { position: relative; }
+    .field-select-wrap::after {
+      content: ''; pointer-events: none;
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-70);
+    }
+    .field-input[type="select"], select.field-input { appearance: none; padding-right: 2.5rem; }
+
+    /* Checkbox / Radio */
+    .toggle-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .toggle-item {
+      display: flex; align-items: center; gap: 0.625rem;
+      padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-40); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item:hover { border-color: var(--gray-60); background: var(--gray-10); }
+    .toggle-item input { accent-color: var(--action-secondary-base); width: 16px; height: 16px; flex-shrink: 0; }
+    .toggle-item-label { font-size: 0.9375rem; color: var(--type-secondary); }
+    .toggle-item-sub   { font-size: 0.8125rem; color: var(--type-tertiary); }
+
+    /* Qty stepper */
+    .qty-control {
+      display: inline-flex; align-items: stretch;
+      border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .qty-btn {
+      width: 40px; height: 40px; background: var(--gray-10); border: none;
+      font-size: 1.25rem; color: var(--type-secondary); cursor: pointer;
+      transition: background 150ms; display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--gray-20); }
+    .qty-val {
+      width: 48px; text-align: center; font-size: 1rem; font-weight: 500;
+      line-height: 40px; color: var(--type-primary);
+      border-left: 1px solid var(--gray-40); border-right: 1px solid var(--gray-40);
+    }
+
+    /* ─── Breadcrumb ─────────────────────────────────────── */
+    .crumb { display: flex; gap: 0.375rem; align-items: center; list-style: none; }
+    .crumb li { display: flex; align-items: center; gap: 0.375rem; }
+    .crumb a { color: var(--action-secondary-base); text-decoration: none; font-size: 0.8125rem; }
+    .crumb a:hover { text-decoration: underline; }
+    .crumb span { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .crumb-sep { color: var(--gray-60); font-size: 0.75rem; }
+
+    /* ─── Tabs ───────────────────────────────────────────── */
+    .tab-list { display: flex; border-bottom: 2px solid var(--gray-30); gap: 0; }
+    .tab-item {
+      padding: 0.75rem 1.25rem; font-size: 0.9375rem;
+      color: var(--type-tertiary); cursor: pointer; border: none; background: transparent;
+      font-family: 'Inter', sans-serif; border-bottom: 2px solid transparent;
+      margin-bottom: -2px; transition: color 150ms, border-color 150ms;
+    }
+    .tab-item:hover { color: var(--type-secondary); }
+    .tab-item.active { color: var(--type-primary); border-bottom-color: var(--brand-primary-base); font-weight: 500; }
+
+    /* ─── Accordion ──────────────────────────────────────── */
+    .accordion { border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden; }
+    .accordion-item { border-bottom: 1px solid var(--gray-30); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 1rem 1.25rem; background: #fff; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500; color: var(--type-primary);
+      text-align: left; transition: background 150ms;
+    }
+    .accordion-header:hover { background: var(--gray-10); }
+    .accordion-header[aria-expanded="true"] { background: var(--gray-10); }
+    .accordion-chevron { color: var(--gray-70); transition: transform 200ms; }
+    .accordion-header[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+    .accordion-body { padding: 1rem 1.25rem; background: var(--gray-10); font-size: 0.9375rem; color: var(--type-secondary); line-height: 1.6; }
+    .accordion-body[hidden] { display: none; }
+
+    /* ─── Spinner ────────────────────────────────────────── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block; width: 32px; height: 32px;
+      border: 3px solid var(--brand-primary-light);
+      border-top-color: var(--action-primary-base);
+      border-radius: 50%; animation: spin 0.75s linear infinite;
+    }
+    .spinner-sm { width: 20px; height: 20px; border-width: 2px; }
+    .spinner-white { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
+
+    /* ─── Token table ────────────────────────────────────── */
+    .token-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+    .token-table th {
+      text-align: left; padding: 0.5rem 0.75rem;
+      color: var(--type-tertiary); font-size: 0.6875rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--gray-30); background: var(--gray-10);
+    }
+    .token-table td { padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--gray-20); vertical-align: middle; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table code {
+      background: var(--gray-10); border: 1px solid var(--gray-30);
+      border-radius: 3px; padding: 0.1rem 0.375rem; font-size: 0.75rem; font-family: monospace;
+    }
+    .swatch-dot {
+      display: inline-block; width: 20px; height: 20px;
+      border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); vertical-align: middle; margin-right: 8px;
+    }
+
+    /* ─── Color grid ─────────────────────────────────────── */
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; }
+    .color-chip { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--gray-30); }
+    .color-chip-swatch { height: 56px; }
+    .color-chip-label { padding: 0.5rem 0.625rem; background: #fff; }
+    .color-chip-name { font-size: 0.6875rem; font-weight: 600; color: var(--type-secondary); }
+    .color-chip-hex  { font-size: 0.625rem; color: var(--type-tertiary); font-family: monospace; }
+
+    /* ─── Misc ───────────────────────────────────────────── */
+    .gap-3  { gap: 0.75rem; }
+    .gap-4  { gap: 1rem; }
+    @media (max-width: 640px) {
+      .page { padding: 1rem; }
+      .nav { padding: 0.75rem 1rem; }
+      .nav-links { display: none; }
+      .ds-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────────────── -->
+<nav class="nav" data-aods="nav">
+  <span class="nav-logo">ao.</span>
+  <ul class="nav-links">
+    <li><a href="#">Foundations</a></li>
+    <li><a href="#">Components</a></li>
+    <li><a href="#">Patterns</a></li>
+  </ul>
+  <span class="nav-badge">Design System</span>
+</nav>
+
+<main class="page">
+
+  <!-- Page header -->
+  <div style="margin-bottom:2.5rem;">
+    <p class="t-caption" style="margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.06em;">AO Design System</p>
+    <h1 class="t-display" style="margin-bottom:0.75rem;">Component Library</h1>
+    <p class="t-body t-secondary" style="max-width:60ch;">
+      A reference for every AO component — tokens, variants, states, and accessibility notes.
+      Built on Strata CSS and <code style="font-family:monospace;font-size:0.875em;">@ao/components</code>.
+    </p>
+  </div>
+
+  <div class="ds-layout">
+
+    <!-- ─── Sidebar ──────────────────────────────────────── -->
+    <aside class="ds-sidebar">
+      <div class="ds-sidebar-group">Foundations</div>
+      <a href="#color" class="active">Colour</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing & Radius</a>
+      <div class="ds-sidebar-group">Forms</div>
+      <a href="#buttons">Buttons</a>
+      <a href="#inputs">Inputs</a>
+      <a href="#selects">Select &amp; Textarea</a>
+      <a href="#toggles">Checkboxes &amp; Radios</a>
+      <div class="ds-sidebar-group">Display</div>
+      <a href="#tags">Tags</a>
+      <a href="#notices">Notices</a>
+      <a href="#cards">Cards</a>
+      <div class="ds-sidebar-group">Navigation</div>
+      <a href="#breadcrumb">Breadcrumb</a>
+      <a href="#tabs">Tabs</a>
+      <a href="#accordion">Accordion</a>
+      <div class="ds-sidebar-group">Feedback</div>
+      <a href="#spinner">Loading Spinner</a>
+    </aside>
+
+    <!-- ─── Main content ──────────────────────────────────── -->
+    <div class="ds-main">
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- COLOUR                                              -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="color">
+        <div class="section-header">
+          <h2 class="t-title-lg">Colour</h2>
+          <span class="section-tag">Tokens</span>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Brand Green</p>
+          <div class="color-grid">
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#12c35a;"></div><div class="color-chip-label"><div class="color-chip-name">brand-primary-base</div><div class="color-chip-hex">#12c35a</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#befcc8;"></div><div class="color-chip-label"><div class="color-chip-name">brand-primary-light</div><div class="color-chip-hex">#befcc8</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#02422b;"></div><div class="color-chip-label"><div class="color-chip-name">brand-primary-dark</div><div class="color-chip-hex">#02422b</div></div></div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Action — Green (Primary CTA)</p>
+          <div class="color-grid">
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#00893e;"></div><div class="color-chip-label"><div class="color-chip-name">action-primary-base</div><div class="color-chip-hex">#00893e</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#00560b;"></div><div class="color-chip-label"><div class="color-chip-name">action-primary-hover</div><div class="color-chip-hex">#00560b</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#02422b;"></div><div class="color-chip-label"><div class="color-chip-name">action-primary-active</div><div class="color-chip-hex">#02422b</div></div></div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Action — Blue (Secondary CTA)</p>
+          <div class="color-grid">
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#0564c2;"></div><div class="color-chip-label"><div class="color-chip-name">action-secondary-base</div><div class="color-chip-hex">#0564c2</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#00318f;"></div><div class="color-chip-label"><div class="color-chip-name">action-secondary-hover</div><div class="color-chip-hex">#00318f</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#40a1f8;"></div><div class="color-chip-label"><div class="color-chip-name">action-secondary-glow</div><div class="color-chip-hex">#40a1f8</div></div></div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">UI Semantic Surfaces</p>
+          <div class="color-grid">
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#f4fce3;border-bottom:2px solid #00893e;"></div><div class="color-chip-label"><div class="color-chip-name">ui-success</div><div class="color-chip-hex">#f4fce3</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#fff4e6;border-bottom:2px solid #ff9e36;"></div><div class="color-chip-label"><div class="color-chip-name">ui-warning</div><div class="color-chip-hex">#fff4e6</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#fff0f6;border-bottom:2px solid #b50016;"></div><div class="color-chip-label"><div class="color-chip-name">ui-error</div><div class="color-chip-hex">#fff0f6</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#edf2ff;border-bottom:2px solid #00318f;"></div><div class="color-chip-label"><div class="color-chip-name">ui-highlight</div><div class="color-chip-hex">#edf2ff</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#f0f2f2;border-bottom:2px solid #abb1b4;"></div><div class="color-chip-label"><div class="color-chip-name">ui-neutral</div><div class="color-chip-hex">#f0f2f2</div></div></div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Food Palette — Decorative Only</p>
+          <div class="color-grid">
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#ffe3c2;"></div><div class="color-chip-label"><div class="color-chip-name">palette-bread</div><div class="color-chip-hex">#ffe3c2</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#ffa878;"></div><div class="color-chip-label"><div class="color-chip-name">palette-toast</div><div class="color-chip-hex">#ffa878</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#422439;"></div><div class="color-chip-label"><div class="color-chip-name">palette-jam</div><div class="color-chip-hex">#422439</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#f96155;"></div><div class="color-chip-label"><div class="color-chip-name">palette-heat</div><div class="color-chip-hex">#f96155</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#c8d1ff;"></div><div class="color-chip-label"><div class="color-chip-name">palette-steam</div><div class="color-chip-hex">#c8d1ff</div></div></div>
+            <div class="color-chip"><div class="color-chip-swatch" style="background:#4a6dce;"></div><div class="color-chip-label"><div class="color-chip-name">palette-ice</div><div class="color-chip-hex">#4a6dce</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- TYPOGRAPHY                                          -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="typography">
+        <div class="section-header">
+          <h2 class="t-title-lg">Typography</h2>
+          <span class="section-tag">SmileyFace + Inter</span>
+        </div>
+
+        <div class="demo">
+          <div style="display:grid;gap:1.5rem;">
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-display-headline — SmileyFace Headline</p>
+              <p class="t-display-headline">Great deals on appliances</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-display — SmileyFace Bold 700, 2rem</p>
+              <p class="t-display">Samsung Series 5 Washing Machine</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-title-lg — SmileyFace Bold 700, 1.375rem</p>
+              <p class="t-title-lg">Key specifications</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-title — SmileyFace Bold 700, 1.125rem</p>
+              <p class="t-title">Check delivery</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-title-sm — SmileyFace Bold 700, 0.9375rem</p>
+              <p class="t-title-sm">Free next-day delivery</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-body — Inter 400, 1rem</p>
+              <p class="t-body">We'll deliver and install your new appliance, remove the old one, and test everything works before we leave.</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-body-sm — Inter 400, 0.875rem</p>
+              <p class="t-body-sm">Order before midnight — delivered tomorrow between 8am and 6pm.</p>
+            </div>
+            <div class="demo-divider"></div>
+            <div>
+              <p class="subsection-title" style="margin-bottom:0.5rem;">t-caption — Inter 400, 0.75rem, tertiary</p>
+              <p class="t-caption">Model WW90T4540AE/EU · White · Dimensions 85 × 60 × 55 cm</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- SPACING & RADIUS                                    -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="spacing">
+        <div class="section-header">
+          <h2 class="t-title-lg">Spacing &amp; Border Radius</h2>
+          <span class="section-tag">Tokens</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+          <!-- Spacing -->
+          <div>
+            <p class="subsection-title">Spacing — 4px base unit</p>
+            <div class="demo" style="padding:1rem;">
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:4px;height:16px;background:var(--action-primary-base);border-radius:2px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">spacing-1</code><span class="t-caption">4px / 0.25rem</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:8px;height:16px;background:var(--action-primary-base);border-radius:2px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">spacing-2</code><span class="t-caption">8px / 0.5rem</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:12px;height:16px;background:var(--action-primary-base);border-radius:2px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">spacing-3</code><span class="t-caption">12px / 0.75rem</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:16px;height:16px;background:var(--action-primary-base);border-radius:2px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">spacing-4</code><span class="t-caption">16px / 1rem</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:24px;height:16px;background:var(--action-primary-base);border-radius:2px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">spacing-6</code><span class="t-caption">24px / 1.5rem</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:32px;height:16px;background:var(--action-primary-base);border-radius:2px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">spacing-8</code><span class="t-caption">32px / 2rem</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Radius -->
+          <div>
+            <p class="subsection-title">Border Radius</p>
+            <div class="demo" style="padding:1rem;">
+              <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:40px;height:24px;background:var(--ui-highlight-base);border:1px solid var(--ui-highlight-accent);border-radius:4px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">radius-xs</code><span class="t-caption">4px — tags, chips</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:40px;height:24px;background:var(--ui-highlight-base);border:1px solid var(--ui-highlight-accent);border-radius:8px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">radius-sm</code><span class="t-caption">8px — inputs, buttons</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:40px;height:24px;background:var(--ui-highlight-base);border:1px solid var(--ui-highlight-accent);border-radius:16px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">radius-md</code><span class="t-caption">16px — cards, modals</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:40px;height:24px;background:var(--ui-highlight-base);border:1px solid var(--ui-highlight-accent);border-radius:24px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">radius-xl</code><span class="t-caption">24px — large containers</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                  <div style="width:40px;height:24px;background:var(--ui-highlight-base);border:1px solid var(--ui-highlight-accent);border-radius:9999px;flex-shrink:0;"></div>
+                  <code style="font-size:0.75rem;font-family:monospace;">radius-2xl</code><span class="t-caption">40px — pills, tags</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- BUTTONS                                             -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="buttons">
+        <div class="section-header">
+          <h2 class="t-title-lg">Buttons</h2>
+          <span class="section-tag">Form / CTA</span>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Variants — one primary per visual section</p>
+          <div class="demo demo-col">
+            <div class="demo-row">
+              <button class="btn btn-primary" data-aods="button">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Add to basket
+              </button>
+              <button class="btn btn-secondary" data-aods="button">Compare models</button>
+              <button class="btn btn-tertiary" data-aods="button">View details</button>
+            </div>
+            <div class="demo-row">
+              <button class="btn btn-dark" data-aods="button">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Sign in
+              </button>
+              <button class="btn btn-inactive" disabled data-aods="button">Out of stock</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">White variant — on dark backgrounds</p>
+          <div class="demo demo-dark">
+            <div class="demo-row">
+              <button class="btn btn-white" data-aods="button">Learn more</button>
+              <button class="btn btn-secondary" data-aods="button" style="color:#fff;border-color:rgba(255,255,255,0.5);">Browse range</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Sizes</p>
+          <div class="demo">
+            <div class="demo-row" style="align-items:center;">
+              <button class="btn btn-primary btn-lg" data-aods="button">Large</button>
+              <button class="btn btn-primary" data-aods="button">Default</button>
+              <button class="btn btn-primary btn-sm" data-aods="button">Small</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Full-width (checkout pattern)</p>
+          <div class="demo" style="max-width:400px;">
+            <div class="demo-col">
+              <button class="btn btn-primary btn-full" data-aods="button">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Add to basket
+              </button>
+              <button class="btn btn-secondary btn-full" data-aods="button">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                Save to wishlist
+              </button>
+              <button class="btn btn-tertiary btn-full" data-aods="button">Compare</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- INPUTS                                              -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="inputs">
+        <div class="section-header">
+          <h2 class="t-title-lg">Inputs</h2>
+          <span class="section-tag">Forms</span>
+        </div>
+
+        <div class="demo">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+
+            <div class="field">
+              <label class="field-label" for="i-default">Default</label>
+              <input class="field-input" id="i-default" type="text" placeholder="e.g. M1 1AA">
+              <span class="field-msg is-helper">Enter your postcode to check delivery</span>
+            </div>
+
+            <div class="field">
+              <label class="field-label field-label-required" for="i-required">Required field</label>
+              <input class="field-input" id="i-required" type="email" placeholder="you@example.com">
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="i-success">Success state</label>
+              <input class="field-input is-success" id="i-success" type="email" value="craig@example.com">
+              <span class="field-msg is-success">✓ Valid email address</span>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="i-error">Error state</label>
+              <input class="field-input is-error" id="i-error" type="tel" value="0777" aria-invalid="true" aria-describedby="i-error-msg">
+              <span class="field-msg is-error" id="i-error-msg">Enter a valid UK mobile or landline number</span>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="i-highlight">Highlight state</label>
+              <input class="field-input is-highlight" id="i-highlight" type="text" value="Selected option">
+              <span class="field-msg is-highlight">ℹ This is the recommended choice</span>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="i-disabled">Disabled</label>
+              <input class="field-input" id="i-disabled" type="text" value="ACC-12345" disabled>
+              <span class="field-msg is-helper">Account ID cannot be changed</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- SELECT & TEXTAREA                                   -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="selects">
+        <div class="section-header">
+          <h2 class="t-title-lg">Select &amp; Textarea</h2>
+          <span class="section-tag">Forms</span>
+        </div>
+
+        <div class="demo">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;align-items:start;">
+
+            <div class="field">
+              <label class="field-label" for="sel-delivery">Delivery option</label>
+              <div class="field-select-wrap">
+                <select class="field-input" id="sel-delivery" style="appearance:none;padding-right:2.5rem;">
+                  <option value="">Choose delivery option</option>
+                  <option>Standard — Free (3–5 days)</option>
+                  <option selected>Next day — Free (tomorrow)</option>
+                  <option>Named day — £5.99</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="sel-error">Delivery time — error</label>
+              <div class="field-select-wrap">
+                <select class="field-input is-error" id="sel-error" aria-invalid="true" style="appearance:none;padding-right:2.5rem;">
+                  <option value="">Select a time slot</option>
+                </select>
+              </div>
+              <span class="field-msg is-error">Please choose a delivery time</span>
+            </div>
+
+            <div class="field" style="grid-column:1/-1;">
+              <label class="field-label" for="textarea-notes">Delivery instructions</label>
+              <textarea class="field-input" id="textarea-notes" rows="3" placeholder="e.g. Leave with neighbour at No. 12"></textarea>
+              <span class="field-msg is-helper">Optional — max 200 characters</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- CHECKBOXES & RADIOS                                 -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="toggles">
+        <div class="section-header">
+          <h2 class="t-title-lg">Checkboxes &amp; Radio Buttons</h2>
+          <span class="section-tag">Forms</span>
+        </div>
+
+        <div class="demo">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+
+            <fieldset style="border:none;">
+              <legend class="field-label" style="margin-bottom:0.75rem;">Add extras (CheckboxGroup)</legend>
+              <div class="toggle-group">
+                <label class="toggle-item">
+                  <input type="checkbox" checked>
+                  <div>
+                    <div class="toggle-item-label">3-year AO guarantee</div>
+                    <div class="toggle-item-sub">Extend your cover — from £29</div>
+                  </div>
+                </label>
+                <label class="toggle-item">
+                  <input type="checkbox">
+                  <div>
+                    <div class="toggle-item-label">Professional installation</div>
+                    <div class="toggle-item-sub">Engineers will fit and test — £69</div>
+                  </div>
+                </label>
+                <label class="toggle-item">
+                  <input type="checkbox">
+                  <div>
+                    <div class="toggle-item-label">Recycle old appliance</div>
+                    <div class="toggle-item-sub">We collect on delivery — Free</div>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset style="border:none;">
+              <legend class="field-label" style="margin-bottom:0.75rem;">Delivery options (RadioButtonGroup)</legend>
+              <div class="toggle-group">
+                <label class="toggle-item">
+                  <input type="radio" name="delivery-demo" checked>
+                  <div>
+                    <div class="toggle-item-label">Next day — Free</div>
+                    <div class="toggle-item-sub">Order before midnight</div>
+                  </div>
+                </label>
+                <label class="toggle-item">
+                  <input type="radio" name="delivery-demo">
+                  <div>
+                    <div class="toggle-item-label">Named day</div>
+                    <div class="toggle-item-sub">Choose your slot — £5.99</div>
+                  </div>
+                </label>
+                <label class="toggle-item">
+                  <input type="radio" name="delivery-demo">
+                  <div>
+                    <div class="toggle-item-label">Standard (3–5 days)</div>
+                    <div class="toggle-item-sub">Free</div>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- TAGS                                                -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="tags">
+        <div class="section-header">
+          <h2 class="t-title-lg">Tags</h2>
+          <span class="section-tag">Display</span>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Semantic variants — always use ui-* tokens</p>
+          <div class="demo">
+            <div class="demo-row">
+              <span class="tag tag-success" data-aods="tag">✓ In stock</span>
+              <span class="tag tag-highlight" data-aods="tag">Free delivery</span>
+              <span class="tag tag-neutral" data-aods="tag">A+++ rated</span>
+              <span class="tag tag-warning" data-aods="tag">⚠ Only 3 left</span>
+              <span class="tag tag-error" data-aods="tag">✗ Out of stock</span>
+              <span class="tag tag-dark" data-aods="tag">New arrival</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <p class="subsection-title">Large variant</p>
+          <div class="demo">
+            <div class="demo-row">
+              <span class="tag tag-lg tag-success" data-aods="tag">✓ In stock</span>
+              <span class="tag tag-lg tag-highlight" data-aods="tag">ℹ Price drop</span>
+              <span class="tag tag-lg tag-warning" data-aods="tag">⚠ Low stock</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- NOTICES                                             -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="notices">
+        <div class="section-header">
+          <h2 class="t-title-lg">Notices</h2>
+          <span class="section-tag">Display / Feedback</span>
+        </div>
+
+        <div class="demo demo-col">
+          <div class="notice notice-success" role="status" data-aods="notice">
+            <i class="notice-icon">✓</i>
+            <div><strong>Delivery confirmed.</strong> Your order will arrive tomorrow between 8am and 6pm.</div>
+          </div>
+          <div class="notice notice-highlight" role="note" data-aods="notice">
+            <i class="notice-icon">ℹ</i>
+            <div><strong>Professional installation available.</strong> Add fitting for £69 and our engineers will install and test your machine.</div>
+          </div>
+          <div class="notice notice-warning" role="note" data-aods="notice">
+            <i class="notice-icon">⚠</i>
+            <div><strong>Only 3 left in stock.</strong> Installation slots for this week are filling up fast.</div>
+          </div>
+          <div class="notice notice-error" role="alert" data-aods="notice">
+            <i class="notice-icon">✗</i>
+            <div><strong>Payment declined.</strong> Check your card details and try again, or use a different payment method.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- CARDS                                               -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="cards">
+        <div class="section-header">
+          <h2 class="t-title-lg">Cards</h2>
+          <span class="section-tag">Display</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;">
+
+          <!-- Default -->
+          <div class="card" data-aods="card">
+            <p class="t-title-sm" style="margin-bottom:0.5rem;">Default Card</p>
+            <p class="t-body-sm t-secondary">Border gray-40, white background, radius-md.</p>
+            <div class="card-divider"></div>
+            <div style="display:flex;justify-content:flex-end;">
+              <button class="btn btn-tertiary btn-sm">Edit</button>
+            </div>
+          </div>
+
+          <!-- Raised -->
+          <div class="card card-raised" data-aods="card">
+            <p class="t-title-sm" style="margin-bottom:0.5rem;">Raised Card</p>
+            <p class="t-body-sm t-secondary">Adds shadow-md — use for prominent content like delivery or payment panels.</p>
+          </div>
+
+          <!-- Success state -->
+          <div class="card card-success" data-aods="card">
+            <p class="t-title-sm" style="margin-bottom:0.5rem; color:var(--ui-success-contrast);">Success State</p>
+            <p class="t-body-sm" style="color:var(--ui-success-contrast);">Order placed successfully. A confirmation has been sent to your email.</p>
+          </div>
+
+          <!-- Highlight state -->
+          <div class="card card-highlight" data-aods="card">
+            <p class="t-title-sm" style="margin-bottom:0.5rem; color:var(--ui-highlight-contrast);">Highlight State</p>
+            <p class="t-body-sm" style="color:var(--ui-highlight-contrast);">Price has dropped £30 since you last viewed this product.</p>
+          </div>
+
+          <!-- Error state -->
+          <div class="card card-error" data-aods="card">
+            <p class="t-title-sm" style="margin-bottom:0.5rem; color:var(--ui-error-contrast);">Error State</p>
+            <p class="t-body-sm" style="color:var(--ui-error-contrast);">Payment failed. Please update your payment details to continue.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- BREADCRUMB                                          -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="breadcrumb">
+        <div class="section-header">
+          <h2 class="t-title-lg">Breadcrumb</h2>
+          <span class="section-tag">Navigation</span>
+        </div>
+
+        <div class="demo">
+          <nav aria-label="Breadcrumbs">
+            <ol class="crumb t-body-sm">
+              <li><a href="#">Home</a><span class="crumb-sep"> › </span></li>
+              <li><a href="#">Washing Machines</a><span class="crumb-sep"> › </span></li>
+              <li><a href="#">Samsung</a><span class="crumb-sep"> › </span></li>
+              <li><span aria-current="page">Samsung Series 5 9kg</span></li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- TABS                                                -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="tabs">
+        <div class="section-header">
+          <h2 class="t-title-lg">Tabs</h2>
+          <span class="section-tag">Navigation</span>
+        </div>
+
+        <div class="demo" style="padding:0;">
+          <div class="tab-list" role="tablist">
+            <button class="tab-item active" role="tab" aria-selected="true">Description</button>
+            <button class="tab-item" role="tab" aria-selected="false">Specifications</button>
+            <button class="tab-item" role="tab" aria-selected="false">Reviews (1,247)</button>
+            <button class="tab-item" role="tab" aria-selected="false">Q&amp;A</button>
+          </div>
+          <div style="padding:1.5rem;" role="tabpanel">
+            <p class="t-body-sm t-secondary">The Samsung Series 5 washing machine combines powerful cleaning with smart eco technology. With a 9kg drum capacity and 1400rpm spin speed, it handles large family loads while running quietly at just 47dB — ideal for open-plan homes.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- ACCORDION                                           -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="accordion">
+        <div class="section-header">
+          <h2 class="t-title-lg">Accordion</h2>
+          <span class="section-tag">Disclosure</span>
+        </div>
+
+        <div class="accordion" data-aods="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="true" aria-controls="acc-1" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('acc-1').toggleAttribute('hidden')">
+              Delivery information
+              <svg class="accordion-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-body" id="acc-1" role="region">
+              We offer free next-day delivery on all appliances. Order before midnight for delivery tomorrow between 8am and 6pm. You'll receive a 2-hour delivery window by text the morning of your delivery.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="acc-2" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('acc-2').toggleAttribute('hidden')">
+              Returns policy
+              <svg class="accordion-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-body" id="acc-2" role="region" hidden>
+              Changed your mind? No problem. Return any item within 30 days in its original condition and we'll give you a full refund. Just call our team and we'll arrange a collection at a time that suits you.
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" aria-controls="acc-3" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('acc-3').toggleAttribute('hidden')">
+              Installation &amp; recycling
+              <svg class="accordion-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="accordion-body" id="acc-3" role="region" hidden>
+              Add professional installation for £69 and our engineers will plumb in, level, and run a test cycle on your new machine. We can also take away your old appliance for free — just select that option at checkout.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════ -->
+      <!-- SPINNER                                             -->
+      <!-- ══════════════════════════════════════════════════ -->
+      <section class="section" id="spinner">
+        <div class="section-header">
+          <h2 class="t-title-lg">Loading Spinner</h2>
+          <span class="section-tag">Feedback</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+          <div class="demo demo-col" style="align-items:center;text-align:center;">
+            <div class="spinner" role="status" aria-label="Loading, please wait."></div>
+            <p class="t-caption">Default (green)</p>
+          </div>
+          <div class="demo demo-dark demo-col" style="align-items:center;text-align:center;">
+            <div class="spinner spinner-white" role="status" aria-label="Loading, please wait."></div>
+            <p class="t-caption" style="color:rgba(255,255,255,0.5);">White variant</p>
+          </div>
+          <div class="demo demo-col" style="align-items:center;text-align:center;">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+              <div class="spinner spinner-sm" role="status" aria-label="Saving..."></div>
+              <span class="t-body-sm t-secondary">Saving…</span>
+            </div>
+            <p class="t-caption">Small + inline message</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  /* Smooth active state in sidebar on scroll */
+  const sections = document.querySelectorAll('.section');
+  const links = document.querySelectorAll('.ds-sidebar a');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
