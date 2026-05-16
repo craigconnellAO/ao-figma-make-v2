@@ -10,6 +10,9 @@ Patterns covered:
 4. [Basket / order summary](#4--basket--order-summary)
 5. [Modal confirmation](#5--modal-confirmation)
 6. [Empty state](#6--empty-state)
+7. [Order confirmation](#7--order-confirmation)
+8. [Category / product listing](#8--category--product-listing)
+9. [Account dashboard](#9--account-dashboard)
 
 All patterns assume the `:root` block from `tokens.md` and the typography setup from `typography.md` are present.
 
@@ -290,3 +293,238 @@ When there's nothing to show, give the user one clear next step.
 ```
 
 **Rules:** one CTA, verb-first. One sentence of supporting copy. No multiple parallel suggestions ("or browse this, or that, or that") — pick the most likely next step.
+
+---
+
+## 7 · Order confirmation
+
+Single-column centred layout, max 640px. The emotional peak of the purchase flow: confirm the outcome, tell the user what happens next, then give them somewhere to go. Brand energy belongs here.
+
+```html
+<main style="max-width: 640px; margin: 0 auto; padding: 0 1.5rem 4rem;">
+
+  <!-- Confirmation hero -->
+  <div style="text-align:center; padding: 2.5rem 1.5rem 1.5rem;">
+    <div style="width:72px; height:72px; border-radius:50%;
+                background:var(--ui-success-base); border:2px solid var(--ui-success-accent);
+                display:flex; align-items:center; justify-content:center;
+                margin:0 auto 1.25rem; font-size:2rem;" aria-hidden="true">✓</div>
+    <h1 class="t-display-headline" style="margin-bottom:0.5rem;">You're all set, Sarah.</h1>
+    <p class="t-body t-secondary" style="max-width:44ch; margin:0 auto;">
+      Your order is confirmed. We'll keep you updated every step of the way.
+    </p>
+    <span style="display:inline-flex; align-items:center; gap:0.5rem;
+                 background:var(--gray-10); border:1px solid var(--gray-40);
+                 border-radius:var(--radius-2xl); padding:0.375rem 1rem;
+                 font-size:0.875rem; color:var(--type-tertiary); margin-top:0.625rem;">
+      Order <strong style="color:var(--type-secondary);">#AO-228341</strong> · 16 May 2026
+    </span>
+  </div>
+
+  <!-- Delivery summary -->
+  <div class="card" data-aods="card" style="margin-bottom:1rem;">
+    <h2 class="t-title" style="margin-bottom:1rem;">Your delivery</h2>
+    <p class="t-body-sm" style="font-weight:600;">Thursday 17 May, 8am–6pm</p>
+    <p class="t-body-sm t-secondary">14 Maple Close, Manchester, M14 5RQ</p>
+    <div class="card-divider"></div>
+    <div class="notice notice-success" role="status" data-aods="notice">
+      <i class="notice-icon" aria-hidden="true">✓</i>
+      Confirmation sent to <strong>sarah@example.com</strong>
+    </div>
+  </div>
+
+  <!-- What happens next -->
+  <div class="card" data-aods="card" style="margin-bottom:1.5rem;">
+    <h2 class="t-title" style="margin-bottom:1.25rem;">What happens next</h2>
+    <!-- Repeat for each step: -->
+    <div style="display:flex; gap:1rem; padding:0.875rem 0; border-bottom:1px solid var(--gray-30);">
+      <div style="width:28px; height:28px; border-radius:50%; flex-shrink:0;
+                  background:var(--type-primary); color:#fff; display:flex;
+                  align-items:center; justify-content:center;
+                  font-size:0.75rem; font-weight:700;">1</div>
+      <div>
+        <p class="t-body-sm" style="font-weight:600; margin-bottom:0.25rem;">Confirmation email on its way</p>
+        <p class="t-body-sm t-secondary">Full summary sent to your inbox within a few minutes.</p>
+      </div>
+    </div>
+    <!-- Add steps 2, 3 following the same pattern -->
+  </div>
+
+  <!-- CTAs -->
+  <div style="display:flex; flex-direction:column; gap:0.75rem; align-items:center;">
+    <a href="#" class="btn btn-primary btn-lg btn-full" data-aods="button">Track your order</a>
+    <a href="#" class="btn btn-secondary btn-full" data-aods="button">Continue shopping</a>
+  </div>
+
+</main>
+```
+
+**Rules:** `t-display-headline` is reserved for this page and true campaign moments — it earns its size here because the user just completed something. One primary CTA ("Track your order"), one secondary. Never use a modal on this page — all content is inline.
+
+---
+
+## 8 · Category / product listing
+
+Two-column desktop layout: filter sidebar (240px, sticky) + product grid (fluid, 3 columns). Single column on mobile with filters hidden behind a "Filter" button.
+
+```html
+<!-- Breadcrumb + page header -->
+<nav aria-label="Breadcrumb" data-aods="breadcrumb">
+  <ol class="crumb">
+    <li><a href="/">Home</a><span class="crumb-sep" aria-hidden="true">›</span></li>
+    <li><a href="/appliances">Appliances</a><span class="crumb-sep" aria-hidden="true">›</span></li>
+    <li><span aria-current="page">Washing machines</span></li>
+  </ol>
+</nav>
+
+<div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.5rem;">
+  <div>
+    <h1 class="t-display">Washing machines</h1>
+    <p class="t-body-sm t-secondary">127 products</p>
+  </div>
+</div>
+
+<div style="display:grid; grid-template-columns:240px 1fr; gap:2rem; align-items:start;">
+
+  <!-- Filter sidebar -->
+  <aside style="position:sticky; top:80px;">
+    <div style="margin-bottom:1.25rem;">
+      <p style="font-size:0.875rem; font-weight:600; color:var(--type-secondary);
+                margin-bottom:0.625rem; padding-bottom:0.5rem; border-bottom:1px solid var(--gray-30);">
+        Brand
+      </p>
+      <label style="display:flex; align-items:center; gap:0.5rem; padding:0.3125rem 0;
+                    font-size:0.875rem; cursor:pointer;">
+        <input type="checkbox" checked style="accent-color:var(--action-secondary-base);">
+        Bosch
+      </label>
+      <!-- repeat for each filter option -->
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div>
+    <!-- Active filter chips + sort -->
+    <div style="display:flex; justify-content:space-between; margin-bottom:1rem; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+      <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+        <button style="display:inline-flex; align-items:center; gap:0.375rem;
+                       padding:0.3125rem 0.75rem; border-radius:var(--radius-2xl);
+                       font-size:0.8125rem; font-weight:500;
+                       background:var(--ui-highlight-base); color:var(--ui-highlight-contrast);
+                       border:1px solid var(--ui-highlight-accent); cursor:pointer;">
+          Bosch ✕
+        </button>
+      </div>
+      <select style="appearance:none; padding:0.5rem 2rem 0.5rem 0.875rem;
+                     border:1px solid var(--gray-40); border-radius:var(--radius-sm);
+                     font-family:'Inter',sans-serif; font-size:0.875rem; background:#fff;">
+        <option>Sort: Featured</option>
+        <option>Price: low to high</option>
+      </select>
+    </div>
+
+    <!-- Product grid: 3-up desktop, 2-up tablet, 1-up mobile -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;">
+      <div style="background:#fff; border:1px solid var(--gray-40);
+                  border-radius:var(--radius-md); overflow:hidden;" data-aods="card">
+        <div style="aspect-ratio:1; background:var(--gray-10); display:flex;
+                    align-items:center; justify-content:center; font-size:3.5rem;
+                    border-bottom:1px solid var(--gray-30);" aria-hidden="true">🫧</div>
+        <div style="padding:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+          <span class="tag tag-success" data-aods="tag">In stock</span>
+          <p style="font-size:0.9375rem; font-weight:500; color:var(--type-secondary); line-height:1.35;">
+            Bosch Series 6 9kg Washing Machine
+          </p>
+          <p class="t-body-sm t-secondary">9kg · 1,400 rpm · Energy A+++</p>
+          <p style="font-family:'SmileyFace',Georgia,serif; font-weight:700;
+                    font-size:1.375rem; color:var(--type-primary); margin-top:auto; padding-top:0.5rem;">
+            £549
+          </p>
+        </div>
+        <div style="padding:0 1rem 1rem;">
+          <button class="btn btn-primary btn-full" data-aods="button">Add to basket</button>
+        </div>
+      </div>
+      <!-- repeat tiles -->
+    </div>
+
+  </div>
+</div>
+```
+
+**Rules:** one `btn-primary` per tile ("Add to basket"). Price in `t-title-lg` or SmileyFace Bold — never Inter. Product images on `var(--gray-10)` background only. Active filters use the `ui-highlight` surface, not custom colours. Out-of-stock tiles use `btn-inactive`.
+
+---
+
+## 9 · Account dashboard
+
+Two-column desktop layout: main content (orders, 2/3) + sidebar quick links (1/3, sticky). Personalised greeting in a dark navy header band; functional utility tone throughout.
+
+```html
+<!-- Account header band (sits below the global nav) -->
+<div style="background:var(--type-primary); padding:2rem 1.5rem;">
+  <div style="max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:flex-end;">
+    <div>
+      <p style="font-family:'SmileyFace',Georgia,serif; font-weight:700;
+                font-size:1.75rem; color:#fff; line-height:1.2;">Good morning, Sarah.</p>
+      <p style="font-size:0.875rem; color:rgba(255,255,255,0.6); margin-top:0.25rem;">Member since 2019 · 7 orders</p>
+    </div>
+    <button class="btn btn-secondary" style="color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.3);"
+            data-aods="button">Sign out</button>
+  </div>
+</div>
+
+<!-- Main content grid -->
+<div style="display:grid; grid-template-columns:1fr 280px; gap:2rem; align-items:start; max-width:1100px; margin:2rem auto; padding:0 1.5rem;">
+
+  <!-- Orders -->
+  <div class="card" data-aods="card">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1rem;">
+      <h2 class="t-title">Recent orders</h2>
+      <a href="#" class="t-link-sm">View all</a>
+    </div>
+
+    <!-- Order row -->
+    <div style="padding:1.25rem 0; border-bottom:1px solid var(--gray-30);">
+      <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <span style="font-size:0.875rem; font-weight:600;">#AO-228341</span>
+          <span class="t-body-sm t-secondary">16 May 2026</span>
+        </div>
+        <span class="tag tag-highlight" data-aods="tag">In transit</span>
+      </div>
+      <div style="display:flex; gap:0.75rem; align-items:center;">
+        <div style="width:44px; height:44px; background:var(--gray-10);
+                    border:1px solid var(--gray-30); border-radius:var(--radius-sm);
+                    display:flex; align-items:center; justify-content:center; font-size:1.25rem;"
+             aria-hidden="true">🫧</div>
+        <span style="font-size:0.875rem; color:var(--type-secondary); flex:1;">Bosch Series 6 9kg Washing Machine</span>
+        <span style="font-size:0.875rem; font-weight:600; color:var(--type-primary);">£549</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <span class="t-body-sm t-secondary">Total: <strong style="color:var(--type-secondary);">£618.00</strong></span>
+        <a href="#" class="btn btn-secondary btn-sm" data-aods="button">Track order</a>
+      </div>
+    </div>
+    <!-- repeat for additional orders -->
+  </div>
+
+  <!-- Sidebar -->
+  <aside style="position:sticky; top:80px; display:flex; flex-direction:column; gap:1rem;">
+    <div class="card" data-aods="card">
+      <h2 class="t-title-sm" style="margin-bottom:0.5rem;">My account</h2>
+      <!-- Each quicklink: -->
+      <a href="#" style="display:flex; align-items:center; justify-content:space-between;
+                         padding:0.875rem 0; border-bottom:1px solid var(--gray-30);
+                         text-decoration:none;">
+        <span style="font-size:0.9375rem; color:var(--type-secondary);">Address book</span>
+        <span style="color:var(--gray-60);" aria-hidden="true">›</span>
+      </a>
+      <!-- repeat for: Payment methods, Personal details, Communication preferences -->
+    </div>
+  </aside>
+
+</div>
+```
+
+**Rules:** personalised greeting uses SmileyFace Bold at 1.75rem (below `t-display` but above `t-title-lg`). Order rows are **not** cards — they're divider-separated rows inside a single card. One primary CTA per order maximum ("Track order" or "Buy again"). The sidebar uses `t-link-sm` chevron rows, not buttons.

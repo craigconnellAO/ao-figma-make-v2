@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO — Order confirmed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <style>
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --brand-primary-base: #12c35a; --brand-primary-light: #befcc8; --brand-primary-dark: #02422b;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+      /* Action — primary (Green Main) */
+      --action-primary-base: #008945; --action-primary-hover: #00560b;
+      --action-primary-focus: #008945; --action-primary-active: #02422b;
+      --action-primary-contrast: #ffffff; --action-primary-glow: #12c35a;
+      /* Action — secondary (Action Main blue) */
+      --action-secondary-base: #0a64c2; --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0a64c2; --action-secondary-active: #001876;
+      --action-secondary-contrast: #ffffff; --action-secondary-glow: #40a1f8;
+      --action-light-base: #ffffff; --action-light-contrast: #011f44; --action-light-glow: #40a1f8;
+      --action-dark-base: #011f44; --action-dark-contrast: #ffffff; --action-dark-glow: #40a1f8;
+      --action-inactive-base: #727677; --action-inactive-contrast: #ffffff;
+      --ui-core-base: #ffffff; --ui-core-contrast: #212121; --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2; --ui-neutral-contrast: #212121; --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #0a64c2;
+      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #008945;
+      --ui-warning-base: #fff4e6; --ui-warning-contrast: #ad5a00; --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6; --ui-error-contrast: #b50016; --ui-error-accent: #b50016;
+      --palette-steam: #c8d1ff; --palette-water: #011f44;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+    }
+
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700; font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      font-size: 1rem; line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Type ─────────────────────────────────────────── */
+    .t-display-headline { font-family: 'SmileyFace-Headline', Georgia, serif; font-size: 3rem;     line-height: 1.05; color: var(--type-primary); }
+    .t-display    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;     line-height: 1.15; color: var(--type-primary); }
+    .t-title-lg   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; line-height: 1.2;  color: var(--type-primary); }
+    .t-title      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;     line-height: 1.3;  color: var(--type-primary); }
+    .t-body       { font-size: 1rem;     line-height: 1.5; }
+    .t-body-sm    { font-size: 0.875rem; line-height: 1.45; }
+    .t-caption    { font-size: 0.75rem;  line-height: 1.4; color: var(--type-tertiary); }
+    .t-link       { text-decoration: underline; color: var(--action-secondary-base); cursor: pointer; }
+    .t-link-sm    { font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); cursor: pointer; }
+    .t-secondary  { color: var(--type-tertiary); }
+
+    /* ─── Nav ───────────────────────────────────────────── */
+    .nav {
+      background: var(--type-primary);
+      padding: 0.875rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 20;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-logo {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem;
+      color: var(--brand-primary-base); letter-spacing: -0.02em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
+    .nav-links a:hover { color: #fff; }
+    @media (max-width: 640px) { .nav { padding: 0.75rem 1rem; } .nav-links { display: none; } }
+
+    /* ─── Card ──────────────────────────────────────────── */
+    .card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 1.5rem;
+    }
+    .card-raised  { box-shadow: var(--shadow-md); }
+    .card-success { background: var(--ui-success-base); border-color: var(--ui-success-accent); }
+    .card-divider { height: 1px; background: var(--gray-30); margin: 1.25rem -1.5rem; }
+
+    /* ─── Button ────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.6875rem 1.5rem; border-radius: 9999px;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1rem; line-height: 1;
+      border: 2px solid transparent; cursor: pointer;
+      white-space: nowrap; text-decoration: none;
+      transition: background 150ms, color 150ms, border-color 150ms;
+    }
+    .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    /* Primary: Green Main fill */
+    .btn-primary  { background: var(--action-primary-base); color: var(--action-primary-contrast); border-color: var(--action-primary-base); }
+    .btn-primary:hover { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    /* Secondary: transparent default, Action Main (blue) border + text, Action Hover bg on hover */
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); border-color: var(--action-secondary-hover); }
+    /* Tertiary: transparent default, neutral hover */
+    .btn-tertiary { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-lg   { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
+    .btn-full { width: 100%; }
+
+    /* ─── Tag ───────────────────────────────────────────── */
+    .tag {
+      display: inline-flex; align-items: center;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4;
+      border: 1px solid transparent;
+    }
+    .tag-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .tag-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral   { background: var(--ui-neutral-base);   color: var(--type-secondary);        border-color: var(--gray-40); }
+
+    /* ─── Notice ────────────────────────────────────────── */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem 1rem; border-radius: var(--radius-sm);
+      font-size: 0.875rem; border: 1px solid transparent;
+    }
+    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+
+    /* ─── Accordion ─────────────────────────────────────── */
+    .accordion { border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden; }
+    .accordion-item { border-bottom: 1px solid var(--gray-30); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 1rem 1.25rem; background: #fff; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500;
+      color: var(--type-primary); text-align: left; transition: background 150ms;
+    }
+    .accordion-header:hover,
+    .accordion-header[aria-expanded="true"] { background: var(--gray-10); }
+    .accordion-chevron { color: var(--gray-70); transition: transform 200ms; }
+    .accordion-header[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+    .accordion-body { padding: 1rem 1.25rem; background: var(--gray-10); font-size: 0.9375rem; color: var(--type-secondary); line-height: 1.6; }
+
+    /* ─── Confirmation hero ─────────────────────────────── */
+    .confirm-hero {
+      text-align: center;
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+    .confirm-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--ui-success-base);
+      border: 2px solid var(--ui-success-accent);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 2rem;
+    }
+    .confirm-order-num {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gray-10); border: 1px solid var(--gray-40);
+      border-radius: var(--radius-2xl);
+      padding: 0.375rem 1rem;
+      font-size: 0.875rem; color: var(--type-tertiary);
+      margin-top: 0.625rem;
+    }
+    .confirm-order-num strong { color: var(--type-secondary); font-weight: 600; }
+
+    /* ─── What happens next ──────────────────────────────── */
+    .next-step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 0.875rem 0; border-bottom: 1px solid var(--gray-30);
+    }
+    .next-step:last-child { border-bottom: none; padding-bottom: 0; }
+    .next-step-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: var(--type-primary); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; font-family: 'Inter', sans-serif;
+      margin-top: 1px;
+    }
+
+    /* ─── Order item ─────────────────────────────────────── */
+    .order-item {
+      display: flex; gap: 0.875rem; align-items: flex-start;
+    }
+    .order-item-img {
+      width: 64px; height: 64px; flex-shrink: 0;
+      background: var(--gray-10); border: 1px solid var(--gray-30);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .order-item-detail { flex: 1; min-width: 0; }
+    .order-item-name   { font-size: 0.9375rem; font-weight: 500; color: var(--type-secondary); }
+    .order-item-sub    { font-size: 0.8125rem; color: var(--type-tertiary); margin-top: 0.125rem; }
+    .order-item-price  { font-size: 0.9375rem; font-weight: 600; color: var(--type-primary); white-space: nowrap; }
+
+    /* ─── Totals ────────────────────────────────────────── */
+    .totals-row { display: flex; justify-content: space-between; font-size: 0.9375rem; }
+    .totals-row.grand .label {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; color: var(--type-primary);
+    }
+    .totals-row.grand .value {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; color: var(--type-primary);
+    }
+    .totals-free { color: var(--ui-success-contrast); font-weight: 500; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" data-aods="nav">
+    <a href="/" class="nav-logo">ao.</a>
+    <ul class="nav-links">
+      <li><a href="#">Appliances</a></li>
+      <li><a href="#">TV &amp; Audio</a></li>
+      <li><a href="#">Computing</a></li>
+    </ul>
+    <button class="btn btn-tertiary btn-sm" data-aods="button" style="color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.25);">My account</button>
+  </nav>
+
+  <main style="max-width: 640px; margin: 0 auto; padding: 0 1.5rem 4rem;">
+
+    <!-- Confirmation hero -->
+    <div class="confirm-hero">
+      <div class="confirm-icon" aria-hidden="true">✓</div>
+      <h1 class="t-display-headline" style="margin-bottom: 0.5rem;">You're all set, Sarah.</h1>
+      <p class="t-body t-secondary" style="max-width: 44ch; margin: 0 auto;">
+        Your order is confirmed and on its way. We'll keep you updated every step of the way.
+      </p>
+      <div class="confirm-order-num">
+        Order <strong>#AO-228341</strong> · Placed 16 May 2026
+      </div>
+    </div>
+
+    <!-- Delivery info -->
+    <div class="card" data-aods="card" style="margin-bottom: 1rem;">
+      <h2 class="t-title" style="margin-bottom: 1rem;">Your delivery</h2>
+      <div style="display:flex; flex-direction:column; gap:0.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+          <div>
+            <p class="t-body-sm" style="font-weight:600; color:var(--type-secondary);">Thursday 17 May</p>
+            <p class="t-body-sm t-secondary">8am–6pm · 14 Maple Close, Manchester, M14 5RQ</p>
+          </div>
+          <span class="tag tag-highlight" data-aods="tag">Booked</span>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="notice notice-success" role="status" data-aods="notice">
+        <i class="notice-icon" aria-hidden="true">✓</i>
+        <div>Your confirmation has been sent to <strong>sarah@example.com</strong></div>
+      </div>
+    </div>
+
+    <!-- Order summary -->
+    <div class="card" data-aods="card" style="margin-bottom: 1rem;">
+      <h2 class="t-title" style="margin-bottom: 1.25rem;">Your order</h2>
+
+      <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:1.25rem;">
+        <div class="order-item">
+          <div class="order-item-img" aria-hidden="true">🫧</div>
+          <div class="order-item-detail">
+            <div class="order-item-name">Bosch Series 6 9kg Washing Machine</div>
+            <div class="order-item-sub">WAJ28008GB · Energy A+++</div>
+          </div>
+          <div class="order-item-price">£549</div>
+        </div>
+        <div class="order-item">
+          <div class="order-item-img" aria-hidden="true">🔧</div>
+          <div class="order-item-detail">
+            <div class="order-item-name">Professional installation</div>
+            <div class="order-item-sub">Install, level, and test</div>
+          </div>
+          <div class="order-item-price">£69</div>
+        </div>
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:0.875rem;">
+        <div class="totals-row">
+          <span>Subtotal</span><span>£618.00</span>
+        </div>
+        <div class="totals-row">
+          <span>Delivery</span><span class="totals-free">Free</span>
+        </div>
+      </div>
+
+      <div class="card-divider" style="margin-top:0;"></div>
+
+      <div class="totals-row grand" style="margin-top:0.875rem;">
+        <span class="label">Total paid</span>
+        <span class="value">£618.00</span>
+      </div>
+    </div>
+
+    <!-- What happens next -->
+    <div class="card" data-aods="card" style="margin-bottom: 1.5rem;">
+      <h2 class="t-title" style="margin-bottom: 1.25rem;">What happens next</h2>
+      <div>
+        <div class="next-step">
+          <div class="next-step-num" aria-hidden="true">1</div>
+          <div>
+            <p class="t-body-sm" style="font-weight:600; color:var(--type-secondary); margin-bottom:0.25rem;">Confirmation email on its way</p>
+            <p class="t-body-sm t-secondary">You'll receive a full summary at sarah@example.com within the next few minutes.</p>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-num" aria-hidden="true">2</div>
+          <div>
+            <p class="t-body-sm" style="font-weight:600; color:var(--type-secondary); margin-bottom:0.25rem;">We'll text you on delivery day</p>
+            <p class="t-body-sm t-secondary">You'll get a 2-hour window in the morning so you're not stuck waiting all day.</p>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-num" aria-hidden="true">3</div>
+          <div>
+            <p class="t-body-sm" style="font-weight:600; color:var(--type-secondary); margin-bottom:0.25rem;">Installation included</p>
+            <p class="t-body-sm t-secondary">Our team will install, level, and run a test cycle before they leave.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div style="display:flex; flex-direction:column; gap:0.75rem; align-items:center;">
+      <a href="#" class="btn btn-primary btn-lg btn-full" data-aods="button">Track your order</a>
+      <a href="#" class="btn btn-secondary btn-full" data-aods="button">Continue shopping</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

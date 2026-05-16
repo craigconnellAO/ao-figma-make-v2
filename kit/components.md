@@ -59,19 +59,21 @@ Pill-shaped, SmileyFace Bold label, 2px border. The `primary` variant is reserve
 }
 .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
 
-.btn-primary   { background: var(--action-primary-base); color: #fff; border-color: var(--action-primary-base); }
+.btn-primary   { background: var(--action-primary-base); color: var(--action-primary-contrast); border-color: var(--action-primary-base); }
 .btn-primary:hover   { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
 
+/* Secondary: transparent default, Action Main (blue) border + text, Action Hover bg on hover */
 .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
-.btn-secondary:hover { background: var(--ui-highlight-base); }
+.btn-secondary:hover { background: var(--ui-highlight-base); border-color: var(--action-secondary-hover); }
 
+/* Tertiary: transparent default, Action Hover bg on hover (not green) */
 .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
 .btn-tertiary:hover  { background: var(--gray-20); border-color: var(--gray-50); }
 
-.btn-white     { background: #fff; color: var(--type-primary); border-color: #fff; }
+.btn-white     { background: var(--action-light-base); color: var(--action-light-contrast); border-color: var(--action-light-base); }
 .btn-white:hover     { background: var(--gray-20); border-color: var(--gray-20); }
 
-.btn-dark      { background: var(--type-primary); color: #fff; border-color: var(--type-primary); }
+.btn-dark      { background: var(--action-dark-base); color: var(--action-dark-contrast); border-color: var(--action-dark-base); }
 .btn-dark:hover      { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
 
 .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
