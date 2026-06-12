@@ -36,7 +36,7 @@ This workspace is a design system kit for **Figma Make** (Figma's AI code-genera
 - Every component root carries `data-aods="component-name"` for E2E targeting
 - Approved button variants only: `primary`, `secondary`, `tertiary`, `link`, `white`, `dark`
 - Approved tag groups only: `core`, `neutral`, `highlight`, `success`, `warning`, `error`, `light`, `dark`
-- Buttons are pill-shaped (`border-radius: 9999px`) with a 2px border — never override
+- Buttons use `border-radius: var(--radius-sm)` (8px) with a 1px border — never override
 - One `btn-primary` per visual section. Demote additional actions to `secondary` or `tertiary`.
 - Verb-first CTA labels: "Add to basket", "Check availability" — never "Submit", "OK", "Click here"
 

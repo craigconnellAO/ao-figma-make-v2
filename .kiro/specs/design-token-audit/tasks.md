@@ -6,53 +6,61 @@ This plan implements a design token and component audit for the AO Figma Make ki
 
 ## Tasks
 
-- [x] Write bug condition exploration test
+- [x] 1. Write bug condition exploration test
+  - **Property 1: Bug Condition** - Token Drift Between Kit Files
   - Property-based test confirming token drift exists between kit files
   - Test FAILED as expected on unfixed code (counterexample: action-primary-base #008945 vs #00893e)
   - _Requirements: 1.3, 1.4_
 
-- [x] Write preservation property tests
+- [x] 2. Write preservation property tests
+  - **Property 2: Preservation** - Correct Token Stability
   - 15 tests covering gray tokens, spacing, shadows, component structure, typography, DTCG schema
   - All PASSED on unfixed code confirming baseline to preserve
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-- [x] Phase 1 - Generate design token audit
-  - [x] Build audit page (examples/design-token-audit.html) with all token sections
-  - [x] Build Figma audit frames on Make Kit Corrections page with imported library components
+- [x] 3. Phase 1 - Generate design token audit
+
+  - [x] 3.1 Build audit page (examples/design-token-audit.html) with all token sections
+  - [x] 3.2 Build Figma audit frames on Make Kit Corrections page with imported library components
   - _Requirements: 2.6_
 
-- [x] Phase 2 - Extract Figma specs and correct kit files
-  - [x] Extract button specs from Figma library (Primary/Secondary/Tertiary CTA)
-  - [x] Extract Form Field specs from Figma library
-  - [x] Extract Status Alerts specs from Figma library
-  - [x] Extract Accordion specs from Figma library
-  - [x] Extract Tab specs from Figma library
-  - [x] Extract Radio Button and Checkbox specs from Figma library
-  - [x] Extract Loading Spinner specs from Figma library
-  - [x] Correct kit/tokens.md (action-secondary-base, action-primary-active, action-primary-base/focus)
-  - [x] Correct kit/tokens.json (matching values)
-  - [x] Correct kit/components.md (buttons, inputs, notices, accordion, tabs, toggle items)
+- [x] 4. Phase 2 - Extract Figma specs and correct kit files
+
+  - [x] 4.1 Extract button specs from Figma library (Primary/Secondary/Tertiary CTA)
+  - [x] 4.2 Extract Form Field specs from Figma library
+  - [x] 4.3 Extract Status Alerts specs from Figma library
+  - [x] 4.4 Extract Accordion specs from Figma library
+  - [x] 4.5 Extract Tab specs from Figma library
+  - [x] 4.6 Extract Radio Button and Checkbox specs from Figma library
+  - [x] 4.7 Extract Loading Spinner specs from Figma library
+  - [x] 4.8 Correct kit/tokens.md (action-secondary-base, action-primary-active, action-primary-base/focus)
+  - [x] 4.9 Correct kit/tokens.json (matching values)
+  - [x] 4.10 Correct kit/components.md (buttons, inputs, notices, accordion, tabs, toggle items)
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [x] Verify tests pass after corrections
-  - [x] token-consistency.test.ts PASSES (token drift fixed)
-  - [x] preservation.test.js PASSES (16/16 tests, no regressions)
+- [x] 5. Verify tests pass after corrections
+
+  - [x] 5.1 token-consistency.test.ts PASSES (token drift fixed)
+    - **Property 1: Expected Behavior** - Token Drift Between Kit Files
+  - [x] 5.2 preservation.test.js PASSES (16/16 tests, no regressions)
+    - **Property 2: Preservation** - Correct Token Stability
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6_
 
-- [x] Update all example HTML files with corrected CSS
-  - [x] Update examples/productComparison.html
-  - [x] Update examples/categoryPage.html
-  - [x] Update examples/productPage.html
-  - [x] Update examples/checkout.html
-  - [x] Update examples/accountDashboard.html
-  - [x] Update examples/orderConfirmation.html
-  - [x] Update examples/componentLibrary.html
-  - [x] Update examples/patternsGallery.html
-  - [x] Update examples/radioButtonShowcase.html
-  - [x] Update examples/design-token-audit.html
+- [x] 6. Update all example HTML files with corrected CSS
+
+  - [x] 6.1 Update examples/productComparison.html
+  - [x] 6.2 Update examples/categoryPage.html
+  - [x] 6.3 Update examples/productPage.html
+  - [x] 6.4 Update examples/checkout.html
+  - [x] 6.5 Update examples/accountDashboard.html
+  - [x] 6.6 Update examples/orderConfirmation.html
+  - [x] 6.7 Update examples/componentLibrary.html
+  - [x] 6.8 Update examples/patternsGallery.html
+  - [x] 6.9 Update examples/radioButtonShowcase.html
+  - [x] 6.10 Update examples/design-token-audit.html
   - _Requirements: 3.6_
 
-- [x] Final checkpoint
+- [x] 7. Final checkpoint
   - All 16 property tests pass (token-consistency + preservation)
   - All example HTML files aligned to corrected kit values
   - _Requirements: 3.6_
