@@ -27,7 +27,7 @@ Anti-references: not John Lewis (too cold), not Currys (too loud), not Apple (to
 ## Hard rules
 
 1. **Tokens only.** Every colour, spacing value, radius, and shadow must reference a token from `tokens.md`. No raw hex. No inline magic numbers.
-2. **Two fonts only.** SmileyFace Bold for headings and **all** button labels. Inter for everything else. Never the other way around. SmileyFace never below 16px (text-title-sm).
+2. **Two fonts only.** SmileyFace Bold for headings and **all** button labels. Inter for everything else. Never the other way around. SmileyFace never below 14px (t-title-sm).
 3. **Approved variants only.** Buttons: `primary | secondary | tertiary | link | white | dark`. Tags: `core | neutral | highlight | success | warning | error | light | dark`. If you need something else, stop and ask.
 4. **One primary CTA per visual section.** Supporting actions are `secondary` or `tertiary`.
 5. **Verb-first CTAs.** Labels start with a verb.
