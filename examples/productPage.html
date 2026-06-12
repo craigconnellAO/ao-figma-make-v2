@@ -15,7 +15,7 @@
       --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
       --shadow-overlay: #011630;
       --action-primary-base: #00893e; --action-primary-hover: #00560b;
-      --action-primary-active: #02422b; --action-primary-contrast: #ffffff;
+      --action-primary-active: #003d00; --action-primary-contrast: #ffffff;
       --action-primary-glow: #12c35a;
       --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
       --action-secondary-contrast: #ffffff;
@@ -44,6 +44,8 @@
       font-size: 1rem;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     @font-face {
@@ -88,7 +90,7 @@
     .nav-basket {
       display: flex; align-items: center; gap: 0.5rem;
       background: var(--action-primary-base); color: #fff;
-      border: none; border-radius: 9999px;
+      border: none; border-radius: var(--radius-sm);
       padding: 0.5rem 1.125rem;
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
       cursor: pointer; transition: background 150ms ease-out;
@@ -195,9 +197,9 @@
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: 9999px;
+      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
-      border: 2px solid transparent; cursor: pointer;
+      border: 1px solid transparent; cursor: pointer;
       transition: background 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out, box-shadow 150ms ease-out;
       text-decoration: none; white-space: nowrap; letter-spacing: 0.01em;
     }
@@ -222,13 +224,13 @@
     /* Notice */
     .notice {
       display: flex; gap: 0.75rem; align-items: flex-start;
-      padding: 0.75rem 1rem; border-radius: var(--radius-sm);
-      font-size: 0.875rem; border: 1px solid transparent;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem;
     }
-    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
-    .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
-    .notice-warning   { background: var(--ui-warning-base);   color: var(--ui-warning-contrast);   border-color: var(--ui-warning-accent); }
-    .notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast);     border-color: var(--ui-error-accent); }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
+    .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
+    .notice-warning   { background: var(--palette-bread);     color: var(--type-secondary); }
+    .notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast); }
     .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
 
     /* ─── Lower ─────────────────────────────────────────── */
@@ -262,9 +264,9 @@
     .field:last-of-type { margin-bottom: 0; }
     .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
     .field-input {
-      padding: 0.6875rem 0.75rem;
-      border: 1px solid var(--gray-40); border-radius: var(--radius-sm);
-      font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--type-secondary);
+      padding: 0.6875rem 0.875rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
       background: #fff; outline: none;
       transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
     }
