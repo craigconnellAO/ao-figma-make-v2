@@ -85,10 +85,10 @@ Strata class: `btn-primary`
 
 | Token | Hex |
 |---|---|
-| `action-primary-base` | `#008945` |
+| `action-primary-base` | `#00893e` |
 | `action-primary-hover` | `#00560b` |
-| `action-primary-focus` | `#008945` |
-| `action-primary-active` | `#02422b` |
+| `action-primary-focus` | `#00893e` |
+| `action-primary-active` | `#003d00` |
 | `action-primary-contrast` | `#ffffff` |
 | `action-primary-glow` | `#12c35a` |
 
@@ -98,9 +98,9 @@ Strata class: `btn-secondary`
 
 | Token | Hex |
 |---|---|
-| `action-secondary-base` | `#0a64c2` |
+| `action-secondary-base` | `#0564c2` |
 | `action-secondary-hover` | `#00318f` |
-| `action-secondary-focus` | `#0a64c2` |
+| `action-secondary-focus` | `#0564c2` |
 | `action-secondary-active` | `#001876` |
 | `action-secondary-contrast` | `#ffffff` |
 | `action-secondary-glow` | `#40a1f8` |
@@ -232,13 +232,13 @@ Focus ring: `0 0 0 4px var(--action-secondary-glow)` applied to all interactive 
   --shadow-overlay: #011630;
 
   /* Action — primary (green) */
-  --action-primary-base: #008945;  --action-primary-hover: #00560b;
-  --action-primary-focus: #008945;  --action-primary-active: #02422b;
+  --action-primary-base: #00893e;  --action-primary-hover: #00560b;
+  --action-primary-focus: #00893e;  --action-primary-active: #003d00;
   --action-primary-contrast: #ffffff;  --action-primary-glow: #12c35a;
 
   /* Action — secondary (blue / Action Main) */
-  --action-secondary-base: #0a64c2;  --action-secondary-hover: #00318f;
-  --action-secondary-focus: #0a64c2;  --action-secondary-active: #001876;
+  --action-secondary-base: #0564c2;  --action-secondary-hover: #00318f;
+  --action-secondary-focus: #0564c2;  --action-secondary-active: #001876;
   --action-secondary-contrast: #ffffff;  --action-secondary-glow: #40a1f8;
 
   /* Action — light / dark / inactive */

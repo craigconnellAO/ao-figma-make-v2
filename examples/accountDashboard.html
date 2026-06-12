@@ -15,20 +15,20 @@
       --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
       --shadow-overlay: #011630;
       /* Action — primary (Green Main) */
-      --action-primary-base: #008945; --action-primary-hover: #00560b;
-      --action-primary-focus: #008945; --action-primary-active: #02422b;
+      --action-primary-base: #00893e; --action-primary-hover: #00560b;
+      --action-primary-focus: #00893e; --action-primary-active: #003d00;
       --action-primary-contrast: #ffffff; --action-primary-glow: #12c35a;
       /* Action — secondary (Action Main blue) */
-      --action-secondary-base: #0a64c2; --action-secondary-hover: #00318f;
-      --action-secondary-focus: #0a64c2; --action-secondary-active: #001876;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0564c2; --action-secondary-active: #001876;
       --action-secondary-contrast: #ffffff; --action-secondary-glow: #40a1f8;
       --action-light-base: #ffffff; --action-light-contrast: #011f44;
       --action-dark-base: #011f44; --action-dark-contrast: #ffffff;
       --action-inactive-base: #727677; --action-inactive-contrast: #ffffff;
       --ui-core-base: #ffffff; --ui-core-contrast: #212121; --ui-core-accent: #d6dddf;
       --ui-neutral-base: #f0f2f2; --ui-neutral-contrast: #212121; --ui-neutral-accent: #abb1b4;
-      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #0a64c2;
-      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #008945;
+      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #00893e;
       --ui-warning-base: #fff4e6; --ui-warning-contrast: #ad5a00; --ui-warning-accent: #ff9e36;
       --ui-error-base: #fff0f6; --ui-error-contrast: #b50016; --ui-error-accent: #b50016;
       --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
@@ -50,6 +50,8 @@
       color: var(--type-secondary);
       font-size: 1rem; line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     /* ─── Type ─────────────────────────────────────────── */
@@ -88,9 +90,9 @@
     /* ─── Button ────────────────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: 9999px;
+      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
-      font-size: 1rem; line-height: 1; border: 2px solid transparent; cursor: pointer;
+      font-size: 1rem; line-height: 1; border: 1px solid transparent; cursor: pointer;
       white-space: nowrap; text-decoration: none;
       transition: background 150ms, color 150ms, border-color 150ms;
     }
@@ -120,11 +122,11 @@
     /* ─── Notice ────────────────────────────────────────── */
     .notice {
       display: flex; gap: 0.75rem; align-items: flex-start;
-      padding: 0.75rem 1rem; border-radius: var(--radius-sm);
-      font-size: 0.875rem; border: 1px solid transparent;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem;
     }
     .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
-    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
 
     /* ─── Layout ────────────────────────────────────────── */
     .page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }

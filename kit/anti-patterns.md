@@ -39,7 +39,7 @@ If you see the "Don't" on the left in input or output, refuse to produce it, exp
 | ❌ Don't | ✅ Do |
 |---|---|
 | Inter on a button label | Always `t-cta` / SmileyFace Bold on `<button>`. No exceptions. |
-| SmileyFace at 0.75rem or 0.875rem | SmileyFace minimum is `t-title-sm` (16px / 1rem). Below that, switch to Inter. |
+| SmileyFace at 0.75rem (12px) | SmileyFace minimum is `t-title-sm` (14px / 0.875rem). Below that, switch to Inter. |
 | `font-weight: 300` on body | Inter 400 is the minimum body weight. |
 | `text-transform: uppercase` on CTAs | AO buttons are sentence-case verbs. |
 | ALL CAPS LABELS in tags or buttons | Sentence case. |

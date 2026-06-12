@@ -25,7 +25,7 @@ Components, in order:
 
 ## 1 · Button
 
-Pill-shaped, SmileyFace Bold label, 2px border. The `primary` variant is reserved for the **one** main CTA per visual section.
+8px radius, SmileyFace Bold label, 1px border. The `primary` variant is reserved for the **one** main CTA per visual section.
 
 **Variants:** `primary` (green) · `secondary` (blue, outlined) · `tertiary` (neutral outline) · `white` (on dark surfaces) · `dark` (alternative primary on light surfaces) · `inactive` (auto-applied when disabled).
 
@@ -52,9 +52,9 @@ Pill-shaped, SmileyFace Bold label, 2px border. The `primary` variant is reserve
 ```css
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  padding: 0.6875rem 1.5rem; border-radius: 9999px;
+  padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
   font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
-  border: 2px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
+  border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
   transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
 }
 .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
@@ -132,9 +132,9 @@ The accessibility-wired form pattern. Always wrap an input in a `.field` so the 
 .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
 
 .field-input {
-  padding: 0.6875rem 0.75rem;
-  border: 1px solid var(--gray-40); border-radius: var(--radius-sm);
-  font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--type-secondary);
+  padding: 0.6875rem 0.875rem;
+  border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
   background: #fff; outline: none; width: 100%;
   transition: border-color 150ms, box-shadow 150ms;
 }
@@ -211,63 +211,203 @@ Inherits all Input states. Use for multi-line input.
 
 ## 5 · Checkbox / Radio (toggle items)
 
-Card-style toggle items — generous tap target, optional sub-label. Use in a `.toggle-group` for grouped controls.
+Card-style selection controls — generous tap target, blue selection theme, supports rich multi-line content. Use `RadioButtonGroup` for single-choice and `CheckboxGroup` for multi-choice.
 
-### HTML
+**Naming:** matches AO Storybook — `data-aods="radio-button-group"` / `data-aods="radio-button"` (and `checkbox-group` / `checkbox`). The Figma Make output **must** use these names so prototypes wire up correctly.
+
+**Variants:** default (square card) · `pill` (rounded card) · `inline` (horizontal row) · `full-width` (children stretch).
+**States:** default · `:hover` · `:focus-visible` · `:checked` (selected) · `:disabled` (unavailable).
+
+### HTML — stacked (default)
 
 ```html
-<fieldset>
+<fieldset data-aods="radio-button-group">
   <legend class="field-label" style="margin-bottom:0.5rem;">Delivery options</legend>
-  <div class="toggle-group" data-aods="radio-button-group">
-    <label class="toggle-item">
-      <input type="radio" name="delivery" value="standard" checked>
-      <div>
-        <div class="toggle-item-label">Standard delivery</div>
-        <div class="toggle-item-sub">3–5 working days · free</div>
+  <div class="toggle-group">
+    <label class="toggle-item" data-aods="radio-button">
+      <input type="radio" name="delivery" value="next" checked>
+      <div class="toggle-item-body">
+        <div class="toggle-item-label">Next day — Free</div>
+        <div class="toggle-item-sub">Order before midnight</div>
       </div>
     </label>
-    <label class="toggle-item">
-      <input type="radio" name="delivery" value="express">
-      <div>
-        <div class="toggle-item-label">Express delivery</div>
-        <div class="toggle-item-sub">Next working day · £5.99</div>
+    <label class="toggle-item" data-aods="radio-button">
+      <input type="radio" name="delivery" value="named">
+      <div class="toggle-item-body">
+        <div class="toggle-item-label">Named day</div>
+        <div class="toggle-item-sub">Choose your slot — £5.99</div>
+      </div>
+    </label>
+    <label class="toggle-item is-disabled" data-aods="radio-button">
+      <input type="radio" name="delivery" value="sat" disabled>
+      <div class="toggle-item-body">
+        <div class="toggle-item-label">Saturday</div>
+        <div class="toggle-item-sub toggle-item-sub--xs">Unavailable</div>
       </div>
     </label>
   </div>
 </fieldset>
+```
 
-<!-- Checkbox group -->
+### HTML — inline pill row (with 3-line content)
+
+Use when the user is picking from a small set of equal-weight, scannable options (e.g. day picker, size picker, slot picker).
+
+```html
+<fieldset data-aods="radio-button-group" class="toggle-group toggle-group--inline toggle-group--pill toggle-group--full">
+  <legend class="visually-hidden">Choose a delivery day</legend>
+  <label class="toggle-item" data-aods="radio-button">
+    <input type="radio" name="day" value="sun" checked>
+    <div class="toggle-item-body">
+      <strong class="toggle-item-line">Sun</strong>
+      <span   class="toggle-item-line toggle-item-sub">12th Oct</span>
+      <strong class="toggle-item-line">£5.00</strong>
+    </div>
+  </label>
+  <label class="toggle-item" data-aods="radio-button">
+    <input type="radio" name="day" value="mon">
+    <div class="toggle-item-body">
+      <strong class="toggle-item-line">Mon</strong>
+      <span   class="toggle-item-line toggle-item-sub">11th Oct</span>
+      <strong class="toggle-item-line">Free</strong>
+    </div>
+  </label>
+  <label class="toggle-item is-disabled" data-aods="radio-button">
+    <input type="radio" name="day" value="tue" disabled>
+    <div class="toggle-item-body">
+      <strong class="toggle-item-line">Tues</strong>
+      <span   class="toggle-item-line toggle-item-sub">13th Oct</span>
+      <span   class="toggle-item-line toggle-item-sub--xs">Unavailable</span>
+    </div>
+  </label>
+  <label class="toggle-item" data-aods="radio-button">
+    <input type="radio" name="day" value="wed">
+    <div class="toggle-item-body">
+      <strong class="toggle-item-line">Wed</strong>
+      <span   class="toggle-item-line toggle-item-sub">14th Oct</span>
+      <strong class="toggle-item-line">Free</strong>
+    </div>
+  </label>
+</fieldset>
+```
+
+### HTML — checkbox group
+
+```html
 <div class="toggle-group" data-aods="checkbox-group">
-  <label class="toggle-item">
-    <input type="checkbox" value="warranty">
-    <div>
-      <div class="toggle-item-label">3-year warranty</div>
-      <div class="toggle-item-sub">+£59 — covers parts and labour.</div>
+  <label class="toggle-item" data-aods="checkbox">
+    <input type="checkbox" value="warranty" checked>
+    <div class="toggle-item-body">
+      <div class="toggle-item-label">3-year AO guarantee</div>
+      <div class="toggle-item-sub">Extend your cover — from £29</div>
     </div>
   </label>
 </div>
 ```
 
+### HTML — recommended / highlighted card
+
+The selected/recommended plan pattern. **Blue theme — never green.** Green is reserved for the primary CTA below it.
+
+```html
+<label class="toggle-item toggle-item--highlight" data-aods="radio-button" aria-current="true">
+  <input type="radio" name="plan" value="25gb" checked class="visually-hidden">
+  <span class="tag tag-recommended">Recommended</span>
+  <div class="toggle-item-body">
+    <div class="toggle-item-head">
+      <strong class="toggle-item-title">25GB</strong>
+      <strong class="toggle-item-price">£12<span class="toggle-item-price-unit">/month</span></strong>
+    </div>
+    <p class="toggle-item-desc">Plenty of data for streaming, social and everyday browsing.</p>
+    <ul class="toggle-item-features">
+      <li>UK 5G coverage included</li>
+      <li>30-day rolling, cancel any time</li>
+      <li>Roaming in 40+ EU countries</li>
+    </ul>
+  </div>
+</label>
+```
+
 ### CSS
 
 ```css
-.toggle-group { display: flex; flex-direction: column; gap: 0.5rem; }
+/* Group layouts */
+.toggle-group               { display: flex; flex-direction: column; gap: 0.5rem; border: 0; padding: 0; margin: 0; }
+.toggle-group--inline       { flex-direction: row; flex-wrap: wrap; }
+.toggle-group--inline > .toggle-item { flex: 1 1 0; min-width: 0; }
+.toggle-group--full         { width: 100%; }
+
+/* Item — default (square card) */
 .toggle-item {
-  display: flex; align-items: center; gap: 0.625rem;
-  padding: 0.625rem 0.875rem; border-radius: var(--radius-sm);
-  border: 1px solid var(--gray-40); background: #fff; cursor: pointer;
-  transition: border-color 150ms, background 150ms;
+  position: relative;
+  display: flex; align-items: flex-start; gap: 0.625rem;
+  padding: 0.75rem 0.875rem; border-radius: var(--radius-sm);
+  border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
+  transition: border-color 150ms, background 150ms, box-shadow 150ms;
 }
-.toggle-item:hover { border-color: var(--gray-60); background: var(--gray-10); }
-.toggle-item input { accent-color: var(--action-secondary-base); width: 16px; height: 16px; flex-shrink: 0; }
-.toggle-item-label { font-size: 0.9375rem; color: var(--type-secondary); }
-.toggle-item-sub   { font-size: 0.8125rem; color: var(--type-tertiary); }
+.toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 0.875rem 1rem; }
+
+/* Input — accent colour drives the dot/check */
+.toggle-item input { accent-color: var(--action-secondary-base); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+
+/* Body */
+.toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
+.toggle-item-line  { display: block; }
+.toggle-item-label { font-size: 0.9375rem; font-weight: 700; color: var(--type-secondary); }
+.toggle-item-sub      { font-size: 0.8125rem; color: var(--type-tertiary); }
+.toggle-item-sub--xs  { font-size: 0.75rem;   color: var(--type-tertiary); }
+
+/* States */
+.toggle-item:hover                { border-color: var(--gray-60); background: var(--gray-10); }
+.toggle-item:has(:focus-visible)  { outline: 0; box-shadow: 0 0 0 4px var(--action-secondary-glow); border-color: var(--action-secondary-base); }
+.toggle-item:has(:checked) {
+  border-color: var(--action-secondary-base);
+  background: color-mix(in srgb, var(--action-secondary-base) 8%, white);
+}
+.toggle-item:has(:checked) .toggle-item-label,
+.toggle-item:has(:checked) .toggle-item-line { color: var(--type-primary); }
+
+.toggle-item.is-disabled,
+.toggle-item:has(:disabled) {
+  background: var(--gray-20); border-color: var(--gray-30);
+  cursor: not-allowed; color: var(--gray-90);
+}
+.toggle-item.is-disabled .toggle-item-label { color: var(--gray-90); }
+
+/* Highlighted / recommended card (blue — never green) */
+.toggle-item--highlight {
+  border-width: 2px;
+  border-color: var(--action-secondary-base);
+  background: color-mix(in srgb, var(--action-secondary-base) 6%, white);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.125rem 1.125rem;
+}
+.toggle-item--highlight .tag-recommended {
+  position: absolute; top: -0.625rem; left: 1rem;
+  background: var(--action-secondary-base); color: var(--action-secondary-contrast);
+  border-color: var(--action-secondary-base);
+}
+.toggle-item-head { display: flex; justify-content: space-between; align-items: baseline; }
+.toggle-item-title { font-size: 1.25rem; color: var(--type-primary); }
+.toggle-item-price { font-size: 1.25rem; color: var(--type-primary); }
+.toggle-item-price-unit { font-size: 0.875rem; color: var(--type-tertiary); font-weight: 400; }
+.toggle-item-desc { font-size: 0.9375rem; color: var(--type-secondary); margin: 0.5rem 0; }
+.toggle-item-features { margin: 0.5rem 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.toggle-item-features li::before { content: "✓ "; color: var(--action-secondary-base); font-weight: 700; }
+
+/* Visually hidden legend (for inline groups where the legend would crowd the layout) */
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 ```
 
 ### Rules
 
-- Groups use `<fieldset>` + `<legend>` for screen-reader grouping.
-- Sub-label is optional but encouraged for radio groups with price or duration variants.
+- Groups use `<fieldset>` + `<legend>` for screen-reader grouping. Use `.visually-hidden` on the legend when an inline pill row would crowd it visually.
+- Selection theme is **blue** (`action-secondary`). Never green — green is reserved for the primary CTA in the same view.
+- Sub-label is optional but encouraged for radio groups with price, duration, or availability variants.
+- Disabled options stay visible (greyed) so users understand *why* something isn't pickable — don't hide them. Show an `Unavailable` sub-line in `toggle-item-sub--xs`.
+- For the inline row variant, use `flex: 1 1 0` so columns stay equal width even with different content lengths.
+- The "recommended" / highlighted card is just a `.toggle-item--highlight` modifier — same component, not a separate one. The tag overhangs the top-left corner.
+- `data-aods` attributes are required (`radio-button-group`, `radio-button`, `checkbox-group`, `checkbox`) so AO prototype tooling and Code Connect can map back to the real component.
 
 ---
 
@@ -346,14 +486,14 @@ Inline alerts for info, success, warning, error. Smaller than a Card; sits in-fl
 ```css
 .notice {
   display: flex; gap: 0.75rem; align-items: flex-start;
-  padding: 0.75rem 1rem; border-radius: var(--radius-sm);
-  font-size: 0.875rem; border: 1px solid transparent;
+  padding: 0.75rem; border-radius: var(--radius-sm);
+  font-size: 0.75rem;
 }
 .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
-.notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
-.notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
-.notice-warning   { background: var(--ui-warning-base);   color: var(--ui-warning-contrast);   border-color: var(--ui-warning-accent); }
-.notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast);     border-color: var(--ui-error-accent); }
+.notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
+.notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
+.notice-warning   { background: var(--palette-bread);     color: var(--type-secondary); }
+.notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast); }
 ```
 
 ### Rules
@@ -453,15 +593,17 @@ Limit to 2–7 tabs. Use accordion pattern on narrow screens.
 ```
 
 ```css
-.tab-list { display: flex; border-bottom: 2px solid var(--gray-30); gap: 0; }
+.tab-list { display: flex; border-bottom: 1px solid var(--gray-40); gap: 0; }
 .tab-item {
-  padding: 0.75rem 1.25rem; font-size: 0.9375rem;
-  color: var(--type-tertiary); cursor: pointer; border: none; background: transparent;
-  font-family: 'Inter', sans-serif; border-bottom: 2px solid transparent;
-  margin-bottom: -2px; transition: color 150ms, border-color 150ms;
+  padding: 1rem; font-size: 1rem;
+  color: var(--type-primary); cursor: pointer; border: none; background: transparent;
+  font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px; transition: color 150ms, border-color 150ms;
 }
-.tab-item:hover { color: var(--type-secondary); }
-.tab-item.active { color: var(--type-primary); border-bottom-color: var(--brand-primary-base); font-weight: 500; }
+.tab-item:hover { color: var(--type-primary); border-bottom-color: var(--gray-40); }
+.tab-item.active { color: var(--type-primary); border-bottom-color: var(--action-secondary-base); }
+.tab-item:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
 ```
 
 ---
@@ -490,20 +632,20 @@ Progressive disclosure for FAQ, product details, supplementary content. Not for 
 ```
 
 ```css
-.accordion { border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden; }
-.accordion-item { border-bottom: 1px solid var(--gray-30); }
+.accordion { overflow: hidden; }
+.accordion-item { border-bottom: 1px solid var(--gray-40); }
 .accordion-item:last-child { border-bottom: none; }
 .accordion-header {
   display: flex; align-items: center; justify-content: space-between;
-  width: 100%; padding: 1rem 1.25rem; background: #fff; border: none; cursor: pointer;
-  font-family: 'Inter', sans-serif; font-size: 0.9375rem; font-weight: 500; color: var(--type-primary);
+  width: 100%; padding: 1rem; background: #fff; border: none; cursor: pointer;
+  font-family: 'SmileyFace', Georgia, serif; font-size: 1rem; font-weight: 700; color: var(--type-primary);
   text-align: left; transition: background 150ms;
 }
 .accordion-header:hover,
 .accordion-header[aria-expanded="true"] { background: var(--gray-10); }
 .accordion-chevron { color: var(--gray-70); transition: transform 200ms; }
 .accordion-header[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
-.accordion-body { padding: 1rem 1.25rem; background: var(--gray-10); font-size: 0.9375rem; color: var(--type-secondary); line-height: 1.6; }
+.accordion-body { padding: 0 1rem 1rem; background: #fff; font-size: 0.875rem; color: var(--type-secondary); line-height: 1.6; }
 .accordion-body[hidden] { display: none; }
 ```
 

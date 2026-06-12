@@ -205,17 +205,17 @@ Two-column on desktop (line items + order summary card). Summary card is `card-r
     <!-- Add-ons -->
     <div class="card" data-aods="card">
       <h2 class="t-title-sm" style="margin-bottom: 1rem;">Add to your order</h2>
-      <div class="toggle-group">
-        <label class="toggle-item">
+      <div class="toggle-group" data-aods="checkbox-group">
+        <label class="toggle-item" data-aods="checkbox">
           <input type="checkbox" value="install">
-          <div>
+          <div class="toggle-item-body">
             <div class="toggle-item-label">Professional installation</div>
             <div class="toggle-item-sub">+£69 — install, level, and test.</div>
           </div>
         </label>
-        <label class="toggle-item">
+        <label class="toggle-item" data-aods="checkbox">
           <input type="checkbox" value="warranty">
-          <div>
+          <div class="toggle-item-body">
             <div class="toggle-item-label">3-year warranty</div>
             <div class="toggle-item-sub">+£59 — parts and labour.</div>
           </div>
