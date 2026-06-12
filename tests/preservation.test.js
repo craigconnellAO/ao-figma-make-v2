@@ -184,7 +184,7 @@ const EXPECTED_SPACING = [
 const EXPECTED_COMPONENTS = [
   'button', 'field', 'radio-button-group', 'radio-button',
   'checkbox-group', 'checkbox', 'tag', 'notice', 'card',
-  'breadcrumb', 'tabs', 'accordion', 'quantity', 'loading-spinner', 'nav',
+  'breadcrumb', 'tabs', 'accordion', 'quantity', 'loading-spinner', 'nav', 'footer',
 ];
 
 // The 14 component root types from the index
@@ -368,12 +368,12 @@ describe('Property 2: Preservation — Correct Token & Structure Stability', () 
       );
     });
 
-    it('components index lists exactly 14 items', () => {
+    it('components index lists exactly 15 items', () => {
       const componentListMatch = componentsMd.match(/Components, in order:\n\n([\s\S]*?)\n---/);
       expect(componentListMatch).not.toBeNull();
 
       const listItems = componentListMatch[1].match(/^\d+\./gm);
-      expect(listItems).toHaveLength(14);
+      expect(listItems).toHaveLength(15);
     });
 
     it('every data-aods value in components.md HTML blocks is from the expected set', () => {

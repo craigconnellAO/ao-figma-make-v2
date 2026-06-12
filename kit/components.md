@@ -20,6 +20,7 @@ Components, in order:
 12. [Quantity stepper](#12--quantity-stepper)
 13. [Loading spinner](#13--loading-spinner)
 14. [Nav](#14--nav)
+15. [Footer](#15--footer)
 
 ---
 
@@ -712,33 +713,274 @@ Rule: show after a 300ms delay; under 300ms, show nothing. For waits over 2s, us
 
 ---
 
-## 14 · Nav
+## 14 · Nav (Header)
 
-The dark navy header used across ao.com.
+White header with AO logo, icon navigation, and a green accent bar. Responsive: icons-only on mobile, full nav + search on desktop.
+
+**Variants:** `mobile` (icon bar + proposition) · `desktop` (logo + search + categories + icons) · `checkout` (simplified, logo + back) · `basket` (simplified, logo + close)
+
+### HTML — Mobile
 
 ```html
-<nav class="nav" data-aods="nav">
-  <span class="nav-logo">ao.</span>
-  <ul class="nav-links">
-    <li><a href="#">Appliances</a></li>
-    <li><a href="#">TV &amp; Audio</a></li>
-    <li><a href="#">Computing</a></li>
-  </ul>
-  <button class="btn btn-primary btn-sm" data-aods="button">Basket (2)</button>
-</nav>
+<header data-aods="nav">
+  <nav class="nav-mobile">
+    <button class="nav-icon" aria-label="Menu">
+      <span class="nav-icon-img" aria-hidden="true">☰</span>
+      <span class="nav-icon-label">Menu</span>
+    </button>
+    <button class="nav-icon" aria-label="Search">
+      <span class="nav-icon-img" aria-hidden="true">🔍</span>
+      <span class="nav-icon-label">Search</span>
+    </button>
+    <a href="/" class="nav-logo" aria-label="AO Home">
+      <span class="nav-logo-mark">ao.</span>
+    </a>
+    <a href="/account" class="nav-icon">
+      <span class="nav-icon-img" aria-hidden="true">👤</span>
+      <span class="nav-icon-label">Account</span>
+    </a>
+    <a href="/basket" class="nav-icon">
+      <span class="nav-icon-img" aria-hidden="true">🛒</span>
+      <span class="nav-icon-label">Basket</span>
+    </a>
+  </nav>
+  <div class="nav-accent"></div>
+  <div class="nav-proposition">
+    <span class="nav-proposition-item">Price match promise</span>
+  </div>
+</header>
 ```
 
-```css
-.nav {
-  background: var(--type-primary);
-  padding: 0.875rem 2rem;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 20;
-  box-shadow: var(--shadow-md);
-}
-.nav-logo { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em; }
-.nav-links { display: flex; gap: 1.75rem; list-style: none; }
-.nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
-.nav-links a:hover { color: #fff; }
-@media (max-width: 640px) { .nav { padding: 0.75rem 1rem; } .nav-links { display: none; } }
+### HTML — Desktop
+
+```html
+<header data-aods="nav">
+  <div class="nav-desktop">
+    <a href="/" class="nav-logo nav-logo--lg" aria-label="AO Home">
+      <span class="nav-logo-mark">ao.</span>
+    </a>
+    <div class="nav-desktop-right">
+      <div class="nav-desktop-top">
+        <div class="nav-search">
+          <input class="nav-search-input" type="search" placeholder="Search for products & brands">
+          <button class="nav-search-btn" aria-label="Search">🔍</button>
+        </div>
+        <div class="nav-desktop-icons">
+          <a href="/track" class="nav-icon"><span class="nav-icon-img" aria-hidden="true">📦</span><span class="nav-icon-label">Track order</span></a>
+          <a href="/account" class="nav-icon"><span class="nav-icon-img" aria-hidden="true">👤</span><span class="nav-icon-label">Account</span></a>
+          <a href="/basket" class="nav-icon"><span class="nav-icon-img" aria-hidden="true">🛒</span><span class="nav-icon-label">Basket</span></a>
+        </div>
+      </div>
+      <nav class="nav-categories">
+        <a href="/appliances">Appliances</a>
+        <a href="/tv">TV & Entertainment</a>
+        <a href="/computing">Computing</a>
+        <a href="/mobile">Mobile Phones</a>
+        <a href="/smart-tech">Smart Tech</a>
+        <a href="/floorcare">Floorcare</a>
+        <a href="/deals" class="nav-categories-deals">Deals</a>
+      </nav>
+    </div>
+  </div>
+  <div class="nav-accent"></div>
+  <div class="nav-proposition">
+    <span class="nav-proposition-item">Price match promise</span>
+    <span class="nav-proposition-item">Free 100 days returns</span>
+    <span class="nav-proposition-item">Rated Excellent</span>
+    <span class="nav-proposition-item">Next day delivery, 7 days a week</span>
+    <span class="nav-proposition-item">Pay with AO Finance</span>
+  </div>
+</header>
 ```
+
+### CSS
+
+```css
+/* Nav — Header */
+[data-aods="nav"] { position: sticky; top: 0; z-index: 20; }
+
+.nav-mobile {
+  background: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+}
+.nav-desktop {
+  background: #fff;
+  display: flex; gap: 1.75rem; align-items: flex-start;
+  padding: 1.5rem 8.5rem 0;
+}
+.nav-desktop-right { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+.nav-desktop-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.nav-desktop-icons { display: flex; gap: 1.5rem; }
+
+.nav-icon {
+  display: flex; flex-direction: column; align-items: center;
+  text-decoration: none; cursor: pointer; background: none; border: none;
+}
+.nav-icon-img { font-size: 1.75rem; }
+.nav-icon-label {
+  font-family: 'Inter', sans-serif; font-size: 0.75rem;
+  color: var(--type-primary); line-height: 1.25rem;
+}
+
+.nav-logo-mark {
+  font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+  font-size: 2.5rem; color: var(--brand-primary-base); letter-spacing: -0.02em;
+}
+.nav-logo--lg .nav-logo-mark { font-size: 4rem; }
+
+.nav-search {
+  display: flex; width: 384px;
+}
+.nav-search-input {
+  flex: 1; padding: 0.5rem 1rem;
+  border: 1px solid var(--brand-primary-base); border-radius: 1.5rem 0 0 1.5rem;
+  font-family: 'Inter', sans-serif; font-size: 0.875rem;
+  color: var(--type-secondary); outline: none;
+}
+.nav-search-input::placeholder { color: var(--gray-70); }
+.nav-search-btn {
+  width: 3rem; background: var(--brand-primary-base); border: none;
+  border-radius: 0 3.75rem 3.75rem 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+}
+
+.nav-categories {
+  display: flex; gap: 2rem; padding: 1rem 0;
+  font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
+}
+.nav-categories a { color: var(--type-primary); text-decoration: none; }
+.nav-categories a:hover { text-decoration: underline; }
+.nav-categories-deals { color: #cf1a30; }
+
+.nav-accent { height: 4px; background: var(--brand-primary-base); }
+
+.nav-proposition {
+  background: var(--gray-10);
+  display: flex; align-items: center; justify-content: center; gap: 2rem;
+  padding: 0.5rem 1rem;
+}
+.nav-proposition-item {
+  font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-tertiary);
+}
+
+@media (max-width: 990px) {
+  .nav-desktop { display: none; }
+  .nav-proposition { justify-content: center; gap: 0; }
+  .nav-proposition-item:not(:first-child) { display: none; }
+}
+@media (min-width: 991px) {
+  .nav-mobile { display: none; }
+}
+```
+
+### Rules
+
+- Mobile shows icon bar only — no text categories
+- Desktop shows full navigation with search, categories, and icon nav
+- Green accent bar (4px, brand-primary-base) separates header from proposition bar
+- Category labels use SmileyFace Bold 14px
+- Icon labels use Inter Regular 12px (mobile) or SmileyFace Regular 14px (desktop)
+- "Deals" link is red (#cf1a30) — only exception to type-primary colour
+- Search bar has green border and pill-shaped button
+
+---
+
+## 15 · Footer
+
+Two-tone dark footer with link columns and legal copy.
+
+### HTML
+
+```html
+<footer class="footer" data-aods="footer">
+  <div class="footer-links">
+    <div class="footer-col">
+      <a href="#">Contact us</a>
+      <a href="#">Help & advice</a>
+      <a href="#">About us</a>
+      <a href="#">Privacy</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Our services</a>
+      <a href="#">Track your order</a>
+      <a href="#">My account</a>
+      <a href="#">AO Care</a>
+    </div>
+  </div>
+  <div class="footer-secondary">
+    <div class="footer-col">
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Careers</a>
+      <a href="#">AO Life</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Modern Slavery Statement</a>
+      <a href="#">Affiliates</a>
+      <a href="#">Partners</a>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <p>ao.com is operated by AO Retail Limited, registered in England with company number 03914998.</p>
+    <p>Credit is provided by NewDay Ltd. AO Retail Limited acts as a credit broker. Subject to status.</p>
+  </div>
+</footer>
+```
+
+### CSS
+
+```css
+.footer { width: 100%; }
+.footer-links {
+  background: var(--gray-90);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  padding: 1.5rem 1rem;
+}
+.footer-col {
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.footer-links a {
+  font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+  font-size: 0.875rem; color: #fff; text-decoration: none; line-height: 1.25;
+}
+.footer-links a:hover { text-decoration: underline; }
+
+.footer-secondary {
+  background: var(--gray-100);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  padding: 1.5rem 1rem 1rem;
+}
+.footer-secondary a {
+  font-family: 'Inter', sans-serif; font-size: 0.875rem;
+  color: #fff; text-decoration: none; line-height: 1.625;
+}
+.footer-secondary a:hover { text-decoration: underline; }
+
+.footer-legal {
+  background: var(--gray-100);
+  padding: 1rem;
+  text-align: center;
+}
+.footer-legal p {
+  font-family: 'Inter', sans-serif; font-size: 0.75rem;
+  color: var(--gray-50); line-height: 1.625;
+  margin: 0 0 1rem;
+}
+
+@media (min-width: 990px) {
+  .footer-links { padding: 2rem 8.5rem; grid-template-columns: repeat(4, 1fr); }
+  .footer-secondary { padding: 1.5rem 8.5rem; grid-template-columns: repeat(4, 1fr); }
+  .footer-legal { padding: 1rem 8.5rem 2rem; }
+}
+```
+
+### Rules
+
+- Footer link section uses SmileyFace Bold 14px (like category nav)
+- Secondary links use Inter Regular 14px
+- Legal copy uses Inter Regular 12px in gray-50
+- Two background tones: gray-90 for primary links, gray-100 for secondary + legal
+- Mobile: 2 columns. Desktop: 4 columns with wider padding
+- `data-aods="footer"` on the root element
