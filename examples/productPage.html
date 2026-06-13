@@ -6,6 +6,7 @@
   <title>AO Design System — Visual Example</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     :root {
       --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
@@ -80,9 +81,9 @@
       box-shadow: var(--shadow-md);
     }
     .nav-logo {
-      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
-      font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em;
+      display: flex; align-items: center; text-decoration: none;
     }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
     .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms ease-out; }
     .nav-links a:hover { color: #fff; }
@@ -197,7 +198,7 @@
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
       border: 1px solid transparent; cursor: pointer;
       transition: background 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out, box-shadow 150ms ease-out;
@@ -216,7 +217,7 @@
     .btn-dark      { background: var(--type-primary); color: #fff; border-color: var(--type-primary); }
     .btn-dark:hover { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
     .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
-    .btn-lg        { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
+    .btn-lg        { padding: 1.125rem 2rem; font-size: 1.0625rem; }
     .btn-full      { width: 100%; }
 
     .cta-stack { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -231,7 +232,7 @@
     .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
     .notice-warning   { background: var(--palette-bread);     color: var(--type-secondary); }
     .notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast); }
-    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-icon { flex-shrink: 0; }
 
     /* ─── Lower ─────────────────────────────────────────── */
     .lower { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; margin-top: 3rem; }
@@ -262,9 +263,10 @@
     /* Form */
     .field { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1rem; }
     .field:last-of-type { margin-bottom: 0; }
-    .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
     .field-input {
-      padding: 0.6875rem 0.875rem;
+      height: 48px;
+      padding: 0 0.875rem;
       border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
       font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
       background: #fff; outline: none;
@@ -316,7 +318,7 @@
 
 <!-- ─── Navigation ──────────────────────────────────────── -->
 <nav class="nav" data-aods="nav">
-  <span class="nav-logo">ao.</span>
+  <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
   <ul class="nav-links">
     <li><a href="#">Washing Machines</a></li>
     <li><a href="#">Dishwashers</a></li>
@@ -364,7 +366,7 @@
     <!-- Details -->
     <div class="detail">
       <div class="tags">
-        <span class="tag tag-success" data-aods="tag">✓ In stock</span>
+        <span class="tag tag-success" data-aods="tag"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> In stock</span>
         <span class="tag tag-highlight" data-aods="tag">Free delivery</span>
         <span class="tag tag-neutral" data-aods="tag">A+++ rated</span>
       </div>
@@ -385,21 +387,21 @@
 
       <ul class="delivery t-body-sm">
         <li>
-          <span class="delivery-tick">✓</span>
+          <i class="ico ico-tick ico-xs delivery-tick" aria-hidden="true"></i>
           <div>
             <div style="color:var(--type-secondary);">Free next-day delivery</div>
             <div class="t-caption">Order before midnight — delivered tomorrow</div>
           </div>
         </li>
         <li>
-          <span class="delivery-tick">✓</span>
+          <i class="ico ico-tick ico-xs delivery-tick" aria-hidden="true"></i>
           <div>
             <div style="color:var(--type-secondary);">Free recycling of your old machine</div>
             <div class="t-caption">We collect it on delivery</div>
           </div>
         </li>
         <li>
-          <span class="delivery-tick">✓</span>
+          <i class="ico ico-tick ico-xs delivery-tick" aria-hidden="true"></i>
           <div>
             <div style="color:var(--type-secondary);">2-year AO guarantee included</div>
             <div class="t-caption">Extend to 5 years for £59</div>
@@ -428,7 +430,7 @@
       </div>
 
       <div class="notice notice-highlight" role="note">
-        <i class="notice-icon">ℹ</i>
+        <i class="ico ico-info notice-icon" aria-hidden="true"></i>
         <div>
           <strong>Professional installation available.</strong>
           Add fitting for £69 and our engineers will install, level, and test your machine.
@@ -464,10 +466,10 @@
       <!-- Validation states demo -->
       <h2 class="t-title-lg" style="margin-top:2rem;margin-bottom:1rem;">Validation states</h2>
       <div style="display:flex;flex-direction:column;gap:0.5rem;">
-        <div class="notice notice-success" role="status"><i class="notice-icon">✓</i> Delivery confirmed for tomorrow, 8am–6pm</div>
-        <div class="notice notice-warning" role="note"><i class="notice-icon">⚠</i> Installation slots are limited this week. Book early.</div>
-        <div class="notice notice-error" role="alert"><i class="notice-icon">✗</i> Your payment was declined. Check your card details and try again.</div>
-        <div class="notice notice-highlight" role="note"><i class="notice-icon">ℹ</i> Price dropped £30 since you last viewed this product.</div>
+        <div class="notice notice-success" role="status"><i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i> Delivery confirmed for tomorrow, 8am–6pm</div>
+        <div class="notice notice-warning" role="note"><i class="ico ico-warning notice-icon" aria-hidden="true"></i> Installation slots are limited this week. Book early.</div>
+        <div class="notice notice-error" role="alert"><i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i> Your payment was declined. Check your card details and try again.</div>
+        <div class="notice notice-highlight" role="note"><i class="ico ico-info notice-icon" aria-hidden="true"></i> Price dropped £30 since you last viewed this product.</div>
       </div>
     </div>
 
@@ -487,7 +489,7 @@
           <div class="field">
             <label class="field-label" for="email">Email for updates</label>
             <input class="field-input is-success" id="email" type="email" value="craig@example.com">
-            <p class="field-msg is-success">✓ Valid email address</p>
+            <p class="field-msg is-success"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Valid email address</p>
           </div>
 
           <div class="field">

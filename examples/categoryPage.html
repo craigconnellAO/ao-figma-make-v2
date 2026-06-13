@@ -6,6 +6,7 @@
   <title>AO — Washing Machines</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     :root {
       --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
@@ -73,9 +74,9 @@
       box-shadow: var(--shadow-md);
     }
     .nav-logo {
-      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem;
-      color: var(--brand-primary-base); letter-spacing: -0.02em; text-decoration: none;
+      display: flex; align-items: center; text-decoration: none;
     }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
     .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
     .nav-links a:hover { color: #fff; }
@@ -93,7 +94,7 @@
     /* ─── Button ────────────────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
       font-size: 1rem; line-height: 1; border: 1px solid transparent; cursor: pointer;
       white-space: nowrap; text-decoration: none;
@@ -250,7 +251,7 @@
 <body>
 
   <nav class="nav" data-aods="nav">
-    <a href="/" class="nav-logo">ao.</a>
+    <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
     <ul class="nav-links">
       <li><a href="#">Appliances</a></li>
       <li><a href="#">TV &amp; Audio</a></li>
@@ -334,9 +335,9 @@
         <div class="sort-bar">
           <div class="active-filters">
             <span class="t-body-sm t-secondary" style="white-space:nowrap;">Active filters:</span>
-            <button class="filter-chip">Bosch <span class="filter-chip-x" aria-hidden="true">✕</span></button>
-            <button class="filter-chip">8–10kg <span class="filter-chip-x" aria-hidden="true">✕</span></button>
-            <button class="filter-chip">A+++ <span class="filter-chip-x" aria-hidden="true">✕</span></button>
+            <button class="filter-chip">Bosch <i class="ico ico-close ico-xs filter-chip-x" aria-hidden="true"></i></button>
+            <button class="filter-chip">8–10kg <i class="ico ico-close ico-xs filter-chip-x" aria-hidden="true"></i></button>
+            <button class="filter-chip">A+++ <i class="ico ico-close ico-xs filter-chip-x" aria-hidden="true"></i></button>
             <button style="background:none;border:none;font-size:0.8125rem;color:var(--action-secondary-base);text-decoration:underline;cursor:pointer;font-family:'Inter',sans-serif;padding:0;">Clear all</button>
           </div>
           <div class="sort-select-wrap">

@@ -6,6 +6,7 @@
 <title>AO Mobile — Bottom Sheet Variants</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
 <style>
 @font-face { font-family:'SmileyFace-Headline'; font-display:swap; src:url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'); }
 @font-face { font-family:'SmileyFace'; font-weight:100; font-display:swap; src:url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff2') format('woff2'); }
@@ -88,7 +89,20 @@ body {
   border:1px solid var(--gray-40); background:#fff; cursor:pointer;
   transition:border-color 150ms,background 150ms,box-shadow 150ms;
 }
-.toggle-item input { accent-color:var(--action-secondary-base); width:18px; height:18px; flex-shrink:0; margin-top:2px; }
+.toggle-item input {
+  appearance: none; -webkit-appearance: none;
+  width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+  border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+}
+.toggle-item input[type="radio"] { border-radius: 50%; }
+.toggle-item input[type="checkbox"] { border-radius: 4px; }
+.toggle-item input:checked {
+  border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+  background-size: 14px; background-position: center; background-repeat: no-repeat;
+}
+.toggle-item input[type="radio"]:checked { background-image: none; box-shadow: inset 0 0 0 4px #fff; }
 .toggle-item-body  { display:flex; flex-direction:column; gap:0.125rem; min-width:0; flex:1; }
 .toggle-item-line  { display:block; }
 .toggle-item-label { font-size:0.9375rem; font-weight:700; color:var(--type-secondary); }
@@ -115,7 +129,7 @@ body {
 
 /* ── Notice ── */
 .notice { display:flex; gap:0.75rem; align-items:flex-start; padding:0.75rem 1rem; border-radius:var(--radius-sm); font-size:0.875rem; border:1px solid transparent; }
-.notice-icon { flex-shrink:0; font-style:normal; font-weight:600; }
+.notice-icon { flex-shrink: 0; }
 .notice-highlight { background:var(--ui-highlight-base); color:var(--ui-highlight-contrast); border-color:var(--ui-highlight-accent); }
 .notice-success   { background:var(--ui-success-base);   color:var(--ui-success-contrast);   border-color:var(--ui-success-accent); }
 
@@ -464,7 +478,7 @@ body {
             </label>
           </fieldset>
           <div class="notice notice-highlight" role="note" data-aods="notice" style="margin-bottom:1rem;">
-            <i class="notice-icon" aria-hidden="true">ℹ</i>
+            <i class="ico ico-info notice-icon" aria-hidden="true"></i>
             <span>UK 5G included on all plans. 30-day rolling, cancel any time.</span>
           </div>
         </div>
@@ -547,9 +561,9 @@ body {
                 </div>
                 <p class="t-body-sm" style="margin:0.375rem 0;">Everyday streaming, social and browsing.</p>
                 <ul style="list-style:none;display:flex;flex-direction:column;gap:0.25rem;font-size:0.8125rem;">
-                  <li style="color:var(--action-secondary-base);">✓ <span style="color:var(--type-secondary);">UK 5G coverage</span></li>
-                  <li style="color:var(--action-secondary-base);">✓ <span style="color:var(--type-secondary);">30-day rolling</span></li>
-                  <li style="color:var(--action-secondary-base);">✓ <span style="color:var(--type-secondary);">Roaming in 40+ countries</span></li>
+                  <li style="color:var(--action-secondary-base);"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> <span style="color:var(--type-secondary);">UK 5G coverage</span></li>
+                  <li style="color:var(--action-secondary-base);"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> <span style="color:var(--type-secondary);">30-day rolling</span></li>
+                  <li style="color:var(--action-secondary-base);"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> <span style="color:var(--type-secondary);">Roaming in 40+ countries</span></li>
                 </ul>
               </div>
             </label>
@@ -605,9 +619,9 @@ body {
                   <strong style="font-family:'SmileyFace',Georgia,serif;font-size:1.125rem;color:var(--type-primary);">£8<span style="font-size:0.875rem;font-weight:400;color:var(--type-tertiary);font-family:'Inter',sans-serif;">/month</span></strong>
                 </div>
                 <ul style="list-style:none;display:flex;flex-direction:column;gap:0.25rem;font-size:0.8125rem;margin-top:0.5rem;">
-                  <li style="color:var(--action-secondary-base);">✓ <span style="color:var(--type-secondary);">Accidental damage</span></li>
-                  <li style="color:var(--action-secondary-base);">✓ <span style="color:var(--type-secondary);">Breakdown &amp; faults</span></li>
-                  <li style="color:var(--action-secondary-base);">✓ <span style="color:var(--type-secondary);">Loss cover included</span></li>
+                  <li style="color:var(--action-secondary-base);"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> <span style="color:var(--type-secondary);">Accidental damage</span></li>
+                  <li style="color:var(--action-secondary-base);"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> <span style="color:var(--type-secondary);">Breakdown &amp; faults</span></li>
+                  <li style="color:var(--action-secondary-base);"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> <span style="color:var(--type-secondary);">Loss cover included</span></li>
                 </ul>
               </div>
             </label>
@@ -698,7 +712,7 @@ body {
 
     <!-- Basket confirmation -->
     <div class="basket-screen is-hidden" id="basketScreen" role="status" aria-live="polite">
-      <div class="basket-icon" aria-hidden="true">🛒</div>
+      <i class="ico ico-basket ico-3x basket-icon" aria-hidden="true"></i>
       <h2 class="t-title" style="margin-bottom:0.25rem;">Added to basket</h2>
       <p class="t-body-sm t-secondary">Your phone and any selected extras are ready for checkout.</p>
       <button class="btn btn-primary btn-lg" data-aods="button" id="resetBtn" style="margin-top:0.5rem;">Start again</button>

@@ -6,6 +6,7 @@
   <title>AO Design System — Components</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     /* ─── Tokens ────────────────────────────────────────── */
     :root {
@@ -83,9 +84,9 @@
       box-shadow: var(--shadow-md);
     }
     .nav-logo {
-      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
-      font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em;
+      display: flex; align-items: center; text-decoration: none;
     }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
     .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
     .nav-links a:hover { color: #fff; }
@@ -160,7 +161,7 @@
     /* ─── Buttons ────────────────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
       border: 1px solid transparent; cursor: pointer;
       transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
@@ -180,8 +181,8 @@
     .btn-dark      { background: var(--type-primary); color: #fff; border-color: var(--type-primary); }
     .btn-dark:hover      { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
     .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
-    .btn-lg   { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
-    .btn-sm   { padding: 0.4375rem 1rem; font-size: 0.875rem; }
+    .btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-sm   { padding: 0.6875rem 1rem; font-size: 0.875rem; }
     .btn-icon { padding: 0.6875rem; border-radius: var(--radius-sm); }
     .btn-full { width: 100%; }
 
@@ -205,7 +206,7 @@
       padding: 0.75rem; border-radius: var(--radius-sm);
       font-size: 0.75rem;
     }
-    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-icon { flex-shrink: 0; }
     .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
     .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
     .notice-warning   { background: var(--palette-bread);     color: var(--type-secondary); }
@@ -224,10 +225,11 @@
 
     /* ─── Forms ──────────────────────────────────────────── */
     .field { display: flex; flex-direction: column; gap: 0.25rem; }
-    .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
     .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
     .field-input {
-      padding: 0.6875rem 0.875rem;
+      height: 48px;
+      padding: 0 0.875rem;
       border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
       font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
       background: #fff; outline: none; width: 100%;
@@ -265,7 +267,20 @@
       transition: border-color 150ms, background 150ms;
     }
     .toggle-item:hover { border-color: var(--gray-60); background: var(--gray-10); }
-    .toggle-item input { accent-color: var(--action-secondary-base); width: 16px; height: 16px; flex-shrink: 0; }
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: 4px; }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked { background-image: none; box-shadow: inset 0 0 0 4px #fff; }
     .toggle-item-label { font-size: 0.9375rem; color: var(--type-secondary); }
     .toggle-item-sub   { font-size: 0.8125rem; color: var(--type-tertiary); }
 
@@ -375,7 +390,7 @@
 
 <!-- ─── Navigation ──────────────────────────────────────── -->
 <nav class="nav" data-aods="nav">
-  <span class="nav-logo">ao.</span>
+  <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
   <ul class="nav-links">
     <li><a href="#">Foundations</a></li>
     <li><a href="#">Components</a></li>
@@ -707,7 +722,7 @@
             <div class="field">
               <label class="field-label" for="i-success">Success state</label>
               <input class="field-input is-success" id="i-success" type="email" value="craig@example.com">
-              <span class="field-msg is-success">✓ Valid email address</span>
+              <span class="field-msg is-success"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Valid email address</span>
             </div>
 
             <div class="field">
@@ -719,7 +734,7 @@
             <div class="field">
               <label class="field-label" for="i-highlight">Highlight state</label>
               <input class="field-input is-highlight" id="i-highlight" type="text" value="Selected option">
-              <span class="field-msg is-highlight">ℹ This is the recommended choice</span>
+              <span class="field-msg is-highlight"><i class="ico ico-info ico-xs" aria-hidden="true"></i> This is the recommended choice</span>
             </div>
 
             <div class="field">
@@ -859,11 +874,11 @@
           <p class="subsection-title">Semantic variants — always use ui-* tokens</p>
           <div class="demo">
             <div class="demo-row">
-              <span class="tag tag-success" data-aods="tag">✓ In stock</span>
+              <span class="tag tag-success" data-aods="tag"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> In stock</span>
               <span class="tag tag-highlight" data-aods="tag">Free delivery</span>
               <span class="tag tag-neutral" data-aods="tag">A+++ rated</span>
-              <span class="tag tag-warning" data-aods="tag">⚠ Only 3 left</span>
-              <span class="tag tag-error" data-aods="tag">✗ Out of stock</span>
+              <span class="tag tag-warning" data-aods="tag"><i class="ico ico-warning ico-xs" aria-hidden="true"></i> Only 3 left</span>
+              <span class="tag tag-error" data-aods="tag"><i class="ico ico-cancel ico-xs" aria-hidden="true"></i> Out of stock</span>
               <span class="tag tag-dark" data-aods="tag">New arrival</span>
             </div>
           </div>
@@ -873,9 +888,9 @@
           <p class="subsection-title">Large variant</p>
           <div class="demo">
             <div class="demo-row">
-              <span class="tag tag-lg tag-success" data-aods="tag">✓ In stock</span>
-              <span class="tag tag-lg tag-highlight" data-aods="tag">ℹ Price drop</span>
-              <span class="tag tag-lg tag-warning" data-aods="tag">⚠ Low stock</span>
+              <span class="tag tag-lg tag-success" data-aods="tag"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> In stock</span>
+              <span class="tag tag-lg tag-highlight" data-aods="tag"><i class="ico ico-info ico-xs" aria-hidden="true"></i> Price drop</span>
+              <span class="tag tag-lg tag-warning" data-aods="tag"><i class="ico ico-warning ico-xs" aria-hidden="true"></i> Low stock</span>
             </div>
           </div>
         </div>
@@ -892,19 +907,19 @@
 
         <div class="demo demo-col">
           <div class="notice notice-success" role="status" data-aods="notice">
-            <i class="notice-icon">✓</i>
+            <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
             <div><strong>Delivery confirmed.</strong> Your order will arrive tomorrow between 8am and 6pm.</div>
           </div>
           <div class="notice notice-highlight" role="note" data-aods="notice">
-            <i class="notice-icon">ℹ</i>
+            <i class="ico ico-info notice-icon" aria-hidden="true"></i>
             <div><strong>Professional installation available.</strong> Add fitting for £69 and our engineers will install and test your machine.</div>
           </div>
           <div class="notice notice-warning" role="note" data-aods="notice">
-            <i class="notice-icon">⚠</i>
+            <i class="ico ico-warning notice-icon" aria-hidden="true"></i>
             <div><strong>Only 3 left in stock.</strong> Installation slots for this week are filling up fast.</div>
           </div>
           <div class="notice notice-error" role="alert" data-aods="notice">
-            <i class="notice-icon">✗</i>
+            <i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i>
             <div><strong>Payment declined.</strong> Check your card details and try again, or use a different payment method.</div>
           </div>
         </div>
@@ -1014,7 +1029,7 @@
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="true" aria-controls="acc-1" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('acc-1').toggleAttribute('hidden')">
               Delivery information
-              <svg class="accordion-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
             </button>
             <div class="accordion-body" id="acc-1" role="region">
               We offer free next-day delivery on all appliances. Order before midnight for delivery tomorrow between 8am and 6pm. You'll receive a 2-hour delivery window by text the morning of your delivery.
@@ -1023,7 +1038,7 @@
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false" aria-controls="acc-2" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('acc-2').toggleAttribute('hidden')">
               Returns policy
-              <svg class="accordion-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
             </button>
             <div class="accordion-body" id="acc-2" role="region" hidden>
               Changed your mind? No problem. Return any item within 30 days in its original condition and we'll give you a full refund. Just call our team and we'll arrange a collection at a time that suits you.
@@ -1032,7 +1047,7 @@
           <div class="accordion-item">
             <button class="accordion-header" aria-expanded="false" aria-controls="acc-3" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='true'?'false':'true'); document.getElementById('acc-3').toggleAttribute('hidden')">
               Installation &amp; recycling
-              <svg class="accordion-chevron" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
             </button>
             <div class="accordion-body" id="acc-3" role="region" hidden>
               Add professional installation for £69 and our engineers will plumb in, level, and run a test cycle on your new machine. We can also take away your old appliance for free — just select that option at checkout.
@@ -1087,5 +1102,6 @@
   sections.forEach(s => observer.observe(s));
 </script>
 
+<script src="https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js"></script>
 </body>
 </html>

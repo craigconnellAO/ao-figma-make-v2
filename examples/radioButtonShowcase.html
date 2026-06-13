@@ -6,6 +6,7 @@
   <title>AO Design System — RadioButton showcase</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     /* ─── Tokens ────────────────────────────────────────── */
     :root {
@@ -92,8 +93,8 @@
     /* Item — default (square card) */
     .toggle-item {
       position: relative;
-      display: flex; align-items: flex-start; gap: 0.625rem;
-      padding: 0.75rem 0.875rem; border-radius: var(--radius-sm);
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
       border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
       transition: border-color 150ms, background 150ms, box-shadow 150ms;
     }
@@ -101,9 +102,19 @@
 
     /* Input */
     .toggle-item input {
-      accent-color: var(--action-secondary-base);
-      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
     }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: 4px; }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked { background-image: none; box-shadow: inset 0 0 0 4px #fff; }
 
     /* Body */
     .toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }

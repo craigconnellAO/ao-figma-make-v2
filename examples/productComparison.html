@@ -6,6 +6,7 @@
   <title>Product Comparison Shortlist — AO.com</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     /* @font-face — SmileyFace */
     @font-face {
@@ -133,7 +134,7 @@
     /* Buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
       border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
       transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
@@ -150,8 +151,8 @@
     .btn-dark { background: var(--action-dark-base); color: var(--action-dark-contrast); border-color: var(--action-dark-base); }
     .btn-dark:hover { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
     .btn-inactive { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
-    .btn-lg { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
-    .btn-sm { padding: 0.4375rem 1rem; font-size: 0.875rem; }
+    .btn-lg { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-sm { padding: 0.6875rem 1rem; font-size: 0.875rem; }
     .btn-icon { padding: 0.6875rem; }
     .btn-full { width: 100%; }
 
@@ -175,7 +176,7 @@
       padding: 0.75rem; border-radius: var(--radius-sm);
       font-size: 0.75rem;
     }
-    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-icon { flex-shrink: 0; }
     .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
     .notice-success { background: var(--ui-success-base); color: var(--ui-success-contrast); }
     .notice-warning { background: var(--palette-bread); color: var(--type-secondary); }
@@ -217,7 +218,8 @@
       position: sticky; top: 0; z-index: 20;
       box-shadow: var(--shadow-md);
     }
-    .nav-logo { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
     .nav-links { display: flex; gap: 1.75rem; list-style: none; padding: 0; margin: 0; }
     .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
     .nav-links a:hover { color: #fff; }
@@ -535,7 +537,7 @@
 
   <!-- Global Nav -->
   <nav class="nav" data-aods="nav">
-    <span class="nav-logo">ao.</span>
+    <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
     <ul class="nav-links">
       <li><a href="#">Appliances</a></li>
       <li><a href="#">TV &amp; Audio</a></li>
@@ -581,7 +583,7 @@
             <p class="product-card-price">£549</p>
           </div>
           <div class="product-card-actions">
-            <button class="btn btn-tertiary btn-sm btn-full btn-compare-active" data-aods="button" aria-pressed="true">✓ Compare</button>
+            <button class="btn btn-tertiary btn-sm btn-full btn-compare-active" data-aods="button" aria-pressed="true"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Compare</button>
           </div>
         </div>
 
@@ -595,7 +597,7 @@
             <p class="product-card-price">£429</p>
           </div>
           <div class="product-card-actions">
-            <button class="btn btn-tertiary btn-sm btn-full btn-compare-active" data-aods="button" aria-pressed="true">✓ Compare</button>
+            <button class="btn btn-tertiary btn-sm btn-full btn-compare-active" data-aods="button" aria-pressed="true"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Compare</button>
           </div>
         </div>
 
@@ -609,7 +611,7 @@
             <p class="product-card-price">£699</p>
           </div>
           <div class="product-card-actions">
-            <button class="btn btn-tertiary btn-sm btn-full btn-compare-active" data-aods="button" aria-pressed="true">✓ Compare</button>
+            <button class="btn btn-tertiary btn-sm btn-full btn-compare-active" data-aods="button" aria-pressed="true"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Compare</button>
           </div>
         </div>
 
@@ -637,17 +639,17 @@
             <div class="compare-tray-item">
               <div class="compare-tray-thumb" aria-hidden="true">🫧</div>
               <span class="compare-tray-name">Bosch Series 6</span>
-              <button class="compare-tray-remove" aria-label="Remove Bosch from comparison">✕</button>
+              <button class="compare-tray-remove" aria-label="Remove Bosch from comparison"><i class="ico ico-close"></i></button>
             </div>
             <div class="compare-tray-item">
               <div class="compare-tray-thumb" aria-hidden="true">🫧</div>
               <span class="compare-tray-name">Samsung ecobubble</span>
-              <button class="compare-tray-remove" aria-label="Remove Samsung from comparison">✕</button>
+              <button class="compare-tray-remove" aria-label="Remove Samsung from comparison"><i class="ico ico-close"></i></button>
             </div>
             <div class="compare-tray-item">
               <div class="compare-tray-thumb" aria-hidden="true">🫧</div>
               <span class="compare-tray-name">LG TurboWash</span>
-              <button class="compare-tray-remove" aria-label="Remove LG from comparison">✕</button>
+              <button class="compare-tray-remove" aria-label="Remove LG from comparison"><i class="ico ico-close"></i></button>
             </div>
           </div>
           <button class="btn btn-primary" data-aods="button">Compare now</button>
@@ -694,9 +696,9 @@
           </div>
 
           <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-            <li class="t-body-sm">✓ Free delivery tomorrow</li>
-            <li class="t-body-sm">✓ 2-year AO guarantee included</li>
-            <li class="t-body-sm">✓ 9kg drum · 1,400 rpm · Energy A+++</li>
+            <li class="t-body-sm"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Free delivery tomorrow</li>
+            <li class="t-body-sm"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> 2-year AO guarantee included</li>
+            <li class="t-body-sm"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> 9kg drum · 1,400 rpm · Energy A+++</li>
           </ul>
 
           <!-- CTA group -->
@@ -707,7 +709,7 @@
 
           <!-- Compare notice -->
           <div class="notice notice-highlight" role="note" data-aods="notice">
-            <i class="notice-icon" aria-hidden="true">ℹ</i>
+            <i class="ico ico-info notice-icon" aria-hidden="true"></i>
             <div><strong>Comparing 2 of 4 products.</strong> Add this product to compare side by side.</div>
           </div>
         </div>

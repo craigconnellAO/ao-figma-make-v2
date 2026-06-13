@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design System — Strata Icon Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --brand-primary-base: #12c35a; --brand-primary-light: #befcc8;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --action-primary-base: #00893e;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --radius-sm: 8px; --radius-md: 16px;
+      --shadow: 0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+    }
+
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 2rem;
+      font-family: 'Inter', sans-serif; font-size: 1rem;
+      color: var(--type-primary); background: var(--gray-10);
+      line-height: 1.5;
+    }
+
+    .page-header {
+      max-width: 1200px; margin: 0 auto 2rem;
+      padding-bottom: 1.5rem; border-bottom: 1px solid var(--gray-30);
+    }
+    .page-header h1 {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 2rem; margin: 0 0 0.5rem; color: var(--type-primary);
+    }
+    .page-header p { margin: 0; color: var(--type-tertiary); font-size: 0.875rem; }
+
+    .search-wrap {
+      max-width: 1200px; margin: 0 auto 2rem;
+    }
+    .search-input {
+      width: 100%; max-width: 400px; padding: 0.625rem 1rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      color: var(--type-secondary); outline: none;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .search-input:focus {
+      border-color: var(--action-secondary-base);
+      box-shadow: 0 0 0 3px rgba(5,100,194,0.15);
+    }
+    .search-input::placeholder { color: var(--gray-60); }
+
+    .size-demo {
+      max-width: 1200px; margin: 0 auto 2.5rem;
+      padding: 1.5rem; background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md);
+    }
+    .size-demo h2 {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1.25rem; margin: 0 0 1rem;
+    }
+    .size-row {
+      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .size-item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .size-item .ico { color: var(--type-primary); }
+    .size-item span { font-size: 0.75rem; color: var(--type-tertiary); }
+
+    .section {
+      max-width: 1200px; margin: 0 auto 2.5rem;
+    }
+    .section h2 {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1.25rem; margin: 0 0 1rem; color: var(--type-primary);
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1px; background: var(--gray-30);
+      border: 1px solid var(--gray-30); border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .icon-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.5rem; padding: 1.25rem 0.5rem; background: #fff;
+      text-align: center; cursor: pointer;
+      transition: background 150ms;
+    }
+    .icon-card:hover { background: var(--gray-10); }
+    .icon-card .ico { font-size: 1.5rem; color: var(--type-primary); }
+    .icon-card .icon-name {
+      font-size: 0.6875rem; color: var(--type-tertiary);
+      word-break: break-all; line-height: 1.3;
+    }
+    .icon-card.is-hidden { display: none; }
+
+    .count { font-size: 0.8125rem; color: var(--type-tertiary); margin-bottom: 1rem; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .icon-card { transition: background 150ms ease-out, transform 150ms ease-out; }
+      .icon-card:hover { transform: translateY(-2px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Strata Icon Library</h1>
+    <p>All icons from the AO Strata icon font. Click any icon to copy its class name.</p>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" class="search-input" id="iconSearch" placeholder="Filter icons… e.g. basket, chevron, delivery">
+  </div>
+
+  <div class="size-demo">
+    <h2>Size scale</h2>
+    <div class="size-row">
+      <div class="size-item"><i class="ico ico-basket ico-xs"></i><span>ico-xs</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-sm"></i><span>ico-sm</span></div>
+      <div class="size-item"><i class="ico ico-basket"></i><span>default</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-lg"></i><span>ico-lg</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-xl"></i><span>ico-xl</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-2x"></i><span>ico-2x</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-3x"></i><span>ico-3x</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-4x"></i><span>ico-4x</span></div>
+      <div class="size-item"><i class="ico ico-basket ico-5x"></i><span>ico-5x</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>All icons</h2>
+    <div class="count" id="iconCount"></div>
+    <div class="icon-grid" id="iconGrid"></div>
+  </div>
+
+  <script>
+    const icons = [
+      "10-days-to-collect","100-days-return","30-days-return","360-degrees",
+      "account","add-circle","add","aeroplane","afternoon","air-treatment",
+      "airfryer","amend-edit","american-fridge-freezer","ao-logo","ao-loves",
+      "ao-sorglos","ar","audio-speakers-battery-life","audio","award",
+      "bag","bar-pressure","basket","bluray","built-in","bundles",
+      "burr-grinder","buy-now-pay-later","buying-guides",
+      "calendar","call","camera","cancel-circle","cancel-order","cancel",
+      "capacity-1","capacity","card","cashback-euro","cashback-gbp","chat",
+      "chevron-down","chevron-left","chevron-right","chevron-up",
+      "cleaner","click-and-collect","clock-arrow","clock","close",
+      "co2-neutral","coffee-bean-to-cup","coffee-espresso-machine",
+      "coffee-filter","coffee-machine","coffee-pod","compare","confirmation",
+      "cooke-2","cooker-1","cooker-2","cooker-hood",
+      "cooking-noise-cooker-hood","cooking","copy","credit-limit",
+      "cup-capacity-1","cup-capacity-10","cup-capacity-2","cup-capacity-3",
+      "cup-capacity-4","cup-capacity-5","cup-capacity-6","cup-capacity-7",
+      "cup-capacity-8","cup-capacity-9","customer-service",
+      "delivery","desktop","devices",
+      "dishwasher-place-setting-10","dishwasher-place-setting-11",
+      "dishwasher-place-setting-12","dishwasher-place-setting-13-14",
+      "dishwasher-place-setting-13","dishwasher-place-setting-14",
+      "dishwasher-place-setting-15-plus","dishwasher-place-setting-15",
+      "dishwasher-place-setting-16","dishwasher-place-setting-6-12",
+      "dishwasher-place-setting-8","dishwasher-place-setting-9",
+      "dishwashers","document","door-hinge-1","door-hinge-2","door-hinge",
+      "download-document","download","dvd",
+      "energy-rating","enlarge","euro","events",
+      "exclusive-competitions","exclusive-tickets","exit","extraction-rate",
+      "family","faq","features-we-love","finance-euro","finance-gbp","finance",
+      "five-star-approved","five-star-deals","five-star-delivery",
+      "five-star-events","five-star-finance","five-star-member-deals",
+      "five-star-membership-large","five-star-membership",
+      "five-star-newsletter","five-star-recycling","five-star-returns",
+      "five-star-unpacking","flexible-payment-euro","flexible-payment-gbp",
+      "floorcar-bagged","floorcare-bagless",
+      "floorcare-capacity-large","floorcare-capacity-medium",
+      "floorcare-capacity-small","floorcare-capacity-x-small",
+      "floorcare-power-vacuum",
+      "floorcare-run-time-100","floorcare-run-time-120",
+      "floorcare-run-time-16","floorcare-run-time-160",
+      "floorcare-run-time-170","floorcare-run-time-180",
+      "floorcare-run-time-20","floorcare-run-time-30",
+      "floorcare-run-time-32","floorcare-run-time-35",
+      "floorcare-run-time-40","floorcare-run-time-44",
+      "floorcare-run-time-45","floorcare-run-time-50",
+      "floorcare-run-time-55","floorcare-run-time-60",
+      "floorcare-run-time-65","floorcare-run-time-70",
+      "floorcare-run-time-8","floorcare-run-time-80",
+      "floorcare-run-time-85","floorcare-run-time-90",
+      "floorcare-runtime-15","floorcare",
+      "free-delivery","freestanding","freezer","fridges-and-freezers","fridges",
+      "fuel-type-dual","fuel-type-electric","fuel-type-gas",
+      "games","gaming","gardening-and-diy","gas-plug","gbp","gift",
+      "graphics-card","grid",
+      "hair-and-beauty","hardwired",
+      "headphone-type-ear-hook","headphone-type-in-ear",
+      "headphone-type-on-ear","headphone-type-open-ear","headphone-type-over-ear",
+      "heart","heat-efficiency","hide",
+      "hob-type-ceramic","hob-type-extractor","hob-type-gas","hob-type-induction",
+      "hob","hobs-pan-support-1","hobs-pan-support","home","hourglass",
+      "info","installation","interest-free",
+      "keyboard",
+      "laptop",
+      "laundry-load-10-11","laundry-load-10-plus","laundry-load-12-plus",
+      "laundry-load-4-7","laundry-load-8-9","laundry-noise-tumble-dryer","laundry",
+      "lightbulb","link","list-bullet","list","live-chat","location","lock","lunch",
+      "mail","manageable-payment-euro","manageable-payment-gbp","measure",
+      "menu","mic",
+      "microwave-power-1000","microwave-power-1100","microwave-power-1150",
+      "microwave-power-1200","microwave-power-1400","microwave-power-1550",
+      "microwave-power-1700","microwave-power-700","microwave-power-750",
+      "microwave-power-800","microwave-power-900","microwave-power-950",
+      "microwave","mobile-phones","more","morning","movie",
+      "new-product-launch","newsletter","next-day-delivery","notification",
+      "number-of-burners-1","number-of-burners-2","number-of-burners-3",
+      "number-of-burners-4","number-of-burners-5","number-of-burners-6",
+      "number-of-burners-7","number-of-burners-8",
+      "number-prog-1","number-prog-10","number-prog-11","number-prog-12",
+      "number-prog-13","number-prog-14","number-prog-15","number-prog-16",
+      "number-prog-17","number-prog-18","number-prog-19","number-prog-2",
+      "number-prog-20","number-prog-21","number-prog-22","number-prog-23",
+      "number-prog-24","number-prog-25","number-prog-26","number-prog-27",
+      "number-prog-28","number-prog-29","number-prog-3","number-prog-30",
+      "number-prog-31","number-prog-32","number-prog-33","number-prog-34",
+      "number-prog-35","number-prog-36","number-prog-37","number-prog-38",
+      "number-prog-39","number-prog-4","number-prog-40","number-prog-41",
+      "number-prog-42","number-prog-43","number-prog-44","number-prog-45",
+      "number-prog-5","number-prog-6","number-prog-7","number-prog-8","number-prog-9",
+      "operating-systems","oven-hob-hood","oven-hob","oven",
+      "payback-points","payment-options-euro","payment-options-gbp",
+      "picture","play","plug","power-supply",
+      "price-match-euro","price-match-gbp","price-match","print","processor",
+      "product-info","promotion","protection","question-circle",
+      "ram","range-cooker-1","range-cooker-2","range-cooker-3","range-cooker-4",
+      "range-cooker","range","rating",
+      "rechedule-delivery","recycling","refresh",
+      "refund-euro","refund-gbp","reschedule-delivery","resolution","returns",
+      "reviews",
+      "screen-type-led","screen-type-mini-led","screen-type-oled","screen-type-qled",
+      "search","secure","semi-integrated","services","settings","share","shaver","show",
+      "small-appliances","smart-tech","smart-watch","solid-plates",
+      "soundbar-audio-power","soundbar-connectivity-bluetooth-hdmi",
+      "soundbar-connectivity-bluetooth","soundbar-connectivity-wired",
+      "soundbar-wired-wireless","soundbar-wired","spin-speed",
+      "split-type-10-90","split-type-20-80","split-type-40-60",
+      "split-type-50-50","split-type-60-40","split-type-70-30",
+      "spread-cost-euro","spread-cost-gbp","star","stop","storage-type","submit",
+      "subtract-circle","subtract","surround-sound","switch24-minimal",
+      "tag","text-message","thumbs-down","thumbs-up",
+      "tick-circle","tick","track-your-order","track",
+      "trade-in-switch-tick","trade-in-switch","trashcan","tumble-dryer",
+      "tv-digital-optical-output","tv-hdmi",
+      "tv-resolution-1080p","tv-resolution-4k","tv-resolution-720p","tv-resolution-8k",
+      "tv-screen-size","tv-usb","tv",
+      "vacuum","verification","warning",
+      "washer-dryer","washing-machine","water-resistance-rating","water-tank",
+      "zoom-in","zoom-out"
+    ];
+
+    const grid = document.getElementById('iconGrid');
+    const countEl = document.getElementById('iconCount');
+    const searchInput = document.getElementById('iconSearch');
+
+    // Render all icons
+    icons.forEach(name => {
+      const card = document.createElement('div');
+      card.className = 'icon-card';
+      card.dataset.name = name;
+      card.innerHTML = `<i class="ico ico-${name}"></i><span class="icon-name">ico-${name}</span>`;
+      card.title = `Click to copy: ico ico-${name}`;
+      card.addEventListener('click', () => {
+        navigator.clipboard.writeText(`ico ico-${name}`);
+        card.querySelector('.icon-name').textContent = 'Copied!';
+        setTimeout(() => {
+          card.querySelector('.icon-name').textContent = `ico-${name}`;
+        }, 1200);
+      });
+      grid.appendChild(card);
+    });
+
+    countEl.textContent = `${icons.length} icons`;
+
+    // Search/filter
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+      document.querySelectorAll('.icon-card').forEach(card => {
+        const match = card.dataset.name.includes(query);
+        card.classList.toggle('is-hidden', !match);
+        if (match) visible++;
+      });
+      countEl.textContent = query ? `${visible} of ${icons.length} icons` : `${icons.length} icons`;
+    });
+  </script>
+</body>
+</html>

@@ -6,6 +6,7 @@
   <title>AO — Sign in</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     @font-face {
       font-family: 'SmileyFace-Headline';
@@ -70,13 +71,9 @@
       align-items: center;
     }
     .nav-logo {
-      font-family: 'SmileyFace', Georgia, serif;
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #fff;
-      text-decoration: none;
-      letter-spacing: -0.5px;
+      display: flex; align-items: center; text-decoration: none;
     }
+    .nav-logo .ico { font-size: 1.5rem; color: #fff; }
 
     /* Page layout */
     .page {
@@ -107,7 +104,7 @@
 
     /* Field */
     .field { display: flex; flex-direction: column; gap: 0.25rem; }
-    .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
     .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
     .field-input {
       padding: 0.6875rem 0.75rem;
@@ -133,7 +130,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      padding: 0.6875rem 1.5rem;
+      padding: 0.875rem 1.5rem;
       border-radius: var(--radius-xs); /* 4px as requested */
       font-family: 'SmileyFace', Georgia, serif;
       font-weight: 700;
@@ -196,7 +193,7 @@
 <body>
 
   <nav class="nav">
-    <a href="#" class="nav-logo">ao</a>
+    <a href="#" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
   </nav>
 
   <main class="page">

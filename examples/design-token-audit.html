@@ -6,6 +6,7 @@
   <title>AO Design Token Audit</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     /* @font-face — SmileyFace */
     @font-face {
@@ -232,8 +233,8 @@
     .t-body            { font-family: 'Inter', sans-serif; font-size: 1rem;    line-height: 1.5; }
     .t-body-sm         { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.45; }
     .t-caption         { font-family: 'Inter', sans-serif; font-size: 0.75rem;  line-height: 1.4; color: var(--type-tertiary); }
-    .t-link            { font-family: 'Inter', sans-serif; font-size: 1rem;    text-decoration: underline; color: var(--action-secondary-base); }
-    .t-link-sm         { font-family: 'Inter', sans-serif; font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); }
+    .t-link            { font-family: 'Inter', sans-serif; font-size: 1rem;    font-weight: 700; text-decoration: underline; color: var(--action-secondary-base); }
+    .t-link-sm         { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; text-decoration: underline; color: var(--action-secondary-base); }
 
     /* Typography audit layout */
     .type-scale-list {
@@ -386,7 +387,7 @@
     /* Button component styles */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
       border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
       transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
@@ -415,8 +416,8 @@
 
     .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
 
-    .btn-lg   { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
-    .btn-sm   { padding: 0.4375rem 1rem; font-size: 0.875rem; }
+    .btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-sm   { padding: 0.6875rem 1rem; font-size: 0.875rem; }
     .btn-icon { padding: 0.6875rem; }
     .btn-full { width: 100%; }
 
@@ -456,11 +457,12 @@
 
     /* Field / Input component styles */
     .field { display: flex; flex-direction: column; gap: 0.25rem; }
-    .field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
     .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
 
     .field-input {
-      padding: 0.6875rem 0.875rem;
+      height: 48px;
+      padding: 0 0.875rem;
       border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
       font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
       background: #fff; outline: none; width: 100%;
@@ -547,14 +549,30 @@
 
     .toggle-item {
       position: relative;
-      display: flex; align-items: flex-start; gap: 0.625rem;
-      padding: 0.75rem 0.875rem; border-radius: var(--radius-sm);
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
       border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
       transition: border-color 150ms, background 150ms, box-shadow 150ms;
     }
-    .toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 0.875rem 1rem; }
+    .toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 1rem 1.25rem; }
 
-    .toggle-item input { accent-color: var(--action-secondary-base); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: var(--radius-xs); }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked {
+      background-image: none;
+      box-shadow: inset 0 0 0 4px #fff;
+    }
 
     .toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
     .toggle-item-line  { display: block; }
@@ -656,7 +674,8 @@
       position: sticky; top: 0; z-index: 20;
       box-shadow: var(--shadow-md);
     }
-    .nav-logo { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem; color: var(--brand-primary-base); letter-spacing: -0.02em; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
     .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
     .nav-links a:hover { color: #fff; }
@@ -664,6 +683,19 @@
 
     /* Screen-reader only utility */
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Notice component */
+    .notice {
+      display: flex; gap: 0.5rem; align-items: flex-start;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem; line-height: 1.625;
+    }
+    .notice-icon { flex-shrink: 0; font-size: 1.5rem; line-height: 1; }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--type-secondary); }
+    .notice-success   { background: var(--brand-primary-light); color: var(--type-secondary); }
+    .notice-warning   { background: var(--palette-bread);       color: var(--type-secondary); }
+    .notice-error     { background: var(--palette-simmer);      color: var(--type-secondary); }
+    .notice strong    { font-weight: 700; color: var(--type-secondary); }
   </style>
 </head>
 <body>
@@ -1340,7 +1372,7 @@
           <div class="type-scale-meta">
             <span>.t-link</span>
             <span>Inter</span>
-            <span>weight: 400</span>
+            <span>weight: 700</span>
             <span>size: 1rem (16px)</span>
             <span>line-height: 1.5</span>
           </div>
@@ -1352,7 +1384,7 @@
           <div class="type-scale-meta">
             <span>.t-link-sm</span>
             <span>Inter</span>
-            <span>weight: 400</span>
+            <span>weight: 700</span>
             <span>size: 0.875rem (14px)</span>
             <span>line-height: 1.45</span>
           </div>
@@ -1372,7 +1404,14 @@
           <button class="btn btn-primary btn-lg t-cta" data-aods="button">Large</button>
           <button class="btn btn-primary t-cta" data-aods="button">Default</button>
           <button class="btn btn-primary btn-sm t-cta" data-aods="button">Small</button>
-          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Icon">✕</button>
+          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-primary t-cta" data-aods="button"><i class="ico ico-basket" aria-hidden="true"></i> Add to basket</button>
+          <button class="btn btn-primary btn-sm t-cta" data-aods="button"><i class="ico ico-delivery" aria-hidden="true"></i> Check delivery</button>
+          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Search"><i class="ico ico-search"></i></button>
+          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Menu"><i class="ico ico-menu"></i></button>
         </div>
         <div class="buttons-row">
           <span class="buttons-row-label">Full width</span>
@@ -1396,7 +1435,14 @@
           <button class="btn btn-secondary btn-lg t-cta" data-aods="button">Large</button>
           <button class="btn btn-secondary t-cta" data-aods="button">Default</button>
           <button class="btn btn-secondary btn-sm t-cta" data-aods="button">Small</button>
-          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Icon">✕</button>
+          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-secondary t-cta" data-aods="button"><i class="ico ico-compare" aria-hidden="true"></i> Compare</button>
+          <button class="btn btn-secondary btn-sm t-cta" data-aods="button"><i class="ico ico-heart" aria-hidden="true"></i> Save</button>
+          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Share"><i class="ico ico-share"></i></button>
+          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Download"><i class="ico ico-download"></i></button>
         </div>
         <div class="buttons-row">
           <span class="buttons-row-label">Full width</span>
@@ -1420,7 +1466,14 @@
           <button class="btn btn-tertiary btn-lg t-cta" data-aods="button">Large</button>
           <button class="btn btn-tertiary t-cta" data-aods="button">Default</button>
           <button class="btn btn-tertiary btn-sm t-cta" data-aods="button">Small</button>
-          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="Icon">✕</button>
+          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-tertiary t-cta" data-aods="button"><i class="ico ico-amend-edit" aria-hidden="true"></i> Edit</button>
+          <button class="btn btn-tertiary btn-sm t-cta" data-aods="button"><i class="ico ico-trashcan" aria-hidden="true"></i> Remove</button>
+          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="Settings"><i class="ico ico-settings"></i></button>
+          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="More options"><i class="ico ico-more"></i></button>
         </div>
         <div class="buttons-row">
           <span class="buttons-row-label">Full width</span>
@@ -1445,7 +1498,12 @@
             <button class="btn btn-white btn-lg t-cta" data-aods="button">Large</button>
             <button class="btn btn-white t-cta" data-aods="button">Default</button>
             <button class="btn btn-white btn-sm t-cta" data-aods="button">Small</button>
-            <button class="btn btn-white btn-icon t-cta" data-aods="button" aria-label="Icon">✕</button>
+            <button class="btn btn-white btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+          </div>
+          <div class="buttons-row">
+            <span class="buttons-row-label" style="color:var(--gray-50);">With icons</span>
+            <button class="btn btn-white t-cta" data-aods="button"><i class="ico ico-play" aria-hidden="true"></i> Watch video</button>
+            <button class="btn btn-white btn-icon t-cta" data-aods="button" aria-label="Enlarge"><i class="ico ico-enlarge"></i></button>
           </div>
           <div class="buttons-row">
             <span class="buttons-row-label" style="color:var(--gray-50);">Full width</span>
@@ -1470,7 +1528,12 @@
           <button class="btn btn-dark btn-lg t-cta" data-aods="button">Large</button>
           <button class="btn btn-dark t-cta" data-aods="button">Default</button>
           <button class="btn btn-dark btn-sm t-cta" data-aods="button">Small</button>
-          <button class="btn btn-dark btn-icon t-cta" data-aods="button" aria-label="Icon">✕</button>
+          <button class="btn btn-dark btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-dark t-cta" data-aods="button"><i class="ico ico-lock" aria-hidden="true"></i> Sign in</button>
+          <button class="btn btn-dark btn-icon t-cta" data-aods="button" aria-label="Account"><i class="ico ico-account"></i></button>
         </div>
         <div class="buttons-row">
           <span class="buttons-row-label">Full width</span>
@@ -1494,7 +1557,7 @@
           <button class="btn btn-inactive btn-lg t-cta" data-aods="button" disabled>Large</button>
           <button class="btn btn-inactive t-cta" data-aods="button" disabled>Default</button>
           <button class="btn btn-inactive btn-sm t-cta" data-aods="button" disabled>Small</button>
-          <button class="btn btn-inactive btn-icon t-cta" data-aods="button" disabled aria-label="Icon">✕</button>
+          <button class="btn btn-inactive btn-icon t-cta" data-aods="button" disabled aria-label="Icon"><i class="ico ico-close"></i></button>
         </div>
         <div class="buttons-row">
           <span class="buttons-row-label">Full width</span>
@@ -1532,7 +1595,7 @@
         <div class="field" data-aods="field">
           <label class="field-label" for="input-success">Email address</label>
           <input class="field-input is-success" id="input-success" type="email" value="craig@example.com">
-          <p class="field-msg is-success">✓ Valid email address.</p>
+          <p class="field-msg is-success"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Valid email address.</p>
         </div>
 
         <!-- Disabled state -->
@@ -1756,24 +1819,26 @@
     <!-- Notices -->
     <section class="audit-section" id="notices">
       <h2>Notices</h2>
-      <div class="notice notice-highlight" role="note" data-aods="notice">
-        <i class="notice-icon" aria-hidden="true">ℹ</i>
-        <div><strong>Free delivery</strong> on orders over £50.</div>
-      </div>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="notice notice-success" role="status" data-aods="notice">
+          <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
+          <div><strong>Delivery confirmed.</strong> Your order will arrive tomorrow between 8am and 6pm.</div>
+        </div>
 
-      <div class="notice notice-success" role="status" data-aods="notice">
-        <i class="notice-icon" aria-hidden="true">✓</i>
-        Delivery confirmed for tomorrow, 8am–6pm.
-      </div>
+        <div class="notice notice-highlight" role="note" data-aods="notice">
+          <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+          <div><strong>Professional installation available.</strong> Add fitting for £69 and our engineers will install and test your machine.</div>
+        </div>
 
-      <div class="notice notice-warning" role="note" data-aods="notice">
-        <i class="notice-icon" aria-hidden="true">⚠</i>
-        Installation slots are limited this week. Book early.
-      </div>
+        <div class="notice notice-warning" role="note" data-aods="notice">
+          <i class="ico ico-warning notice-icon" aria-hidden="true"></i>
+          <div><strong>Only 3 left in stock.</strong> Installation slots for this week are filling up fast.</div>
+        </div>
 
-      <div class="notice notice-error" role="alert" data-aods="notice">
-        <i class="notice-icon" aria-hidden="true">✗</i>
-        Your payment was declined. Check your card details and try again.
+        <div class="notice notice-error" role="alert" data-aods="notice">
+          <i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i>
+          <div><strong>Payment declined.</strong> Check your card details and try again, or use a different payment method.</div>
+        </div>
       </div>
     </section>
 
@@ -1852,14 +1917,14 @@
         <div class="accordion-item">
           <button class="accordion-header" aria-expanded="true" aria-controls="acc-1">
             <span>Delivery information</span>
-            <span class="accordion-chevron" aria-hidden="true">▼</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
           </button>
           <div id="acc-1" class="accordion-body">We deliver within 2–3 working days across the UK mainland.</div>
         </div>
         <div class="accordion-item">
           <button class="accordion-header" aria-expanded="false" aria-controls="acc-2">
             <span>Returns policy</span>
-            <span class="accordion-chevron" aria-hidden="true">▼</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
           </button>
           <div id="acc-2" class="accordion-body" hidden>Return within 30 days for a full refund.</div>
         </div>
@@ -1903,7 +1968,7 @@
       <!-- Nav -->
       <h3 style="margin-top: 2rem;">Nav</h3>
       <nav class="nav" data-aods="nav" style="position: relative; top: auto;">
-        <span class="nav-logo">ao.</span>
+        <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
         <ul class="nav-links">
           <li><a href="#">Appliances</a></li>
           <li><a href="#">TV &amp; Audio</a></li>
@@ -1914,5 +1979,6 @@
     </section>
 
   </div>
+<script src="https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js"></script>
 </body>
 </html>

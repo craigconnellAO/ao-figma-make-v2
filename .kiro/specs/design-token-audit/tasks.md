@@ -109,4 +109,6 @@ This plan implements a design token and component audit for the AO Figma Make ki
 - Phase 1 approach changed: instead of relying on manual "Check Designs", we imported actual Figma library components via MCP and extracted specs programmatically
 - Phase 2 was completed by pulling variable definitions and design context from each library component
 - The productComparison.html example was partially updated (tokens only) but all examples need full CSS alignment
-- Header/Nav and Footer components still need detailed Figma extraction (multiple viewport variants)
+- Header/Nav: all variants extracted from Figma (Mobile Default, Checkout, Basket, Desktop 990/1200) — proposition bar with Strata icons documented
+- Footer: extracted from Figma — 3-row layout (gray-90 → gray-100 → gray-100), desktop centred pipe-separated layout confirmed
+- Icon system: Strata icon font integrated across all kit files and examples (CDN: assets.ao.com/design-system/assets/icons/latest/strata-icons.css)

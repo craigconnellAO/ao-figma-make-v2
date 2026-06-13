@@ -6,6 +6,7 @@
   <title>AO — My account</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
   <style>
     :root {
       --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
@@ -72,9 +73,9 @@
       position: sticky; top: 0; z-index: 20; box-shadow: var(--shadow-md);
     }
     .nav-logo {
-      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.75rem;
-      color: var(--brand-primary-base); letter-spacing: -0.02em; text-decoration: none;
+      display: flex; align-items: center; text-decoration: none;
     }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
     .nav-links { display: flex; gap: 1.75rem; list-style: none; }
     .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.875rem; }
     .nav-links a:hover { color: #fff; }
@@ -90,7 +91,7 @@
     /* ─── Button ────────────────────────────────────────── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
       font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
       font-size: 1rem; line-height: 1; border: 1px solid transparent; cursor: pointer;
       white-space: nowrap; text-decoration: none;
@@ -125,7 +126,7 @@
       padding: 0.75rem; border-radius: var(--radius-sm);
       font-size: 0.75rem;
     }
-    .notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
+    .notice-icon { flex-shrink: 0; }
     .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
 
     /* ─── Layout ────────────────────────────────────────── */
@@ -216,7 +217,7 @@
 <body>
 
   <nav class="nav" data-aods="nav">
-    <a href="/" class="nav-logo">ao.</a>
+    <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
     <ul class="nav-links">
       <li><a href="#">Appliances</a></li>
       <li><a href="#">TV &amp; Audio</a></li>
@@ -333,7 +334,7 @@
             <h2 class="t-title">You might also need</h2>
           </div>
           <div class="notice notice-highlight" role="note" data-aods="notice">
-            <i class="notice-icon" aria-hidden="true">ℹ</i>
+            <i class="ico ico-info notice-icon" aria-hidden="true"></i>
             <div>Washing machine care kits, descalers, and drum cleaning tablets are available to add to your next order.</div>
           </div>
           <div style="margin-top:1rem; display:flex; gap:0.75rem; flex-wrap:wrap;">

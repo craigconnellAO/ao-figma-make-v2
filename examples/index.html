@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design Kit — Prototype Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <style>
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+
+    :root {
+      --gray-10: #f8f9fa;
+      --gray-20: #f0f2f2;
+      --gray-30: #e2e7e8;
+      --gray-40: #d6dddf;
+      --gray-50: #c1c7c9;
+      --gray-70: #727677;
+      --gray-100: #212121;
+      --brand-primary-base: #12c35a;
+      --brand-primary-light: #befcc8;
+      --brand-primary-dark: #02422b;
+      --type-primary: #011f44;
+      --type-secondary: #212121;
+      --type-tertiary: #595d5e;
+      --action-secondary-base: #0564c2;
+      --action-secondary-hover: #00318f;
+      --action-secondary-glow: #40a1f8;
+      --ui-highlight-base: #edf2ff;
+      --ui-highlight-contrast: #00318f;
+      --ui-success-base: #f4fce3;
+      --ui-success-contrast: #02422b;
+      --ui-warning-base: #fff4e6;
+      --ui-warning-contrast: #ad5a00;
+      --ui-neutral-base: #f0f2f2;
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-2xl: 40px;
+      --shadow: 0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: var(--type-primary);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-logo {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--brand-primary-base);
+      letter-spacing: -0.02em;
+    }
+    .header-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+    }
+    .header-badge {
+      margin-left: auto;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      padding: 0.25rem 0.625rem;
+      border-radius: var(--radius-xs);
+    }
+
+    /* Page */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    /* Top bar */
+    .page-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .page-intro h1 {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      color: var(--type-primary);
+      margin-bottom: 0.5rem;
+      text-wrap: balance;
+    }
+    .page-intro p {
+      font-size: 0.9375rem;
+      color: var(--type-tertiary);
+      max-width: 55ch;
+      line-height: 1.6;
+    }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Filter chips */
+    .filter-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: var(--radius-2xl);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border: 1px solid var(--gray-40);
+      background: #fff;
+      color: var(--type-secondary);
+      cursor: pointer;
+      transition: background 150ms, border-color 150ms, color 150ms;
+      white-space: nowrap;
+    }
+    .chip:hover { background: var(--gray-20); border-color: var(--gray-50); }
+    .chip:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .chip.is-active {
+      background: var(--action-secondary-base);
+      border-color: var(--action-secondary-base);
+      color: #fff;
+    }
+    .chip-count {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+
+    /* Sort + view controls */
+    .toolbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .sort-select {
+      padding: 0.5rem 2rem 0.5rem 0.75rem;
+      border: 1px solid var(--gray-40);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      color: var(--type-secondary);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23727677' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.625rem center;
+    }
+    .sort-select:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+
+    .view-toggle {
+      display: flex;
+      border: 1px solid var(--gray-40);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .view-toggle button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: #fff;
+      border: none;
+      cursor: pointer;
+      color: var(--type-tertiary);
+      transition: background 150ms, color 150ms;
+    }
+    .view-toggle button:not(:last-child) { border-right: 1px solid var(--gray-40); }
+    .view-toggle button:hover { background: var(--gray-20); color: var(--type-secondary); }
+    .view-toggle button.is-active { background: var(--action-secondary-base); color: #fff; }
+    .view-toggle button:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; z-index: 1; }
+    .view-toggle svg { width: 18px; height: 18px; }
+
+    /* Gallery grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--gray-30);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 200ms ease-out, transform 200ms ease-out;
+    }
+    .card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .card:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .card[hidden] { display: none; }
+
+    .card-thumbnail {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      background: #fff;
+      border-bottom: 1px solid var(--gray-30);
+    }
+    .card-thumbnail iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 400%; height: 400%;
+      transform: scale(0.25);
+      transform-origin: top left;
+      border: none;
+      pointer-events: none;
+    }
+
+    .card-body {
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .card-body-text { flex: 1; min-width: 0; }
+    .card-title {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--type-primary);
+      margin-bottom: 0.25rem;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      flex-wrap: wrap;
+    }
+    .card-filename {
+      font-size: 0.75rem;
+      color: var(--type-tertiary);
+      font-family: monospace;
+    }
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--radius-2xl);
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .card-tag-page { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
+    .card-tag-component { background: var(--ui-success-base); color: var(--ui-success-contrast); }
+    .card-tag-token { background: var(--ui-warning-base); color: var(--ui-warning-contrast); }
+    .card-tag-pattern { background: var(--brand-primary-light); color: var(--brand-primary-dark); }
+
+    .card-date {
+      font-size: 0.6875rem;
+      color: var(--type-tertiary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-arrow {
+      color: var(--action-secondary-base);
+      font-size: 1.25rem;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 150ms ease-out, transform 150ms ease-out;
+      flex-shrink: 0;
+    }
+    .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+    /* List view */
+    .gallery.is-list {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .gallery.is-list .card {
+      border-radius: 0;
+      border-bottom: none;
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .gallery.is-list .card:first-child:not([hidden]) { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+    .gallery.is-list .card:last-child:not([hidden]) { border-radius: 0 0 var(--radius-md) var(--radius-md); border-bottom: 1px solid var(--gray-30); }
+    .gallery.is-list .card:hover { transform: none; box-shadow: var(--shadow-md); z-index: 1; position: relative; }
+    .gallery.is-list .card-thumbnail {
+      width: 140px; height: auto; min-height: 80px;
+      flex-shrink: 0; border-bottom: none; border-right: 1px solid var(--gray-30);
+    }
+    .gallery.is-list .card-thumbnail iframe { width: 560px; height: 320px; transform: scale(0.25); }
+    .gallery.is-list .card-body { padding: 0.875rem 1.5rem; }
+    .gallery.is-list .card-title { font-size: 1.0625rem; }
+    .gallery.is-list .card-arrow { opacity: 1; transform: translateX(0); color: var(--gray-50); }
+    .gallery.is-list .card:hover .card-arrow { color: var(--action-secondary-base); }
+
+    /* Empty state */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--type-tertiary);
+    }
+    .empty-state p { font-size: 0.9375rem; margin-bottom: 0.5rem; }
+    .empty-state button {
+      font-size: 0.875rem;
+      color: var(--action-secondary-base);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card, .card-arrow { transition: none; }
+      .card:hover { transform: none; }
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 1.5rem 1rem; }
+      .gallery { grid-template-columns: 1fr; }
+      .header { padding: 1rem; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .toolbar-controls { justify-content: flex-end; }
+      .gallery.is-list .card-thumbnail { width: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <span class="header-logo">ao.</span>
+  <span class="header-title">Design Kit Prototypes</span>
+  <span class="header-badge">v2.0</span>
+</header>
+
+<main class="page">
+  <div class="page-top">
+    <div class="page-intro">
+      <h1>Prototype Gallery</h1>
+      <p>Live previews of every prototype in the kit. Filter by type, sort by name or date, and click to open.</p>
+    </div>
+  </div>
+
+  <!-- Toolbar: filters + sort + view toggle -->
+  <div class="toolbar">
+    <div class="filter-chips" role="group" aria-label="Filter by category">
+      <button class="chip is-active" data-filter="all">All <span class="chip-count">12</span></button>
+      <button class="chip" data-filter="page">Pages <span class="chip-count">6</span></button>
+      <button class="chip" data-filter="component">Components <span class="chip-count">3</span></button>
+      <button class="chip" data-filter="token">Tokens <span class="chip-count">1</span></button>
+      <button class="chip" data-filter="pattern">Patterns <span class="chip-count">2</span></button>
+    </div>
+    <div class="toolbar-controls">
+      <label for="sort-select" class="visually-hidden">Sort by</label>
+      <select class="sort-select" id="sort-select">
+        <option value="alpha-asc">A → Z</option>
+        <option value="alpha-desc">Z → A</option>
+        <option value="date-desc" selected>Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="category">Category</option>
+      </select>
+      <div class="view-toggle" role="radiogroup" aria-label="View mode">
+        <button type="button" class="is-active" aria-label="Grid view" aria-checked="true" role="radio" data-view="grid">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="6" height="6" rx="1"/><rect x="12" y="2" width="6" height="6" rx="1"/>
+            <rect x="2" y="12" width="6" height="6" rx="1"/><rect x="12" y="12" width="6" height="6" rx="1"/>
+          </svg>
+        </button>
+        <button type="button" aria-label="List view" aria-checked="false" role="radio" data-view="list">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="2" y1="4" x2="18" y2="4"/><line x1="2" y1="8" x2="18" y2="8"/>
+            <line x1="2" y1="12" x2="18" y2="12"/><line x1="2" y1="16" x2="18" y2="16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="gallery" id="gallery">
+
+    <a href="kitShowcase.html" class="card" data-category="page" data-date="2026-06-12" data-title="Kit Showcase (PDP)">
+      <div class="card-thumbnail"><iframe src="kitShowcase.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Kit Showcase (PDP)</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-page">Page</span>
+            <span class="card-filename">kitShowcase.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="design-token-audit.html" class="card" data-category="token" data-date="2026-06-12" data-title="Design Token Audit">
+      <div class="card-thumbnail"><iframe src="design-token-audit.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Design Token Audit</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-token">Token</span>
+            <span class="card-filename">design-token-audit.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="componentLibrary.html" class="card" data-category="component" data-date="2026-06-12" data-title="Component Library">
+      <div class="card-thumbnail"><iframe src="componentLibrary.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Component Library</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-component">Component</span>
+            <span class="card-filename">componentLibrary.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="productPage.html" class="card" data-category="page" data-date="2026-06-12" data-title="Product Page">
+      <div class="card-thumbnail"><iframe src="productPage.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Product Page</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-page">Page</span>
+            <span class="card-filename">productPage.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="categoryPage.html" class="card" data-category="page" data-date="2026-06-12" data-title="Category Page">
+      <div class="card-thumbnail"><iframe src="categoryPage.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Category Page</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-page">Page</span>
+            <span class="card-filename">categoryPage.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="checkout.html" class="card" data-category="page" data-date="2026-06-12" data-title="Checkout">
+      <div class="card-thumbnail"><iframe src="checkout.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Checkout</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-page">Page</span>
+            <span class="card-filename">checkout.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="orderConfirmation.html" class="card" data-category="page" data-date="2026-06-12" data-title="Order Confirmation">
+      <div class="card-thumbnail"><iframe src="orderConfirmation.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Order Confirmation</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-page">Page</span>
+            <span class="card-filename">orderConfirmation.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="accountDashboard.html" class="card" data-category="page" data-date="2026-06-10" data-title="Account Dashboard">
+      <div class="card-thumbnail"><iframe src="accountDashboard.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Account Dashboard</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-page">Page</span>
+            <span class="card-filename">accountDashboard.html</span>
+            <span class="card-date">10 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="patternsGallery.html" class="card" data-category="pattern" data-date="2026-06-11" data-title="Patterns Gallery">
+      <div class="card-thumbnail"><iframe src="patternsGallery.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Patterns Gallery</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-pattern">Pattern</span>
+            <span class="card-filename">patternsGallery.html</span>
+            <span class="card-date">11 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="productComparison.html" class="card" data-category="pattern" data-date="2026-06-11" data-title="Product Comparison">
+      <div class="card-thumbnail"><iframe src="productComparison.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Product Comparison</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-pattern">Pattern</span>
+            <span class="card-filename">productComparison.html</span>
+            <span class="card-date">11 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="radioButtonShowcase.html" class="card" data-category="component" data-date="2026-06-12" data-title="Radio Button Showcase">
+      <div class="card-thumbnail"><iframe src="radioButtonShowcase.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Radio Button Showcase</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-component">Component</span>
+            <span class="card-filename">radioButtonShowcase.html</span>
+            <span class="card-date">12 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="iconLibrary.html" class="card" data-category="component" data-date="2026-06-09" data-title="Icon Library">
+      <div class="card-thumbnail"><iframe src="iconLibrary.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Icon Library</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-component">Component</span>
+            <span class="card-filename">iconLibrary.html</span>
+            <span class="card-date">9 Jun 2026</span>
+          </div>
+        </div>
+        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <!-- Empty state -->
+    <div class="empty-state" id="empty-state" hidden>
+      <p>No prototypes match this filter.</p>
+      <button type="button" id="clear-filter">Show all prototypes</button>
+    </div>
+
+  </div>
+</main>
+
+<style>.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }</style>
+
+<script>
+(function() {
+  const gallery = document.getElementById('gallery');
+  const cards = Array.from(gallery.querySelectorAll('.card'));
+  const chips = document.querySelectorAll('.chip');
+  const sortSelect = document.getElementById('sort-select');
+  const viewButtons = document.querySelectorAll('.view-toggle button');
+  const emptyState = document.getElementById('empty-state');
+  const clearFilter = document.getElementById('clear-filter');
+
+  let activeFilter = 'all';
+
+  // Filter
+  function applyFilter(filter) {
+    activeFilter = filter;
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      card.hidden = !show;
+      if (show) visibleCount++;
+    });
+    emptyState.hidden = visibleCount > 0;
+
+    chips.forEach(c => {
+      c.classList.toggle('is-active', c.dataset.filter === filter);
+    });
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => applyFilter(chip.dataset.filter));
+  });
+
+  clearFilter.addEventListener('click', () => applyFilter('all'));
+
+  // Sort
+  function applySort(mode) {
+    const sorted = [...cards].sort((a, b) => {
+      switch (mode) {
+        case 'alpha-asc':
+          return a.dataset.title.localeCompare(b.dataset.title);
+        case 'alpha-desc':
+          return b.dataset.title.localeCompare(a.dataset.title);
+        case 'date-desc':
+          return b.dataset.date.localeCompare(a.dataset.date);
+        case 'date-asc':
+          return a.dataset.date.localeCompare(b.dataset.date);
+        case 'category':
+          return a.dataset.category.localeCompare(b.dataset.category) || a.dataset.title.localeCompare(b.dataset.title);
+        default:
+          return 0;
+      }
+    });
+    sorted.forEach(card => gallery.appendChild(card));
+    gallery.appendChild(emptyState);
+  }
+
+  sortSelect.addEventListener('change', () => applySort(sortSelect.value));
+
+  // View toggle
+  viewButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      viewButtons.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-checked', 'false'); });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-checked', 'true');
+      gallery.classList.toggle('is-list', btn.dataset.view === 'list');
+    });
+  });
+
+  // Initial sort
+  applySort(sortSelect.value);
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js"></script>
+</body>
+</html>

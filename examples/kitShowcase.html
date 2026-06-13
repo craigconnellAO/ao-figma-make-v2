@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Bespoke AI Laundry Combo™ — ao.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    /* === @font-face === */
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 100;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 400;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 500;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+
+    /* === Tokens === */
+    :root {
+      /* Neutrals */
+      --gray-10: #f8f9fa;  --gray-20: #f0f2f2;  --gray-30: #e2e7e8;
+      --gray-40: #d6dddf;  --gray-50: #c1c7c9;  --gray-60: #abb1b4;
+      --gray-70: #727677;  --gray-80: #595d5e;  --gray-90: #3f4344;  --gray-100: #212121;
+
+      /* Brand green */
+      --brand-primary-base: #12c35a;  --brand-primary-light: #befcc8;  --brand-primary-dark: #02422b;
+
+      /* Typography */
+      --type-primary: #011f44;  --type-secondary: #212121;  --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+
+      /* Action — primary (green) */
+      --action-primary-base: #00893e;  --action-primary-hover: #00560b;
+      --action-primary-focus: #00893e;  --action-primary-active: #003d00;
+      --action-primary-contrast: #ffffff;  --action-primary-glow: #12c35a;
+
+      /* Action — secondary (blue / Action Main) */
+      --action-secondary-base: #0564c2;  --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0564c2;  --action-secondary-active: #001876;
+      --action-secondary-contrast: #ffffff;  --action-secondary-glow: #40a1f8;
+
+      /* Action — light / dark / inactive */
+      --action-light-base: #ffffff;  --action-light-contrast: #011f44;  --action-light-glow: #40a1f8;
+      --action-dark-base: #011f44;   --action-dark-contrast: #ffffff;   --action-dark-glow: #40a1f8;
+      --action-inactive-base: #727677;  --action-inactive-contrast: #ffffff;
+
+      /* UI surface groups (base / contrast / accent) */
+      --ui-core-base: #ffffff;       --ui-core-contrast: #212121;       --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2;    --ui-neutral-contrast: #212121;    --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff;  --ui-highlight-contrast: #00318f;  --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3;    --ui-success-contrast: #02422b;    --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6;    --ui-warning-contrast: #ad5a00;    --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6;      --ui-error-contrast: #b50016;      --ui-error-accent: #b50016;
+      --ui-light-base: #ffffff;      --ui-light-contrast: #011f44;      --ui-light-accent: #ffffff;
+      --ui-dark-base: #011f44;       --ui-dark-contrast: #ffffff;       --ui-dark-accent: #011f44;
+
+      /* Food palette — decorative only */
+      --palette-bread: #ffe3c2;  --palette-toast: #ffa878;  --palette-jam: #422439;
+      --palette-simmer: #ffd8d2; --palette-heat: #f96155;   --palette-burn: #60222f;
+      --palette-steam: #c8d1ff;  --palette-ice: #4a6dce;    --palette-water: #011f44;
+
+      /* Radius */
+      --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 16px;
+      --radius-xl: 24px; --radius-2xl: 40px;
+
+      /* Shadow */
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+      --shadow-xl: 0 20px 48px rgba(1,22,48,0.18), 0 8px 16px rgba(1,22,48,0.10);
+    }
+
+    /* === Reset === */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* === Base Typography === */
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.625;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      margin: 0;
+      background: #fff;
+    }
+
+    /* SmileyFace (headings + CTAs) */
+    .t-display-headline { font-family: 'SmileyFace-Headline', Georgia, serif; font-size: 2.5rem; line-height: 1.0; color: var(--type-primary); }
+    .t-display-lg      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem; line-height: 1.25; color: var(--type-primary); }
+    .t-display         { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.5rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-lg        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.25rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title           { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem; line-height: 1.25; color: var(--type-primary); }
+    .t-cta             { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1.25; }
+
+    /* Inter (body + UI) */
+    .t-body       { font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.625; }
+    .t-body-sm    { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.625; }
+    .t-caption    { font-family: 'Inter', sans-serif; font-size: 0.75rem; line-height: 1.625; color: var(--type-tertiary); }
+    .t-link       { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1rem; text-decoration: underline; color: var(--action-secondary-base); }
+    .t-link-sm    { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); }
+    .t-secondary  { color: var(--type-tertiary); }
+
+    /* === Buttons === */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
+    }
+    .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .btn-primary   { background: var(--action-primary-base); color: var(--action-primary-contrast); border-color: var(--action-primary-base); }
+    .btn-primary:hover   { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); border-color: var(--action-secondary-hover); }
+    .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover  { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
+    .btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-sm   { padding: 0.6875rem 1rem; font-size: 0.875rem; }
+    .btn-full { width: 100%; }
+
+    /* === Tags === */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4; border: 1px solid transparent;
+    }
+    .tag-success   { background: var(--ui-success-base); color: var(--ui-success-contrast); border-color: var(--ui-success-accent); }
+    .tag-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral   { background: var(--ui-neutral-base); color: var(--type-secondary); border-color: var(--gray-40); }
+    .tag-warning   { background: var(--ui-warning-base); color: var(--ui-warning-contrast); border-color: var(--ui-warning-accent); }
+    .tag-error     { background: var(--ui-error-base); color: var(--ui-error-contrast); border-color: var(--ui-error-accent); }
+
+    /* === Notice === */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+    }
+    .notice-icon { flex-shrink: 0; }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
+    .notice-success   { background: var(--ui-success-base); color: var(--ui-success-contrast); }
+    .notice-warning   { background: var(--palette-bread); color: var(--type-secondary); }
+    .notice-error     { background: var(--ui-error-base); color: var(--ui-error-contrast); }
+
+    /* === Card === */
+    .card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 1.5rem;
+    }
+    .card-raised { box-shadow: var(--shadow-md); }
+
+    /* === Breadcrumb === */
+    .crumb { display: flex; gap: 0.5rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+    .crumb li { display: flex; align-items: center; gap: 0.5rem; }
+    .crumb a { color: var(--action-secondary-base); text-decoration: none; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; }
+    .crumb a:hover { text-decoration: underline; }
+    .crumb span { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--type-primary); }
+    .crumb-sep { color: var(--type-tertiary); font-size: 0.75rem; font-weight: 400; }
+    .crumb-sep { color: var(--gray-60); font-size: 0.75rem; }
+
+    /* === Tabs === */
+    .tab-list { display: flex; border-bottom: 1px solid var(--gray-40); gap: 0; }
+    .tab-item {
+      padding: 1rem; font-size: 1rem;
+      color: var(--type-primary); cursor: pointer; border: none; background: transparent;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px; transition: color 150ms, border-color 150ms;
+    }
+    .tab-item:hover { color: var(--type-primary); border-bottom-color: var(--gray-40); }
+    .tab-item.active { color: var(--type-primary); border-bottom-color: var(--action-secondary-base); }
+    .tab-item:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .tab-panel { padding: 1.5rem 0; }
+
+    /* === Accordion === */
+    .accordion { overflow: hidden; }
+    .accordion-item { border-bottom: 1px solid var(--gray-40); }
+    .accordion-item:last-child { border-bottom: none; }
+    .accordion-header {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 1rem; background: #fff; border: none; cursor: pointer;
+      font-family: 'SmileyFace', Georgia, serif; font-size: 1rem; font-weight: 700; color: var(--type-primary);
+      text-align: left; transition: background 150ms;
+    }
+    .accordion-header:hover,
+    .accordion-header[aria-expanded="true"] { background: var(--gray-10); }
+    .accordion-chevron { color: var(--gray-70); transition: transform 200ms; }
+    .accordion-header[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
+    .accordion-body { padding: 0 1rem 1rem; background: #fff; font-size: 0.875rem; color: var(--type-secondary); line-height: 1.6; }
+    .accordion-body[hidden] { display: none; }
+
+    /* === Toggle items === */
+    .toggle-group { display: flex; flex-direction: column; gap: 0.5rem; border: 0; padding: 0; margin: 0; }
+    .toggle-group--inline { flex-direction: row; flex-wrap: wrap; }
+    .toggle-group--inline > .toggle-item { flex: 1 1 0; min-width: 0; }
+    .toggle-group--full { width: 100%; }
+    .toggle-item {
+      position: relative;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms, box-shadow 150ms;
+    }
+    .toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 1rem 1.25rem; }
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: 4px; }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked { background-image: none; box-shadow: inset 0 0 0 4px #fff; }
+    .toggle-item-body { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
+    .toggle-item-line { display: block; }
+    .toggle-item-label { font-size: 0.9375rem; font-weight: 700; color: var(--type-secondary); }
+    .toggle-item-sub { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .toggle-item-sub--xs { font-size: 0.75rem; color: var(--type-tertiary); }
+    .toggle-item:hover { border-color: var(--gray-60); background: var(--gray-10); }
+    .toggle-item:has(:focus-visible) { outline: 0; box-shadow: 0 0 0 4px var(--action-secondary-glow); border-color: var(--action-secondary-base); }
+    .toggle-item:has(:checked) {
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 8%, white);
+    }
+    .toggle-item:has(:checked) .toggle-item-label,
+    .toggle-item:has(:checked) .toggle-item-line { color: var(--type-primary); }
+    .toggle-item.is-disabled,
+    .toggle-item:has(:disabled) {
+      background: var(--gray-20); border-color: var(--gray-30);
+      cursor: not-allowed; color: var(--gray-90);
+    }
+    .toggle-item.is-disabled .toggle-item-label { color: var(--gray-90); }
+
+    /* === Nav === */
+    [data-aods="nav"] { position: sticky; top: 0; z-index: 20; }
+    .nav-mobile {
+      background: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 1.5rem;
+    }
+    .nav-desktop {
+      background: #fff;
+      display: flex; gap: 1.75rem; align-items: flex-start;
+      padding: 1.5rem 8.5rem 0;
+    }
+    .nav-desktop-right { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+    .nav-desktop-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .nav-desktop-icons { display: flex; gap: 1.5rem; }
+    .nav-icon {
+      display: flex; flex-direction: column; align-items: center;
+      text-decoration: none; cursor: pointer; background: none; border: none;
+    }
+    .nav-icon-img { font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
+    .nav-icon-img svg { width: 24px; height: 24px; }
+    .nav-icon-label {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem;
+      color: var(--type-primary); line-height: 1.25rem;
+    }
+    .nav-logo .ico {
+      font-size: 2.5rem; color: var(--brand-primary-base);
+    }
+    .nav-logo--lg .ico { font-size: 4rem; }
+    .nav-search { display: flex; width: 384px; }
+    .nav-search-input {
+      flex: 1; padding: 0.5rem 1rem;
+      border: 1px solid var(--brand-primary-base); border-radius: 1.5rem 0 0 1.5rem;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      color: var(--type-secondary); outline: none;
+    }
+    .nav-search-input::placeholder { color: var(--gray-70); }
+    .nav-search-btn {
+      width: 3rem; background: var(--brand-primary-base); border: none;
+      border-radius: 0 3.75rem 3.75rem 0; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .nav-search-btn svg { width: 20px; height: 20px; }
+    .nav-categories {
+      display: flex; gap: 2rem; padding: 1rem 0;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
+    }
+    .nav-categories a { color: var(--type-primary); text-decoration: none; }
+    .nav-categories a:hover { text-decoration: underline; }
+    .nav-categories-deals { color: #cf1a30; }
+    .nav-accent { height: 4px; background: var(--brand-primary-base); }
+    .nav-proposition {
+      background: var(--gray-10);
+      display: flex; align-items: center; justify-content: center; gap: 2rem;
+      padding: 0.5rem 1rem;
+    }
+    .nav-proposition-item {
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-tertiary);
+    }
+
+    @media (max-width: 990px) {
+      .nav-desktop { display: none; }
+      .nav-proposition { justify-content: center; gap: 0; }
+      .nav-proposition-item:not(:first-child) { display: none; }
+    }
+    @media (min-width: 991px) {
+      .nav-mobile { display: none; }
+    }
+
+    /* === Footer === */
+    .footer { width: 100%; }
+    .footer-links {
+      background: var(--gray-90);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      padding: 1.5rem 1rem;
+    }
+    .footer-col { display: flex; flex-direction: column; gap: 1.5rem; }
+    .footer-links a {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 0.875rem; color: #fff; text-decoration: none; line-height: 1.25;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    .footer-secondary {
+      background: var(--gray-100);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      padding: 1.5rem 1rem 1rem;
+    }
+    .footer-secondary a {
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      color: #fff; text-decoration: none; line-height: 1.625;
+    }
+    .footer-secondary a:hover { text-decoration: underline; }
+    .footer-legal {
+      background: var(--gray-100);
+      padding: 1rem;
+      text-align: center;
+    }
+    .footer-legal p {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem;
+      color: var(--gray-50); line-height: 1.625;
+      margin: 0 0 1rem;
+    }
+
+    @media (min-width: 990px) {
+      .footer-links { padding: 2rem 8.5rem; grid-template-columns: repeat(4, 1fr); }
+      .footer-secondary { padding: 1.5rem 8.5rem; grid-template-columns: repeat(4, 1fr); }
+      .footer-legal { padding: 1rem 8.5rem 2rem; }
+    }
+
+    /* === Page layout === */
+    .page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 0.5rem;
+    }
+    @media (min-width: 544px) {
+      .page-container { padding: 0 1rem; }
+    }
+
+    /* === PDP Hero grid === */
+    .pdp-hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .pdp-hero {
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+      }
+    }
+
+    /* === Image placeholder === */
+    .pdp-image {
+      aspect-ratio: 1;
+      background: var(--gray-10);
+      border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+    }
+
+    /* === Product gallery === */
+    .pdp-gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .pdp-gallery-main {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      background: #fff;
+      border: 1px solid var(--gray-30);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .pdp-gallery-img {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+    }
+    .pdp-gallery-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--gray-40);
+      background: #fff;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--action-secondary-base);
+      transition: background 150ms, box-shadow 150ms;
+    }
+    .pdp-gallery-arrow:hover { box-shadow: var(--shadow-md); }
+    .pdp-gallery-arrow:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .pdp-gallery-arrow--prev { left: 1rem; }
+    .pdp-gallery-arrow--next { right: 1rem; }
+    .pdp-gallery-counter {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      color: var(--type-secondary);
+      border: 1px solid var(--gray-40);
+      border-radius: var(--radius-2xl);
+      padding: 0.25rem 0.75rem;
+    }
+    .pdp-gallery-thumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pdp-thumb {
+      width: 56px;
+      height: 56px;
+      border: 2px solid var(--gray-40);
+      border-radius: var(--radius-xs);
+      background: #fff;
+      padding: 4px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 150ms;
+    }
+    .pdp-thumb:hover { border-color: var(--gray-60); }
+    .pdp-thumb.active { border-color: var(--type-primary); }
+    .pdp-thumb:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .pdp-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .pdp-thumb-next {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--action-secondary-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdp-thumb-next:hover { color: var(--action-secondary-hover); }
+    .pdp-thumb-next:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+
+    /* === USP list === */
+    .usp-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .usp-list li {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.9375rem; color: var(--type-secondary);
+    }
+    .usp-list li svg { flex-shrink: 0; color: var(--action-primary-base); }
+
+    /* === Spec table === */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .spec-table tr { border-bottom: 1px solid var(--gray-30); }
+    .spec-table tr:last-child { border-bottom: none; }
+    .spec-table td { padding: 0.75rem 0.5rem; }
+    .spec-table td:first-child { font-weight: 500; color: var(--type-primary); width: 40%; }
+    .spec-table td:last-child { color: var(--type-secondary); }
+
+    /* === Inline icon helper === */
+    .icon { width: 24px; height: 24px; display: inline-block; vertical-align: middle; }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-lg { width: 32px; height: 32px; }
+
+    /* === Visually hidden === */
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* === Section spacing === */
+    .section-gap { margin-top: 3rem; }
+
+    /* === Delivery + Add-ons 2-col === */
+    .delivery-addons-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .delivery-addons-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* === Delivery day row === */
+    .delivery-day-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+    .delivery-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex: 1;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .delivery-pills::-webkit-scrollbar { display: none; }
+    .delivery-pills .toggle-item {
+      flex: 1 0 0;
+      min-width: 5.5rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0.75rem 0.5rem;
+      border-radius: var(--radius-sm);
+      scroll-snap-align: start;
+    }
+    .delivery-pills .toggle-item input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .delivery-pills .toggle-item-body { align-items: center; }
+    .delivery-price {
+      font-size: 0.875rem;
+      color: var(--type-primary);
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+    }
+    .delivery-pills .toggle-item:has(:checked) .delivery-price { color: var(--type-primary); }
+    .delivery-nav-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 2.5rem; flex-shrink: 0;
+      background: var(--ui-highlight-base);
+      border: 1px solid var(--action-secondary-base);
+      border-radius: var(--radius-sm);
+      color: var(--action-secondary-base);
+      cursor: pointer;
+      transition: background 150ms;
+    }
+    .delivery-nav-btn:hover { background: var(--action-secondary-base); color: #fff; }
+    .delivery-nav-btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+
+    /* === Time-slot list === */
+    .delivery-slots {
+      border: 1px solid var(--gray-40);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .delivery-slot {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--gray-30);
+      cursor: pointer;
+      background: #fff;
+      transition: background 150ms;
+    }
+    .delivery-slot:last-child { border-bottom: none; }
+    .delivery-slot:hover { background: var(--gray-10); }
+    .delivery-slot input {
+      appearance: none; -webkit-appearance: none;
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid var(--gray-50); border-radius: 50%;
+      background: #fff; cursor: pointer;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .delivery-slot input:checked {
+      border-color: var(--action-secondary-base);
+      box-shadow: inset 0 0 0 5px var(--action-secondary-base);
+      background: #fff;
+    }
+    .delivery-slot:has(:checked) {
+      background: var(--ui-highlight-base);
+      box-shadow: inset 0 0 0 2px var(--action-secondary-base);
+      border-radius: var(--radius-sm);
+    }
+    .delivery-slot:has(:focus-visible) { box-shadow: 0 0 0 4px var(--action-secondary-glow); }
+    .delivery-slot-label {
+      flex: 1;
+      font-size: 0.9375rem;
+      color: var(--type-secondary);
+    }
+    .delivery-slot-label strong {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      color: var(--type-primary);
+    }
+    .delivery-slot-price {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      color: var(--type-primary);
+    }
+    .delivery-slot.is-disabled,
+    .delivery-slot:has(:disabled) {
+      cursor: not-allowed;
+      background: var(--gray-10);
+    }
+    .delivery-slot.is-disabled .delivery-slot-label strong,
+    .delivery-slot:has(:disabled) .delivery-slot-label strong {
+      color: var(--gray-70);
+    }
+    .delivery-slot.is-disabled .delivery-slot-price,
+    .delivery-slot:has(:disabled) .delivery-slot-price {
+      color: var(--gray-70);
+    }
+    .delivery-slot.is-disabled input,
+    .delivery-slot:has(:disabled) input {
+      border-color: var(--gray-40);
+    }
+
+    /* === Rating stars === */
+    .stars { display: inline-flex; gap: 2px; color: var(--palette-toast); }
+    .stars svg { width: 16px; height: 16px; fill: var(--palette-toast); }
+  </style>
+</head>
+<body>
+
+<!-- === SVG Icon Symbols === -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 18 15 12 9 6"/>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"/>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </symbol>
+  <symbol id="icon-basket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+    <line x1="3" y1="6" x2="21" y2="6"/>
+    <path d="M16 10a4 4 0 01-8 0"/>
+  </symbol>
+  <symbol id="icon-account" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+    <circle cx="12" cy="7" r="4"/>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="6" x2="21" y2="6"/>
+    <line x1="3" y1="12" x2="21" y2="12"/>
+    <line x1="3" y1="18" x2="21" y2="18"/>
+  </symbol>
+  <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+  </symbol>
+  <symbol id="icon-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1" y="3" width="15" height="13"/>
+    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+    <circle cx="5.5" cy="18.5" r="2.5"/>
+    <circle cx="18.5" cy="18.5" r="2.5"/>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="16" x2="12" y2="12"/>
+    <line x1="12" y1="8" x2="12.01" y2="8"/>
+  </symbol>
+  <symbol id="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+    <line x1="12" y1="9" x2="12" y2="13"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"/>
+    <line x1="6" y1="6" x2="18" y2="18"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     1. HEADER (NAV)
+     ============================================================ -->
+<header data-aods="nav">
+  <!-- Mobile nav -->
+  <nav class="nav-mobile">
+    <button class="nav-icon" aria-label="Menu">
+      <i class="ico ico-menu nav-icon-img" aria-hidden="true"></i>
+      <span class="nav-icon-label">Menu</span>
+    </button>
+    <button class="nav-icon" aria-label="Search">
+      <i class="ico ico-search nav-icon-img" aria-hidden="true"></i>
+      <span class="nav-icon-label">Search</span>
+    </button>
+    <a href="/" class="nav-logo" aria-label="AO Home">
+      <i class="ico ico-ao-logo" aria-hidden="true"></i>
+    </a>
+    <a href="/account" class="nav-icon">
+      <i class="ico ico-account nav-icon-img" aria-hidden="true"></i>
+      <span class="nav-icon-label">Account</span>
+    </a>
+    <a href="/basket" class="nav-icon">
+      <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
+      <span class="nav-icon-label">Basket</span>
+    </a>
+  </nav>
+
+  <!-- Desktop nav -->
+  <div class="nav-desktop">
+    <a href="/" class="nav-logo nav-logo--lg" aria-label="AO Home">
+      <i class="ico ico-ao-logo" aria-hidden="true"></i>
+    </a>
+    <div class="nav-desktop-right">
+      <div class="nav-desktop-top">
+        <div class="nav-search">
+          <input class="nav-search-input" type="search" placeholder="Search for products & brands">
+          <button class="nav-search-btn" aria-label="Search">
+            <svg><use href="#icon-search"/></svg>
+          </button>
+        </div>
+        <div class="nav-desktop-icons">
+          <a href="/track" class="nav-icon"><i class="ico ico-track-your-order nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Track order</span></a>
+          <a href="/account" class="nav-icon"><i class="ico ico-account nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Account</span></a>
+          <a href="/basket" class="nav-icon"><i class="ico ico-basket nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Basket</span></a>
+        </div>
+      </div>
+      <nav class="nav-categories">
+        <a href="/appliances">Appliances</a>
+        <a href="/tv">TV & Entertainment</a>
+        <a href="/computing">Computing</a>
+        <a href="/mobile">Mobile Phones</a>
+        <a href="/smart-tech">Smart Tech</a>
+        <a href="/floorcare">Floorcare</a>
+        <a href="/deals" class="nav-categories-deals">Deals</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="nav-accent"></div>
+  <div class="nav-proposition">
+    <span class="nav-proposition-item">Price match promise</span>
+    <span class="nav-proposition-item">Free 100 days returns</span>
+    <span class="nav-proposition-item">Rated Excellent</span>
+    <span class="nav-proposition-item">Next day delivery, 7 days a week</span>
+    <span class="nav-proposition-item">Pay with AO Finance</span>
+  </div>
+</header>
+
+<main>
+  <div class="page-container">
+
+    <!-- ============================================================
+         2. BREADCRUMB
+         ============================================================ -->
+    <nav aria-label="Breadcrumb" data-aods="breadcrumb" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+      <ol class="crumb">
+        <li><a href="/">Home</a><span class="crumb-sep" aria-hidden="true">/</span></li>
+        <li><a href="/appliances/washing-machines">Washing Machines</a><span class="crumb-sep" aria-hidden="true">/</span></li>
+        <li><span aria-current="page">Samsung Bespoke AI</span></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================
+         3. PDP HERO
+         ============================================================ -->
+    <section class="pdp-hero" aria-labelledby="pdp-title">
+      <!-- Product gallery -->
+      <div class="pdp-gallery" aria-label="Product image gallery">
+        <div class="pdp-gallery-main">
+          <button class="pdp-gallery-arrow pdp-gallery-arrow--prev" aria-label="Previous image">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="Samsung Bespoke AI Laundry Combo™ — front view" class="pdp-gallery-img">
+          <button class="pdp-gallery-arrow pdp-gallery-arrow--next" aria-label="Next image">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="pdp-gallery-counter"><span>1</span> / 7</div>
+        <div class="pdp-gallery-thumbs">
+          <button class="pdp-thumb active" aria-label="View image 1" aria-current="true">
+            <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="">
+          </button>
+          <button class="pdp-thumb" aria-label="View image 2">
+            <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="" style="transform:rotate(45deg) scale(0.8);">
+          </button>
+          <button class="pdp-thumb" aria-label="View image 3">
+            <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="" style="transform:scale(1.4); transform-origin:top right;">
+          </button>
+          <button class="pdp-thumb" aria-label="View image 4">
+            <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="" style="transform:scale(1.6); transform-origin:bottom left;">
+          </button>
+          <button class="pdp-thumb" aria-label="View image 5">
+            <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="" style="transform:scale(2); transform-origin:center;">
+          </button>
+          <button class="pdp-thumb" aria-label="View image 6">
+            <img src="https://assets.products-live.ao.com/Images/fec21e92-6ae9-41ce-9e24-63ca85f4a45a/1280x1280/8878d078347af13c2ddb64e140e0667a_1.jpg" alt="" style="transform:scale(1.8); transform-origin:top center;">
+          </button>
+          <button class="pdp-thumb-next" aria-label="More images">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Detail pane -->
+      <div style="display:flex; flex-direction:column; gap: 1.25rem;">
+        <!-- Tags -->
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <span class="tag tag-highlight" data-aods="tag">New</span>
+          <span class="tag tag-success" data-aods="tag">In stock</span>
+          <span class="tag tag-neutral" data-aods="tag">Energy A</span>
+        </div>
+
+        <!-- Title -->
+        <h1 id="pdp-title" class="t-display">Samsung Bespoke AI Laundry Combo™</h1>
+
+        <!-- Rating -->
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span class="stars" aria-label="4.5 out of 5 stars">
+            <svg><use href="#icon-star"/></svg>
+            <svg><use href="#icon-star"/></svg>
+            <svg><use href="#icon-star"/></svg>
+            <svg><use href="#icon-star"/></svg>
+            <svg style="opacity:0.4"><use href="#icon-star"/></svg>
+          </span>
+          <span class="t-body-sm t-secondary">4.5 (234 reviews)</span>
+        </div>
+
+        <!-- Price -->
+        <div style="display:flex; align-items:baseline; gap: 0.75rem; flex-wrap:wrap;">
+          <span class="t-display-lg" style="font-size: 2rem;">£2,199</span>
+          <span class="t-body t-secondary" style="text-decoration: line-through;">£2,499</span>
+          <span class="tag tag-error" data-aods="tag">Save £300</span>
+        </div>
+
+        <!-- USP list -->
+        <ul class="usp-list">
+          <li>
+            <svg class="icon-sm"><use href="#icon-check"/></svg>
+            Free next-day delivery
+          </li>
+          <li>
+            <svg class="icon-sm"><use href="#icon-check"/></svg>
+            5-year Samsung warranty
+          </li>
+          <li>
+            <svg class="icon-sm"><use href="#icon-check"/></svg>
+            AI-powered wash cycles
+          </li>
+          <li>
+            <svg class="icon-sm"><use href="#icon-check"/></svg>
+            Installation included
+          </li>
+        </ul>
+
+        <!-- CTAs -->
+        <button class="btn btn-primary btn-lg btn-full" data-aods="button">Add to basket</button>
+        <button class="btn btn-secondary btn-full" data-aods="button">
+          <svg style="width:18px; height:18px;"><use href="#icon-heart"/></svg>
+          Save to wishlist
+        </button>
+
+        <!-- Notice -->
+        <div class="notice notice-highlight" role="note" data-aods="notice">
+          <svg class="icon-sm" style="flex-shrink:0; margin-top:2px;"><use href="#icon-info"/></svg>
+          <div><strong>Professional installation included free</strong> with this product.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4. DELIVERY + ADD-ONS (2-col row)
+         ============================================================ -->
+    <section class="section-gap delivery-addons-row">
+
+      <!-- Delivery slot picker -->
+      <div aria-labelledby="delivery-heading">
+        <h2 id="delivery-heading" class="t-title" style="margin-bottom: 1rem;">Choose your delivery</h2>
+
+        <!-- Day pills row -->
+        <fieldset data-aods="radio-button-group" style="border:0; padding:0; margin:0;">
+          <legend class="visually-hidden">Choose your delivery day</legend>
+          <div class="delivery-day-row">
+            <div class="delivery-pills">
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-day" value="sun" checked>
+                <div class="toggle-item-body">
+                  <strong class="toggle-item-line">Sun</strong>
+                  <span class="toggle-item-line toggle-item-sub">14th Jun</span>
+                  <strong class="toggle-item-line delivery-price">£30.00</strong>
+                </div>
+              </label>
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-day" value="mon">
+                <div class="toggle-item-body">
+                  <strong class="toggle-item-line">Mon</strong>
+                  <span class="toggle-item-line toggle-item-sub">15th Jun</span>
+                  <strong class="toggle-item-line delivery-price">£25.00</strong>
+                </div>
+              </label>
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-day" value="tue">
+                <div class="toggle-item-body">
+                  <strong class="toggle-item-line">Tue</strong>
+                  <span class="toggle-item-line toggle-item-sub">16th Jun</span>
+                  <strong class="toggle-item-line delivery-price">£20.00</strong>
+                </div>
+              </label>
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-day" value="wed">
+                <div class="toggle-item-body">
+                  <strong class="toggle-item-line">Wed</strong>
+                  <span class="toggle-item-line toggle-item-sub">17th Jun</span>
+                  <strong class="toggle-item-line delivery-price">£20.00</strong>
+                </div>
+              </label>
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-day" value="thu">
+                <div class="toggle-item-body">
+                  <strong class="toggle-item-line">Thu</strong>
+                  <span class="toggle-item-line toggle-item-sub">18th Jun</span>
+                  <strong class="toggle-item-line delivery-price">£20.00</strong>
+                </div>
+              </label>
+            </div>
+            <button class="delivery-nav-btn" aria-label="Next days">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- Time-slot radio list -->
+        <fieldset data-aods="radio-button-group" style="border:0; padding:0; margin:1rem 0 0;">
+          <legend class="visually-hidden">Choose your delivery time slot</legend>
+          <div class="delivery-slots">
+            <label class="delivery-slot" data-aods="radio-button">
+              <input type="radio" name="delivery-slot" value="anytime" checked>
+              <span class="delivery-slot-label"><strong>Anytime</strong> 7am – 7pm</span>
+              <span class="delivery-slot-price">£30.00</span>
+            </label>
+            <label class="delivery-slot" data-aods="radio-button">
+              <input type="radio" name="delivery-slot" value="morning">
+              <span class="delivery-slot-label"><strong>7am – 12pm</strong></span>
+              <span class="delivery-slot-price">£55.00</span>
+            </label>
+            <label class="delivery-slot" data-aods="radio-button">
+              <input type="radio" name="delivery-slot" value="afternoon">
+              <span class="delivery-slot-label"><strong>12pm – 5pm</strong></span>
+              <span class="delivery-slot-price">£55.00</span>
+            </label>
+            <label class="delivery-slot is-disabled" data-aods="radio-button">
+              <input type="radio" name="delivery-slot" value="midday" disabled>
+              <span class="delivery-slot-label"><strong>10am – 2pm</strong> <span class="t-secondary">Unavailable</span></span>
+              <span class="delivery-slot-price">–</span>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Add-ons -->
+      <div aria-labelledby="addons-heading">
+        <h2 id="addons-heading" class="t-title" style="margin-bottom: 1rem;">Add to your order</h2>
+
+        <div class="toggle-group" data-aods="checkbox-group">
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="warranty">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Extended 10-year warranty</div>
+              <div class="toggle-item-sub">Complete peace of mind — parts and labour · +£149</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="recycle" checked>
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Recycle your old appliance</div>
+              <div class="toggle-item-sub">We'll take your old machine away responsibly · Free</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="stacking-kit">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Premium stacking kit</div>
+              <div class="toggle-item-sub">Stack with a compatible Samsung dryer · +£69</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         6. TABS
+         ============================================================ -->
+    <section class="section-gap" data-aods="tabs">
+      <div class="tab-list" role="tablist">
+        <button class="tab-item active" role="tab" aria-selected="true" aria-controls="panel-specs">Key specs</button>
+        <button class="tab-item" role="tab" aria-selected="false" aria-controls="panel-reviews">Reviews (234)</button>
+        <button class="tab-item" role="tab" aria-selected="false" aria-controls="panel-delivery">Delivery & returns</button>
+      </div>
+      <div class="tab-panel" role="tabpanel" id="panel-specs">
+        <table class="spec-table">
+          <tbody>
+            <tr><td>Capacity</td><td>12kg wash / 8kg dry</td></tr>
+            <tr><td>Spin speed</td><td>1400 rpm</td></tr>
+            <tr><td>Dimensions (H×W×D)</td><td>850 × 600 × 660 mm</td></tr>
+            <tr><td>Noise level (wash)</td><td>52 dB</td></tr>
+            <tr><td>Noise level (spin)</td><td>72 dB</td></tr>
+            <tr><td>Programmes</td><td>23</td></tr>
+            <tr><td>Smart features</td><td>Yes — WiFi + AI</td></tr>
+            <tr><td>Energy rating</td><td>A</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         7. ACCORDION
+         ============================================================ -->
+    <section class="section-gap" data-aods="accordion">
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="true" aria-controls="acc-box">
+            <span>What's in the box</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
+          </button>
+          <div id="acc-box" class="accordion-body">
+            <ul style="margin:0; padding-left:1.25rem; display:flex; flex-direction:column; gap:0.375rem;">
+              <li>Samsung Bespoke AI Laundry Combo main unit</li>
+              <li>Power cable (pre-attached)</li>
+              <li>Installation hardware kit</li>
+              <li>Cold water inlet hose</li>
+              <li>User manual &amp; quick-start guide</li>
+            </ul>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="acc-dims">
+            <span>Dimensions & weight</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
+          </button>
+          <div id="acc-dims" class="accordion-body" hidden>
+            <p>Height: 850mm · Width: 600mm · Depth: 660mm · Weight: 82kg</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="acc-energy">
+            <span>Energy information</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
+          </button>
+          <div id="acc-energy" class="accordion-body" hidden>
+            <p>Energy rating: A · Annual energy consumption: 52 kWh (washing), 76 kWh (drying) · Water consumption: 48L per cycle</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-container -->
+</main>
+
+<!-- ============================================================
+     8. FOOTER
+     ============================================================ -->
+<footer class="footer" data-aods="footer" style="margin-top: 4rem;">
+  <div class="footer-links">
+    <div class="footer-col">
+      <a href="#">Contact us</a>
+      <a href="#">Help & advice</a>
+      <a href="#">About us</a>
+      <a href="#">Privacy</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Our services</a>
+      <a href="#">Track your order</a>
+      <a href="#">My account</a>
+      <a href="#">AO Care</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Delivery info</a>
+      <a href="#">Returns</a>
+      <a href="#">AO Finance</a>
+      <a href="#">Gift cards</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">AO Recycling</a>
+      <a href="#">Installation</a>
+      <a href="#">Brands</a>
+      <a href="#">Blog</a>
+    </div>
+  </div>
+  <div class="footer-secondary">
+    <div class="footer-col">
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Careers</a>
+      <a href="#">AO Life</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Modern Slavery Statement</a>
+      <a href="#">Affiliates</a>
+      <a href="#">Partners</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Accessibility</a>
+      <a href="#">Sitemap</a>
+    </div>
+    <div class="footer-col">
+      <a href="#">Investor relations</a>
+      <a href="#">Press</a>
+    </div>
+  </div>
+  <div class="footer-legal">
+    <p>ao.com is operated by AO Retail Limited, registered in England with company number 03914998.</p>
+    <p>Credit is provided by NewDay Ltd. AO Retail Limited acts as a credit broker. Subject to status.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js"></script>
+</body>
+</html>
