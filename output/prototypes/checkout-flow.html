@@ -406,11 +406,10 @@
        Layout — Step Navigator
        ============================================================ */
     .steps {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4px;
+      padding: 8px;
       background-color: var(--ui-core-base);
       border-bottom: 1px solid var(--gray-30);
     }
@@ -419,12 +418,11 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
+      padding: 12px 16px;
       min-height: 44px;
-      min-width: 44px;
       border: none;
-      border-radius: var(--radius-2xl);
-      background-color: transparent;
+      border-radius: var(--radius-sm);
+      background-color: var(--gray-20);
       font-family: 'SmileyFace', Georgia, serif;
       font-weight: 700;
       font-size: 0.875rem;
@@ -436,8 +434,8 @@
     }
 
     .steps__tab[aria-selected="true"] {
-      background-color: var(--type-primary);
-      color: var(--action-primary-contrast);
+      background-color: var(--action-secondary-base);
+      color: var(--action-secondary-contrast);
       cursor: pointer;
     }
 
@@ -673,7 +671,7 @@
     /* layout: 900px — Two-column grid + sticky sidebar */
     @media (min-width: 900px) {
       .checkout-grid {
-        grid-template-columns: 1fr 360px;
+        grid-template-columns: 1fr 1fr;
         gap: 40px;
         padding: 40px 32px;
       }
@@ -1100,12 +1098,10 @@
 
         <!-- Confirmed Phase -->
         <div data-phase="confirmed" style="display:none">
-          <div class="card" data-aods="card">
-            <p class="t-body" style="margin-bottom: 4px;"><strong id="confirmed-street"></strong></p>
-            <p class="t-body-sm" style="margin-bottom: 4px;"><span id="confirmed-city"></span></p>
-            <p class="t-body-sm"><span id="confirmed-postcode"></span></p>
+          <div style="background: var(--gray-10); border-radius: var(--radius-md); padding: 24px;">
+            <p class="t-body" style="margin: 0 0 12px; color: var(--type-primary);"><span id="confirmed-street"></span>, <span id="confirmed-city"></span>, <span id="confirmed-postcode"></span></p>
+            <a href="#" class="t-link-sm" id="link-edit-address" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700;">Edit address <i class="ico ico-edit" aria-hidden="true" style="font-size: 1rem;"></i></a>
           </div>
-          <a href="#" class="t-link-sm" id="link-edit-address" style="margin-top: 12px; display: inline-block;">Edit address</a>
         </div>
 
         <!-- Delivery Options (hidden until address is confirmed) -->
@@ -1151,52 +1147,66 @@
         </div>
 
         <!-- Five Star Membership Upsell -->
-        <div class="five-star-upsell" style="margin-top: 48px;">
-          <div class="card" data-aods="card">
-            <div style="margin-bottom: 16px;">
-              <h3 class="t-title-lg" style="margin-bottom: 4px;">Save up to £40 today!</h3>
-              <p class="t-body" style="font-weight: 700; color: var(--type-primary);">£39.99/yr</p>
+        <div class="five-star-upsell" id="five-star-upsell" style="margin-top: 48px; display: none;">
+          <div style="background: var(--brand-primary-light); border-radius: var(--radius-md); padding: 24px; position: relative; overflow: hidden;">
+            <!-- Star decoration -->
+            <div style="position: absolute; top: -8px; right: 16px; font-size: 4rem; color: var(--brand-primary-base); opacity: 0.8; line-height: 1;">
+              <i class="ico ico-five-star-approved" aria-hidden="true"></i>
             </div>
 
-            <!-- Benefits list -->
-            <ul class="five-star-benefits" style="list-style: none; padding: 0; margin: 0 0 16px 0; display: flex; flex-direction: column; gap: 12px;">
-              <li style="display: flex; align-items: flex-start; gap: 8px;">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+            <!-- Header -->
+            <div style="margin-bottom: 16px;">
+              <h3 style="font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.25rem; color: var(--brand-primary-dark); margin: 0 0 4px; line-height: 1.25;">You're saving up to £85 today!</h3>
+              <p style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary); margin: 0; line-height: 1.625;">with your AO Five Star Membership</p>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--brand-primary-base); opacity: 0.3; margin: 16px 0;">
+
+            <!-- Checkbox toggle row -->
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <input type="checkbox" id="five-star-checkbox" value="five-star" style="width: 24px; height: 24px; accent-color: var(--action-secondary-base); cursor: pointer;" checked>
+              <label for="five-star-checkbox" style="font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; color: var(--type-primary); cursor: pointer; flex: 1;">Join AO Five Star</label>
+              <span style="font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; color: var(--brand-primary-dark);">£39.99 <span style="font-weight: 400; font-size: 0.875rem;">/py</span></span>
+            </div>
+
+            <!-- Benefits list with savings -->
+            <ul style="list-style: none; padding: 0; margin: 0 0 16px 0; display: flex; flex-direction: column; gap: 10px;">
+              <li style="display: flex; align-items: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0;">
                   <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
                   <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span class="t-body-sm">Member price savings on 1000s of products</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary); flex: 1;">Member price savings</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; color: var(--brand-primary-dark);">£15</span>
               </li>
-              <li style="display: flex; align-items: flex-start; gap: 8px;">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+              <li style="display: flex; align-items: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0;">
                   <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
                   <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span class="t-body-sm">Free and unlimited delivery</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary); flex: 1;">Remove &amp; Recycle</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem;"><span style="text-decoration: line-through; color: var(--type-tertiary);">£50</span> <span style="font-weight: 700; color: var(--ui-error-contrast);">Free</span></span>
               </li>
-              <li style="display: flex; align-items: flex-start; gap: 8px;">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+              <li style="display: flex; align-items: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0;">
                   <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
                   <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <span class="t-body-sm">Free 100-day returns</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary); flex: 1;">Free &amp; unlimited delivery</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem;"><span style="text-decoration: line-through; color: var(--type-tertiary);">£20</span> <span style="font-weight: 700; color: var(--ui-error-contrast);">Free</span></span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0;">
+                  <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
+                  <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary); flex: 1;">Returns</span>
+                <span style="font-family: 'Inter', sans-serif; font-size: 0.875rem;"><span style="text-decoration: line-through; color: var(--type-tertiary);">30 Days</span> <span style="font-weight: 700; color: var(--ui-error-contrast);">100 Days</span></span>
               </li>
             </ul>
 
-            <!-- Checkbox toggle -->
-            <div class="toggle-group" data-aods="checkbox-group">
-              <label class="toggle-item" data-aods="checkbox">
-                <input type="checkbox" id="five-star-checkbox" value="five-star">
-                <div class="toggle-item-body">
-                  <div class="toggle-item-label">Join AO Five Star – £39.99/year</div>
-                </div>
-              </label>
-            </div>
-
-            <!-- Learn more link -->
-            <div style="margin-top: 12px;">
-              <a href="#" class="t-link-sm" target="_blank" rel="noopener">Learn more about AO Five Star</a>
-            </div>
+            <!-- CTA link -->
+            <a href="#" class="t-link-sm" style="font-weight: 700; color: var(--action-secondary-base);">Add free unpacking and recycling</a>
           </div>
         </div>
 
@@ -1550,7 +1560,7 @@
           <span class="summary-product__price">£444.00</span>
         </div>
         <div class="summary-services">
-          <div class="summary-line"><span class="summary-line__label"><strong>Complete installation bundle</strong></span><span class="summary-line__value">£35.00</span></div>
+          <div class="summary-line"><span class="summary-line__label">Complete installation bundle</span><span class="summary-line__value">£35.00</span></div>
         </div>
 
         <!-- Membership -->
@@ -1816,6 +1826,12 @@
         // Show/hide delivery options based on confirmed address
         if (deliveryOptions) {
           deliveryOptions.style.display = phase === 'confirmed' ? '' : 'none';
+        }
+
+        // Show/hide Five Star upsell based on confirmed address
+        var fiveStarUpsell = document.getElementById('five-star-upsell');
+        if (fiveStarUpsell) {
+          fiveStarUpsell.style.display = phase === 'confirmed' ? '' : 'none';
         }
 
         // Update order summary delivery cost
