@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.3.1 — 2026-06-15
+
+Repository cleanup — consolidated output directories, archived completed specs, and tidied git tracking.
+
+### Structure changes
+
+- **Prototypes consolidated into `examples/`** — moved `bottom-sheet-variants.html`, `checkout-flow.html`, `login-flow.html` from `prototypes/`, and `trust-bridge-prototype/index.html` → `examples/trust-bridge-prototype.html`. Removed empty source directories.
+- **Completed specs archived** — `checkout-flow-prototype` and `design-token-audit` moved to `.kiro/specs/_archive/`.
+- **`.DS_Store` removed from git tracking** — already in `.gitignore`, now also untracked in the index.
+
+### Documentation updates
+
+- **README** — "Repo layout" tree updated to reflect consolidated `examples/` (18 HTML files). Removed outdated symlink note.
+- **Steering file** — `fileMatchPattern` simplified to `['**/examples/**/*.html']`.
+- **CHANGELOG** — fixed a stale `prototypes/` path reference.
+
+---
+
 ## v2.3.0 — 2026-06-14
 
 Checkout flow prototype — the first full interactive prototype generated from the kit.

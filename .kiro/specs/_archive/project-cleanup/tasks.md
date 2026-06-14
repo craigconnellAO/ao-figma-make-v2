@@ -36,7 +36,7 @@ A sequential 5-phase cleanup pipeline executed as shell commands and file edits.
 - [x] 4. Checkpoint — Verify file moves
   - Ensure all prototype files exist in `examples/`, source directories are removed, specs are archived, and `.DS_Store` is untracked. Ask the user if questions arise.
 
-- [ ] 5. Update internal path references
+- [x] 5. Update internal path references
   - [x] 5.1 Update steering file fileMatchPattern
     - Edit `.kiro/steering/design-best-practices.md` frontmatter to remove `'**/prototypes/**/*.html'` and `'**/trust-bridge-prototype/**/*.html'` from `fileMatchPattern`
     - Resulting pattern: `['**/examples/**/*.html']`
@@ -46,7 +46,7 @@ A sequential 5-phase cleanup pipeline executed as shell commands and file edits.
     - Update any hits found to reference `examples/` instead
     - _Requirements: 4.2, 4.3_
 
-- [ ] 6. Update README.md
+- [x] 6. Update README.md
   - [x] 6.1 Replace the Repo layout section with updated directory tree
     - Update the code block to reflect consolidated `examples/` directory with all HTML files listed
     - Remove `prototypes/` and `trust-bridge-prototype/` entries
@@ -58,13 +58,13 @@ A sequential 5-phase cleanup pipeline executed as shell commands and file edits.
     - Confirm no other sections were modified
     - _Requirements: 5.4_
 
-- [ ] 7. Stage and commit all changes
-  - [-] 7.1 Stage all changes and create commit
+- [x] 7. Stage and commit all changes
+  - [x] 7.1 Stage all changes and create commit
     - Run `git add -A`
     - Commit with message: `chore: consolidate prototypes, archive specs, clean .DS_Store`
     - _Requirements: 1.1, 1.2, 2.1, 3.1, 4.1, 5.1_
 
-- [~] 8. Final checkpoint — Post-condition validation
+- [x] 8. Final checkpoint — Post-condition validation
   - Run validation checks: confirm ≥18 HTML files in `examples/`, source dirs removed, archived specs present, `.DS_Store` untracked, no stale path refs, README clean. Ask the user if questions arise.
 
 ## Notes
