@@ -1,6 +1,6 @@
 ---
 inclusion: fileMatch
-fileMatchPattern: ['**/examples/**/*.html']
+fileMatchPattern: ['**/output/**/*.html']
 ---
 
 # Design Best Practices — UI Prototype Generation

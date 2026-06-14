@@ -77,14 +77,17 @@ ao-figma-make-v2/
 │   ├── patterns.md
 │   ├── anti-patterns.md
 │   └── tokens.json
-├── examples/             ← open these in a browser to see the system rendered
-│   ├── productPage.html
-│   ├── componentLibrary.html
-│   ├── patternsGallery.html
-│   ├── checkout-flow.html
-│   ├── login-flow.html
-│   ├── bottom-sheet-variants.html
-│   └── trust-bridge-prototype.html
+├── output/               ← open these in a browser to see the system rendered
+│   ├── examples/         ← stable, polished showcases
+│   │   ├── productPage.html
+│   │   ├── componentLibrary.html
+│   │   ├── patternsGallery.html
+│   │   └── …
+│   └── prototypes/       ← in-progress explorations
+│       ├── checkout-flow.html
+│       ├── login-flow.html
+│       ├── bottom-sheet-variants.html
+│       └── trust-bridge-prototype.html
 └── tests/                ← token consistency and preservation tests
 ```
 

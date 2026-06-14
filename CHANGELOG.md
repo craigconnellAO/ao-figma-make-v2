@@ -6,15 +6,16 @@ Repository cleanup — consolidated output directories, archived completed specs
 
 ### Structure changes
 
-- **Prototypes consolidated into `examples/`** — moved `bottom-sheet-variants.html`, `checkout-flow.html`, `login-flow.html` from `prototypes/`, and `trust-bridge-prototype/index.html` → `examples/trust-bridge-prototype.html`. Removed empty source directories.
+- **All HTML output moved under `output/`** — stable showcases in `output/examples/`, in-progress work in `output/prototypes/`. Root-level `examples/`, `prototypes/`, and `trust-bridge-prototype/` directories removed.
 - **Completed specs archived** — `checkout-flow-prototype` and `design-token-audit` moved to `.kiro/specs/_archive/`.
 - **`.DS_Store` removed from git tracking** — already in `.gitignore`, now also untracked in the index.
+- **Screenshots removed** — `kit/screenshots/` removed entirely (no longer used in workflow).
 
 ### Documentation updates
 
-- **README** — "Repo layout" tree updated to reflect consolidated `examples/` (18 HTML files). Removed outdated symlink note.
-- **Steering file** — `fileMatchPattern` simplified to `['**/examples/**/*.html']`.
-- **CHANGELOG** — fixed a stale `prototypes/` path reference.
+- **README** — "Repo layout" tree updated to reflect `output/examples/` and `output/prototypes/` structure.
+- **Steering file** — `fileMatchPattern` updated to `['**/output/**/*.html']`.
+- **MASTER_PROMPT** — removed screenshots reference from kit file list.
 
 ---
 
@@ -24,7 +25,7 @@ Checkout flow prototype — the first full interactive prototype generated from 
 
 ### Checkout flow prototype
 
-- **New file: [`examples/checkout-flow.html`](./examples/checkout-flow.html)** — a 2,300-line self-contained HTML prototype implementing a complete three-step checkout (Delivery → Contact Details → Payment).
+- **New file: [`output/prototypes/checkout-flow.html`](./output/prototypes/checkout-flow.html)** — a 2,300-line self-contained HTML prototype implementing a complete three-step checkout (Delivery → Contact Details → Payment).
 - **Address lookup flow** — progressive disclosure: postcode entry → simulated dropdown → confirmed address card with edit option.
 - **Delivery options** — date and time picker selects, conditional visibility after address confirmation.
 - **Five Star upsell** — membership card with benefits list, checkbox toggle, bottom-sheet modal if user tries to skip.
@@ -76,10 +77,10 @@ Icon system, further Figma alignment corrections, new showcase examples, and gro
 
 ### New examples
 
-- **[`examples/index.html`](./examples/index.html)** — prototype gallery landing page linking all examples.
-- **[`examples/kitShowcase.html`](./examples/kitShowcase.html)** — full Samsung Bespoke product page demonstrating all kit components working together with Strata icons.
-- **[`examples/headerDemo.html`](./examples/headerDemo.html)** — isolated header component matching the live ao.com site.
-- **[`examples/iconLibrary.html`](./examples/iconLibrary.html)** — visual reference of all available Strata icons at various sizes.
+- **[`output/examples/index.html`](./output/examples/index.html)** — prototype gallery landing page linking all examples.
+- **[`output/examples/kitShowcase.html`](./output/examples/kitShowcase.html)** — full Samsung Bespoke product page demonstrating all kit components working together with Strata icons.
+- **[`output/examples/headerDemo.html`](./output/examples/headerDemo.html)** — isolated header component matching the live ao.com site.
+- **[`output/examples/iconLibrary.html`](./output/examples/iconLibrary.html)** — visual reference of all available Strata icons at various sizes.
 
 ### Example pages updated
 
@@ -135,7 +136,7 @@ The full type scale was re-measured against Figma and corrected:
 
 ### Design token audit page
 
-- **New file: [`examples/design-token-audit.html`](./examples/design-token-audit.html)** — renders every token (colours, spacing, radii, shadows) and every component variant in every state. Built for Figma "Check Designs" overlay validation in a single pass.
+- **New file: [`output/examples/design-token-audit.html`](./output/examples/design-token-audit.html)** — renders every token (colours, spacing, radii, shadows) and every component variant in every state. Built for Figma "Check Designs" overlay validation in a single pass.
 
 ### Example pages updated
 
@@ -169,7 +170,7 @@ The first **shareable** version of the AO Figma Make kit. Restructured from scra
 - **Authoritative reference files** in [`kit/`](./kit/): tokens, typography, components, patterns, anti-patterns, plus DTCG tokens for variable wiring. Each file states its scope and how it's used.
 - **Anti-patterns are first-class.** [`kit/anti-patterns.md`](./kit/anti-patterns.md) is a refuse-and-replace list — Make is instructed to treat it as a hard constraint, not a guideline.
 - **Dev handoff is built in.** [`handoff.md`](./handoff.md) provides a class-to-`@ao/components` translation table and a short script for handing prototypes to engineering. Designers can ship a Make prototype as the visual reference for a Linear ticket with no extra explainer.
-- **Examples are first-class too.** [`examples/`](../examples/) has rendered HTML for the PDP, component library, and pattern gallery so designers can visually compare Make output against a working AO surface.
+- **Examples are first-class too.** [`output/`](./output/) has rendered HTML for the PDP, component library, and pattern gallery so designers can visually compare Make output against a working AO surface.
 - **Brand intent is enforced.** Token usage rules (e.g. `palette-heat` is *not* an error colour; `ui-warning` is for caution only) are spelled out where Make will see them.
 
 ### What's the same
