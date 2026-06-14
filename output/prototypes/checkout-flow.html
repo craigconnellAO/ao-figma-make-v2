@@ -504,9 +504,12 @@
     }
 
     .summary-product__image {
-      font-size: 3rem;
-      line-height: 1;
+      width: 56px;
+      height: 56px;
       flex-shrink: 0;
+      border-radius: var(--radius-xs);
+      object-fit: contain;
+      background: var(--gray-10);
     }
 
     .summary-product__details {
@@ -530,6 +533,19 @@
       font-size: 1rem;
       color: var(--type-primary);
       font-variant-numeric: tabular-nums;
+    }
+
+    .summary-product__qty {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      color: var(--type-tertiary);
+    }
+
+    .summary-services {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 0 0 72px;
     }
 
     .summary-delivery-slot {
@@ -1493,39 +1509,58 @@
     <!-- Order Summary Sidebar -->
     <aside class="checkout-sidebar">
       <div class="checkout-sidebar__inner card card-raised" data-aods="card">
+        <h2 class="t-title" style="margin-bottom: 16px;">Order summary</h2>
 
-        <!-- Product Card -->
+        <!-- Product 1 -->
         <div class="summary-product">
-          <span class="summary-product__image" aria-hidden="true">📺</span>
+          <img class="summary-product__image" src="https://media.ao.com/en-GB/Productimages/Images/rvMedium/HWB100B14858U1UK-AWW-014-front_view.jpg" alt="Haier Series 8 Washing Machine" width="56" height="56" style="border-radius: var(--radius-xs); object-fit: contain; background: var(--gray-10);">
           <div class="summary-product__details">
-            <span class="summary-product__name t-title-sm">Samsung 65" QE65Q80C QLED 4K Smart TV</span>
-            <span class="summary-product__price">£999.00</span>
-            <span class="tag tag-success" style="margin-top: 4px;">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 6.5l2 2 3-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              In stock
-            </span>
-            <span class="summary-delivery-slot" id="summary-delivery-slot">Thursday 22 May, Any time (7am–7pm)</span>
+            <span class="summary-product__name">Haier Series 8 HWB100B14858U1UK Integrated 10kg WiFi Connected Washing Machine with 1400 rpm - White - A Rated</span>
+            <span class="summary-product__price">£589.00</span>
+            <span class="summary-product__qty">Quantity: 1</span>
+          </div>
+        </div>
+        <div class="summary-services">
+          <div class="summary-line"><span class="summary-line__label">Connection</span><span class="summary-line__value">£125.00</span></div>
+          <div class="summary-line"><span class="summary-line__label">Remove &amp; Recycle</span><span class="summary-line__value">£0.00</span></div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="summary-product" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-30);">
+          <img class="summary-product__image" src="https://media.ao.com/en-GB/Productimages/Images/rvMedium/HBP-10N3BRX-80-001.jpg" alt="Hoover Pro Dry Series 5 Tumble Dryer" width="56" height="56" style="border-radius: var(--radius-xs); object-fit: contain; background: var(--gray-10);">
+          <div class="summary-product__details">
+            <span class="summary-product__name">Hoover Pro Dry Series 5 HBP 10N3BRX-80 Wifi Connected 10Kg Heat Pump Tumble Dryer - Graphite - A++ Rated</span>
+            <span class="summary-product__price">£444.00</span>
+            <span class="summary-product__qty">Quantity: 1</span>
+          </div>
+        </div>
+        <div class="summary-services">
+          <div class="summary-line"><span class="summary-line__label"><strong>Complete installation bundle</strong></span><span class="summary-line__value">£35.00</span></div>
+        </div>
+
+        <!-- Membership -->
+        <div class="summary-lines" style="margin-top: 16px;">
+          <div class="summary-line">
+            <span class="summary-line__label">AO Five Star Membership</span>
+            <span class="summary-line__value" style="text-align: right;">£39.99*<br><span style="font-size: 0.75rem; color: var(--type-tertiary);">per year*</span></span>
           </div>
         </div>
 
-        <!-- Line Items -->
-        <div class="summary-lines">
+        <!-- Discount & Total -->
+        <div class="summary-lines" style="margin-top: 16px;">
           <div class="summary-line">
-            <span class="summary-line__label">Subtotal</span>
-            <span class="summary-line__value" id="summary-subtotal">£999.00</span>
-          </div>
-          <div class="summary-line">
-            <span class="summary-line__label">Delivery</span>
-            <span class="summary-line__value" id="summary-delivery">TBC</span>
-          </div>
-          <div class="summary-line" id="summary-fivestar" style="display:none">
-            <span class="summary-line__label">AO Five Star</span>
-            <span class="summary-line__value">£39.99</span>
+            <span class="summary-line__label">Discount code</span>
+            <span class="summary-line__value">-£40.00</span>
           </div>
           <div class="summary-line summary-line--total">
             <span class="summary-line__label">Total</span>
-            <span class="summary-line__value" id="summary-total">£999.00</span>
+            <span class="summary-line__value" id="summary-total">£1,192.99</span>
           </div>
+        </div>
+
+        <!-- Footnote -->
+        <div style="margin-top: 16px; padding: 12px; background: var(--gray-10); border-radius: var(--radius-sm); font-size: 0.8125rem; color: var(--type-secondary); line-height: 1.5;">
+          *AO Five Star Membership fee will be taken annually on the same date
         </div>
 
       </div>
