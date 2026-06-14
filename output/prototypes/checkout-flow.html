@@ -497,10 +497,11 @@
        Order Summary — Product Card
        ============================================================ */
     .summary-product {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 8px;
     }
 
     .summary-product__image {
@@ -515,24 +516,26 @@
     .summary-product__details {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
       min-width: 0;
     }
 
     .summary-product__name {
-      font-family: 'SmileyFace', Georgia, serif;
-      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
       font-size: 0.875rem;
-      line-height: 1.25;
+      line-height: 1.4;
       color: var(--type-primary);
     }
 
     .summary-product__price {
       font-family: 'Inter', sans-serif;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 0.875rem;
       color: var(--type-primary);
       font-variant-numeric: tabular-nums;
+      text-align: right;
+      white-space: nowrap;
     }
 
     .summary-product__qty {
@@ -544,8 +547,9 @@
     .summary-services {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding: 12px 0 0 72px;
+      gap: 6px;
+      padding: 8px 0 0 0;
+      margin-left: 68px;
     }
 
     .summary-delivery-slot {
@@ -562,7 +566,7 @@
     .summary-lines {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 8px;
       padding-top: 16px;
       border-top: 1px solid var(--gray-30);
     }
@@ -579,20 +583,26 @@
     .summary-line__value {
       font-variant-numeric: tabular-nums;
       font-weight: 400;
+      text-align: right;
     }
 
     .summary-line--total {
       padding-top: 12px;
       border-top: 1px solid var(--gray-30);
+    }
+
+    .summary-line--total .summary-line__label {
+      font-family: 'SmileyFace', Georgia, serif;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.125rem;
       color: var(--type-primary);
     }
 
     .summary-line--total .summary-line__value {
+      font-family: 'SmileyFace', Georgia, serif;
       font-weight: 700;
       font-size: 1.25rem;
-      font-variant-numeric: tabular-nums;
+      color: var(--type-primary);
     }
 
     /* ============================================================
@@ -1509,16 +1519,16 @@
     <!-- Order Summary Sidebar -->
     <aside class="checkout-sidebar">
       <div class="checkout-sidebar__inner card card-raised" data-aods="card">
-        <h2 class="t-title" style="margin-bottom: 16px;">Order summary</h2>
+        <h2 style="font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.25rem; color: var(--type-primary); margin: 0 0 20px; line-height: 1.25;">Order summary</h2>
 
         <!-- Product 1 -->
         <div class="summary-product">
-          <img class="summary-product__image" src="https://media.ao.com/en-GB/Productimages/Images/rvMedium/HWB100B14858U1UK-AWW-014-front_view.jpg" alt="Haier Series 8 Washing Machine" width="56" height="56" style="border-radius: var(--radius-xs); object-fit: contain; background: var(--gray-10);">
+          <img class="summary-product__image" src="https://media.ao.com/en-GB/Productimages/Images/rvMedium/HWB100B14858U1UK-AWW-014-front_view.jpg" alt="Haier Series 8 Washing Machine" width="56" height="56">
           <div class="summary-product__details">
             <span class="summary-product__name">Haier Series 8 HWB100B14858U1UK Integrated 10kg WiFi Connected Washing Machine with 1400 rpm - White - A Rated</span>
-            <span class="summary-product__price">£589.00</span>
             <span class="summary-product__qty">Quantity: 1</span>
           </div>
+          <span class="summary-product__price">£589.00</span>
         </div>
         <div class="summary-services">
           <div class="summary-line"><span class="summary-line__label">Connection</span><span class="summary-line__value">£125.00</span></div>
@@ -1527,12 +1537,12 @@
 
         <!-- Product 2 -->
         <div class="summary-product" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-30);">
-          <img class="summary-product__image" src="https://media.ao.com/en-GB/Productimages/Images/rvMedium/HBP-10N3BRX-80-001.jpg" alt="Hoover Pro Dry Series 5 Tumble Dryer" width="56" height="56" style="border-radius: var(--radius-xs); object-fit: contain; background: var(--gray-10);">
+          <img class="summary-product__image" src="https://media.ao.com/en-GB/Productimages/Images/rvMedium/HBP-10N3BRX-80-001.jpg" alt="Hoover Pro Dry Series 5 Tumble Dryer" width="56" height="56">
           <div class="summary-product__details">
             <span class="summary-product__name">Hoover Pro Dry Series 5 HBP 10N3BRX-80 Wifi Connected 10Kg Heat Pump Tumble Dryer - Graphite - A++ Rated</span>
-            <span class="summary-product__price">£444.00</span>
             <span class="summary-product__qty">Quantity: 1</span>
           </div>
+          <span class="summary-product__price">£444.00</span>
         </div>
         <div class="summary-services">
           <div class="summary-line"><span class="summary-line__label"><strong>Complete installation bundle</strong></span><span class="summary-line__value">£35.00</span></div>
@@ -1542,7 +1552,7 @@
         <div class="summary-lines" style="margin-top: 16px;">
           <div class="summary-line">
             <span class="summary-line__label">AO Five Star Membership</span>
-            <span class="summary-line__value" style="text-align: right;">£39.99*<br><span style="font-size: 0.75rem; color: var(--type-tertiary);">per year*</span></span>
+            <span class="summary-line__value">£39.99*<br><span style="font-size: 0.75rem; color: var(--type-tertiary);">per year*</span></span>
           </div>
         </div>
 
@@ -1559,7 +1569,7 @@
         </div>
 
         <!-- Footnote -->
-        <div style="margin-top: 16px; padding: 12px; background: var(--gray-10); border-radius: var(--radius-sm); font-size: 0.8125rem; color: var(--type-secondary); line-height: 1.5;">
+        <div style="margin-top: 16px; padding: 12px 16px; background: var(--gray-10); border-radius: var(--radius-sm); font-size: 0.8125rem; color: var(--type-secondary); line-height: 1.5;">
           *AO Five Star Membership fee will be taken annually on the same date
         </div>
 
