@@ -16,7 +16,6 @@ The following files are attached to this project. Treat them as authoritative an
 - **`patterns.md`** — page-level recipes (sign in, basket, PDP, validated form). Use as the structural starting point for multi-component screens.
 - **`anti-patterns.md`** — the refuse-and-replace list. If you're about to do something on this list, stop and use the listed alternative.
 - **`tokens.json`** — DTCG tokens for variable wiring and dev handoff.
-- **Screenshots** — image attachments named `01-page-…`, `12-buttons.png`, `13-inputs.png`, etc. Use them as visual targets when relevant.
 
 ## Brand voice
 
@@ -56,7 +55,7 @@ Single self-contained HTML file unless asked otherwise. Inline `<style>` block. 
 
 **Constraints / context:** *(replace — e.g. "Mobile-first. Logged-in user. Skip the address step.")*
 
-**Reference screens (optional):** *(reference any uploaded screenshots by name — e.g. "Use `04-pattern-basket.png` as a structural reference")*
+**Reference screens (optional):** *(attach any Figma frames or screenshots and reference them here)*
 
 ===
 

@@ -25,7 +25,6 @@ What's inside:
 | [`kit/patterns.md`](./kit/patterns.md) | Page-level recipes (sign in, basket, PDP, validated form) |
 | [`kit/anti-patterns.md`](./kit/anti-patterns.md) | The refuse-and-replace list — what Make should *never* output |
 | [`kit/tokens.json`](./kit/tokens.json) | DTCG tokens — useful for wiring Figma variables or sharing with engineering |
-| [`kit/screenshots/`](./kit/screenshots/) | Visual references — drag these in alongside prompts for visual matching |
 
 ### 2. Paste the master prompt
 
@@ -77,8 +76,7 @@ ao-figma-make-v2/
 │   ├── components.md
 │   ├── patterns.md
 │   ├── anti-patterns.md
-│   ├── tokens.json
-│   └── screenshots/
+│   └── tokens.json
 ├── examples/             ← open these in a browser to see the system rendered
 │   ├── productPage.html
 │   ├── componentLibrary.html
