@@ -277,18 +277,43 @@
     </ul>
   </details>
 
+  <!-- v2.3.1 -->
+  <section class="version">
+    <div class="version-header">
+      <span class="version-number">v2.3.1</span>
+      <span class="version-date">15 June 2026</span>
+      <span class="version-tag version-tag--latest">Latest</span>
+    </div>
+    <p class="version-summary">Repository cleanup — consolidated output directories, archived completed specs, and tidied git tracking.</p>
+
+    <h3>Structure changes</h3>
+    <ul>
+      <li><strong>Prototypes consolidated into <code>examples/</code></strong> — moved <code>bottom-sheet-variants.html</code>, <code>checkout-flow.html</code>, <code>login-flow.html</code> from <code>prototypes/</code>, and <code>trust-bridge-prototype/index.html</code> → <code>examples/trust-bridge-prototype.html</code>. Removed empty source directories.</li>
+      <li><strong>Completed specs archived</strong> — <code>checkout-flow-prototype</code> and <code>design-token-audit</code> moved to <code>.kiro/specs/_archive/</code>.</li>
+      <li><strong><code>.DS_Store</code> removed from git tracking</strong> — already in <code>.gitignore</code>, now also untracked in the index.</li>
+      <li><strong>Screenshots removed</strong> — <code>kit/screenshots/</code> removed entirely (no longer used in workflow).</li>
+    </ul>
+
+    <h3>Documentation updates</h3>
+    <ul>
+      <li><strong>README</strong> — "Repo layout" tree updated to reflect consolidated <code>examples/</code> (18 HTML files). Removed outdated symlink note.</li>
+      <li><strong>Steering file</strong> — <code>fileMatchPattern</code> simplified to <code>['**/examples/**/*.html']</code>.</li>
+      <li><strong>CHANGELOG</strong> — fixed a stale <code>prototypes/</code> path reference.</li>
+      <li><strong>MASTER_PROMPT</strong> — removed screenshots reference from kit file list.</li>
+    </ul>
+  </section>
+
   <!-- v2.3.0 -->
   <section class="version">
     <div class="version-header">
       <span class="version-number">v2.3.0</span>
       <span class="version-date">14 June 2026</span>
-      <span class="version-tag version-tag--latest">Latest</span>
     </div>
     <p class="version-summary">Checkout flow prototype — the first full interactive prototype generated from the kit.</p>
 
     <h3>Checkout flow prototype</h3>
     <ul>
-      <li><strong>New file: <code>prototypes/checkout-flow.html</code></strong> — 2,300-line self-contained HTML prototype implementing a complete three-step checkout.</li>
+      <li><strong>New file: <code>examples/checkout-flow.html</code></strong> — 2,300-line self-contained HTML prototype implementing a complete three-step checkout.</li>
       <li><strong>Address lookup flow</strong> — progressive disclosure: postcode entry → simulated dropdown → confirmed address card with edit.</li>
       <li><strong>Delivery options</strong> — date and time picker selects, conditional visibility after address confirmation.</li>
       <li><strong>Five Star upsell</strong> — membership card with benefits, checkbox toggle, bottom-sheet modal if skipped.</li>
@@ -463,6 +488,6 @@
   </section>
 
 
-<script type="module" src="../kit/agentation-loader.js"></script>
+<script type="module" src="kit/agentation-loader.js"></script>
 </body>
 </html>
