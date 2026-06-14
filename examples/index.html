@@ -224,7 +224,7 @@
       background: #fff;
       border: 1px solid var(--gray-30);
       border-radius: var(--radius-md);
-      overflow: hidden;
+      overflow: visible;
       text-decoration: none;
       color: inherit;
       display: flex;
@@ -241,6 +241,7 @@
       overflow: hidden;
       background: #fff;
       border-bottom: 1px solid var(--gray-30);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
     }
     .card-thumbnail iframe {
       position: absolute;
@@ -292,22 +293,178 @@
     .card-tag-component { background: var(--ui-success-base); color: var(--ui-success-contrast); }
     .card-tag-token { background: var(--ui-warning-base); color: var(--ui-warning-contrast); }
     .card-tag-pattern { background: var(--brand-primary-light); color: var(--brand-primary-dark); }
+    .card-tag-prototype { background: #f3e8ff; color: #6b21a8; }
+
+    /* Card actions menu */
+    .card-actions {
+      position: relative;
+      flex-shrink: 0;
+      z-index: 2;
+    }
+    .card-actions-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--type-tertiary);
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: background 150ms, color 150ms;
+    }
+    .card-actions-trigger:hover { background: var(--gray-20); color: var(--type-secondary); }
+    .card-actions-trigger:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .card-actions-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      bottom: 100%;
+      margin-bottom: 4px;
+      background: #fff;
+      border: 1px solid var(--gray-30);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      min-width: 160px;
+      padding: 4px;
+      z-index: 10;
+    }
+    .card-actions-menu.is-open { display: block; }
+    .card-actions-menu button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: none;
+      background: none;
+      border-radius: var(--radius-xs);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      color: var(--type-secondary);
+      cursor: pointer;
+      text-align: left;
+      transition: background 150ms;
+    }
+    .card-actions-menu button:hover { background: var(--gray-20); }
+    .card-actions-menu button:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: -2px; }
+    .card-actions-menu button.is-danger { color: #c92a2a; }
+    .card-actions-menu button.is-danger:hover { background: #fff5f5; }
+
+    /* Archived state */
+    .card.is-archived { opacity: 0.5; }
+    .card.is-archived .card-thumbnail { filter: grayscale(1); }
+    .card-archived-badge {
+      display: none;
+      font-size: 0.625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.125rem 0.5rem;
+      border-radius: var(--radius-2xl);
+      background: var(--ui-neutral-base);
+      color: var(--type-tertiary);
+    }
+    .card.is-archived .card-archived-badge { display: inline-flex; }
+
+    /* Confirmation dialog */
+    .confirm-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-overlay.is-open { display: flex; }
+    .confirm-dialog {
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      max-width: 380px;
+      width: 90%;
+      box-shadow: var(--shadow-lg);
+    }
+    .confirm-dialog h3 {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--type-primary);
+      margin-bottom: 0.5rem;
+    }
+    .confirm-dialog p {
+      font-size: 0.875rem;
+      color: var(--type-tertiary);
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .confirm-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+    .confirm-actions button {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid var(--gray-40);
+      background: #fff;
+      color: var(--type-secondary);
+      transition: background 150ms;
+    }
+    .confirm-actions button:hover { background: var(--gray-20); }
+    .confirm-actions button:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .confirm-actions button.is-danger {
+      background: #c92a2a;
+      border-color: #c92a2a;
+      color: #fff;
+    }
+    .confirm-actions button.is-danger:hover { background: #a51111; }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      background: var(--type-primary);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      z-index: 1001;
+      opacity: 0;
+      transition: transform 250ms ease-out, opacity 250ms ease-out;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toast.is-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast button {
+      background: none;
+      border: none;
+      color: var(--action-secondary-glow);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
 
     .card-date {
       font-size: 0.6875rem;
       color: var(--type-tertiary);
       font-variant-numeric: tabular-nums;
     }
-
-    .card-arrow {
-      color: var(--action-secondary-base);
-      font-size: 1.25rem;
-      opacity: 0;
-      transform: translateX(-4px);
-      transition: opacity 150ms ease-out, transform 150ms ease-out;
-      flex-shrink: 0;
-    }
-    .card:hover .card-arrow { opacity: 1; transform: translateX(0); }
 
     /* List view */
     .gallery.is-list {
@@ -330,8 +487,6 @@
     .gallery.is-list .card-thumbnail iframe { width: 560px; height: 320px; transform: scale(0.25); }
     .gallery.is-list .card-body { padding: 0.875rem 1.5rem; }
     .gallery.is-list .card-title { font-size: 1.0625rem; }
-    .gallery.is-list .card-arrow { opacity: 1; transform: translateX(0); color: var(--gray-50); }
-    .gallery.is-list .card:hover .card-arrow { color: var(--action-secondary-base); }
 
     /* Empty state */
     .empty-state {
@@ -351,7 +506,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .card, .card-arrow { transition: none; }
+      .card { transition: none; }
       .card:hover { transform: none; }
     }
 
@@ -384,11 +539,13 @@
   <!-- Toolbar: filters + sort + view toggle -->
   <div class="toolbar">
     <div class="filter-chips" role="group" aria-label="Filter by category">
-      <button class="chip is-active" data-filter="all">All <span class="chip-count">12</span></button>
+      <button class="chip is-active" data-filter="all">All <span class="chip-count">15</span></button>
       <button class="chip" data-filter="page">Pages <span class="chip-count">6</span></button>
       <button class="chip" data-filter="component">Components <span class="chip-count">3</span></button>
       <button class="chip" data-filter="token">Tokens <span class="chip-count">1</span></button>
       <button class="chip" data-filter="pattern">Patterns <span class="chip-count">2</span></button>
+      <button class="chip" data-filter="prototype">Prototypes <span class="chip-count">3</span></button>
+      <button class="chip" data-filter="archived">Archived <span class="chip-count">0</span></button>
     </div>
     <div class="toolbar-controls">
       <label for="sort-select" class="visually-hidden">Sort by</label>
@@ -430,7 +587,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -445,7 +601,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -460,7 +615,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -475,7 +629,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -490,7 +643,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -505,7 +657,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -520,7 +671,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -535,7 +685,6 @@
             <span class="card-date">10 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -550,7 +699,6 @@
             <span class="card-date">11 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -565,7 +713,6 @@
             <span class="card-date">11 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -580,7 +727,6 @@
             <span class="card-date">12 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
       </div>
     </a>
 
@@ -595,7 +741,48 @@
             <span class="card-date">9 Jun 2026</span>
           </div>
         </div>
-        <span class="card-arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+
+    <a href="../prototypes/checkout-flow.html" class="card" data-category="prototype" data-date="2026-06-14" data-title="Checkout Flow">
+      <div class="card-thumbnail"><iframe src="../prototypes/checkout-flow.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Checkout Flow</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-prototype">Prototype</span>
+            <span class="card-filename">prototypes/checkout-flow.html</span>
+            <span class="card-date">14 Jun 2026</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="../prototypes/bottom-sheet-variants.html" class="card" data-category="prototype" data-date="2026-06-14" data-title="Bottom Sheet Variants">
+      <div class="card-thumbnail"><iframe src="../prototypes/bottom-sheet-variants.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Bottom Sheet Variants</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-prototype">Prototype</span>
+            <span class="card-filename">prototypes/bottom-sheet-variants.html</span>
+            <span class="card-date">14 Jun 2026</span>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="../prototypes/login-flow.html" class="card" data-category="prototype" data-date="2026-06-14" data-title="Login Flow">
+      <div class="card-thumbnail"><iframe src="../prototypes/login-flow.html" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-body-text">
+          <div class="card-title">Login Flow</div>
+          <div class="card-meta">
+            <span class="card-tag card-tag-prototype">Prototype</span>
+            <span class="card-filename">prototypes/login-flow.html</span>
+            <span class="card-date">14 Jun 2026</span>
+          </div>
+        </div>
       </div>
     </a>
 
@@ -608,6 +795,24 @@
   </div>
 </main>
 
+<!-- Confirmation dialog -->
+<div class="confirm-overlay" id="confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="confirm-dialog">
+    <h3 id="confirm-title">Delete prototype?</h3>
+    <p id="confirm-message">This will remove the card from the gallery. The file itself won't be deleted from disk.</p>
+    <div class="confirm-actions">
+      <button type="button" id="confirm-cancel">Cancel</button>
+      <button type="button" id="confirm-action" class="is-danger">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" aria-live="polite">
+  <span id="toast-message"></span>
+  <button type="button" id="toast-undo">Undo</button>
+</div>
+
 <style>.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }</style>
 
 <script>
@@ -619,20 +824,260 @@
   const viewButtons = document.querySelectorAll('.view-toggle button');
   const emptyState = document.getElementById('empty-state');
   const clearFilter = document.getElementById('clear-filter');
+  const confirmOverlay = document.getElementById('confirm-overlay');
+  const confirmTitle = document.getElementById('confirm-title');
+  const confirmMessage = document.getElementById('confirm-message');
+  const confirmCancel = document.getElementById('confirm-cancel');
+  const confirmAction = document.getElementById('confirm-action');
+  const toast = document.getElementById('toast');
+  const toastMessage = document.getElementById('toast-message');
+  const toastUndo = document.getElementById('toast-undo');
 
   let activeFilter = 'all';
+  const STORAGE_KEY = 'ao-gallery-state';
 
-  // Filter
+  // --- State management (localStorage) ---
+  function loadState() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { archived: [], deleted: [] };
+    } catch { return { archived: [], deleted: [] }; }
+  }
+  function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  // --- Inject action menus into cards ---
+  cards.forEach(card => {
+    const body = card.querySelector('.card-body');
+
+    // Archived badge
+    const badge = document.createElement('span');
+    badge.className = 'card-archived-badge';
+    badge.textContent = 'Archived';
+    card.querySelector('.card-meta').appendChild(badge);
+
+    // Actions container
+    const actions = document.createElement('div');
+    actions.className = 'card-actions';
+    actions.innerHTML = `
+      <button type="button" class="card-actions-trigger" aria-label="Card actions" aria-expanded="false">⋮</button>
+      <div class="card-actions-menu" role="menu">
+        <button type="button" role="menuitem" data-action="archive">📦 Archive</button>
+        <button type="button" role="menuitem" data-action="unarchive" style="display:none">📦 Unarchive</button>
+        <button type="button" role="menuitem" data-action="delete" class="is-danger">🗑 Delete</button>
+      </div>
+    `;
+    // Insert at end of body
+    body.appendChild(actions);
+  });
+
+  // --- Apply persisted state ---
+  function applyPersistedState() {
+    const state = loadState();
+    cards.forEach(card => {
+      const title = card.dataset.title;
+      if (state.deleted.includes(title)) {
+        card.remove();
+      } else if (state.archived.includes(title)) {
+        card.classList.add('is-archived');
+        card.dataset.originalCategory = card.dataset.category;
+        card.dataset.category = 'archived';
+        const menu = card.querySelector('.card-actions-menu');
+        menu.querySelector('[data-action="archive"]').style.display = 'none';
+        menu.querySelector('[data-action="unarchive"]').style.display = '';
+      }
+    });
+    updateChipCounts();
+  }
+
+  // --- Menu toggle ---
+  let openMenu = null;
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.card-actions-trigger');
+    if (trigger) {
+      e.preventDefault();
+      e.stopPropagation();
+      const menu = trigger.nextElementSibling;
+      const wasOpen = menu.classList.contains('is-open');
+      closeAllMenus();
+      if (!wasOpen) {
+        menu.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        openMenu = menu;
+      }
+      return;
+    }
+    // Action buttons
+    const actionBtn = e.target.closest('.card-actions-menu button');
+    if (actionBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = actionBtn.closest('.card');
+      const action = actionBtn.dataset.action;
+      closeAllMenus();
+      if (action === 'archive') archiveCard(card);
+      else if (action === 'unarchive') unarchiveCard(card);
+      else if (action === 'delete') promptDelete(card);
+      return;
+    }
+    closeAllMenus();
+  });
+
+  function closeAllMenus() {
+    document.querySelectorAll('.card-actions-menu.is-open').forEach(m => m.classList.remove('is-open'));
+    document.querySelectorAll('.card-actions-trigger[aria-expanded="true"]').forEach(t => t.setAttribute('aria-expanded', 'false'));
+    openMenu = null;
+  }
+
+  // --- Archive ---
+  function archiveCard(card) {
+    const state = loadState();
+    const title = card.dataset.title;
+    card.classList.add('is-archived');
+    card.dataset.originalCategory = card.dataset.category;
+    card.dataset.category = 'archived';
+    const menu = card.querySelector('.card-actions-menu');
+    menu.querySelector('[data-action="archive"]').style.display = 'none';
+    menu.querySelector('[data-action="unarchive"]').style.display = '';
+    if (!state.archived.includes(title)) state.archived.push(title);
+    saveState(state);
+    updateChipCounts();
+    applyFilter(activeFilter);
+    showToast(`"${title}" archived`, () => unarchiveCard(card));
+  }
+
+  function unarchiveCard(card) {
+    const state = loadState();
+    const title = card.dataset.title;
+    card.classList.remove('is-archived');
+    card.dataset.category = card.dataset.originalCategory || 'page';
+    const menu = card.querySelector('.card-actions-menu');
+    menu.querySelector('[data-action="archive"]').style.display = '';
+    menu.querySelector('[data-action="unarchive"]').style.display = 'none';
+    state.archived = state.archived.filter(t => t !== title);
+    saveState(state);
+    updateChipCounts();
+    applyFilter(activeFilter);
+    showToast(`"${title}" restored`);
+  }
+
+  // --- Delete (with confirmation) ---
+  let pendingDeleteCard = null;
+
+  function promptDelete(card) {
+    pendingDeleteCard = card;
+    confirmTitle.textContent = 'Delete prototype?';
+    confirmMessage.textContent = `Remove "${card.dataset.title}" from the gallery? The file on disk won't be affected.`;
+    confirmOverlay.classList.add('is-open');
+    confirmAction.focus();
+  }
+
+  confirmCancel.addEventListener('click', () => {
+    confirmOverlay.classList.remove('is-open');
+    pendingDeleteCard = null;
+  });
+
+  confirmAction.addEventListener('click', () => {
+    if (!pendingDeleteCard) return;
+    const card = pendingDeleteCard;
+    const title = card.dataset.title;
+    const state = loadState();
+    if (!state.deleted.includes(title)) state.deleted.push(title);
+    // Also remove from archived if it was there
+    state.archived = state.archived.filter(t => t !== title);
+    saveState(state);
+    card.style.transition = 'opacity 200ms ease-out, transform 200ms ease-out';
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      card.remove();
+      updateChipCounts();
+      applyFilter(activeFilter);
+    }, 200);
+    confirmOverlay.classList.remove('is-open');
+    showToast(`"${title}" deleted`, () => restoreDeleted(title));
+    pendingDeleteCard = null;
+  });
+
+  // Close dialog on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (confirmOverlay.classList.contains('is-open')) {
+        confirmOverlay.classList.remove('is-open');
+        pendingDeleteCard = null;
+      }
+      closeAllMenus();
+    }
+  });
+
+  // --- Restore deleted (undo) ---
+  function restoreDeleted(title) {
+    const state = loadState();
+    state.deleted = state.deleted.filter(t => t !== title);
+    saveState(state);
+    // Reload to restore card (simplest approach for static HTML)
+    location.reload();
+  }
+
+  // --- Toast ---
+  let toastTimeout = null;
+  let toastUndoFn = null;
+
+  function showToast(message, undoFn) {
+    clearTimeout(toastTimeout);
+    toastMessage.textContent = message;
+    toastUndo.style.display = undoFn ? '' : 'none';
+    toastUndoFn = undoFn || null;
+    toast.classList.add('is-visible');
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 5000);
+  }
+
+  toastUndo.addEventListener('click', () => {
+    toast.classList.remove('is-visible');
+    if (toastUndoFn) toastUndoFn();
+  });
+
+  // --- Update chip counts ---
+  function updateChipCounts() {
+    const remaining = Array.from(gallery.querySelectorAll('.card'));
+    const counts = { all: 0, page: 0, component: 0, token: 0, pattern: 0, prototype: 0, archived: 0 };
+    remaining.forEach(card => {
+      const cat = card.dataset.category;
+      if (cat === 'archived') {
+        counts.archived++;
+      } else {
+        if (counts[cat] !== undefined) counts[cat]++;
+        counts.all++;
+      }
+    });
+    chips.forEach(chip => {
+      const f = chip.dataset.filter;
+      const countEl = chip.querySelector('.chip-count');
+      if (countEl && counts[f] !== undefined) countEl.textContent = counts[f];
+    });
+  }
+
+  // --- Filter ---
   function applyFilter(filter) {
     activeFilter = filter;
+    const remaining = Array.from(gallery.querySelectorAll('.card'));
     let visibleCount = 0;
-    cards.forEach(card => {
-      const show = filter === 'all' || card.dataset.category === filter;
+    remaining.forEach(card => {
+      let show;
+      if (filter === 'all') {
+        // "All" hides archived cards
+        show = card.dataset.category !== 'archived';
+      } else if (filter === 'archived') {
+        show = card.dataset.category === 'archived';
+      } else {
+        show = card.dataset.category === filter;
+      }
       card.hidden = !show;
       if (show) visibleCount++;
     });
     emptyState.hidden = visibleCount > 0;
-
     chips.forEach(c => {
       c.classList.toggle('is-active', c.dataset.filter === filter);
     });
@@ -644,9 +1089,10 @@
 
   clearFilter.addEventListener('click', () => applyFilter('all'));
 
-  // Sort
+  // --- Sort ---
   function applySort(mode) {
-    const sorted = [...cards].sort((a, b) => {
+    const remaining = Array.from(gallery.querySelectorAll('.card'));
+    const sorted = [...remaining].sort((a, b) => {
       switch (mode) {
         case 'alpha-asc':
           return a.dataset.title.localeCompare(b.dataset.title);
@@ -668,7 +1114,7 @@
 
   sortSelect.addEventListener('change', () => applySort(sortSelect.value));
 
-  // View toggle
+  // --- View toggle ---
   viewButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       viewButtons.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-checked', 'false'); });
@@ -678,10 +1124,11 @@
     });
   });
 
-  // Initial sort
+  // --- Init ---
+  applyPersistedState();
   applySort(sortSelect.value);
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/gh/mearnest-dev/agentation-vanilla@main/agentation-vanilla.js"></script>
+<script type="module" src="../kit/agentation-loader.js"></script>
 </body>
 </html>

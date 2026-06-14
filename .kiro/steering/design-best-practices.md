@@ -1,6 +1,6 @@
 ---
 inclusion: fileMatch
-fileMatchPattern: ['**/prototypes/**/*.html', '**/examples/**/*.html', '**/trust-bridge-prototype/**/*.html']
+fileMatchPattern: ['**/examples/**/*.html']
 ---
 
 # Design Best Practices — UI Prototype Generation

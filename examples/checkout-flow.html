@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Checkout</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+
+  <!-- Strata Icons -->
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+
+  <style>
+    /* ============================================================
+       @font-face — SmileyFace + SmileyFace-Headline
+       ============================================================ */
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 100;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 400;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 500;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+
+    /* ============================================================
+       :root — Design Tokens
+       ============================================================ */
+    :root {
+      /* Neutrals */
+      --gray-10: #f8f9fa;  --gray-20: #f0f2f2;  --gray-30: #e2e7e8;
+      --gray-40: #d6dddf;  --gray-50: #c1c7c9;  --gray-60: #abb1b4;
+      --gray-70: #727677;  --gray-80: #595d5e;  --gray-90: #3f4344;  --gray-100: #212121;
+
+      /* Brand green */
+      --brand-primary-base: #12c35a;  --brand-primary-light: #befcc8;  --brand-primary-dark: #02422b;
+
+      /* Typography */
+      --type-primary: #011f44;  --type-secondary: #212121;  --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+
+      /* Action — primary (green) */
+      --action-primary-base: #00893e;  --action-primary-hover: #00560b;
+      --action-primary-focus: #00893e;  --action-primary-active: #003d00;
+      --action-primary-contrast: #ffffff;  --action-primary-glow: #12c35a;
+
+      /* Action — secondary (blue / Action Main) */
+      --action-secondary-base: #0564c2;  --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0564c2;  --action-secondary-active: #001876;
+      --action-secondary-contrast: #ffffff;  --action-secondary-glow: #40a1f8;
+
+      /* Action — light / dark / inactive */
+      --action-light-base: #ffffff;  --action-light-contrast: #011f44;  --action-light-glow: #40a1f8;
+      --action-dark-base: #011f44;   --action-dark-contrast: #ffffff;   --action-dark-glow: #40a1f8;
+      --action-inactive-base: #727677;  --action-inactive-contrast: #ffffff;
+
+      /* UI surface groups (base / contrast / accent) */
+      --ui-core-base: #ffffff;       --ui-core-contrast: #212121;       --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2;    --ui-neutral-contrast: #212121;    --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff;  --ui-highlight-contrast: #00318f;  --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3;    --ui-success-contrast: #02422b;    --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6;    --ui-warning-contrast: #ad5a00;    --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6;      --ui-error-contrast: #b50016;      --ui-error-accent: #b50016;
+      --ui-light-base: #ffffff;      --ui-light-contrast: #011f44;      --ui-light-accent: #ffffff;
+      --ui-dark-base: #011f44;       --ui-dark-contrast: #ffffff;       --ui-dark-accent: #011f44;
+
+      /* Food palette — decorative only */
+      --palette-bread: #ffe3c2;  --palette-toast: #ffa878;  --palette-jam: #422439;
+      --palette-simmer: #ffd8d2; --palette-heat: #f96155;   --palette-burn: #60222f;
+      --palette-steam: #c8d1ff;  --palette-ice: #4a6dce;    --palette-water: #011f44;
+
+      /* Radius */
+      --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 16px;
+      --radius-xl: 24px; --radius-2xl: 40px;
+
+      /* Shadow */
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+      --shadow-xl: 0 20px 48px rgba(1,22,48,0.18), 0 8px 16px rgba(1,22,48,0.10);
+    }
+
+    /* ============================================================
+       CSS Reset
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ============================================================
+       Base Body Styles
+       ============================================================ */
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.625;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================================================
+       Typography Utility Classes
+       ============================================================ */
+
+    /* SmileyFace (headings + CTAs) */
+    .t-display-headline { font-family: 'SmileyFace-Headline', Georgia, serif; font-size: 2.5rem;   line-height: 1.0;  color: var(--type-primary); }
+    .t-display-lg      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;    line-height: 1.25; color: var(--type-primary); }
+    .t-display         { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.5rem;  line-height: 1.25; color: var(--type-primary); }
+    .t-title-lg        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.25rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title           { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;    line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem; line-height: 1.25; color: var(--type-primary); }
+    .t-cta             { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;    line-height: 1.25; }
+
+    /* Inter (body + UI) */
+    .t-body       { font-family: 'Inter', sans-serif; font-size: 1rem;    line-height: 1.625; }
+    .t-body-sm    { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.625; }
+    .t-caption    { font-family: 'Inter', sans-serif; font-size: 0.75rem;  line-height: 1.625; color: var(--type-tertiary); }
+    .t-link       { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;    text-decoration: underline; color: var(--action-secondary-base); }
+    .t-link-sm    { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); }
+    .t-secondary  { color: var(--type-tertiary); }
+
+    /* ============================================================
+       Component Styles — Buttons
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms, transform 150ms;
+    }
+    .btn:focus-visible {
+      box-shadow: 0 0 0 3px rgba(5,100,194,0.15);
+      border-color: var(--action-secondary-base);
+      outline: none;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn:active:not(:disabled):not(.is-disabled) { transform: translateY(1px); box-shadow: var(--shadow); }
+    }
+
+    /* Primary */
+    .btn-primary { background: var(--action-primary-base); color: var(--action-primary-contrast); border-color: var(--action-primary-base); }
+    .btn-primary:hover:not(:disabled):not(.is-disabled) { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-primary:active:not(:disabled):not(.is-disabled) { background: var(--action-primary-active); border-color: var(--action-primary-active); }
+    .btn-primary:disabled,
+    .btn-primary.is-disabled { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; transform: none; }
+    .btn-primary.is-loading { opacity: 0.7; pointer-events: none; }
+    .btn-primary.is-error { background: var(--ui-error-accent); border-color: var(--ui-error-accent); color: var(--action-primary-contrast); }
+    .btn-primary.is-success { background: var(--ui-success-accent); border-color: var(--ui-success-accent); color: var(--action-primary-contrast); }
+
+    /* Secondary */
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover:not(:disabled):not(.is-disabled) { background: var(--ui-highlight-base); border-color: var(--action-secondary-hover); color: var(--action-secondary-hover); }
+    .btn-secondary:active:not(:disabled):not(.is-disabled) { background: var(--ui-highlight-base); border-color: var(--action-secondary-active); color: var(--action-secondary-active); }
+    .btn-secondary:disabled,
+    .btn-secondary.is-disabled { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; transform: none; }
+    .btn-secondary.is-loading { opacity: 0.7; pointer-events: none; }
+
+    /* Tertiary */
+    .btn-tertiary { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover:not(:disabled):not(.is-disabled) { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-tertiary:active:not(:disabled):not(.is-disabled) { background: var(--gray-30); border-color: var(--gray-60); }
+    .btn-tertiary:disabled,
+    .btn-tertiary.is-disabled { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; transform: none; }
+    .btn-tertiary.is-loading { opacity: 0.7; pointer-events: none; }
+
+    /* Sizes */
+    .btn-lg { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+
+    /* ============================================================
+       Component Styles — Field / Input
+       ============================================================ */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
+    .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
+
+    .field-input {
+      height: 48px;
+      padding: 0 0.875rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
+      background: var(--ui-core-base); outline: none; width: 100%;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .field-input::placeholder { color: var(--gray-60); }
+    .field-input:focus-visible {
+      border-color: var(--action-secondary-base);
+      box-shadow: 0 0 0 3px rgba(5,100,194,0.15);
+    }
+    .field-input:disabled {
+      background: var(--gray-10); color: var(--gray-70);
+      cursor: not-allowed; border-color: var(--gray-30);
+    }
+
+    /* Error state */
+    .field-input.is-error { border-color: var(--ui-error-accent); background: var(--ui-error-base); }
+    /* Success state */
+    .field-input.is-success { border-color: var(--ui-success-accent); background: var(--ui-success-base); }
+    /* Highlight state */
+    .field-input.is-highlight { border-color: var(--ui-highlight-accent); background: var(--ui-highlight-base); }
+
+    .field-msg { font-size: 0.8125rem; }
+    .field-msg.is-error { color: var(--ui-error-contrast); }
+    .field-msg.is-success { color: var(--ui-success-contrast); }
+    .field-msg.is-highlight { color: var(--ui-highlight-contrast); }
+    .field-msg.is-helper { color: var(--type-tertiary); }
+
+    /* Select wrap with custom chevron */
+    .field-select-wrap { position: relative; }
+    .field-select-wrap::after {
+      content: ''; pointer-events: none;
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-70);
+    }
+    select.field-input { appearance: none; padding-right: 2.5rem; }
+
+    /* ============================================================
+       Component Styles — Toggle Group / Toggle Item
+       ============================================================ */
+    .toggle-group {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      border: 0; padding: 0; margin: 0;
+    }
+    .toggle-group--inline { flex-direction: row; flex-wrap: wrap; }
+    .toggle-group--inline > .toggle-item { flex: 1 1 0; min-width: 0; }
+    .toggle-group--full { width: 100%; }
+
+    .toggle-item {
+      position: relative;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-50); background: var(--ui-core-base); cursor: pointer;
+      transition: border-color 150ms, background 150ms, box-shadow 150ms;
+    }
+    .toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 1rem 1.25rem; }
+
+    /* Custom radio/checkbox indicator (blue selection theme) */
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: var(--ui-core-base); cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: var(--radius-xs); }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked {
+      background-image: none;
+      box-shadow: inset 0 0 0 4px var(--ui-core-base);
+    }
+    .toggle-item input:focus-visible {
+      box-shadow: 0 0 0 3px rgba(5,100,194,0.15);
+      border-color: var(--action-secondary-base);
+      outline: none;
+    }
+
+    /* Body */
+    .toggle-item-body { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
+    .toggle-item-line { display: block; }
+    .toggle-item-label { font-size: 0.9375rem; font-weight: 700; color: var(--type-secondary); }
+    .toggle-item-sub { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .toggle-item-sub--xs { font-size: 0.75rem; color: var(--type-tertiary); }
+
+    /* Hover */
+    .toggle-item:hover { border-color: var(--gray-60); background: var(--gray-10); }
+
+    /* Focus-visible */
+    .toggle-item:has(:focus-visible) {
+      outline: 0;
+      box-shadow: 0 0 0 3px rgba(5,100,194,0.15);
+      border-color: var(--action-secondary-base);
+    }
+
+    /* Checked / selected (blue theme) */
+    .toggle-item:has(:checked) {
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 8%, white);
+    }
+    .toggle-item:has(:checked) .toggle-item-label,
+    .toggle-item:has(:checked) .toggle-item-line { color: var(--type-primary); }
+
+    /* Disabled */
+    .toggle-item.is-disabled,
+    .toggle-item:has(:disabled) {
+      background: var(--gray-20); border-color: var(--gray-30);
+      cursor: not-allowed; color: var(--gray-90);
+    }
+    .toggle-item.is-disabled .toggle-item-label { color: var(--gray-90); }
+
+    /* Highlighted / recommended variant */
+    .toggle-item--highlight {
+      border-width: 2px;
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 6%, white);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.125rem 1.125rem;
+    }
+
+    /* Visually hidden utility */
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ============================================================
+       Component Styles — Card
+       ============================================================ */
+    .card {
+      background: var(--ui-core-base); border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 1.5rem;
+    }
+    .card-raised { box-shadow: var(--shadow-md); }
+    .card-success { background: var(--ui-success-base); border-color: var(--ui-success-accent); }
+    .card-highlight { background: var(--ui-highlight-base); border-color: var(--ui-highlight-accent); }
+    .card-error { background: var(--ui-error-base); border-color: var(--ui-error-accent); }
+    .card-divider { height: 1px; background: var(--gray-30); margin: 1rem -1.5rem; }
+
+    /* ============================================================
+       Component Styles — Tag
+       ============================================================ */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4; border: 1px solid transparent;
+    }
+    .tag-success { background: var(--ui-success-base); color: var(--ui-success-contrast); border-color: var(--ui-success-accent); }
+    .tag-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral { background: var(--ui-neutral-base); color: var(--type-secondary); border-color: var(--gray-40); }
+    .tag-warning { background: var(--ui-warning-base); color: var(--ui-warning-contrast); border-color: var(--ui-warning-accent); }
+    .tag-error { background: var(--ui-error-base); color: var(--ui-error-contrast); border-color: var(--ui-error-accent); }
+    .tag-lg { padding: 0.35rem 0.875rem; font-size: 0.875rem; }
+
+    /* ============================================================
+       Component Styles — Notice
+       ============================================================ */
+    .notice {
+      display: flex; gap: 0.5rem; align-items: flex-start;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem; line-height: 1.625;
+    }
+    .notice-icon { flex-shrink: 0; font-size: 1.5rem; line-height: 1; }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--type-secondary); }
+    .notice-success { background: var(--brand-primary-light); color: var(--type-secondary); }
+    .notice-warning { background: var(--palette-bread); color: var(--type-secondary); }
+    .notice-error { background: var(--palette-simmer); color: var(--type-secondary); }
+    .notice strong { font-weight: 700; color: var(--type-secondary); }
+
+    /* ============================================================
+       Layout — Checkout Grid
+       ============================================================ */
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    .checkout-main {
+      min-width: 0;
+    }
+
+    .checkout-sidebar {
+      min-width: 0;
+    }
+
+    /* ============================================================
+       Layout — Step Navigator
+       ============================================================ */
+    .steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px;
+      background-color: var(--ui-core-base);
+      border-bottom: 1px solid var(--gray-30);
+    }
+
+    .steps__tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      min-height: 44px;
+      min-width: 44px;
+      border: none;
+      border-radius: var(--radius-2xl);
+      background-color: transparent;
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      line-height: 1.25;
+      color: var(--type-tertiary);
+      cursor: not-allowed;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .steps__tab[aria-selected="true"] {
+      background-color: var(--type-primary);
+      color: var(--action-primary-contrast);
+      cursor: pointer;
+    }
+
+    .steps__tab--completed {
+      color: var(--action-secondary-base);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .steps__tab--completed::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    .steps__tab-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--gray-30);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: var(--type-tertiary);
+      flex-shrink: 0;
+    }
+
+    .steps__tab[aria-selected="true"] .steps__tab-number {
+      background-color: var(--action-primary-contrast);
+      color: var(--type-primary);
+    }
+
+    .steps__tab-label {
+      display: inline;
+    }
+
+    /* ============================================================
+       Layout — Sidebar
+       ============================================================ */
+    .checkout-sidebar__inner {
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    /* ============================================================
+       Order Summary — Product Card
+       ============================================================ */
+    .summary-product {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .summary-product__image {
+      font-size: 3rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .summary-product__details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .summary-product__name {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 0.875rem;
+      line-height: 1.25;
+      color: var(--type-primary);
+    }
+
+    .summary-product__price {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--type-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .summary-delivery-slot {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: var(--type-tertiary);
+      line-height: 1.625;
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       Order Summary — Line Items
+       ============================================================ */
+    .summary-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-30);
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      color: var(--type-secondary);
+    }
+
+    .summary-line__value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 400;
+    }
+
+    .summary-line--total {
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-30);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--type-primary);
+    }
+
+    .summary-line--total .summary-line__value {
+      font-weight: 700;
+      font-size: 1.25rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================================
+       Touch Targets — Minimum 44×44px
+       ============================================================ */
+    button,
+    [role="tab"],
+    [type="checkbox"],
+    [type="radio"],
+    select,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      width: 24px;
+      height: 24px;
+      /* Increase clickable area via padding/margin in parent or pseudo-element */
+    }
+
+    /* ============================================================
+       Responsive — Mobile-first breakpoints
+       ============================================================ */
+
+    /* Below 544px (base mobile): step labels collapsed */
+    .steps__tab-label {
+      display: none;
+    }
+
+    .steps__tab[aria-selected="true"] .steps__tab-label {
+      display: inline;
+    }
+
+    /* sm: 544px — Show step labels */
+    @media (min-width: 544px) {
+      .steps__tab-label {
+        display: inline;
+      }
+
+      .checkout-grid {
+        padding: 24px 24px;
+      }
+    }
+
+    /* md: 768px — Wider spacing */
+    @media (min-width: 768px) {
+      .checkout-grid {
+        padding: 32px 32px;
+      }
+
+      .steps {
+        gap: 12px;
+      }
+
+      .steps__tab {
+        padding: 8px 20px;
+        font-size: 1rem;
+      }
+    }
+
+    /* layout: 900px — Two-column grid + sticky sidebar */
+    @media (min-width: 900px) {
+      .checkout-grid {
+        grid-template-columns: 1fr 360px;
+        gap: 40px;
+        padding: 40px 32px;
+      }
+
+      .checkout-sidebar {
+        position: sticky;
+        top: 80px;
+        align-self: start;
+      }
+    }
+
+    /* lg: 990px — Max content width refinement */
+    @media (min-width: 990px) {
+      .checkout-grid {
+        padding: 40px 48px;
+      }
+
+      .steps__tab {
+        padding: 8px 24px;
+      }
+    }
+
+    /* ============================================================
+       Mobile Adaptations (base / below 544px)
+       ============================================================ */
+    .btn-full {
+      width: 100%;
+      min-height: 48px;
+    }
+
+    .form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 544px) {
+      .form-stack--inline {
+        flex-direction: row;
+        gap: 16px;
+      }
+
+      .form-stack--inline > * {
+        flex: 1;
+      }
+    }
+
+    /* ============================================================
+       Transitions — Respects prefers-reduced-motion
+       ============================================================ */
+    @media (prefers-reduced-motion: no-preference) {
+      .steps__tab {
+        transition: background-color 200ms ease-out, color 200ms ease-out;
+      }
+
+      .checkout-sidebar__inner {
+        transition: box-shadow 200ms ease-out;
+      }
+
+      .step-panel {
+        transition: opacity 300ms ease-out;
+      }
+
+      .btn-full {
+        transition: background-color 200ms ease-out, transform 150ms ease-out, box-shadow 200ms ease-out;
+      }
+    }
+
+    /* ============================================================
+       Step Panel visibility
+       ============================================================ */
+    .step-panel {
+      display: none;
+    }
+
+    .step-panel.is-active {
+      display: block;
+    }
+
+    /* ============================================================
+       Component Styles — Nav (Checkout Header)
+       ============================================================ */
+    [data-aods="nav"] {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .nav-mobile {
+      background: var(--ui-core-base);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .nav-checkout {
+      justify-content: space-between;
+    }
+
+    .nav-checkout-icons {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo .ico {
+      font-size: 3rem;
+      color: var(--brand-primary-base);
+    }
+
+    .nav-icon {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      gap: 0.125rem;
+    }
+
+    .nav-icon:focus-visible {
+      outline: 3px solid var(--action-secondary-glow);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+
+    .nav-icon-img {
+      font-size: 1.75rem;
+      color: var(--type-primary);
+    }
+
+    .nav-icon-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--type-primary);
+      line-height: 1.25;
+    }
+
+    /* Badge (red notification dot with count) */
+    .nav-icon--badge::after {
+      content: attr(data-count);
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 50%;
+      background: #cf1a30;
+      color: var(--action-primary-contrast);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Green accent bar */
+    .nav-accent {
+      height: 4px;
+      background: var(--brand-primary-base);
+    }
+
+    .nav-logo:focus-visible {
+      outline: 3px solid var(--action-secondary-glow);
+      outline-offset: 2px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================================
+       Component Styles — Footer
+       ============================================================ */
+    .footer { width: 100%; }
+
+    .footer-social {
+      background: var(--gray-90);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding: 24px 16px;
+      border-top: 1px solid var(--gray-70);
+    }
+
+    .footer-social__link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gray-80);
+      color: var(--action-primary-contrast);
+      text-decoration: none;
+      transition: background 150ms ease-out;
+    }
+
+    .footer-social__link:hover {
+      background: var(--action-secondary-base);
+    }
+
+    .footer-social__link:focus-visible {
+      outline: 2px solid var(--action-secondary-glow);
+      outline-offset: 2px;
+    }
+
+    .footer-social__link svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .footer-legal {
+      background: var(--gray-100);
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    .footer-legal p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: var(--gray-50);
+      line-height: 1.625;
+      margin: 0 0 12px;
+      max-width: 65ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-legal p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 544px) {
+      .footer-social {
+        gap: 32px;
+        padding: 24px 24px;
+      }
+
+      .footer-legal {
+        padding: 24px 24px;
+      }
+    }
+
+    @media (min-width: 990px) {
+      .footer-legal {
+        padding: 32px 48px;
+      }
+    }
+
+    /* ============================================================
+       Component Styles — Bottom Sheet Modal
+       ============================================================ */
+    .bottom-sheet-scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(1, 22, 48, 0.5);
+      z-index: 100;
+      display: none;
+    }
+
+    .bottom-sheet-scrim.is-open {
+      display: block;
+    }
+
+    .bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--ui-core-base);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      padding: 32px 24px;
+      z-index: 101;
+      transform: translateY(100%);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .bottom-sheet.is-open {
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bottom-sheet {
+        transition: transform 300ms ease-out;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .bottom-sheet {
+        max-width: 480px;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        border-radius: var(--radius-md);
+      }
+
+      .bottom-sheet.is-open {
+        transform: translate(-50%, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Checkout Header -->
+  <header data-aods="nav">
+    <nav class="nav-mobile nav-checkout">
+      <a href="/" class="nav-logo" aria-label="AO Home">
+        <i class="ico ico-ao-logo" aria-hidden="true"></i>
+      </a>
+      <div class="nav-checkout-icons">
+        <a href="/help" class="nav-icon">
+          <i class="ico ico-call nav-icon-img" aria-hidden="true"></i>
+          <span class="nav-icon-label">Help</span>
+        </a>
+        <a href="/basket" class="nav-icon nav-icon--badge" aria-label="Basket, 1 item" data-count="1">
+          <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
+          <span class="nav-icon-label">Basket</span>
+        </a>
+      </div>
+    </nav>
+    <div class="nav-accent"></div>
+  </header>
+
+  <!-- Step Navigator -->
+  <nav class="steps" role="tablist" aria-label="Checkout steps">
+    <button class="steps__tab" role="tab" id="tab-delivery" aria-selected="true" aria-current="step" aria-controls="step-delivery">
+      <span class="steps__tab-number" aria-hidden="true">1</span>
+      <span class="steps__tab-label">Delivery</span>
+    </button>
+    <button class="steps__tab" role="tab" id="tab-contact" aria-selected="false" aria-controls="step-contact">
+      <span class="steps__tab-number" aria-hidden="true">2</span>
+      <span class="steps__tab-label">Contact</span>
+    </button>
+    <button class="steps__tab" role="tab" id="tab-payment" aria-selected="false" aria-controls="step-payment">
+      <span class="steps__tab-number" aria-hidden="true">3</span>
+      <span class="steps__tab-label">Payment</span>
+    </button>
+  </nav>
+
+  <!-- Main Checkout Grid -->
+  <main class="checkout-grid">
+    <div class="checkout-main">
+
+      <!-- Step 1: Delivery -->
+      <section id="step-delivery" class="step-panel is-active" role="tabpanel" aria-labelledby="tab-delivery">
+
+        <!-- Address Section -->
+        <h2 class="t-title-lg" style="margin-bottom: 24px;">Address</h2>
+
+        <!-- Entry Phase -->
+        <div data-phase="entry">
+          <div class="form-stack">
+            <!-- House number/name field -->
+            <div class="field" data-aods="field">
+              <label class="field-label" for="address-house-number">House number or name (optional)</label>
+              <input
+                type="text"
+                id="address-house-number"
+                class="field-input"
+                maxlength="50"
+                autocomplete="address-line2"
+                aria-describedby="address-house-number-error"
+              >
+              <span id="address-house-number-error" class="field-msg is-error" style="display:none"></span>
+            </div>
+
+            <!-- Postcode field -->
+            <div class="field" data-aods="field">
+              <label class="field-label field-label-required" for="address-postcode">Postcode</label>
+              <input
+                type="text"
+                id="address-postcode"
+                class="field-input"
+                maxlength="8"
+                required
+                autocomplete="postal-code"
+                aria-describedby="address-postcode-error"
+              >
+              <span id="address-postcode-error" class="field-msg is-error" style="display:none"></span>
+            </div>
+
+            <!-- Find Address button -->
+            <div style="margin-top: 8px;">
+              <button type="button" class="btn btn-secondary" data-aods="button" id="btn-find-address">Find address</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Phase -->
+        <div data-phase="results" style="display:none">
+          <div class="form-stack">
+            <!-- Address select dropdown -->
+            <div class="field" data-aods="field">
+              <label class="field-label" for="address-select">Select your address</label>
+              <div class="field-select-wrap">
+                <select id="address-select" class="field-input" aria-describedby="address-select-error">
+                  <option value="">4 addresses found</option>
+                  <option value="0">14 Maple Close, Manchester, M14 5RQ</option>
+                  <option value="1">16 Maple Close, Manchester, M14 5RQ</option>
+                  <option value="2">18 Maple Close, Manchester, M14 5RQ</option>
+                  <option value="3">20 Maple Close, Manchester, M14 5RQ</option>
+                </select>
+              </div>
+              <span id="address-select-error" class="field-msg is-error" style="display:none"></span>
+            </div>
+
+            <!-- My address isn't listed link -->
+            <a href="#" class="t-link-sm" id="link-address-not-listed" style="margin-top: 8px; display: inline-block;">My address isn't listed</a>
+          </div>
+        </div>
+
+        <!-- Confirmed Phase -->
+        <div data-phase="confirmed" style="display:none">
+          <div class="card" data-aods="card">
+            <p class="t-body" style="margin-bottom: 4px;"><strong id="confirmed-street"></strong></p>
+            <p class="t-body-sm" style="margin-bottom: 4px;"><span id="confirmed-city"></span></p>
+            <p class="t-body-sm"><span id="confirmed-postcode"></span></p>
+          </div>
+          <a href="#" class="t-link-sm" id="link-edit-address" style="margin-top: 12px; display: inline-block;">Edit address</a>
+        </div>
+
+        <!-- Delivery Options (hidden until address is confirmed) -->
+        <div id="delivery-options" style="display:none; margin-top: 32px;">
+          <h3 class="t-title-lg" style="margin-bottom: 24px;">Delivery options</h3>
+
+          <div class="form-stack" style="gap: 24px;">
+            <!-- Date picker -->
+            <div class="field" data-aods="field">
+              <label class="field-label" for="delivery-date">Delivery date</label>
+              <div class="field-select-wrap">
+                <select id="delivery-date" class="field-input">
+                  <option value="thu-22-may" selected>Thursday 22 May</option>
+                  <option value="fri-23-may">Friday 23 May</option>
+                  <option value="sat-24-may">Saturday 24 May</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Time picker -->
+            <div class="field" data-aods="field">
+              <label class="field-label" for="delivery-time">Delivery time</label>
+              <div class="field-select-wrap">
+                <select id="delivery-time" class="field-input">
+                  <option value="anytime" selected>Any time (7am–7pm)</option>
+                  <option value="morning">Morning (7am–12pm)</option>
+                  <option value="afternoon">Afternoon (12pm–5pm)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery confirmation text -->
+          <div style="margin-top: 24px;">
+            <p class="t-body-sm" style="color: var(--type-tertiary); margin-bottom: 8px;">We'll text you by 8am with a 4-hour delivery window</p>
+            <p class="t-body-sm" style="color: var(--type-tertiary);">Track your order online every step of the way</p>
+          </div>
+
+          <!-- Continue button -->
+          <div style="margin-top: 32px;">
+            <button type="button" class="btn btn-primary btn-full" data-aods="button" id="btn-delivery-continue">Continue</button>
+          </div>
+        </div>
+
+        <!-- Five Star Membership Upsell -->
+        <div class="five-star-upsell" style="margin-top: 48px;">
+          <div class="card" data-aods="card">
+            <div style="margin-bottom: 16px;">
+              <h3 class="t-title-lg" style="margin-bottom: 4px;">Save up to £40 today!</h3>
+              <p class="t-body" style="font-weight: 700; color: var(--type-primary);">£39.99/yr</p>
+            </div>
+
+            <!-- Benefits list -->
+            <ul class="five-star-benefits" style="list-style: none; padding: 0; margin: 0 0 16px 0; display: flex; flex-direction: column; gap: 12px;">
+              <li style="display: flex; align-items: flex-start; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+                  <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
+                  <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="t-body-sm">Member price savings on 1000s of products</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+                  <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
+                  <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="t-body-sm">Free and unlimited delivery</span>
+              </li>
+              <li style="display: flex; align-items: flex-start; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+                  <circle cx="10" cy="10" r="10" fill="var(--ui-success-accent)"/>
+                  <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="t-body-sm">Free 100-day returns</span>
+              </li>
+            </ul>
+
+            <!-- Checkbox toggle -->
+            <div class="toggle-group" data-aods="checkbox-group">
+              <label class="toggle-item" data-aods="checkbox">
+                <input type="checkbox" id="five-star-checkbox" value="five-star">
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Join AO Five Star – £39.99/year</div>
+                </div>
+              </label>
+            </div>
+
+            <!-- Learn more link -->
+            <div style="margin-top: 12px;">
+              <a href="#" class="t-link-sm" target="_blank" rel="noopener">Learn more about AO Five Star</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PayPal payment option notice -->
+        <div style="margin-top: 24px;">
+          <p class="t-caption" style="text-align: center;">
+            <i class="ico ico-paypal" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"></i>
+            PayPal is also available as a payment option at the next step
+          </p>
+        </div>
+
+        <!-- Terms and privacy notice -->
+        <div style="margin-top: 16px;">
+          <p class="t-caption" style="text-align: center;">
+            By placing an order you agree to our <a href="#" class="t-link-sm" target="_blank" rel="noopener">terms &amp; conditions</a> and <a href="#" class="t-link-sm" target="_blank" rel="noopener">privacy policy</a>
+          </p>
+        </div>
+
+      </section>
+
+      <!-- Step 2: Contact Details -->
+      <section id="step-contact" class="step-panel" role="tabpanel" aria-labelledby="tab-contact">
+        <form novalidate>
+          <fieldset style="border: 0; padding: 0; margin: 0;">
+            <legend class="t-title-lg" style="margin-bottom: 24px;">Your details</legend>
+
+            <!-- Email -->
+            <div class="field" data-aods="field" style="margin-bottom: 16px;">
+              <label for="contact-email" class="field-label field-label-required">Email address</label>
+              <input type="email" id="contact-email" class="field-input" required aria-describedby="contact-email-error">
+              <span id="contact-email-error" class="field-msg is-error" hidden>Enter a valid email address, like name@example.com</span>
+            </div>
+
+            <!-- Title -->
+            <div class="field" data-aods="field" style="margin-bottom: 16px;">
+              <label for="contact-title" class="field-label field-label-required">Title</label>
+              <div class="field-select-wrap">
+                <select id="contact-title" class="field-input" required aria-describedby="contact-title-error">
+                  <option value="">Select a title</option>
+                  <option value="Mr">Mr</option>
+                  <option value="Mrs">Mrs</option>
+                  <option value="Miss">Miss</option>
+                  <option value="Ms">Ms</option>
+                  <option value="Mx">Mx</option>
+                  <option value="Dr">Dr</option>
+                </select>
+              </div>
+              <span id="contact-title-error" class="field-msg is-error" hidden>Select your title</span>
+            </div>
+
+            <!-- First name -->
+            <div class="field" data-aods="field" style="margin-bottom: 16px;">
+              <label for="contact-firstname" class="field-label field-label-required">First name</label>
+              <input type="text" id="contact-firstname" class="field-input" maxlength="50" required aria-describedby="contact-firstname-error">
+              <span id="contact-firstname-error" class="field-msg is-error" hidden>Enter your first name</span>
+            </div>
+
+            <!-- Last name -->
+            <div class="field" data-aods="field" style="margin-bottom: 16px;">
+              <label for="contact-lastname" class="field-label field-label-required">Last name</label>
+              <input type="text" id="contact-lastname" class="field-input" maxlength="50" required aria-describedby="contact-lastname-error">
+              <span id="contact-lastname-error" class="field-msg is-error" hidden>Enter your last name</span>
+            </div>
+
+            <!-- Mobile -->
+            <div class="field" data-aods="field" style="margin-bottom: 16px;">
+              <label for="contact-mobile" class="field-label field-label-required">Mobile number</label>
+              <input type="tel" id="contact-mobile" class="field-input" required aria-describedby="contact-mobile-error">
+              <span id="contact-mobile-error" class="field-msg is-error" hidden>Enter a valid UK mobile number (11 digits starting 07)</span>
+            </div>
+
+            <!-- Alternative number -->
+            <div class="field" data-aods="field" style="margin-bottom: 16px;">
+              <label for="contact-alt-number" class="field-label field-label-required">Alternative number</label>
+              <input type="tel" id="contact-alt-number" class="field-input" required aria-describedby="contact-alt-number-error">
+              <span id="contact-alt-number-error" class="field-msg is-error" hidden>Enter a valid UK phone number (11 digits starting with 0)</span>
+            </div>
+
+            <!-- Info notice -->
+            <div class="notice notice-highlight" style="margin-bottom: 24px;">
+              <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+              <p>Plans change, we get it. Add a backup mobile number and, if someone else is accepting the delivery, they'll get updates too.</p>
+            </div>
+
+            <!-- Security notice -->
+            <div class="notice notice-highlight" style="margin-bottom: 24px;">
+              <i class="ico ico-padlock notice-icon" aria-hidden="true"></i>
+              <p>Your details are safe &amp; secure. See how your data is used in our <a href="/privacy-policy" class="t-link-sm">privacy policy</a>.</p>
+            </div>
+
+            <!-- Continue button -->
+            <button type="submit" class="btn btn-primary btn-full" data-aods="button" style="width: 100%;">Continue</button>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- Step 3: Payment -->
+      <section id="step-payment" class="step-panel" role="tabpanel" aria-labelledby="tab-payment">
+        <form novalidate>
+          <fieldset style="border: 0; padding: 0; margin: 0;">
+            <legend class="t-title-lg" style="margin-bottom: 24px;">Payment</legend>
+
+            <!-- Payment Method Toggle Group -->
+            <fieldset class="toggle-group" style="border: 0; padding: 0; margin: 0 0 24px 0;" data-aods="toggle">
+              <legend class="visually-hidden">Payment method</legend>
+
+              <!-- Card Payment -->
+              <label class="toggle-item">
+                <input type="radio" name="payment-method" value="card" checked>
+                <span class="toggle-item-body">
+                  <span class="toggle-item-line">
+                    <span class="toggle-item-label">Card payment</span>
+                  </span>
+                  <span class="toggle-item-sub" aria-hidden="true">
+                    <svg width="36" height="24" viewBox="0 0 36 24" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"><rect width="36" height="24" rx="4" fill="#1A1F71"/><text x="18" y="15" text-anchor="middle" fill="white" font-size="8" font-family="Inter, sans-serif" font-weight="700">VISA</text></svg>
+                    <svg width="36" height="24" viewBox="0 0 36 24" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"><rect width="36" height="24" rx="4" fill="#EB001B" opacity="0.8"/><circle cx="14" cy="12" r="7" fill="#EB001B"/><circle cx="22" cy="12" r="7" fill="#F79E1B"/><path d="M18 6.5a7 7 0 010 11" fill="#FF5F00"/></svg>
+                    <svg width="36" height="24" viewBox="0 0 36 24" aria-hidden="true" style="vertical-align: middle;"><rect width="36" height="24" rx="4" fill="#2E77BC"/><text x="18" y="15" text-anchor="middle" fill="white" font-size="6" font-family="Inter, sans-serif" font-weight="700">AMEX</text></svg>
+                  </span>
+                </span>
+              </label>
+
+              <!-- AO Finance -->
+              <label class="toggle-item">
+                <input type="radio" name="payment-method" value="finance">
+                <span class="toggle-item-body">
+                  <span class="toggle-item-line">
+                    <span class="toggle-item-label">AO Finance</span>
+                    <span class="tag tag-highlight" style="margin-left: 8px;">4.9% Interest Plan</span>
+                  </span>
+                </span>
+              </label>
+            </fieldset>
+
+            <!-- Card Payment Form -->
+            <div id="pay-card-section" data-pay-section="card">
+              <div class="form-stack" style="margin-bottom: 24px;">
+
+                <!-- Name on card -->
+                <div class="field" data-aods="field">
+                  <label for="pay-name" class="field-label field-label-required">Name on card</label>
+                  <input type="text" id="pay-name" class="field-input" maxlength="100" required autocomplete="cc-name" aria-describedby="pay-name-error">
+                  <span id="pay-name-error" class="field-msg is-error" hidden>Enter the name on your card</span>
+                </div>
+
+                <!-- Card number -->
+                <div class="field" data-aods="field">
+                  <label for="pay-card-number" class="field-label field-label-required">Card number</label>
+                  <input type="text" id="pay-card-number" class="field-input" maxlength="19" inputmode="numeric" required autocomplete="cc-number" aria-describedby="pay-card-number-error">
+                  <span id="pay-card-number-error" class="field-msg is-error" hidden>Enter a valid card number</span>
+                </div>
+
+                <!-- Expiry date row -->
+                <div class="form-stack form-stack--inline">
+                  <!-- Expiry month -->
+                  <div class="field" data-aods="field">
+                    <label for="pay-expiry-month" class="field-label field-label-required">Expiry month</label>
+                    <div class="field-select-wrap">
+                      <select id="pay-expiry-month" class="field-input" required autocomplete="cc-exp-month" aria-describedby="pay-expiry-error">
+                        <option value="">Month</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Expiry year -->
+                  <div class="field" data-aods="field">
+                    <label for="pay-expiry-year" class="field-label field-label-required">Expiry year</label>
+                    <div class="field-select-wrap">
+                      <select id="pay-expiry-year" class="field-input" required autocomplete="cc-exp-year" aria-describedby="pay-expiry-error">
+                        <option value="">Year</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <span id="pay-expiry-error" class="field-msg is-error" hidden>Select your card's expiry date</span>
+
+                <!-- Security code -->
+                <div class="field" data-aods="field">
+                  <label for="pay-cvv" class="field-label field-label-required">Security code</label>
+                  <input type="text" id="pay-cvv" class="field-input" maxlength="4" inputmode="numeric" required autocomplete="cc-csc" aria-describedby="pay-cvv-helper pay-cvv-error">
+                  <span id="pay-cvv-helper" class="field-msg is-helper">3 or 4 digits on the back of your card</span>
+                  <span id="pay-cvv-error" class="field-msg is-error" hidden>Enter the 3 or 4 digit security code</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Finance Section (hidden by default) -->
+            <div id="pay-finance-section" data-pay-section="finance" style="display: none;">
+              <fieldset class="toggle-group" style="border: 0; padding: 0; margin: 0 0 16px 0;" data-aods="toggle">
+                <legend class="visually-hidden">Finance option</legend>
+
+                <!-- 4.9% Interest Plan -->
+                <label class="toggle-item">
+                  <input type="radio" name="finance-option" value="4.9-interest" checked>
+                  <span class="toggle-item-body">
+                    <span class="toggle-item-line">
+                      <span class="toggle-item-label">4.9% Interest Plan</span>
+                    </span>
+                    <span class="toggle-item-sub">Spread the cost with a low-rate interest plan over 12–48 months</span>
+                  </span>
+                </label>
+
+                <!-- Instalment Plan -->
+                <label class="toggle-item">
+                  <input type="radio" name="finance-option" value="instalment">
+                  <span class="toggle-item-body">
+                    <span class="toggle-item-line">
+                      <span class="toggle-item-label">Instalment Plan</span>
+                    </span>
+                    <span class="toggle-item-sub">Pay in equal monthly instalments with no interest charges</span>
+                  </span>
+                </label>
+
+                <!-- Flexible Payments -->
+                <label class="toggle-item">
+                  <input type="radio" name="finance-option" value="flexible">
+                  <span class="toggle-item-body">
+                    <span class="toggle-item-line">
+                      <span class="toggle-item-label">Flexible Payments</span>
+                    </span>
+                    <span class="toggle-item-sub">Set your own monthly payment amount with a flexible credit limit</span>
+                  </span>
+                </label>
+              </fieldset>
+
+              <!-- Eligibility notice -->
+              <div class="notice notice-highlight" style="margin-bottom: 24px;">
+                <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+                <p>Subject to status. 18+. Minimum spend applies.</p>
+              </div>
+            </div>
+
+            <!-- Billing Address Toggle -->
+            <fieldset class="toggle-group toggle-group--inline" style="border: 0; padding: 0; margin: 0 0 16px 0;" data-aods="toggle">
+              <legend class="field-label" style="margin-bottom: 8px;">Is your billing address the same as your delivery address?</legend>
+              <label class="toggle-item">
+                <input type="radio" name="billing-same" value="yes" checked>
+                <span class="toggle-item-body">
+                  <span class="toggle-item-label">Yes</span>
+                </span>
+              </label>
+              <label class="toggle-item">
+                <input type="radio" name="billing-same" value="no">
+                <span class="toggle-item-body">
+                  <span class="toggle-item-label">No</span>
+                </span>
+              </label>
+            </fieldset>
+
+            <!-- Billing Address Form (hidden by default) -->
+            <div id="pay-billing-address" style="display: none; margin-bottom: 24px;">
+              <div class="form-stack">
+                <!-- Street address -->
+                <div class="field" data-aods="field">
+                  <label for="billing-street" class="field-label field-label-required">Street address</label>
+                  <input type="text" id="billing-street" class="field-input" autocomplete="billing street-address" aria-describedby="billing-street-error">
+                  <span id="billing-street-error" class="field-msg is-error" hidden>Enter your street address</span>
+                </div>
+
+                <!-- City -->
+                <div class="field" data-aods="field">
+                  <label for="billing-city" class="field-label field-label-required">City</label>
+                  <input type="text" id="billing-city" class="field-input" autocomplete="billing address-level2" aria-describedby="billing-city-error">
+                  <span id="billing-city-error" class="field-msg is-error" hidden>Enter your city</span>
+                </div>
+
+                <!-- Postcode -->
+                <div class="field" data-aods="field">
+                  <label for="billing-postcode" class="field-label field-label-required">Postcode</label>
+                  <input type="text" id="billing-postcode" class="field-input" maxlength="8" autocomplete="billing postal-code" aria-describedby="billing-postcode-error">
+                  <span id="billing-postcode-error" class="field-msg is-error" hidden>Enter your postcode</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terms Checkbox -->
+            <div style="margin-bottom: 24px;">
+              <label class="toggle-item" style="border: none; padding: 0; background: transparent;">
+                <input type="checkbox" id="pay-terms" name="pay-terms" aria-describedby="pay-terms-error">
+                <span class="toggle-item-body">
+                  <span class="toggle-item-sub">I accept the terms and conditions and have read the <a href="/privacy-policy" class="t-link-sm">privacy policy</a></span>
+                </span>
+              </label>
+              <span id="pay-terms-error" class="field-msg is-error" hidden>You must accept the terms and conditions to continue</span>
+            </div>
+
+            <!-- Confirm order and pay button -->
+            <button type="submit" class="btn btn-primary btn-full" data-aods="button" style="width: 100%; margin-bottom: 24px;">Confirm order and pay</button>
+
+            <!-- Trust Bar -->
+            <div class="notice notice-highlight" style="margin-top: 0;">
+              <i class="ico ico-padlock notice-icon" aria-hidden="true"></i>
+              <p><strong>Safepay</strong> — Your card details are held securely</p>
+            </div>
+
+          </fieldset>
+        </form>
+      </section>
+
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <aside class="checkout-sidebar">
+      <div class="checkout-sidebar__inner card card-raised" data-aods="card">
+
+        <!-- Product Card -->
+        <div class="summary-product">
+          <span class="summary-product__image" aria-hidden="true">📺</span>
+          <div class="summary-product__details">
+            <span class="summary-product__name t-title-sm">Samsung 65" QE65Q80C QLED 4K Smart TV</span>
+            <span class="summary-product__price">£999.00</span>
+            <span class="tag tag-success" style="margin-top: 4px;">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M3.5 6.5l2 2 3-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              In stock
+            </span>
+            <span class="summary-delivery-slot" id="summary-delivery-slot">Thursday 22 May, Any time (7am–7pm)</span>
+          </div>
+        </div>
+
+        <!-- Line Items -->
+        <div class="summary-lines">
+          <div class="summary-line">
+            <span class="summary-line__label">Subtotal</span>
+            <span class="summary-line__value" id="summary-subtotal">£999.00</span>
+          </div>
+          <div class="summary-line">
+            <span class="summary-line__label">Delivery</span>
+            <span class="summary-line__value" id="summary-delivery">TBC</span>
+          </div>
+          <div class="summary-line" id="summary-fivestar" style="display:none">
+            <span class="summary-line__label">AO Five Star</span>
+            <span class="summary-line__value">£39.99</span>
+          </div>
+          <div class="summary-line summary-line--total">
+            <span class="summary-line__label">Total</span>
+            <span class="summary-line__value" id="summary-total">£999.00</span>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+  </main>
+
+  <!-- Bottom Sheet Modal — Five Star Upsell Reminder -->
+  <div class="bottom-sheet-scrim" id="bottom-sheet-scrim"></div>
+  <div class="bottom-sheet" id="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="bottom-sheet-heading">
+    <h2 id="bottom-sheet-heading" class="t-title-lg" style="text-align: center; text-wrap: balance;">⭐ Don't forget your Five Star member benefits</h2>
+    <p class="t-body" style="margin: 16px 0 24px; text-align: center;">Free Unpack and Free Remove &amp; Recycle</p>
+    <button class="btn btn-primary btn-full" id="btn-sheet-go-back" data-aods="button">Go back to add my benefits</button>
+    <a href="#" class="t-link" id="btn-sheet-continue" style="display:block; text-align:center; margin-top:16px;">Continue without using my benefits</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" data-aods="footer">
+    <div class="footer-social">
+      <a href="https://www.facebook.com/aocom" class="footer-social__link" aria-label="Follow AO on Facebook">
+        <svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+      </a>
+      <a href="https://twitter.com/ao" class="footer-social__link" aria-label="Follow AO on X (formerly Twitter)">
+        <svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/ao" class="footer-social__link" aria-label="Follow AO on Instagram">
+        <svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/ao" class="footer-social__link" aria-label="Watch AO on YouTube">
+        <svg aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
+    </div>
+    <div class="footer-legal">
+      <p>AO Retail Limited, 5a The Parklands, Lostock, Bolton, BL6 4SD. Registered in England, company number 03914998.</p>
+      <p>AO Retail Limited acts as a credit broker for NewDay Ltd on an exclusive basis and is not a lender. Credit is subject to status. Terms apply.</p>
+    </div>
+  </footer>
+
+  <!-- State Management and Step Navigation Controller -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ==========================================================
+      // State Object
+      // ==========================================================
+      const state = {
+        currentStep: 0,              // 0=Delivery, 1=Contact, 2=Payment
+        stepsCompleted: [false, false, false],
+        addressPhase: 'entry',       // 'entry' | 'results' | 'confirmed'
+        addressData: { houseNumber: '', postcode: '', selectedAddress: null },
+        deliveryDate: '',
+        deliveryTime: '',
+        fiveStarSelected: false,
+        contactData: { email: '', title: '', firstName: '', lastName: '', mobile: '', altNumber: '' },
+        paymentMethod: 'card',       // 'card' | 'finance'
+        financeOption: '4.9-interest',
+        billingMatchesDelivery: true,
+        termsAccepted: false,
+        bottomSheetOpen: false
+      };
+
+      // ==========================================================
+      // DOM References
+      // ==========================================================
+      const tabs = [
+        document.getElementById('tab-delivery'),
+        document.getElementById('tab-contact'),
+        document.getElementById('tab-payment')
+      ];
+
+      const panels = [
+        document.getElementById('step-delivery'),
+        document.getElementById('step-contact'),
+        document.getElementById('step-payment')
+      ];
+
+      // ==========================================================
+      // goToStep(n) — Step Navigation Controller
+      // ==========================================================
+      function goToStep(n) {
+        // Block navigation to unreached steps
+        if (n > state.currentStep && !state.stepsCompleted[n - 1]) {
+          return;
+        }
+        // Block navigation to same step
+        if (n === state.currentStep) {
+          return;
+        }
+
+        state.currentStep = n;
+
+        // Update panels — exactly one visible at any time
+        panels.forEach(function (panel, i) {
+          if (i === n) {
+            panel.classList.add('is-active');
+          } else {
+            panel.classList.remove('is-active');
+          }
+        });
+
+        // Update tabs — aria attributes and styling
+        tabs.forEach(function (tab, i) {
+          if (i === n) {
+            // Active tab
+            tab.setAttribute('aria-selected', 'true');
+            tab.setAttribute('aria-current', 'step');
+            tab.classList.remove('steps__tab--completed');
+            tab.style.cursor = 'pointer';
+          } else if (state.stepsCompleted[i]) {
+            // Completed tab
+            tab.setAttribute('aria-selected', 'false');
+            tab.removeAttribute('aria-current');
+            tab.classList.add('steps__tab--completed');
+            tab.style.cursor = 'pointer';
+          } else {
+            // Unreached tab
+            tab.setAttribute('aria-selected', 'false');
+            tab.removeAttribute('aria-current');
+            tab.classList.remove('steps__tab--completed');
+            tab.style.cursor = 'not-allowed';
+          }
+        });
+      }
+
+      // ==========================================================
+      // Step Submission Guards
+      // ==========================================================
+      function canAdvanceDelivery() {
+        // Requires confirmed address + delivery date selected
+        return state.addressPhase === 'confirmed' && state.deliveryDate !== '';
+      }
+
+      function canAdvanceContact() {
+        // Requires all contact fields to be non-empty and valid format
+        var d = state.contactData;
+        if (!d.email || !d.title || !d.firstName || !d.lastName || !d.mobile || !d.altNumber) {
+          return false;
+        }
+        // Basic email validation: contains @ with . after @
+        var atIdx = d.email.indexOf('@');
+        if (atIdx < 1 || d.email.indexOf('.', atIdx) < 0) {
+          return false;
+        }
+        // Mobile: 11 digits starting with 07
+        var mobileDigits = d.mobile.replace(/\D/g, '');
+        if (mobileDigits.length !== 11 || !mobileDigits.startsWith('07')) {
+          return false;
+        }
+        // Alt number: 11 digits starting with 0
+        var altDigits = d.altNumber.replace(/\D/g, '');
+        if (altDigits.length !== 11 || !altDigits.startsWith('0')) {
+          return false;
+        }
+        return true;
+      }
+
+      function canAdvancePayment() {
+        // Requires terms accepted
+        return state.termsAccepted;
+      }
+
+      // ==========================================================
+      // Tab Click Handlers
+      // ==========================================================
+      tabs.forEach(function (tab, i) {
+        tab.addEventListener('click', function () {
+          // Only allow navigation to completed steps or current step
+          if (state.stepsCompleted[i] || i === state.currentStep) {
+            goToStep(i);
+          }
+          // Unreached steps — do nothing (blocked)
+        });
+
+        // Keyboard support: Enter and Space
+        tab.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (state.stepsCompleted[i] || i === state.currentStep) {
+              goToStep(i);
+            }
+          }
+        });
+      });
+
+      // (Delivery Continue handler is in the Bottom Sheet section below — it triggers
+      // the Five Star upsell modal when Five Star is not selected)
+
+      // (Contact and Payment form handlers are in the validation section below)
+
+      // ==========================================================
+      // Sync delivery date/time defaults on init
+      // ==========================================================
+      var dateSelect = document.getElementById('delivery-date');
+      var timeSelect = document.getElementById('delivery-time');
+      if (dateSelect) state.deliveryDate = dateSelect.value;
+      if (timeSelect) state.deliveryTime = timeSelect.value;
+
+      // Listen for changes
+      if (dateSelect) {
+        dateSelect.addEventListener('change', function () {
+          state.deliveryDate = this.value;
+        });
+      }
+      if (timeSelect) {
+        timeSelect.addEventListener('change', function () {
+          state.deliveryTime = this.value;
+        });
+      }
+
+      // ==========================================================
+      // Address Lookup Flow Controller (Task 7.2)
+      // ==========================================================
+      var MOCK_ADDRESSES = [
+        { line1: '14 Maple Close', city: 'Manchester', postcode: 'M14 5RQ' },
+        { line1: '16 Maple Close', city: 'Manchester', postcode: 'M14 5RQ' },
+        { line1: '18 Maple Close', city: 'Manchester', postcode: 'M14 5RQ' },
+        { line1: '20 Maple Close', city: 'Manchester', postcode: 'M14 5RQ' }
+      ];
+
+      var phaseEntry = document.querySelector('[data-phase="entry"]');
+      var phaseResults = document.querySelector('[data-phase="results"]');
+      var phaseConfirmed = document.querySelector('[data-phase="confirmed"]');
+      var deliveryOptions = document.getElementById('delivery-options');
+      var btnFindAddress = document.getElementById('btn-find-address');
+      var linkNotListed = document.getElementById('link-address-not-listed');
+      var linkEditAddress = document.getElementById('link-edit-address');
+      var addressSelect = document.getElementById('address-select');
+      var postcodeInput = document.getElementById('address-postcode');
+      var houseInput = document.getElementById('address-house-number');
+      var postcodeError = document.getElementById('address-postcode-error');
+
+      function showAddressPhase(phase) {
+        state.addressPhase = phase;
+        phaseEntry.style.display = phase === 'entry' ? '' : 'none';
+        phaseResults.style.display = phase === 'results' ? '' : 'none';
+        phaseConfirmed.style.display = phase === 'confirmed' ? '' : 'none';
+
+        // Show/hide delivery options based on confirmed address
+        if (deliveryOptions) {
+          deliveryOptions.style.display = phase === 'confirmed' ? '' : 'none';
+        }
+
+        // Update order summary delivery cost
+        if (phase === 'confirmed') {
+          updateDeliveryCost(true);
+        } else {
+          updateDeliveryCost(false);
+        }
+      }
+
+      // Find Address click
+      if (btnFindAddress) {
+        btnFindAddress.addEventListener('click', function () {
+          var postcode = postcodeInput ? postcodeInput.value.trim() : '';
+          if (!postcode) {
+            // Show error
+            if (postcodeInput) {
+              postcodeInput.classList.add('is-error');
+              postcodeInput.setAttribute('aria-invalid', 'true');
+            }
+            if (postcodeError) {
+              postcodeError.textContent = 'Enter your postcode to find your address';
+              postcodeError.style.display = '';
+            }
+            return;
+          }
+          // Clear error
+          if (postcodeInput) {
+            postcodeInput.classList.remove('is-error');
+            postcodeInput.removeAttribute('aria-invalid');
+          }
+          if (postcodeError) postcodeError.style.display = 'none';
+
+          // Store data
+          state.addressData.postcode = postcode;
+          state.addressData.houseNumber = houseInput ? houseInput.value.trim() : '';
+
+          showAddressPhase('results');
+        });
+      }
+
+      // Clear postcode error on valid input
+      if (postcodeInput) {
+        postcodeInput.addEventListener('blur', function () {
+          if (this.value.trim()) {
+            this.classList.remove('is-error');
+            this.removeAttribute('aria-invalid');
+            if (postcodeError) postcodeError.style.display = 'none';
+          }
+        });
+      }
+
+      // "Use this address" — select from dropdown (we use change + a confirm pattern)
+      // For simplicity, selecting an address from the dropdown confirms it
+      if (addressSelect) {
+        addressSelect.addEventListener('change', function () {
+          var idx = parseInt(this.value, 10);
+          if (isNaN(idx) || idx < 0 || idx >= MOCK_ADDRESSES.length) return;
+
+          var addr = MOCK_ADDRESSES[idx];
+          state.addressData.selectedAddress = addr;
+
+          // Populate confirmed phase
+          var streetEl = document.getElementById('confirmed-street');
+          var cityEl = document.getElementById('confirmed-city');
+          var pcEl = document.getElementById('confirmed-postcode');
+          if (streetEl) streetEl.textContent = addr.line1;
+          if (cityEl) cityEl.textContent = addr.city;
+          if (pcEl) pcEl.textContent = addr.postcode;
+
+          showAddressPhase('confirmed');
+        });
+      }
+
+      // "My address isn't listed" link
+      if (linkNotListed) {
+        linkNotListed.addEventListener('click', function (e) {
+          e.preventDefault();
+          showAddressPhase('entry');
+        });
+      }
+
+      // "Edit address" link
+      if (linkEditAddress) {
+        linkEditAddress.addEventListener('click', function (e) {
+          e.preventDefault();
+          // Preserve previously entered values
+          if (houseInput) houseInput.value = state.addressData.houseNumber;
+          if (postcodeInput) postcodeInput.value = state.addressData.postcode;
+          showAddressPhase('entry');
+        });
+      }
+
+      // ==========================================================
+      // Payment Method Switcher (Task 7.3)
+      // ==========================================================
+      var payMethodRadios = document.querySelectorAll('input[name="payment-method"]');
+      var payCardSection = document.getElementById('pay-card-section');
+      var payFinanceSection = document.getElementById('pay-finance-section');
+
+      function switchPaymentMethod(method) {
+        state.paymentMethod = method;
+        if (payCardSection) payCardSection.style.display = method === 'card' ? '' : 'none';
+        if (payFinanceSection) payFinanceSection.style.display = method === 'finance' ? '' : 'none';
+
+        // Clear card fields when switching to finance
+        if (method === 'finance') {
+          var cardFields = ['pay-name', 'pay-card-number', 'pay-cvv'];
+          cardFields.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.value = '';
+          });
+          var monthEl = document.getElementById('pay-expiry-month');
+          var yearEl = document.getElementById('pay-expiry-year');
+          if (monthEl) monthEl.selectedIndex = 0;
+          if (yearEl) yearEl.selectedIndex = 0;
+
+          // Pre-select 4.9% Interest Plan
+          var firstFinanceRadio = document.querySelector('input[name="finance-option"][value="4.9-interest"]');
+          if (firstFinanceRadio) firstFinanceRadio.checked = true;
+          state.financeOption = '4.9-interest';
+        }
+      }
+
+      payMethodRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          switchPaymentMethod(this.value);
+        });
+      });
+
+      // Billing address toggle
+      var billingRadios = document.querySelectorAll('input[name="billing-same"]');
+      var billingAddressForm = document.getElementById('pay-billing-address');
+
+      billingRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          state.billingMatchesDelivery = this.value === 'yes';
+          if (billingAddressForm) {
+            billingAddressForm.style.display = this.value === 'no' ? '' : 'none';
+          }
+        });
+      });
+
+      // ==========================================================
+      // Order Summary Calculator (Task 8.1)
+      // ==========================================================
+      var PRODUCT_PRICE = 999.00;
+      var FIVE_STAR_PRICE = 39.99;
+      var deliveryCost = 0;
+      var deliveryConfirmed = false;
+      var recalcTimer = null;
+
+      function formatCurrency(amount) {
+        return '£' + amount.toFixed(2);
+      }
+
+      function updateDeliveryCost(confirmed) {
+        deliveryConfirmed = confirmed;
+        var el = document.getElementById('summary-delivery');
+        if (el) {
+          el.textContent = confirmed ? formatCurrency(deliveryCost) : 'TBC';
+        }
+        recalculateTotal();
+      }
+
+      function recalculateTotal() {
+        // Debounce rapid toggles
+        if (recalcTimer) clearTimeout(recalcTimer);
+        recalcTimer = setTimeout(function () {
+          var total = PRODUCT_PRICE;
+          if (deliveryConfirmed) total += deliveryCost;
+          if (state.fiveStarSelected) total += FIVE_STAR_PRICE;
+
+          var totalEl = document.getElementById('summary-total');
+          if (totalEl) totalEl.textContent = formatCurrency(total);
+
+          // Show/hide Five Star line item
+          var fiveStarLine = document.getElementById('summary-fivestar');
+          if (fiveStarLine) {
+            fiveStarLine.style.display = state.fiveStarSelected ? '' : 'none';
+          }
+        }, 150);
+      }
+
+      // Five Star checkbox toggle
+      var fiveStarCheckbox = document.getElementById('five-star-checkbox');
+      if (fiveStarCheckbox) {
+        fiveStarCheckbox.addEventListener('change', function () {
+          state.fiveStarSelected = this.checked;
+          recalculateTotal();
+        });
+      }
+
+      // ==========================================================
+      // Form Validation Functions (Task 9.1)
+      // ==========================================================
+      function validateEmail(value) {
+        if (!value) return false;
+        var atIdx = value.indexOf('@');
+        if (atIdx < 1) return false;
+        return value.indexOf('.', atIdx) > atIdx + 1;
+      }
+
+      function validatePhone(value, type) {
+        var digits = value.replace(/\D/g, '');
+        if (digits.length !== 11) return false;
+        if (type === 'mobile') return digits.startsWith('07');
+        return digits.startsWith('0');
+      }
+
+      function validateRequired(value, maxLength) {
+        if (!value || !value.trim()) return false;
+        if (maxLength && value.trim().length > maxLength) return false;
+        return true;
+      }
+
+      function validateCardNumber(value) {
+        var digits = value.replace(/\D/g, '');
+        return digits.length >= 13 && digits.length <= 19;
+      }
+
+      function validateSecurityCode(value) {
+        var digits = value.replace(/\D/g, '');
+        return digits.length >= 3 && digits.length <= 4;
+      }
+
+      function setFieldError(inputEl, errorEl, message) {
+        if (inputEl) {
+          inputEl.classList.add('is-error');
+          inputEl.setAttribute('aria-invalid', 'true');
+        }
+        if (errorEl) {
+          errorEl.textContent = message;
+          errorEl.style.display = '';
+          errorEl.removeAttribute('hidden');
+        }
+      }
+
+      function clearFieldError(inputEl, errorEl) {
+        if (inputEl) {
+          inputEl.classList.remove('is-error');
+          inputEl.removeAttribute('aria-invalid');
+        }
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.style.display = 'none';
+          errorEl.setAttribute('hidden', '');
+        }
+      }
+
+      // Contact form validation on submit
+      (function () {
+        var contactForm = document.querySelector('#step-contact form');
+        if (!contactForm) return;
+
+        var fields = [
+          { id: 'contact-email', errorId: 'contact-email-error', validate: function (v) { return validateEmail(v); }, msg: 'Enter a valid email address, like name@example.com' },
+          { id: 'contact-title', errorId: 'contact-title-error', validate: function (v) { return validateRequired(v, 50); }, msg: 'Select your title' },
+          { id: 'contact-firstname', errorId: 'contact-firstname-error', validate: function (v) { return validateRequired(v, 50); }, msg: 'Enter your first name' },
+          { id: 'contact-lastname', errorId: 'contact-lastname-error', validate: function (v) { return validateRequired(v, 50); }, msg: 'Enter your last name' },
+          { id: 'contact-mobile', errorId: 'contact-mobile-error', validate: function (v) { return validatePhone(v, 'mobile'); }, msg: 'Enter a valid UK mobile number (11 digits starting 07)' },
+          { id: 'contact-alt-number', errorId: 'contact-alt-number-error', validate: function (v) { return validatePhone(v, 'landline'); }, msg: 'Enter a valid UK phone number (11 digits starting with 0)' }
+        ];
+
+        // Add blur listeners to clear errors on valid input
+        fields.forEach(function (f) {
+          var input = document.getElementById(f.id);
+          var errorEl = document.getElementById(f.errorId);
+          if (input) {
+            input.addEventListener('blur', function () {
+              if (f.validate(this.value)) {
+                clearFieldError(this, errorEl);
+              }
+            });
+          }
+        });
+
+        // Override the existing submit handler with validation
+        contactForm.removeEventListener('submit', contactForm.__submitHandler);
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var firstError = null;
+          var allValid = true;
+
+          fields.forEach(function (f) {
+            var input = document.getElementById(f.id);
+            var errorEl = document.getElementById(f.errorId);
+            var value = input ? input.value : '';
+            if (!f.validate(value)) {
+              allValid = false;
+              setFieldError(input, errorEl, f.msg);
+              if (!firstError) firstError = input;
+            } else {
+              clearFieldError(input, errorEl);
+            }
+          });
+
+          if (!allValid) {
+            if (firstError) firstError.focus();
+            return;
+          }
+
+          // Sync contact data
+          state.contactData.email = (document.getElementById('contact-email') || {}).value || '';
+          state.contactData.title = (document.getElementById('contact-title') || {}).value || '';
+          state.contactData.firstName = (document.getElementById('contact-firstname') || {}).value || '';
+          state.contactData.lastName = (document.getElementById('contact-lastname') || {}).value || '';
+          state.contactData.mobile = (document.getElementById('contact-mobile') || {}).value || '';
+          state.contactData.altNumber = (document.getElementById('contact-alt-number') || {}).value || '';
+
+          // Mark Contact as completed and advance
+          state.stepsCompleted[1] = true;
+          goToStep(2);
+        });
+      })();
+
+      // Payment form validation on submit
+      (function () {
+        var paymentForm = document.querySelector('#step-payment form');
+        if (!paymentForm) return;
+
+        paymentForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var firstError = null;
+          var allValid = true;
+
+          // Only validate card fields if card payment selected
+          if (state.paymentMethod === 'card') {
+            var cardFields = [
+              { id: 'pay-name', errorId: 'pay-name-error', validate: function (v) { return validateRequired(v, 100); }, msg: 'Enter the name on your card' },
+              { id: 'pay-card-number', errorId: 'pay-card-number-error', validate: function (v) { return validateCardNumber(v); }, msg: 'Enter a valid card number' },
+              { id: 'pay-cvv', errorId: 'pay-cvv-error', validate: function (v) { return validateSecurityCode(v); }, msg: 'Enter the 3 or 4 digit security code' }
+            ];
+
+            cardFields.forEach(function (f) {
+              var input = document.getElementById(f.id);
+              var errorEl = document.getElementById(f.errorId);
+              var value = input ? input.value : '';
+              if (!f.validate(value)) {
+                allValid = false;
+                setFieldError(input, errorEl, f.msg);
+                if (!firstError) firstError = input;
+              } else {
+                clearFieldError(input, errorEl);
+              }
+            });
+
+            // Expiry validation
+            var monthEl = document.getElementById('pay-expiry-month');
+            var yearEl = document.getElementById('pay-expiry-year');
+            var expiryError = document.getElementById('pay-expiry-error');
+            if (!monthEl.value || !yearEl.value) {
+              allValid = false;
+              setFieldError(monthEl, expiryError, "Select your card's expiry date");
+              setFieldError(yearEl, null, '');
+              if (!firstError) firstError = monthEl;
+            } else {
+              clearFieldError(monthEl, expiryError);
+              clearFieldError(yearEl, null);
+            }
+          }
+
+          // Terms validation (always required)
+          var termsCheckbox = document.getElementById('pay-terms');
+          var termsError = document.getElementById('pay-terms-error');
+          state.termsAccepted = termsCheckbox ? termsCheckbox.checked : false;
+          if (!state.termsAccepted) {
+            allValid = false;
+            if (termsError) {
+              termsError.removeAttribute('hidden');
+              termsError.style.display = '';
+            }
+            if (!firstError && termsCheckbox) firstError = termsCheckbox;
+          } else {
+            if (termsError) {
+              termsError.setAttribute('hidden', '');
+              termsError.style.display = 'none';
+            }
+          }
+
+          if (!allValid) {
+            if (firstError) firstError.focus();
+            return;
+          }
+
+          // Mark Payment as completed
+          state.stepsCompleted[2] = true;
+        });
+      })();
+
+      // ==========================================================
+      // Bottom Sheet Modal Controller (Task 9.2)
+      // ==========================================================
+      var bottomSheetScrim = document.getElementById('bottom-sheet-scrim');
+      var bottomSheet = document.getElementById('bottom-sheet');
+      var btnSheetGoBack = document.getElementById('btn-sheet-go-back');
+      var btnSheetContinue = document.getElementById('btn-sheet-continue');
+      var bottomSheetTrigger = null; // Element that triggered the modal
+
+      function openBottomSheet(triggerEl) {
+        bottomSheetTrigger = triggerEl || document.activeElement;
+        state.bottomSheetOpen = true;
+
+        if (bottomSheetScrim) bottomSheetScrim.classList.add('is-open');
+        if (bottomSheet) bottomSheet.classList.add('is-open');
+
+        // Focus the heading
+        var heading = document.getElementById('bottom-sheet-heading');
+        if (heading) {
+          heading.setAttribute('tabindex', '-1');
+          heading.focus();
+        }
+
+        // Trap focus
+        document.addEventListener('keydown', trapBottomSheetFocus);
+      }
+
+      function closeBottomSheet(returnToCheckbox) {
+        state.bottomSheetOpen = false;
+
+        if (bottomSheetScrim) bottomSheetScrim.classList.remove('is-open');
+        if (bottomSheet) bottomSheet.classList.remove('is-open');
+
+        // Remove focus trap
+        document.removeEventListener('keydown', trapBottomSheetFocus);
+
+        // Return focus
+        if (returnToCheckbox && fiveStarCheckbox) {
+          fiveStarCheckbox.focus();
+        } else if (bottomSheetTrigger) {
+          bottomSheetTrigger.focus();
+        }
+      }
+
+      function trapBottomSheetFocus(e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeBottomSheet(true);
+          return;
+        }
+
+        if (e.key !== 'Tab') return;
+
+        var focusableEls = bottomSheet.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableEls.length === 0) return;
+
+        var firstEl = focusableEls[0];
+        var lastEl = focusableEls[focusableEls.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstEl || document.activeElement === bottomSheet.querySelector('[tabindex="-1"]')) {
+            e.preventDefault();
+            lastEl.focus();
+          }
+        } else {
+          if (document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
+      }
+
+      // "Go back to add my benefits"
+      if (btnSheetGoBack) {
+        btnSheetGoBack.addEventListener('click', function () {
+          closeBottomSheet(true);
+        });
+      }
+
+      // "Continue without using my benefits"
+      if (btnSheetContinue) {
+        btnSheetContinue.addEventListener('click', function (e) {
+          e.preventDefault();
+          closeBottomSheet(false);
+          // Advance to Contact step
+          state.stepsCompleted[0] = true;
+          goToStep(1);
+        });
+      }
+
+      // Override the Delivery Continue to trigger bottom sheet if Five Star not selected
+      (function () {
+        var btn = document.getElementById('btn-delivery-continue');
+        if (!btn) return;
+
+        // Remove old listener by replacing the button with a clone
+        var newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', function () {
+          // Sync delivery date/time
+          var ds = document.getElementById('delivery-date');
+          var ts = document.getElementById('delivery-time');
+          if (ds) state.deliveryDate = ds.value;
+          if (ts) state.deliveryTime = ts.value;
+
+          if (!canAdvanceDelivery()) return;
+
+          // If Five Star not selected, show bottom sheet
+          if (!state.fiveStarSelected) {
+            openBottomSheet(newBtn);
+            return;
+          }
+
+          // Otherwise advance normally
+          state.stepsCompleted[0] = true;
+          goToStep(1);
+        });
+      })();
+
+      // ==========================================================
+      // ARIA Live Region for Order Total Updates
+      // ==========================================================
+      (function () {
+        var totalEl = document.getElementById('summary-total');
+        if (totalEl && !totalEl.getAttribute('aria-live')) {
+          totalEl.setAttribute('aria-live', 'polite');
+          totalEl.setAttribute('aria-atomic', 'true');
+        }
+      })();
+
+      // ==========================================================
+      // Expose state and functions for testing
+      // ==========================================================
+      window.__checkoutState = state;
+      window.__goToStep = goToStep;
+      window.__canAdvanceDelivery = canAdvanceDelivery;
+      window.__canAdvanceContact = canAdvanceContact;
+      window.__canAdvancePayment = canAdvancePayment;
+      window.__validateEmail = validateEmail;
+      window.__validatePhone = validatePhone;
+      window.__validateRequired = validateRequired;
+      window.__validateCardNumber = validateCardNumber;
+      window.__validateSecurityCode = validateSecurityCode;
+      window.__openBottomSheet = openBottomSheet;
+      window.__closeBottomSheet = closeBottomSheet;
+      window.__switchPaymentMethod = switchPaymentMethod;
+      window.__showAddressPhase = showAddressPhase;
+      window.__recalculateTotal = recalculateTotal;
+      window.__formatCurrency = formatCurrency;
+    })();
+  </script>
+
+<script type="module" src="../kit/agentation-loader.js"></script>
+</body>
+</html>

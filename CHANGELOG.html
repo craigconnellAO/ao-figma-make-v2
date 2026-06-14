@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Figma Make Kit — Changelog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    :root {
+      --gray-10: #f8f9fa;
+      --gray-20: #f0f2f2;
+      --gray-30: #e2e7e8;
+      --gray-50: #c1c7c9;
+      --gray-70: #727677;
+      --gray-100: #212121;
+      --type-primary: #011f44;
+      --type-secondary: #212121;
+      --type-tertiary: #595d5e;
+      --action-secondary-base: #0564c2;
+      --action-primary-base: #00893e;
+      --ui-warning-base: #fff4e6;
+      --ui-warning-contrast: #ad5a00;
+      --ui-highlight-base: #edf2ff;
+      --ui-highlight-contrast: #00318f;
+      --ui-error-base: #fff0f0;
+      --ui-error-contrast: #c41e3a;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.625;
+      color: var(--type-secondary);
+      background: #fff;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--type-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      color: var(--type-tertiary);
+      font-size: 0.875rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Version blocks */
+    .version {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--gray-30);
+    }
+    .version:last-child { border-bottom: none; }
+
+    .version-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .version-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--type-primary);
+      line-height: 1.25;
+    }
+
+    .version-date {
+      font-size: 0.875rem;
+      color: var(--type-tertiary);
+      font-weight: 400;
+    }
+
+    .version-tag {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: var(--ui-highlight-base);
+      color: var(--ui-highlight-contrast);
+    }
+    .version-tag--latest {
+      background: var(--action-primary-base);
+      color: #fff;
+    }
+
+    .version-summary {
+      color: var(--type-tertiary);
+      margin-bottom: 1.5rem;
+      font-size: 0.9375rem;
+    }
+
+    /* Section headings */
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--type-primary);
+      margin: 1.5rem 0 0.75rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid var(--gray-20);
+    }
+
+    /* Lists */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      position: relative;
+      padding: 0.375rem 0 0.375rem 1.25rem;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-50);
+    }
+    ul li strong {
+      font-weight: 600;
+      color: var(--type-primary);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0;
+      font-size: 0.8125rem;
+    }
+    th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--type-primary);
+      padding: 0.5rem 0.75rem;
+      background: var(--gray-10);
+      border-bottom: 2px solid var(--gray-30);
+    }
+    td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--gray-20);
+      vertical-align: top;
+    }
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8125rem;
+      background: var(--gray-10);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      color: var(--type-primary);
+    }
+
+    /* Gaps callout */
+    .gaps-section {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: var(--ui-warning-base);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--ui-warning-contrast);
+    }
+    .gaps-summary {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--ui-warning-contrast);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .gaps-summary::-webkit-details-marker { display: none; }
+    .gaps-summary::before {
+      content: '▶';
+      font-size: 0.75rem;
+      transition: transform 200ms ease-out;
+    }
+    .gaps-section[open] .gaps-summary::before {
+      transform: rotate(90deg);
+    }
+    .gaps-count {
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--ui-warning-contrast);
+      color: #fff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+    }
+    .gaps-section ul {
+      margin-top: 1rem;
+    }
+    .gaps-section ul li::before {
+      background: var(--ui-warning-contrast);
+    }
+    .gaps-section .gap-item {
+      margin-bottom: 0.75rem;
+    }
+    .gap-label {
+      font-weight: 600;
+      color: var(--type-primary);
+    }
+    .gap-detail {
+      font-size: 0.875rem;
+      color: var(--type-tertiary);
+      margin-top: 0.125rem;
+    }
+
+    /* Ordered lists for v2.0 */
+    ol {
+      padding-left: 1.5rem;
+      font-size: 0.9375rem;
+    }
+    ol li {
+      margin-bottom: 0.5rem;
+    }
+    ol li strong {
+      color: var(--type-primary);
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      h1 { font-size: 1.5rem; }
+      .version-header { flex-wrap: wrap; }
+      table { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AO Figma Make Kit — Changelog</h1>
+  <p class="subtitle">Design system kit for Figma Make &middot; All versions</p>
+
+  <!-- Remaining Gaps -->
+  <details class="gaps-section">
+    <summary class="gaps-summary">Remaining Gaps — before v3 <span class="gaps-count">5 items</span></summary>
+    <ul>
+      <li class="gap-item">
+        <div class="gap-label">1. Property-based tests for checkout flow</div>
+        <div class="gap-detail">Order total calculation, email/phone validation, step navigation invariant, address state machine, payment method exclusion, focus trap cycling — all marked optional in spec.</div>
+      </li>
+      <li class="gap-item">
+        <div class="gap-label">2. Typography scale cascade — full example verification</div>
+        <div class="gap-detail">The corrected type scale (reduced display sizes, unified line-heights) has been applied to kit files and most examples, but a full audit pass confirming every example renders with correct values hasn't been completed.</div>
+      </li>
+      <li class="gap-item">
+        <div class="gap-label">3. Header/Nav — full viewport variant extraction</div>
+        <div class="gap-detail">A header demo exists (<code>examples/headerDemo.html</code>) and the component is rewritten, but the checkout-specific header variant, minimal basket header, and responsive breakpoint behaviour haven't been fully documented with Figma screenshots.</div>
+      </li>
+      <li class="gap-item">
+        <div class="gap-label">4. Rename &amp; package as a Kiro Power</div>
+        <div class="gap-detail">The kit needs renaming from "ao-figma-make-v2" to its Power identity, with a <code>POWER.md</code>, steering files repackaged, and the <code>kit/</code> folder exposed as Power documentation. This gates v3.</div>
+      </li>
+      <li class="gap-item">
+        <div class="gap-label">5. Footer component — Figma validation</div>
+        <div class="gap-detail">Footer HTML/CSS exists in <code>kit/components.md</code> now, but it hasn't been validated against Figma in the same systematic way the other components were (no Figma screenshot comparison yet).</div>
+      </li>
+    </ul>
+  </details>
+
+  <!-- v2.3.0 -->
+  <section class="version">
+    <div class="version-header">
+      <span class="version-number">v2.3.0</span>
+      <span class="version-date">14 June 2026</span>
+      <span class="version-tag version-tag--latest">Latest</span>
+    </div>
+    <p class="version-summary">Checkout flow prototype — the first full interactive prototype generated from the kit.</p>
+
+    <h3>Checkout flow prototype</h3>
+    <ul>
+      <li><strong>New file: <code>prototypes/checkout-flow.html</code></strong> — 2,300-line self-contained HTML prototype implementing a complete three-step checkout.</li>
+      <li><strong>Address lookup flow</strong> — progressive disclosure: postcode entry → simulated dropdown → confirmed address card with edit.</li>
+      <li><strong>Delivery options</strong> — date and time picker selects, conditional visibility after address confirmation.</li>
+      <li><strong>Five Star upsell</strong> — membership card with benefits, checkbox toggle, bottom-sheet modal if skipped.</li>
+      <li><strong>Contact details</strong> — email, title, name, phone fields with validation states.</li>
+      <li><strong>Payment step</strong> — card/finance method switcher, card form, billing address toggle, terms acceptance.</li>
+      <li><strong>Order summary sidebar</strong> — sticky on desktop, dynamic recalculation, tabular-nums formatting.</li>
+      <li><strong>Bottom sheet modal</strong> — slide-up animation, scrim, focus trap, Escape key, <code>role="dialog"</code> + <code>aria-modal</code>.</li>
+      <li><strong>Step navigation</strong> — pill tabs with active/completed/unreached states, <code>role="tablist"</code>, back-navigation.</li>
+      <li><strong>Form validation</strong> — per-field on blur, multi-error on submit, <code>aria-invalid</code> + <code>aria-describedby</code>.</li>
+      <li><strong>Responsive</strong> — two-column ≥900px, single-column mobile, collapsed labels &lt;544px.</li>
+      <li><strong>Accessibility</strong> — focus-visible, logical tab order, <code>aria-live</code> for totals, <code>prefers-reduced-motion</code>.</li>
+    </ul>
+
+    <h3>Spec completed</h3>
+    <ul>
+      <li>Full requirements, design, and implementation tasks documented. All implementation tasks complete (property tests deferred as optional).</li>
+    </ul>
+  </section>
+
+  <!-- v2.2.0 -->
+  <section class="version">
+    <div class="version-header">
+      <span class="version-number">v2.2.0</span>
+      <span class="version-date">12 June 2026</span>
+    </div>
+    <p class="version-summary">Icon system, further Figma alignment corrections, new showcase examples, and groundwork for packaging as a Kiro Power.</p>
+
+    <h3>Icon system added</h3>
+    <ul>
+      <li><strong>New file: <code>kit/icons.md</code></strong> — documents the Strata icon font (loaded from AO CDN), usage patterns, sizing classes (<code>ico-xs</code> through <code>ico-3x</code>), accessibility rules, and a full reference of available icon names.</li>
+      <li><strong>All emoji/Unicode symbols replaced with Strata icons</strong> across <code>kit/components.md</code>, <code>kit/patterns.md</code>, and all example HTML files.</li>
+      <li><strong>Anti-pattern added:</strong> using emoji/Unicode symbols for icons is now a listed refusal — use Strata icon font instead.</li>
+      <li><strong>Steering updated:</strong> <code>kit/icons.md</code> added to the file reference guide; Strata icons stylesheet required in every generated HTML.</li>
+    </ul>
+
+    <h3>Component corrections (second pass)</h3>
+    <ul>
+      <li><strong>Buttons</strong> — default vertical padding <code>0.6875rem</code> → <code>0.875rem</code>. Size variants: <code>btn-lg</code> padding <code>0.9375rem</code> → <code>1.125rem</code>, <code>btn-sm</code> padding <code>0.4375rem</code> → <code>0.6875rem</code>. Icon buttons now use Strata icon font.</li>
+      <li><strong>Inputs</strong> — fixed height <code>48px</code> with <code>padding: 0 0.875rem</code> (was flexible padding). Field label weight <code>500</code> → <code>400</code>.</li>
+      <li><strong>Toggle items</strong> — custom radio/checkbox styling replacing native <code>accent-color</code>. Custom 20px circles/squares with SVG checkmark and inner-dot pattern. Padding increased to <code>1rem 1.125rem</code>.</li>
+      <li><strong>Notices</strong> — icon markup changed from Unicode to <code>&lt;i class="ico ico-tick-circle notice-icon"&gt;</code>.</li>
+      <li><strong>Nav</strong> — logo changed to icon-based. Full header/nav rewritten with desktop mega-menu and mobile drawer patterns.</li>
+      <li><strong>Footer</strong> — expanded with link columns and legal copy structure.</li>
+    </ul>
+
+    <h3>Typography correction</h3>
+    <ul>
+      <li>Links (<code>t-link</code>, <code>t-link-sm</code>) weight corrected from <code>500</code> (Medium) to <code>700</code> (Bold) per Figma library.</li>
+    </ul>
+
+    <h3>New examples</h3>
+    <ul>
+      <li><strong><code>examples/index.html</code></strong> — prototype gallery landing page linking all examples.</li>
+      <li><strong><code>examples/kitShowcase.html</code></strong> — full Samsung Bespoke product page with all components + Strata icons.</li>
+      <li><strong><code>examples/headerDemo.html</code></strong> — isolated header component matching live ao.com.</li>
+      <li><strong><code>examples/iconLibrary.html</code></strong> — visual reference of all Strata icons at various sizes.</li>
+    </ul>
+
+    <h3>Example pages updated</h3>
+    <ul>
+      <li>All existing examples updated with: Strata icons stylesheet, icon font replacing emoji, corrected button padding, 48px inputs, custom toggle styling, bold link weight.</li>
+    </ul>
+
+    <h3>New spec started</h3>
+    <ul>
+      <li><strong>Checkout flow prototype</strong> — requirements document drafted. Three-step checkout with address lookup, delivery scheduling, and payment flow.</li>
+    </ul>
+  </section>
+
+  <!-- v2.1.0 -->
+  <section class="version">
+    <div class="version-header">
+      <span class="version-number">v2.1.0</span>
+      <span class="version-date">12 June 2026</span>
+    </div>
+    <p class="version-summary">Systematic alignment pass against the Figma Design System Components library. Every component compared to Figma source via MCP and corrected.</p>
+
+    <h3>Token corrections</h3>
+    <table>
+      <thead>
+        <tr><th>Token</th><th>Was</th><th>Now (Figma)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>action-primary-base</code></td><td><code>#008945</code></td><td><code>#00893e</code></td></tr>
+        <tr><td><code>action-primary-focus</code></td><td><code>#008945</code></td><td><code>#00893e</code></td></tr>
+        <tr><td><code>action-primary-active</code></td><td><code>#02422b</code></td><td><code>#003d00</code></td></tr>
+        <tr><td><code>action-secondary-base</code></td><td><code>#0a64c2</code></td><td><code>#0564c2</code></td></tr>
+        <tr><td><code>action-secondary-focus</code></td><td><code>#0a64c2</code></td><td><code>#0564c2</code></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.875rem; color:var(--type-tertiary); margin-top:0.5rem;">All three sources (<code>tokens.md</code> tables, <code>:root</code> block, and <code>tokens.json</code>) are now internally consistent.</p>
+
+    <h3>Component corrections</h3>
+    <ul>
+      <li><strong>Buttons</strong> — radius <code>9999px</code> (pill) → <code>var(--radius-sm)</code> (8px). Border 2px → 1px.</li>
+      <li><strong>Inputs</strong> — border colour <code>gray-40</code> → <code>gray-50</code>, font size <code>0.9375rem</code> → <code>0.875rem</code>, padding <code>0.75rem</code> → <code>0.875rem</code>.</li>
+      <li><strong>Notices</strong> — border removed, padding <code>0.75rem</code> uniform, font <code>0.75rem</code>. Warning bg → <code>palette-bread</code>.</li>
+      <li><strong>Accordion</strong> — container border removed (dividers only). Title → SmileyFace Bold 16px. Body bg → <code>#fff</code>. Padding → <code>1rem</code>.</li>
+      <li><strong>Tabs</strong> — font → SmileyFace Bold 16px. Inactive → <code>type-primary</code>. Indicator → 3px <code>action-secondary-base</code>.</li>
+      <li><strong>Radio/Toggle items</strong> — border <code>gray-40</code> → <code>gray-50</code>, radius 8px, padding 12px/16px.</li>
+    </ul>
+
+    <h3>Typography overhaul</h3>
+    <ul>
+      <li>Display sizes reduced across the board (headline 3rem→2.5rem, display-lg 2.5rem→2rem, display 2rem→1.5rem, etc.).</li>
+      <li>Line-heights unified: SmileyFace headings at <code>1.25</code>, Inter body at <code>1.625</code>.</li>
+      <li>Links corrected to <code>font-weight: 500</code> (Medium).</li>
+      <li>SmileyFace minimum lowered from 16px to 14px (<code>t-title-sm</code>).</li>
+    </ul>
+
+    <h3>Design token audit page</h3>
+    <ul>
+      <li><strong><code>examples/design-token-audit.html</code></strong> — renders every token and component variant for Figma "Check Designs" validation.</li>
+    </ul>
+
+    <h3>Tests</h3>
+    <ul>
+      <li>Token-consistency and preservation test suites both pass (16/16).</li>
+    </ul>
+  </section>
+
+  <!-- v2.0.1 -->
+  <section class="version">
+    <div class="version-header">
+      <span class="version-number">v2.0.1</span>
+      <span class="version-date">18 May 2026</span>
+    </div>
+    <ul>
+      <li><strong>RadioButton coverage.</strong> <code>kit/components.md</code> §5 rewritten: adds <code>pill</code> and <code>inline</code> variants, <code>full-width</code> group, hidden-legend pattern, multi-line content, and full state styling.</li>
+      <li><strong>Recommended-card pattern.</strong> Highlighted radio-card variant (<code>toggle-item--highlight</code>) for "popular plan" surfaces in AO blue theme.</li>
+      <li><strong><code>data-aods</code> naming aligned.</strong> <code>radio-button-group</code>, <code>radio-button</code>, <code>checkbox-group</code>, <code>checkbox</code> — matching Storybook.</li>
+    </ul>
+  </section>
+
+  <!-- v2.0 -->
+  <section class="version">
+    <div class="version-header">
+      <span class="version-number">v2.0</span>
+      <span class="version-date">15 May 2026</span>
+    </div>
+    <p class="version-summary">The first shareable version. Restructured from scratch around three problems v1 couldn't solve.</p>
+
+    <h3>What v1 got wrong</h3>
+    <ol>
+      <li><strong>AI drift.</strong> Frames pasted from Figma into Make drifted — wrong greens, invented variants, type hierarchy slipping.</li>
+      <li><strong>No confident dev path.</strong> No clear mapping back to <code>@ao/components</code>.</li>
+      <li><strong>The files were a mess.</strong> Provenance unclear, contents undocumented.</li>
+    </ol>
+
+    <h3>What changed in v2</h3>
+    <ul>
+      <li><strong>Workflow: attach the kit, paste a short prompt.</strong> No more big system block every chat.</li>
+      <li><strong>Authoritative reference files</strong> in <code>kit/</code>: tokens, typography, components, patterns, anti-patterns, DTCG tokens.</li>
+      <li><strong>Anti-patterns are first-class.</strong> Refuse-and-replace list, hard constraint not guideline.</li>
+      <li><strong>Dev handoff built in.</strong> Class-to-<code>@ao/components</code> translation table in <code>handoff.md</code>.</li>
+      <li><strong>Examples are first-class.</strong> Rendered HTML for visual comparison.</li>
+      <li><strong>Brand intent enforced.</strong> Token usage rules spelled out where Make sees them.</li>
+    </ul>
+
+    <h3>How v2 sits next to other AO assets</h3>
+    <table>
+      <thead>
+        <tr><th>Asset</th><th>Role</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>AO Design System Figma library</td><td>Canonical visual source of truth</td></tr>
+        <tr><td><code>@ao/components</code> (React)</td><td>Canonical code implementation</td></tr>
+        <tr><td><code>@ao-internal/design-tokens</code></td><td>Canonical token source (DTCG)</td></tr>
+        <tr><td>This kit</td><td>Bridge from Figma Make → working, on-system prototype</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+<script type="module" src="../kit/agentation-loader.js"></script>
+</body>
+</html>

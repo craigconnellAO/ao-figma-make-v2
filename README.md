@@ -79,13 +79,16 @@ ao-figma-make-v2/
 │   ├── anti-patterns.md
 │   ├── tokens.json
 │   └── screenshots/
-└── examples/             ← open these in a browser to see the system rendered
-    ├── productPage.html
-    ├── componentLibrary.html
-    └── patternsGallery.html
+├── examples/             ← open these in a browser to see the system rendered
+│   ├── productPage.html
+│   ├── componentLibrary.html
+│   ├── patternsGallery.html
+│   ├── checkout-flow.html
+│   ├── login-flow.html
+│   ├── bottom-sheet-variants.html
+│   └── trust-bridge-prototype.html
+└── tests/                ← token consistency and preservation tests
 ```
-
-> `examples/` is a symlink to the working folder one level up. When pushing this kit to GitHub, either commit the symlink (Git preserves it) or replace it with a copy of the HTML files for cross-platform safety.
 
 ---
 
