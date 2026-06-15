@@ -124,6 +124,7 @@
     body {
       font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
       color: var(--type-secondary);
+      background: var(--ui-core-base);
       font-size: 1rem;
       line-height: 1.625;
       -webkit-font-smoothing: antialiased;
@@ -435,6 +436,83 @@
     }
     .delivery-nav-btn:hover { background: var(--action-secondary-base); color: #fff; }
     .delivery-nav-btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+
+    /* ============================================================
+       Component — Payment Method Selector
+       ============================================================ */
+    .payment-method-heading { text-align: center; margin-bottom: 24px; }
+    .payment-method-heading h2 { margin: 0 0 4px; }
+    .payment-method-heading p { margin: 0; color: var(--type-secondary); }
+
+    .payment-methods {
+      border: 0; padding: 0; margin: 0 0 24px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .payment-method-card {
+      align-items: flex-start;
+      padding: 18px 20px;
+    }
+    .payment-method-card .payment-method-content { flex: 1; min-width: 0; }
+    .payment-method-card > input { margin-top: 2px; }
+    .payment-method-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .payment-method-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .payment-method-label {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1rem; color: var(--type-primary); line-height: 1.25;
+    }
+    .payment-method-sub {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.8125rem;
+      color: var(--type-primary); line-height: 1.25; margin-top: 4px;
+    }
+    .payment-method-logos {
+      display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+    }
+    .payment-method-tag {
+      flex-shrink: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      text-align: center; line-height: 1.2;
+      padding: 6px 12px; max-width: 140px;
+      white-space: normal; border-radius: var(--radius-sm); border: none;
+      background: var(--ui-highlight-base); color: var(--ui-highlight-contrast);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.75rem;
+    }
+
+    /* Finance details — always visible inside the AO Finance card */
+    .payment-method-finance-details { margin-top: 12px; }
+    .payment-method-finance-divider {
+      border: 0; border-top: 1px solid var(--gray-30); margin: 0 0 12px;
+    }
+    .payment-method-finance-title {
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 400;
+      color: var(--type-secondary); margin: 0 0 10px; line-height: 1.25;
+    }
+    .finance-options-list {
+      list-style: none; padding: 0; margin: 0 0 12px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .finance-options-list li {
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .finance-options-list svg { flex-shrink: 0; margin-top: 1px; }
+    .finance-options-list strong {
+      display: block;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 0.875rem; color: var(--type-primary); line-height: 1.25;
+    }
+    .finance-options-list span {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem;
+      color: var(--type-tertiary); line-height: 1.35;
+    }
+    .finance-eligibility {
+      background: var(--gray-10); border-radius: var(--radius-sm); padding: 10px 14px;
+    }
+    .finance-eligibility p {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem;
+      color: var(--type-tertiary); text-align: center; margin: 0; line-height: 1.35;
+    }
 
     /* ============================================================
        Layout — Checkout Grid
@@ -776,6 +854,13 @@
       display: block;
     }
 
+    @media (min-width: 900px) {
+      .step-panel {
+        max-width: 70%;
+        margin-inline: auto;
+      }
+    }
+
     /* ============================================================
        Component Styles — Nav (Checkout Header)
        ============================================================ */
@@ -1007,10 +1092,12 @@
       transform: translateY(100%);
       max-height: 80vh;
       overflow-y: auto;
+      pointer-events: none;
     }
 
     .bottom-sheet.is-open {
       transform: translateY(0);
+      pointer-events: auto;
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -1022,13 +1109,24 @@
     @media (min-width: 900px) {
       .bottom-sheet {
         max-width: 480px;
+        top: 50%;
+        bottom: auto;
         left: 50%;
-        transform: translate(-50%, 100%);
+        transform: translate(-50%, calc(-50% + 24px));
+        opacity: 0;
         border-radius: var(--radius-md);
+        max-height: calc(100vh - 48px);
       }
 
       .bottom-sheet.is-open {
-        transform: translate(-50%, 0);
+        transform: translate(-50%, -50%);
+        opacity: 1;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .bottom-sheet {
+          transition: transform 200ms ease-out, opacity 200ms ease-out;
+        }
       }
     }
   </style>
@@ -1237,11 +1335,6 @@
             <p class="t-body-sm" style="color: var(--type-tertiary); margin-bottom: 4px;">We'll text you by 8am with a 4-hour delivery window</p>
             <p class="t-body-sm" style="color: var(--type-tertiary);">Track your order online every step of the way</p>
           </div>
-
-          <!-- Continue button -->
-          <div style="margin-top: 24px;">
-            <button type="button" class="btn btn-primary btn-full" data-aods="button" id="btn-delivery-continue">Continue</button>
-          </div>
         </div>
 
         <!-- Five Star Membership Upsell -->
@@ -1308,7 +1401,10 @@
           </div>
         </div>
 
-
+        <!-- Continue button -->
+        <div id="delivery-continue-wrap" style="display:none; margin-top: 24px;">
+          <button type="button" class="btn btn-primary btn-full" data-aods="button" id="btn-delivery-continue">Continue</button>
+        </div>
 
       </section>
 
@@ -1365,8 +1461,8 @@
 
             <!-- Alternative number -->
             <div class="field" data-aods="field" style="margin-bottom: 16px;">
-              <label for="contact-alt-number" class="field-label field-label-required">Alternative number</label>
-              <input type="tel" id="contact-alt-number" class="field-input" required aria-describedby="contact-alt-number-error">
+              <label for="contact-alt-number" class="field-label">Alternative number (optional)</label>
+              <input type="tel" id="contact-alt-number" class="field-input" aria-describedby="contact-alt-number-error">
               <span id="contact-alt-number-error" class="field-msg is-error" hidden>Enter a valid UK phone number (11 digits starting with 0)</span>
             </div>
 
@@ -1392,41 +1488,93 @@
       <section id="step-payment" class="step-panel" role="tabpanel" aria-labelledby="tab-payment">
         <form novalidate>
           <fieldset style="border: 0; padding: 0; margin: 0;">
-            <legend class="t-title-lg" style="margin-bottom: 24px;">Payment</legend>
+            <legend class="visually-hidden">Payment</legend>
+
+            <!-- Payment Method Heading -->
+            <div class="payment-method-heading">
+              <h2 class="t-title-lg">Payment method</h2>
+              <p class="t-body-sm">Please select how you would like to pay</p>
+            </div>
 
             <!-- Payment Method Toggle Group -->
-            <fieldset class="toggle-group" style="border: 0; padding: 0; margin: 0 0 24px 0;" data-aods="toggle">
+            <fieldset class="payment-methods" data-aods="toggle">
               <legend class="visually-hidden">Payment method</legend>
 
               <!-- Card Payment -->
-              <label class="toggle-item">
-                <input type="radio" name="payment-method" value="card" checked>
-                <span class="toggle-item-body">
-                  <span class="toggle-item-line">
-                    <span class="toggle-item-label">Card payment</span>
-                  </span>
-                  <span class="toggle-item-sub" aria-hidden="true">
-                    <svg width="36" height="24" viewBox="0 0 36 24" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"><rect width="36" height="24" rx="4" fill="#1A1F71"/><text x="18" y="15" text-anchor="middle" fill="white" font-size="8" font-family="Inter, sans-serif" font-weight="700">VISA</text></svg>
-                    <svg width="36" height="24" viewBox="0 0 36 24" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"><rect width="36" height="24" rx="4" fill="#EB001B" opacity="0.8"/><circle cx="14" cy="12" r="7" fill="#EB001B"/><circle cx="22" cy="12" r="7" fill="#F79E1B"/><path d="M18 6.5a7 7 0 010 11" fill="#FF5F00"/></svg>
-                    <svg width="36" height="24" viewBox="0 0 36 24" aria-hidden="true" style="vertical-align: middle;"><rect width="36" height="24" rx="4" fill="#2E77BC"/><text x="18" y="15" text-anchor="middle" fill="white" font-size="6" font-family="Inter, sans-serif" font-weight="700">AMEX</text></svg>
-                  </span>
-                </span>
+              <label class="toggle-item payment-method-card" data-method="card">
+                <input type="radio" name="payment-method" value="card">
+                <div class="payment-method-content">
+                  <div class="payment-method-row">
+                    <div class="payment-method-info">
+                      <span class="payment-method-label">Card payment</span>
+                    </div>
+                    <div class="payment-method-logos" aria-hidden="true">
+                      <svg width="36" height="24" viewBox="0 0 36 24"><rect width="36" height="24" rx="4" fill="#1A1F71"/><text x="18" y="15" text-anchor="middle" fill="white" font-size="8" font-family="Inter, sans-serif" font-weight="700">VISA</text></svg>
+                      <svg width="36" height="24" viewBox="0 0 36 24"><rect width="36" height="24" rx="4" fill="#FFFFFF" stroke="#E5E5E5"/><circle cx="14" cy="12" r="6" fill="#EB001B"/><circle cx="22" cy="12" r="6" fill="#F79E1B"/><path d="M18 7.2a6 6 0 010 9.6" fill="#FF5F00"/></svg>
+                      <svg width="36" height="24" viewBox="0 0 36 24"><rect width="36" height="24" rx="4" fill="#FFFFFF" stroke="#E5E5E5"/><circle cx="14" cy="12" r="6" fill="#0099DF"/><circle cx="22" cy="12" r="6" fill="#EB001B"/><path d="M18 7.2a6 6 0 010 9.6" fill="#6C6BBD"/></svg>
+                      <svg width="36" height="24" viewBox="0 0 36 24"><rect width="36" height="24" rx="4" fill="#2E77BC"/><text x="18" y="11" text-anchor="middle" fill="white" font-size="5" font-family="Inter, sans-serif" font-weight="700">AMERICAN</text><text x="18" y="18" text-anchor="middle" fill="white" font-size="5" font-family="Inter, sans-serif" font-weight="700">EXPRESS</text></svg>
+                    </div>
+                  </div>
+                </div>
               </label>
 
               <!-- AO Finance -->
-              <label class="toggle-item">
+              <label class="toggle-item payment-method-card" data-method="finance">
                 <input type="radio" name="payment-method" value="finance">
-                <span class="toggle-item-body">
-                  <span class="toggle-item-line">
-                    <span class="toggle-item-label">AO Finance</span>
-                    <span class="tag tag-highlight" style="margin-left: 8px;">4.9% Interest Plan</span>
-                  </span>
-                </span>
+                <div class="payment-method-content">
+                  <div class="payment-method-row">
+                    <div class="payment-method-info">
+                      <span class="payment-method-label">AO Finance</span>
+                      <span class="payment-method-sub">29.9% APR Representative (variable)</span>
+                    </div>
+                    <span class="tag tag-highlight payment-method-tag">4.9% Interest Plan*</span>
+                  </div>
+                  <div class="payment-method-finance-details">
+                    <hr class="payment-method-finance-divider">
+                    <p class="payment-method-finance-title">4 payment options:</p>
+                    <ul class="finance-options-list">
+                      <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#12c35a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        <div><strong>4.9% Interest Plan*</strong><span>Repay your balance in 12 instalments</span></div>
+                      </li>
+                      <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#12c35a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        <div><strong>9.9% Interest Plan*</strong><span>Repay your balance in 12 instalments</span></div>
+                      </li>
+                      <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#12c35a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        <div><strong>Instalment Plan</strong><span>Repay your balance in instalments over 24, 36 or 48 months</span></div>
+                      </li>
+                      <li>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#12c35a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                        <div><strong>Flexible Payments</strong><span>Contractual minimum payments or more when it suits you</span></div>
+                      </li>
+                    </ul>
+                    <div class="finance-eligibility">
+                      <p>Checking your eligibility won't affect your credit score! Credit and availability of offer are each subject to status <a href="#" class="t-link-sm">T&amp;Cs apply</a></p>
+                    </div>
+                  </div>
+                </div>
+              </label>
+
+              <!-- PayPal -->
+              <label class="toggle-item payment-method-card" data-method="paypal">
+                <input type="radio" name="payment-method" value="paypal">
+                <div class="payment-method-content">
+                  <div class="payment-method-row">
+                    <div class="payment-method-info">
+                      <span class="payment-method-label">Pay with PayPal</span>
+                    </div>
+                    <div class="payment-method-logos" aria-hidden="true">
+                      <svg width="60" height="20" viewBox="0 0 60 20"><text x="0" y="15" font-family="Arial, sans-serif" font-weight="700" font-size="15" fill="#003087">Pay</text><text x="27" y="15" font-family="Arial, sans-serif" font-weight="700" font-size="15" fill="#009cde">Pal</text></svg>
+                    </div>
+                  </div>
+                </div>
               </label>
             </fieldset>
 
             <!-- Card Payment Form -->
-            <div id="pay-card-section" data-pay-section="card">
+            <div id="pay-card-section" data-pay-section="card" style="display: none;">
               <div class="form-stack" style="margin-bottom: 24px;">
 
                 <!-- Name on card -->
@@ -1501,51 +1649,9 @@
               </div>
             </div>
 
-            <!-- Finance Section (hidden by default) -->
-            <div id="pay-finance-section" data-pay-section="finance" style="display: none;">
-              <fieldset class="toggle-group" style="border: 0; padding: 0; margin: 0 0 16px 0;" data-aods="toggle">
-                <legend class="visually-hidden">Finance option</legend>
 
-                <!-- 4.9% Interest Plan -->
-                <label class="toggle-item">
-                  <input type="radio" name="finance-option" value="4.9-interest" checked>
-                  <span class="toggle-item-body">
-                    <span class="toggle-item-line">
-                      <span class="toggle-item-label">4.9% Interest Plan</span>
-                    </span>
-                    <span class="toggle-item-sub">Spread the cost with a low-rate interest plan over 12–48 months</span>
-                  </span>
-                </label>
-
-                <!-- Instalment Plan -->
-                <label class="toggle-item">
-                  <input type="radio" name="finance-option" value="instalment">
-                  <span class="toggle-item-body">
-                    <span class="toggle-item-line">
-                      <span class="toggle-item-label">Instalment Plan</span>
-                    </span>
-                    <span class="toggle-item-sub">Pay in equal monthly instalments with no interest charges</span>
-                  </span>
-                </label>
-
-                <!-- Flexible Payments -->
-                <label class="toggle-item">
-                  <input type="radio" name="finance-option" value="flexible">
-                  <span class="toggle-item-body">
-                    <span class="toggle-item-line">
-                      <span class="toggle-item-label">Flexible Payments</span>
-                    </span>
-                    <span class="toggle-item-sub">Set your own monthly payment amount with a flexible credit limit</span>
-                  </span>
-                </label>
-              </fieldset>
-
-              <!-- Eligibility notice -->
-              <div class="notice notice-highlight" style="margin-bottom: 24px;">
-                <i class="ico ico-info notice-icon" aria-hidden="true"></i>
-                <p>Subject to status. 18+. Minimum spend applies.</p>
-              </div>
-            </div>
+            <!-- Post-selection content: billing address, terms, submit, trust bar -->
+            <div id="payment-post-selection" style="display: none;">
 
             <!-- Billing Address Toggle -->
             <fieldset class="toggle-group toggle-group--inline" style="border: 0; padding: 0; margin: 0 0 16px 0;" data-aods="toggle">
@@ -1609,6 +1715,9 @@
               <i class="ico ico-padlock notice-icon" aria-hidden="true"></i>
               <p><strong>Safepay</strong> — Your card details are held securely</p>
             </div>
+
+            </div>
+            <!-- /payment-post-selection -->
 
           </fieldset>
         </form>
@@ -1734,7 +1843,7 @@
         deliveryTime: '',
         fiveStarSelected: false,
         contactData: { email: '', title: '', firstName: '', lastName: '', mobile: '', altNumber: '' },
-        paymentMethod: 'card',       // 'card' | 'finance'
+        paymentMethod: null,         // null | 'card' | 'finance' | 'paypal'
         financeOption: '4.9-interest',
         billingMatchesDelivery: true,
         termsAccepted: false,
@@ -1930,6 +2039,12 @@
           fiveStarUpsell.style.display = phase === 'confirmed' ? '' : 'none';
         }
 
+        // Show/hide Continue button based on confirmed address
+        var deliveryContinueWrap = document.getElementById('delivery-continue-wrap');
+        if (deliveryContinueWrap) {
+          deliveryContinueWrap.style.display = phase === 'confirmed' ? '' : 'none';
+        }
+
         // Update order summary delivery cost
         if (phase === 'confirmed') {
           updateDeliveryCost(true);
@@ -2026,15 +2141,15 @@
       // ==========================================================
       var payMethodRadios = document.querySelectorAll('input[name="payment-method"]');
       var payCardSection = document.getElementById('pay-card-section');
-      var payFinanceSection = document.getElementById('pay-finance-section');
+      var paymentPostSelection = document.getElementById('payment-post-selection');
 
       function switchPaymentMethod(method) {
         state.paymentMethod = method;
         if (payCardSection) payCardSection.style.display = method === 'card' ? '' : 'none';
-        if (payFinanceSection) payFinanceSection.style.display = method === 'finance' ? '' : 'none';
+        if (paymentPostSelection) paymentPostSelection.style.display = method ? '' : 'none';
 
-        // Clear card fields when switching to finance
-        if (method === 'finance') {
+        // Clear card fields when not paying by card
+        if (method !== 'card') {
           var cardFields = ['pay-name', 'pay-card-number', 'pay-cvv'];
           cardFields.forEach(function (id) {
             var el = document.getElementById(id);
@@ -2044,11 +2159,6 @@
           var yearEl = document.getElementById('pay-expiry-year');
           if (monthEl) monthEl.selectedIndex = 0;
           if (yearEl) yearEl.selectedIndex = 0;
-
-          // Pre-select 4.9% Interest Plan
-          var firstFinanceRadio = document.querySelector('input[name="finance-option"][value="4.9-interest"]');
-          if (firstFinanceRadio) firstFinanceRadio.checked = true;
-          state.financeOption = '4.9-interest';
         }
       }
 
@@ -2233,7 +2343,7 @@
           { id: 'contact-firstname', errorId: 'contact-firstname-error', validate: function (v) { return validateRequired(v, 50); }, msg: 'Enter your first name' },
           { id: 'contact-lastname', errorId: 'contact-lastname-error', validate: function (v) { return validateRequired(v, 50); }, msg: 'Enter your last name' },
           { id: 'contact-mobile', errorId: 'contact-mobile-error', validate: function (v) { return validatePhone(v, 'mobile'); }, msg: 'Enter a valid UK mobile number (11 digits starting 07)' },
-          { id: 'contact-alt-number', errorId: 'contact-alt-number-error', validate: function (v) { return validatePhone(v, 'landline'); }, msg: 'Enter a valid UK phone number (11 digits starting with 0)' }
+          { id: 'contact-alt-number', errorId: 'contact-alt-number-error', validate: function (v) { return v === '' || validatePhone(v, 'landline'); }, msg: 'Enter a valid UK phone number (11 digits starting with 0)' }
         ];
 
         // Add blur listeners to clear errors on valid input
