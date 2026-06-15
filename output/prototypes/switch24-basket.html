@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your basket · Switch24 · AO</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+
+  <style>
+    /* ============================================================
+       SmileyFace — AO display + CTA family
+       ============================================================ */
+    @font-face { font-family: 'SmileyFace-Headline'; font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff'); }
+    @font-face { font-family: 'SmileyFace'; font-weight: 400; font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff') format('woff'); }
+    @font-face { font-family: 'SmileyFace'; font-weight: 500; font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff') format('woff'); }
+    @font-face { font-family: 'SmileyFace'; font-weight: 700; font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff'); }
+
+    /* ============================================================
+       :root — Design Tokens
+       Single non-system value: --switch24-purple (Switch24 MVNO brand)
+       ============================================================ */
+    :root {
+      --gray-10: #f8f9fa;  --gray-20: #f0f2f2;  --gray-30: #e2e7e8;
+      --gray-40: #d6dddf;  --gray-50: #c1c7c9;  --gray-60: #abb1b4;
+      --gray-70: #727677;  --gray-80: #595d5e;  --gray-90: #3f4344;  --gray-100: #212121;
+
+      --brand-primary-base: #12c35a;  --brand-primary-light: #befcc8;  --brand-primary-dark: #02422b;
+
+      --type-primary: #011f44;  --type-secondary: #212121;  --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+
+      --action-primary-base: #00893e;  --action-primary-hover: #00560b;
+      --action-primary-active: #003d00;  --action-primary-contrast: #ffffff;  --action-primary-glow: #12c35a;
+
+      --action-secondary-base: #0564c2;  --action-secondary-hover: #00318f;
+      --action-secondary-contrast: #ffffff;  --action-secondary-glow: #40a1f8;
+
+      --action-light-base: #ffffff;  --action-light-contrast: #011f44;
+      --action-dark-base: #011f44;   --action-dark-contrast: #ffffff;
+
+      --ui-core-base: #ffffff;       --ui-core-contrast: #212121;       --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2;    --ui-neutral-contrast: #212121;    --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff;  --ui-highlight-contrast: #00318f;  --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3;    --ui-success-contrast: #02422b;    --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6;    --ui-warning-contrast: #ad5a00;    --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6;      --ui-error-contrast: #b50016;      --ui-error-accent: #b50016;
+
+      --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 16px;
+      --radius-xl: 24px; --radius-2xl: 40px;
+
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+
+      /* ⚠ NOT IN DESIGN SYSTEM — Switch24 (MVNO) brand purple.
+         Flag for the design-system team if this campaign goes long-term. */
+      --switch24-purple: #6f3ff5;
+      --switch24-purple-contrast: #ffffff;
+    }
+
+    /* ============================================================
+       Reset + base
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { color-scheme: light; }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      font-size: 1rem; line-height: 1.625;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, svg { display: block; max-width: 100%; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; }
+    ul { list-style: none; padding: 0; margin: 0; }
+
+    /* ============================================================
+       Typography utility classes
+       ============================================================ */
+    .t-display     { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.5rem;   line-height: 1.25; color: var(--type-primary); }
+    .t-title-lg    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.25rem;  line-height: 1.25; color: var(--type-primary); }
+    .t-title       { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;     line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem; line-height: 1.25; color: var(--type-primary); }
+    .t-cta         { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;     line-height: 1.25; }
+
+    .t-body        { font-family: 'Inter', sans-serif; font-size: 1rem;    line-height: 1.625; }
+    .t-body-sm     { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.625; }
+    .t-caption     { font-family: 'Inter', sans-serif; font-size: 0.75rem;  line-height: 1.625; color: var(--type-tertiary); }
+    .t-link        { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;    text-decoration: underline; color: var(--action-secondary-base); background: transparent; border: 0; padding: 0; }
+    .t-link-sm     { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); }
+
+    /* ============================================================
+       Layout — mobile container
+       ============================================================ */
+    .page {
+      max-width: 420px; margin: 0 auto;
+      background: var(--gray-10); min-height: 100vh;
+    }
+    .stack { display: flex; flex-direction: column; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* ============================================================
+       Nav (Header — basket variant)
+       ============================================================ */
+    [data-aods="nav"] { position: sticky; top: 0; z-index: 20; }
+    .nav-mobile {
+      background: #fff;
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.625rem 1rem;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; color: var(--brand-primary-base); }
+    .nav-logo svg { width: 38px; height: auto; }
+
+    .nav-icon {
+      position: relative;
+      display: inline-flex; flex-direction: column; align-items: center;
+      text-decoration: none; cursor: pointer; background: none; border: none;
+      gap: 0.125rem; color: var(--type-primary); padding: 0;
+    }
+    .nav-icon-img { font-size: 1.375rem; color: var(--type-primary); }
+    .nav-icon-label {
+      font-family: 'Inter', sans-serif; font-size: 0.6875rem; font-weight: 400;
+      color: var(--type-primary); line-height: 1.25;
+    }
+    .nav-icon--badge::after {
+      content: attr(data-count);
+      position: absolute; top: -4px; right: -6px;
+      min-width: 16px; height: 16px; padding: 0 4px;
+      border-radius: 50%; background: #cf1a30; color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.625rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-spacer { flex: 1; }
+
+    /* Sign In appears red/pink in design */
+    .nav-icon--alert .nav-icon-img,
+    .nav-icon--alert .nav-icon-label { color: #cf1a30; }
+
+    /* Search row */
+    .nav-search--mobile { display: flex; padding: 0.5rem 1rem 0.75rem; background: #fff; }
+    .nav-search-input {
+      flex: 1; padding: 0.625rem 1rem;
+      border: 1px solid var(--gray-40); border-right: none;
+      border-radius: 1.5rem 0 0 1.5rem;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      color: var(--type-secondary); outline: none;
+    }
+    .nav-search-input::placeholder { color: var(--gray-60); }
+    .nav-search-btn {
+      padding: 0.625rem 1.25rem; background: var(--brand-primary-base); border: none;
+      border-radius: 0 1.5rem 1.5rem 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .nav-search-btn .ico { font-size: 1.25rem; }
+
+    .nav-accent { height: 4px; background: var(--brand-primary-base); }
+
+    .nav-proposition {
+      background: #fff;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.625rem 1rem;
+      border-bottom: 1px solid var(--gray-30);
+    }
+    .nav-proposition-item {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Inter', sans-serif; font-size: 0.8125rem; color: var(--type-secondary);
+    }
+    .nav-proposition-item .ico { font-size: 1rem; color: var(--type-primary); }
+
+    /* ============================================================
+       Page heading
+       ============================================================ */
+    .page-heading {
+      padding: 1rem 1rem 0.75rem;
+      text-align: center;
+      background: #fff;
+    }
+
+    /* ============================================================
+       Generic card
+       ============================================================ */
+    .card {
+      background: var(--ui-core-base); border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 1rem;
+    }
+    .card-tight { padding: 0; }
+    .card-divider { height: 1px; background: var(--gray-30); margin: 0; }
+
+    /* ============================================================
+       Section wrapper (page padding)
+       ============================================================ */
+    .section { padding: 0.75rem 1rem; }
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 0; padding: 0.875rem 1rem;
+    }
+    .section-label {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;
+      color: var(--type-primary);
+    }
+
+    /* ============================================================
+       Switch24 purple bar — full-width totals row (Pay today / Pay Monthly / Final payment)
+       ============================================================ */
+    .purple-bar {
+      background: var(--switch24-purple);
+      color: #fff;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.875rem 1.25rem;
+      margin: 0 0 0.75rem;
+    }
+    .purple-bar__label {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1rem; color: #fff;
+    }
+    .purple-bar__amount {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1.125rem; color: #fff;
+    }
+
+    /* ============================================================
+       Switch24 brand tag (top-right of upfront / final cards)
+       ============================================================ */
+    .tag-switch24 {
+      display: inline-flex; align-items: center; gap: 0.125rem;
+      background: var(--switch24-purple); color: #fff;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 0.6875rem; line-height: 1;
+      padding: 0.2rem 0.5rem 0.2rem 0.625rem;
+      border-radius: var(--radius-2xl);
+    }
+    .tag-switch24 sup {
+      font-size: 0.875em; line-height: 1; padding-left: 1px;
+    }
+
+    /* ============================================================
+       Basket card — Phone / Membership / Plan rows in one shared card
+       ============================================================ */
+    .basket-stack { background: #fff; border: 1px solid var(--gray-40); border-radius: var(--radius-md); overflow: hidden; }
+    .basket-section { padding: 1rem; }
+    .basket-section + .basket-section { border-top: 1px solid var(--gray-30); }
+    .basket-section__head {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;
+      color: var(--type-primary);
+      margin-bottom: 0.625rem;
+    }
+
+    .basket-row {
+      display: grid;
+      grid-template-columns: 64px 1fr auto;
+      gap: 0.875rem;
+      align-items: flex-start;
+    }
+    .basket-row__media {
+      width: 64px; height: 64px; border-radius: var(--radius-sm);
+      background: #fff; border: 1px solid var(--gray-30);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .basket-row__media--plain { background: transparent; border: none; }
+    .basket-row__body { min-width: 0; padding-top: 0.125rem; }
+    .basket-row__title {
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700;
+      color: var(--type-primary); line-height: 1.35; margin-bottom: 0.125rem;
+    }
+    .basket-row__meta {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; line-height: 1.5;
+      color: var(--type-tertiary);
+    }
+    .basket-row__meta a { color: var(--action-secondary-base); font-weight: 700; text-decoration: underline; }
+    .basket-row__price {
+      text-align: right; font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1rem; color: var(--type-primary); line-height: 1.2;
+      white-space: nowrap;
+    }
+    .basket-row__price-unit {
+      display: block; margin-top: 0.125rem;
+      font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.6875rem;
+      color: var(--type-tertiary); line-height: 1.2;
+    }
+
+    .basket-section__footer {
+      display: flex; justify-content: flex-end; margin-top: 0.5rem;
+    }
+    .basket-remove {
+      background: transparent; border: 0; padding: 0.25rem;
+      color: var(--action-secondary-base); font-size: 1rem;
+    }
+
+    /* ============================================================
+       Upfront / Final payment composite card
+       (Header bar with Switch24 tag, white body, then purple-bar follows)
+       ============================================================ */
+    .compose-card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .compose-card__head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.875rem 1rem 0.625rem;
+    }
+    .compose-card__row {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+      padding: 0 1rem 1rem;
+    }
+    .compose-card__copy {
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.5;
+      color: var(--type-secondary);
+    }
+    .compose-card__copy strong {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      display: block; font-size: 0.9375rem; color: var(--type-primary);
+      margin-bottom: 0.125rem;
+    }
+    .compose-card__amount {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;
+      color: var(--type-primary); white-space: nowrap;
+    }
+
+    /* ============================================================
+       Buttons
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.25rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+      transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
+      text-decoration: none;
+    }
+    .btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(5,100,194,0.2); border-color: var(--action-secondary-base); }
+    .btn-primary { background: var(--action-primary-base); color: #fff; border-color: var(--action-primary-base); }
+    .btn-primary:hover { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); }
+    .btn-tertiary { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-lg { padding: 1.125rem 1.5rem; font-size: 1.0625rem; }
+    .btn-full { width: 100%; }
+    .btn-with-icon-leading { gap: 0.625rem; }
+
+    /* Secondary outlined link-style buttons (Discount / Referred) */
+    .link-pill {
+      display: flex; align-items: center; gap: 0.75rem;
+      width: 100%; background: transparent; border: 0;
+      padding: 0.625rem 0.25rem;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;
+      color: var(--action-secondary-base); text-decoration: underline;
+      text-align: left;
+    }
+    .link-pill .ico {
+      font-size: 1.25rem; color: var(--action-secondary-base); text-decoration: none;
+    }
+
+    /* ============================================================
+       Info card — Terms & Privacy / What happens next
+       ============================================================ */
+    .info-card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 1rem;
+    }
+    .info-card__head {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 0.625rem;
+    }
+    .info-card__head .ico { color: var(--action-secondary-base); font-size: 1.125rem; }
+    .info-card__title {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;
+      color: var(--type-primary);
+    }
+    .info-card__body {
+      font-family: 'Inter', sans-serif; font-size: 0.8125rem; line-height: 1.55;
+      color: var(--type-tertiary);
+    }
+    .info-card__body a {
+      color: var(--action-secondary-base); font-weight: 700; text-decoration: underline;
+    }
+
+    /* Numbered step list — circles 1 / 2 / 3 */
+    .steps-list { display: flex; flex-direction: column; gap: 0.625rem; }
+    .steps-list li {
+      display: grid; grid-template-columns: 28px 1fr; gap: 0.75rem; align-items: flex-start;
+    }
+    .step-num {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--ui-highlight-base);
+      border: 1px solid var(--action-secondary-base);
+      color: var(--action-secondary-base);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.75rem;
+      flex-shrink: 0; line-height: 1; margin-top: 0.125rem;
+    }
+    .step-title {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
+      color: var(--type-primary); display: block;
+    }
+    .step-meta {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; line-height: 1.5;
+      color: var(--type-tertiary);
+    }
+
+    /* ============================================================
+       Switch24 marketing copy block
+       ============================================================ */
+    .switch24-promo {
+      padding: 1rem;
+      font-family: 'Inter', sans-serif; font-size: 0.6875rem; line-height: 1.55;
+      color: var(--type-tertiary);
+    }
+    .switch24-promo strong {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.8125rem;
+      color: var(--type-primary); display: block; margin-bottom: 0.5rem;
+    }
+    .switch24-promo p + p { margin-top: 0.5rem; }
+    .switch24-promo a { color: var(--action-secondary-base); font-weight: 700; text-decoration: underline; }
+
+    /* ============================================================
+       Trust badges — 4-up row
+       ============================================================ */
+    .trust-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+      padding: 0.5rem 1rem 1rem;
+      background: #fff;
+    }
+    .trust-tile {
+      display: flex; flex-direction: column; align-items: center; gap: 0.375rem;
+      text-align: center;
+      font-family: 'Inter', sans-serif; font-size: 0.625rem; line-height: 1.3;
+      color: var(--type-secondary);
+    }
+    .trust-tile .ico { font-size: 1.625rem; color: var(--type-primary); }
+
+    /* ============================================================
+       Inline link actions (Save basket, About ao.com)
+       ============================================================ */
+    .link-row {
+      display: flex; align-items: center; gap: 0.625rem;
+      padding: 0.875rem 1rem;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;
+      color: var(--action-secondary-base); text-decoration: underline;
+      background: #fff; border: 0; width: 100%;
+      border-bottom: 1px solid var(--gray-30);
+    }
+    .link-row .ico { font-size: 1.25rem; color: var(--action-secondary-base); text-decoration: none; }
+
+    /* ============================================================
+       Recently viewed
+       ============================================================ */
+    .rv-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1rem 0.5rem;
+      background: var(--gray-10);
+    }
+    .rv-head__title { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .rv-head__title .ico { color: var(--type-primary); font-size: 1.125rem; }
+    .rv-clear {
+      background: transparent; border: 0; padding: 0;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.8125rem;
+      color: var(--action-secondary-base); text-decoration: underline;
+    }
+    .rv-row {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;
+      padding: 0 1rem 1rem;
+    }
+    .rv-card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); padding: 0.5rem;
+      display: flex; flex-direction: column; gap: 0.375rem;
+    }
+    .rv-card__media {
+      aspect-ratio: 1 / 1;
+      background: #fff; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+      position: relative;
+    }
+    .rv-card__media svg { width: 60%; height: 60%; color: var(--type-primary); }
+    .rv-card__badge {
+      position: absolute; top: 0.375rem; left: 0.375rem;
+      background: var(--brand-primary-base); color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.6875rem; font-weight: 700;
+      padding: 0.125rem 0.5rem; border-radius: var(--radius-xs);
+    }
+    .rv-card__close {
+      position: absolute; top: 0.375rem; right: 0.375rem;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #fff; border: 1px solid var(--gray-40);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--type-secondary); font-size: 0.75rem;
+    }
+    .rv-card__price {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem;
+      color: var(--type-primary);
+    }
+    .rv-card__price-row { display: inline-flex; align-items: baseline; gap: 0.375rem; }
+    .rv-card__price--red { color: #cf1a30; }
+    .rv-card__save {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 700;
+      color: #cf1a30;
+    }
+    .rv-card__strike {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--type-tertiary);
+      text-decoration: line-through;
+    }
+    .rv-card__stars-row {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-family: 'Inter', sans-serif; font-size: 0.6875rem; color: var(--type-tertiary);
+    }
+    .rv-card__stars { color: var(--brand-primary-base); font-size: 0.75rem; }
+    .rv-card__title {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; line-height: 1.4;
+      color: var(--type-primary); font-weight: 600;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* ============================================================
+       Footer (dark, with social row)
+       ============================================================ */
+    .footer { width: 100%; }
+    .footer-social {
+      background: var(--gray-100);
+      display: flex; justify-content: center; gap: 1rem;
+      padding: 0.875rem 1rem;
+    }
+    .footer-social a { color: #fff; font-size: 1.125rem; text-decoration: none; }
+    .footer-legal {
+      background: var(--gray-100);
+      padding: 1rem 1.25rem; text-align: center;
+    }
+    .footer-legal p {
+      font-family: 'Inter', sans-serif; font-size: 0.625rem;
+      color: var(--gray-50); line-height: 1.55;
+      margin: 0 0 0.625rem;
+    }
+    .footer-legal a { color: #fff; text-decoration: underline; }
+
+    /* Five-star icon (purple decorative) */
+    .ico-star-purple { color: var(--switch24-purple); }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ============================================================
+         Header — basket variant
+         ============================================================ -->
+    <header data-aods="nav">
+      <nav class="nav-mobile">
+        <a href="#" class="nav-logo" aria-label="AO Home">
+          <svg viewBox="0 0 48 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill="currentColor" d="M13.6 4.2C7.2 4.2 2 9.4 2 15.8c0 6.4 5.2 11.6 11.6 11.6 6.4 0 11.6-5.2 11.6-11.6 0-6.4-5.2-11.6-11.6-11.6zm0 17.4a5.8 5.8 0 1 1 0-11.6 5.8 5.8 0 0 1 0 11.6zM38 4.2c-3.5 0-6.4 1.8-8.1 4.4l5 2.7c.6-1 1.7-1.6 3.1-1.6 2 0 3.5 1 3.5 3.6v.5c-1-.8-2.5-1.4-4.6-1.4-4.6 0-7.6 2.6-7.6 6.5 0 4 3 6.5 6.7 6.5 2.4 0 4.3-.9 5.5-2.3v1.6h5.7V13c0-5.6-3.4-8.8-9.2-8.8zm-1 17.7c-1.3 0-2.3-.7-2.3-1.9 0-1.4 1.4-2 3.3-2 1.4 0 2.4.3 3 .7v.2c-.1 1.8-1.7 3-4 3z"/>
+            <circle cx="13.6" cy="15.8" r="2" fill="#fff"/>
+          </svg>
+        </a>
+        <button class="nav-icon" type="button" aria-label="Menu">
+          <i class="ico ico-menu nav-icon-img" aria-hidden="true"></i>
+          <span class="nav-icon-label">Menu</span>
+        </button>
+        <span class="nav-spacer"></span>
+        <button class="nav-icon nav-icon--alert" type="button">
+          <i class="ico ico-account nav-icon-img" aria-hidden="true"></i>
+          <span class="nav-icon-label">Sign In</span>
+        </button>
+        <a class="nav-icon nav-icon--badge" href="#basket" data-count="1" aria-label="Basket, 1 item">
+          <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
+          <span class="nav-icon-label">Basket</span>
+        </a>
+      </nav>
+
+      <div class="nav-search--mobile">
+        <input class="nav-search-input" type="search" placeholder="Search products, brands or advice" aria-label="Search">
+        <button class="nav-search-btn" type="button" aria-label="Search">
+          <i class="ico ico-search" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="nav-accent"></div>
+
+      <div class="nav-proposition">
+        <span class="nav-proposition-item">
+          <i class="ico ico-next-day-delivery" aria-hidden="true"></i>
+          Next day delivery, 7 days a week
+        </span>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         Page heading
+         ============================================================ -->
+    <div class="page-heading">
+      <h1 class="t-display">Your basket</h1>
+    </div>
+
+    <!-- ============================================================
+         UPFRONT PAYMENT
+         White card with Switch24 tag → full-width purple "Pay today" bar
+         ============================================================ -->
+    <section class="section" aria-labelledby="upfront-heading">
+      <div class="compose-card">
+        <div class="compose-card__head">
+          <h2 id="upfront-heading" class="section-label">Upfront payment</h2>
+          <span class="tag-switch24">Switch<sup>24</sup></span>
+        </div>
+        <div class="compose-card__row">
+          <div class="compose-card__copy">
+            Apple iPhone 17 256GB in Black
+          </div>
+          <div class="compose-card__amount">£39.95</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="purple-bar">
+      <span class="purple-bar__label">Pay today</span>
+      <span class="purple-bar__amount">£39.95</span>
+    </div>
+
+    <!-- ============================================================
+         PHONE / MEMBERSHIP / PLAN — shared white card stack
+         ============================================================ -->
+    <section class="section">
+      <div class="basket-stack">
+
+        <!-- Phone -->
+        <div class="basket-section">
+          <div class="basket-section__head">Phone</div>
+          <div class="basket-row">
+            <div class="basket-row__media">
+              <!-- iPhone glyph -->
+              <svg viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="2" width="36" height="52" rx="6" fill="#1a1a1a" stroke="#000" stroke-width="1"/>
+                <rect x="5" y="5" width="30" height="46" rx="4" fill="#0a0a0a"/>
+                <rect x="15" y="6" width="10" height="2.5" rx="1.25" fill="#2a2a2a"/>
+              </svg>
+            </div>
+            <div class="basket-row__body">
+              <div class="basket-row__title">Apple iPhone 17 256GB in Black</div>
+              <div class="basket-row__meta">0% interest for 24 months</div>
+            </div>
+            <div class="basket-row__price">
+              £17.00
+              <span class="basket-row__price-unit">per month</span>
+            </div>
+          </div>
+          <div class="basket-section__footer">
+            <button class="basket-remove" type="button" aria-label="Remove iPhone 17">
+              <i class="ico ico-bin" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Membership -->
+        <div class="basket-section">
+          <div class="basket-section__head">Membership</div>
+          <div class="basket-row">
+            <div class="basket-row__media basket-row__media--plain">
+              <!-- AO five-star sparkle -->
+              <svg viewBox="0 0 48 48" width="48" height="48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <g fill="none" stroke="#6f3ff5" stroke-width="2" stroke-linecap="round">
+                  <path d="M24 6v8M24 34v8M6 24h8M34 24h8M11 11l6 6M31 31l6 6M37 11l-6 6M11 37l6-6"/>
+                </g>
+                <circle cx="24" cy="24" r="5" fill="#6f3ff5"/>
+              </svg>
+            </div>
+            <div class="basket-row__body">
+              <div class="basket-row__title">AO Membership</div>
+              <div class="basket-row__meta">
+                Never pay full price on products across AO.com<br>
+                Already a member? <a href="#">Sign in now</a>
+              </div>
+            </div>
+            <div class="basket-row__price">
+              £3.33
+              <span class="basket-row__price-unit">per month</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan -->
+        <div class="basket-section">
+          <div class="basket-section__head">Plans</div>
+          <div class="basket-row">
+            <div class="basket-row__media">
+              <!-- SIM card glyph -->
+              <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M11 4h13l9 9v23a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" fill="#12c35a"/>
+                <rect x="14" y="20" width="12" height="13" rx="2" fill="#fff"/>
+                <path d="M14 24h12M14 28h12M18 20v13M22 20v13" stroke="#12c35a" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="basket-row__body">
+              <div class="basket-row__title">Ultimate 500GB</div>
+              <div class="basket-row__meta">One simple plan scrolling and sharing all month long</div>
+            </div>
+            <div class="basket-row__price">
+              £12.00
+              <span class="basket-row__price-unit">per month</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="purple-bar">
+      <span class="purple-bar__label">Pay Monthly</span>
+      <span class="purple-bar__amount">£32.33</span>
+    </div>
+
+    <!-- ============================================================
+         FINAL PAYMENT
+         ============================================================ -->
+    <section class="section" aria-labelledby="final-heading">
+      <div class="compose-card">
+        <div class="compose-card__head">
+          <h2 id="final-heading" class="section-label">Final payment</h2>
+          <span class="tag-switch24">Switch<sup>24</sup></span>
+        </div>
+        <div class="compose-card__row">
+          <div class="compose-card__copy">
+            <strong>Upgrade or return and pay nothing more</strong>
+            To keep your phone, pay off the remaining which is held on a 24 month Buy Now, Pay Later plan.
+          </div>
+          <div class="compose-card__amount">£351.05</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="purple-bar">
+      <span class="purple-bar__label">Final payment</span>
+      <span class="purple-bar__amount">£351.05</span>
+    </div>
+
+    <!-- ============================================================
+         Discount & referral — link-style action rows
+         ============================================================ -->
+    <section class="section" style="padding-top:0.25rem; padding-bottom:0.25rem;">
+      <button class="link-pill" type="button">
+        <i class="ico ico-promo-tag" aria-hidden="true"></i>
+        <span>I have a discount code</span>
+      </button>
+      <button class="link-pill" type="button">
+        <i class="ico ico-customers" aria-hidden="true"></i>
+        <span>Been referred by a friend?</span>
+      </button>
+    </section>
+
+    <!-- ============================================================
+         Terms and Privacy — info card
+         ============================================================ -->
+    <section class="section">
+      <div class="info-card">
+        <div class="info-card__head">
+          <i class="ico ico-tick-circle" aria-hidden="true"></i>
+          <span class="info-card__title">Terms and Privacy</span>
+        </div>
+        <div class="info-card__body">
+          By continuing with this order, you agree to our <a href="#">T&amp;C's</a>, our <a href="#">Switch24 terms</a> and <a href="#">membership terms</a>. See how your data is used in our <a href="#">privacy policy</a>. Switch24 requires an AO Finance account
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         What happens next — info card with numbered steps
+         ============================================================ -->
+    <section class="section">
+      <div class="info-card">
+        <div class="info-card__head">
+          <i class="ico ico-tick-circle" aria-hidden="true"></i>
+          <span class="info-card__title">What happens next</span>
+        </div>
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            <span>
+              <span class="step-title">Set up your handset finance</span>
+              <span class="step-meta">A short application via AO Finance · soft credit check.</span>
+            </span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span>
+              <span class="step-title">Pay for your data plan</span>
+              <span class="step-meta">Monthly Direct Debit, set up next.</span>
+            </span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span>
+              <span class="step-title">Set up insurance payments</span>
+              <span class="step-meta">Monthly, separate Direct Debit · cancel anytime.</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Primary CTA — Go to checkout
+         ============================================================ -->
+    <section class="section">
+      <button class="btn btn-primary btn-lg btn-full btn-with-icon-leading" type="button">
+        <i class="ico ico-security-secure" aria-hidden="true"></i>
+        <span>Go to checkout</span>
+      </button>
+    </section>
+
+    <!-- ============================================================
+         Switch24 marketing legalese
+         ============================================================ -->
+    <div class="switch24-promo">
+      <p>
+        <strong>*Switch24 is 0% interest for 24 month. 39.1% APR applies to AO Finance representative example.</strong>
+      </p>
+      <p>
+        Representative <strong style="display:inline; font-size:inherit; font-family:'SmileyFace',Georgia,serif;">39.1% APR</strong> (variable), <strong style="display:inline; font-size:inherit; font-family:'SmileyFace',Georgia,serif;">29.9% PA</strong> purchase rate (variable), <strong style="display:inline; font-size:inherit; font-family:'SmileyFace',Georgia,serif;">£1,200</strong> assumed credit limit.
+      </p>
+      <p>
+        18+, Credit and Offers are subject to status. Terms apply. NewDay Ltd, UK Only. AO Retail Limited acts as a credit broker exclusively for NewDay Ltd and is not a lender. AO Membership annual fee of £39.99 payable to access exclusive promotional offers. <a href="#">Membership terms</a> and <a href="#">Switch24 terms</a> apply.
+      </p>
+      <p>
+        The upfront cost where applicable is calculated using the member price.
+      </p>
+    </div>
+
+    <!-- ============================================================
+         Trust badges
+         ============================================================ -->
+    <div class="trust-row" role="list" aria-label="AO trust signals">
+      <div class="trust-tile" role="listitem">
+        <i class="ico ico-price-match-gbp" aria-hidden="true"></i>
+        Price Match Promise
+      </div>
+      <div class="trust-tile" role="listitem">
+        <i class="ico ico-spanner" aria-hidden="true"></i>
+        Hassle-free installation
+      </div>
+      <div class="trust-tile" role="listitem">
+        <i class="ico ico-finance-gbp" aria-hidden="true"></i>
+        Pay with AO Finance
+      </div>
+      <div class="trust-tile" role="listitem">
+        <i class="ico ico-five-star-membership" aria-hidden="true"></i>
+        Join AO Five Star
+      </div>
+    </div>
+
+    <!-- ============================================================
+         Save basket / About ao.com — inline link rows
+         ============================================================ -->
+    <button class="link-row" type="button">
+      <i class="ico ico-envelope" aria-hidden="true"></i>
+      <span>Save basket to your email</span>
+    </button>
+    <button class="link-row" type="button">
+      <i class="ico ico-info-circle" aria-hidden="true"></i>
+      <span>About ao.com</span>
+    </button>
+
+    <!-- ============================================================
+         Recently viewed
+         ============================================================ -->
+    <section aria-labelledby="rv-heading">
+      <div class="rv-head">
+        <span class="rv-head__title">
+          <i class="ico ico-clock" aria-hidden="true"></i>
+          <h2 id="rv-heading" class="t-title">Recently Viewed</h2>
+        </span>
+        <button class="rv-clear" type="button">Clear All</button>
+      </div>
+      <div class="rv-row">
+        <article class="rv-card">
+          <div class="rv-card__media">
+            <span class="rv-card__badge">Added to basket</span>
+            <button class="rv-card__close" type="button" aria-label="Remove from recently viewed">✕</button>
+            <svg viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="36" height="52" rx="6" fill="#1a1a1a" stroke="#000" stroke-width="1"/>
+              <rect x="5" y="5" width="30" height="46" rx="4" fill="#0a0a0a"/>
+              <rect x="15" y="6" width="10" height="2.5" rx="1.25" fill="#2a2a2a"/>
+            </svg>
+          </div>
+          <div class="rv-card__price">£1,199</div>
+          <div class="rv-card__stars-row">
+            <span class="rv-card__stars" aria-hidden="true">★★★★★</span>
+            5.0 (5)
+          </div>
+          <div class="rv-card__title">Apple iPhone 16 Pro Max 256GB in Black Titanium</div>
+        </article>
+        <article class="rv-card">
+          <div class="rv-card__media">
+            <svg viewBox="0 0 40 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="36" height="52" rx="6" fill="#1a3b6e" stroke="#000" stroke-width="1"/>
+              <rect x="5" y="5" width="30" height="46" rx="4" fill="#0f2851"/>
+              <rect x="15" y="6" width="10" height="2.5" rx="1.25" fill="#2a4778"/>
+            </svg>
+          </div>
+          <div class="rv-card__price-row">
+            <span class="rv-card__price rv-card__price--red">£139</span>
+            <span class="rv-card__strike">was £146</span>
+            <span class="rv-card__save">save £</span>
+          </div>
+          <div class="rv-card__price-row">
+            <span class="t-caption">£122 AO Member price</span>
+          </div>
+          <div class="rv-card__stars-row">
+            <span class="rv-card__stars" aria-hidden="true">★★★★★</span>
+            5.0 (16)
+          </div>
+          <div class="rv-card__title">Samsung Galaxy A15 1 Smartphone in Blue / B</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         Footer (dark)
+         ============================================================ -->
+    <footer class="footer" data-aods="footer">
+      <div class="footer-social" aria-label="Follow AO on social">
+        <a href="#" aria-label="Instagram"><i class="ico ico-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Facebook"><i class="ico ico-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="TikTok"><i class="ico ico-tiktok" aria-hidden="true"></i></a>
+        <a href="#" aria-label="YouTube"><i class="ico ico-youtube" aria-hidden="true"></i></a>
+        <a href="#" aria-label="X"><i class="ico ico-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Pinterest"><i class="ico ico-pinterest" aria-hidden="true"></i></a>
+      </div>
+      <div class="footer-legal">
+        <p>ao.com is operated by AO Retail Limited, registered in England with company number 03914998 whose registered office is at 5a, The Parklands, Lostock, Bolton, BL6 4SD.</p>
+        <p>The goods you buy from this site will be purchased from AO Retail Limited.</p>
+        <p>For more information on how we use your data read our <a href="#">Privacy Policy</a>.</p>
+        <p>Credit is provided by NewDay Ltd, 7 Handyside Street, London, N1C 4DA. AO Retail Limited acts as a credit broker for NewDay Ltd on an exclusive basis and is not a lender. NewDay Ltd and AO Retail Limited are each authorised and regulated by the Financial Conduct Authority. Credit is available only to UK residents aged 18 and over. Subject to status. Terms apply.</p>
+        <p>Unique Cookies Reference:<br>3JD-HYW-FNB</p>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
