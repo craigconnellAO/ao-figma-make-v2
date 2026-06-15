@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handshake Playground — AO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  @font-face {
+    font-family: 'SmileyFace';
+    font-weight: 700;
+    font-display: swap;
+    src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+         url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'SmileyFace-Headline';
+    font-weight: 800;
+    font-display: swap;
+    src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+         url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+  }
+
+  :root {
+    --green-text: #02422B;
+    --green-main: #00893E;
+    --green-bright: #12C35A;
+    --green-soft: #E8F5EC;
+    --gray-segment: #D6DDDF;
+    --gray-30: #E2E7E8;
+    --gray-20: #F0F2F2;
+    --gray-10: #F7F9F9;
+    --text-primary: #011F44;
+    --text-secondary: #4C4C4C;
+    --text-disabled: #727677;
+    --blue-action: #001876;
+    --blue-steam: #C8D1FF;
+    --blue-paper: #EEF1FF;
+    --warning: #FFB400;
+    --bg-page: #F2F4F6;
+    --bg-paper: #FFFFFF;
+    --radius-md: 16px;
+    --radius-sm: 8px;
+    --radius-pill: 100px;
+    --shadow-card: 0 1px 3px rgba(1,22,48,0.08), 0 4px 12px rgba(1,22,48,0.06);
+    --shadow-pop: 0 10px 30px rgba(1,22,48,0.10), 0 4px 8px rgba(1,22,48,0.04);
+    --easing-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --easing-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.45;
+    padding-bottom: 120px;
+  }
+
+  /* ───── Page header ───── */
+  .page-header {
+    background: var(--bg-paper);
+    border-bottom: 1px solid var(--gray-30);
+    padding: 28px 32px 24px;
+  }
+  .page-header h1 {
+    font-family: 'SmileyFace-Headline', Georgia, serif;
+    font-size: 28px;
+    color: var(--green-text);
+    margin-bottom: 6px;
+  }
+  .page-header p {
+    color: var(--text-secondary);
+    max-width: 720px;
+    font-size: 14px;
+  }
+
+  /* ───── Sticky controls ───── */
+  .controls {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(242, 244, 246, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--gray-30);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .controls-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-disabled);
+    font-weight: 600;
+  }
+  .step-btns { display: flex; gap: 6px; }
+  .step-btn {
+    appearance: none;
+    border: 1px solid var(--gray-30);
+    background: var(--bg-paper);
+    color: var(--text-primary);
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .step-btn:hover { border-color: var(--green-main); color: var(--green-main); }
+  .step-btn.active {
+    background: var(--green-main);
+    border-color: var(--green-main);
+    color: #fff;
+  }
+  .play-btn {
+    margin-left: auto;
+    appearance: none;
+    border: none;
+    background: var(--green-text);
+    color: #fff;
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s ease;
+  }
+  .play-btn:hover { transform: scale(1.03); }
+  .play-btn:active { transform: scale(0.97); }
+
+  /* ───── Direction row ───── */
+  .playground { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+  .direction {
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--gray-30);
+  }
+  .direction-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .direction-index {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-disabled);
+    letter-spacing: 1px;
+  }
+  .direction-name {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--green-text);
+  }
+  .direction-desc {
+    flex: 1 1 380px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) minmax(280px, 360px) minmax(280px, 340px);
+    gap: 20px;
+    align-items: start;
+  }
+  .preview-cell { display: flex; flex-direction: column; }
+  .preview-cell-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--text-disabled);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .preview-cell-label::before {
+    content: '';
+    width: 14px; height: 1px; background: var(--gray-segment);
+  }
+
+  /* Mini phone frame for interstitial column */
+  .mini-phone {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 320 / 540;
+    background: var(--gray-10);
+    border-radius: 28px;
+    border: 6px solid #16223A;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-card);
+  }
+  .mini-phone-content {
+    position: absolute;
+    inset: 0;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
+  /* Subtle "background page" hint behind interstitial */
+  .mini-phone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)),
+      repeating-linear-gradient(transparent 0 14px, var(--gray-20) 14px 16px);
+    z-index: 0;
+  }
+  .mini-phone > * { position: relative; z-index: 1; }
+
+  /* Slim "page top" container for stepper */
+  .stepper-cell {
+    background: var(--bg-paper);
+    border: 1px solid var(--gray-30);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Basket card cell */
+  .basket-cell {
+    background: var(--bg-paper);
+    border: 1px solid var(--gray-30);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     SHARED PRIMITIVES
+     ──────────────────────────────────────────────────────────── */
+  .ao-mark {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--green-main);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ao-mark svg { width: 16px; height: 16px; }
+  .ao-mark.lg { width: 40px; height: 40px; }
+  .ao-mark.lg svg { width: 22px; height: 22px; }
+
+  .smiley-head {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-weight: 700;
+    color: var(--green-text);
+    line-height: 1.2;
+  }
+  .small-meta { font-size: 12px; color: var(--text-disabled); }
+  .next-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--green-main);
+    font-weight: 700;
+  }
+
+  .step-counter {
+    font-size: 11px;
+    color: var(--text-disabled);
+    font-weight: 600;
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     1. SEGMENTS
+     ════════════════════════════════════════════════════════════ */
+  .seg-bar { display: flex; gap: 6px; width: 100%; }
+  .seg-bar .seg {
+    flex: 1; height: 8px; border-radius: 4px;
+    background: var(--gray-segment);
+    overflow: hidden;
+    position: relative;
+    transition: background 0.5s ease;
+  }
+  .seg-bar .seg.done { background: var(--green-bright); }
+  .seg-bar .seg.current {
+    background: var(--green-bright);
+  }
+  .seg-bar .seg.current::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 1.8s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  /* Interstitial */
+  .seg-interstitial {
+    background: #fff;
+    border: 2px solid var(--green-main);
+    border-radius: var(--radius-md);
+    padding: 20px 16px 24px;
+    width: 100%;
+    max-width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-pop);
+  }
+  .seg-interstitial .title {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.25;
+    color: var(--green-text);
+  }
+  .seg-interstitial .next-block {
+    font-size: 13px; color: var(--green-text);
+  }
+  .seg-interstitial .next-block strong {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-weight: 700;
+    font-size: 16px;
+    display: block;
+    margin: 2px 0 4px;
+  }
+  .seg-interstitial .auto-bar {
+    position: absolute; left: 0; bottom: 0; height: 6px;
+    background: var(--green-main);
+    width: var(--bar-width, 33%);
+    transition: width 0.6s ease;
+  }
+  /* Stepper */
+  .seg-stepper { display: flex; flex-direction: column; gap: 10px; }
+  .seg-stepper-top {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px;
+  }
+  .seg-stepper-top .current-label {
+    font-weight: 700; color: var(--green-text);
+  }
+  /* Basket */
+  .seg-basket { display: flex; flex-direction: column; gap: 14px; }
+  .seg-basket-head {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 15px; color: var(--text-primary);
+  }
+  .seg-basket-list {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: 4px;
+    font-size: 12.5px;
+  }
+  .seg-basket-list .row {
+    display: grid; grid-template-columns: 22px 1fr auto; gap: 10px;
+    align-items: center;
+  }
+  .seg-basket-list .num {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--gray-20);
+    color: var(--text-secondary);
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.4s ease;
+  }
+  .seg-basket-list .row.done .num { background: var(--green-bright); color: #fff; }
+  .seg-basket-list .row.current .num { background: var(--green-main); color: #fff; }
+  .seg-basket-list .row.done .lbl { color: var(--text-disabled); text-decoration: line-through; }
+  .seg-basket-list .row.current .lbl { font-weight: 700; color: var(--green-text); }
+
+  /* ════════════════════════════════════════════════════════════
+     2. PIPS & RAIL
+     ════════════════════════════════════════════════════════════ */
+  .pip-rail {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 0 12px;
+  }
+  .pip-rail::before {
+    content: '';
+    position: absolute;
+    left: 12%; right: 12%;
+    top: 50%;
+    height: 3px;
+    background: var(--gray-segment);
+    z-index: 0;
+  }
+  .pip-rail::after {
+    content: '';
+    position: absolute;
+    left: 12%;
+    top: 50%;
+    height: 3px;
+    background: var(--green-bright);
+    z-index: 1;
+    width: var(--rail-fill, 0%);
+    transition: width 0.7s var(--easing-smooth);
+  }
+  .pip {
+    position: relative; z-index: 2;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--gray-segment);
+    display: flex; align-items: center; justify-content: center;
+    justify-self: center;
+    transition: all 0.4s ease;
+  }
+  .pip.done {
+    background: var(--green-bright);
+    border-color: var(--green-bright);
+  }
+  .pip.done svg { color: #fff; }
+  .pip.current {
+    background: #fff;
+    border-color: var(--green-main);
+    box-shadow: 0 0 0 0 rgba(0, 137, 62, 0.4);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  .pip.current::before {
+    content: '';
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--green-main);
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 137, 62, 0.45); }
+    100% { box-shadow: 0 0 0 12px rgba(0, 137, 62, 0); }
+  }
+  .pip-rail-labels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 12px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-disabled);
+    margin-top: 8px;
+  }
+  .pip-rail-labels span { transition: color 0.3s ease; }
+  .pip-rail-labels span.done { color: var(--green-bright); }
+  .pip-rail-labels span.current { color: var(--green-text); }
+
+  .pip-interstitial {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 22px 18px;
+    width: 100%; max-width: 260px;
+    display: flex; flex-direction: column;
+    gap: 18px; align-items: center;
+    box-shadow: var(--shadow-pop);
+    text-align: center;
+  }
+  .pip-interstitial .title {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 18px;
+    color: var(--green-text);
+    line-height: 1.25;
+  }
+  .pip-interstitial .next {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+  }
+  .pip-interstitial .next strong { display: block; color: var(--green-text); font-size: 14px; margin-top: 2px; }
+
+  /* Vertical pip-rail for basket */
+  .pip-rail-vert {
+    display: flex; flex-direction: column; gap: 4px;
+    position: relative; padding-left: 6px;
+  }
+  .pip-rail-vert .v-row {
+    display: grid; grid-template-columns: 36px 1fr;
+    gap: 14px; align-items: flex-start;
+    position: relative;
+    padding: 6px 0;
+  }
+  .pip-rail-vert .v-rail {
+    position: absolute;
+    left: 24px;
+    top: 36px; bottom: 6px;
+    width: 3px;
+    background: var(--gray-segment);
+  }
+  .pip-rail-vert .v-rail.done { background: var(--green-bright); }
+  .pip-rail-vert .v-content .h {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 13.5px;
+    color: var(--text-primary);
+  }
+  .pip-rail-vert .v-content .sub {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+  .pip-rail-vert .v-row.done .v-content .h { color: var(--text-disabled); }
+  .pip-rail-vert .v-row.current .v-content .h { color: var(--green-text); font-weight: 700; }
+
+  /* ════════════════════════════════════════════════════════════
+     3. RING COUNTER
+     ════════════════════════════════════════════════════════════ */
+  .ring {
+    --pct: 0;
+    --size: 90px;
+    --thick: 9px;
+    width: var(--size); height: var(--size);
+    border-radius: 50%;
+    position: relative;
+    background: conic-gradient(var(--green-bright) calc(var(--pct) * 1%), var(--gray-segment) 0);
+    display: flex; align-items: center; justify-content: center;
+    transition: --pct 0.8s var(--easing-smooth);
+  }
+  @property --pct {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: true;
+  }
+  .ring::after {
+    content: '';
+    position: absolute;
+    inset: var(--thick);
+    background: #fff;
+    border-radius: 50%;
+  }
+  .ring .label {
+    position: relative; z-index: 1;
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: calc(var(--size) * 0.32);
+    color: var(--green-text);
+    line-height: 1;
+  }
+  .ring .label .denom { color: var(--text-disabled); font-size: 0.6em; }
+
+  .ring-interstitial {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 22px 18px;
+    width: 100%; max-width: 260px;
+    display: flex; flex-direction: column;
+    gap: 14px; align-items: center;
+    box-shadow: var(--shadow-pop);
+    text-align: center;
+  }
+  .ring-interstitial .title {
+    font-family: 'SmileyFace-Headline', Georgia, serif;
+    font-size: 22px; line-height: 1.15;
+    color: var(--green-text);
+  }
+  .ring-interstitial .meta { font-size: 12px; color: var(--text-secondary); }
+  .ring-interstitial .next-pill {
+    display: inline-flex;
+    align-items: center; gap: 6px;
+    background: var(--green-soft);
+    color: var(--green-text);
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px; font-weight: 600;
+  }
+
+  .ring-stepper {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .ring-stepper .ring { --size: 44px; --thick: 5px; }
+  .ring-stepper .ring .label { font-size: 13px; }
+  .ring-stepper .info { flex: 1; }
+  .ring-stepper .info .h {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 14px; color: var(--green-text);
+  }
+  .ring-stepper .info .s { font-size: 11.5px; color: var(--text-disabled); }
+
+  /* ════════════════════════════════════════════════════════════
+     4. BOARDING PASS
+     ════════════════════════════════════════════════════════════ */
+  .pass-stack { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+  .pass {
+    --color: var(--gray-30);
+    background: #fff;
+    border: 1px solid var(--gray-30);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    transition: all 0.45s var(--easing-smooth);
+    /* Perforated edge */
+    background-image:
+      radial-gradient(circle at 50% 0, var(--bg-paper) 4px, transparent 4.5px),
+      radial-gradient(circle at 50% 100%, var(--bg-paper) 4px, transparent 4.5px);
+    background-size: 8px 8px;
+    background-repeat: repeat-y;
+    background-position: left center, right center;
+  }
+  .pass .badge {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--gray-20);
+    color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 14px;
+    transition: all 0.4s ease;
+  }
+  .pass .lbl { font-size: 13px; color: var(--text-primary); font-weight: 600; }
+  .pass .lbl .sub { font-size: 11px; color: var(--text-disabled); font-weight: 400; display: block; }
+  .pass .stamp {
+    font-size: 10px; font-weight: 800;
+    color: var(--green-bright);
+    border: 2px solid var(--green-bright);
+    border-radius: 4px;
+    padding: 2px 6px;
+    transform: rotate(-8deg);
+    opacity: 0;
+    transition: opacity 0.4s ease 0.1s;
+    letter-spacing: 0.5px;
+  }
+  .pass.done {
+    background-color: var(--green-soft);
+    border-color: var(--green-bright);
+    padding: 8px 14px;
+  }
+  .pass.done .badge { background: var(--green-bright); color: #fff; }
+  .pass.done .lbl { color: var(--green-text); }
+  .pass.done .stamp { opacity: 1; }
+  .pass.current {
+    border-color: var(--green-main);
+    border-width: 2px;
+    padding: 13px 14px;
+    box-shadow: 0 4px 12px rgba(0, 137, 62, 0.12);
+  }
+  .pass.current .badge { background: var(--green-main); color: #fff; }
+  .pass.current .lbl { color: var(--green-text); }
+  .pass.upcoming { opacity: 0.65; }
+
+  .pass-interstitial {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    width: 100%; max-width: 260px;
+    box-shadow: var(--shadow-pop);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .pass-interstitial .header {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 15px; color: var(--green-text);
+    margin-bottom: 2px;
+  }
+  .pass-interstitial .header span { display: block; font-family: 'Inter'; font-size: 11px; color: var(--text-disabled); font-weight: 500; margin-bottom: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* ════════════════════════════════════════════════════════════
+     5. CHAPTERS
+     ════════════════════════════════════════════════════════════ */
+  .chapters { display: flex; flex-direction: column; gap: 8px; }
+  .chapter-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--gray-30);
+    transition: all 0.3s ease;
+  }
+  .chapter-row .ix {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: var(--text-disabled);
+  }
+  .chapter-row .ttl {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+  .chapter-row .mark { font-size: 13px; color: transparent; }
+  .chapter-row.done .ttl { color: var(--text-disabled); }
+  .chapter-row.done .mark { color: var(--green-bright); }
+  .chapter-row.current .ttl {
+    color: var(--green-text);
+    border-bottom: 2px solid var(--green-main);
+    padding-bottom: 2px;
+    display: inline-block;
+  }
+  .chapter-row.current .ix { color: var(--green-main); }
+
+  .chapter-interstitial {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    width: 100%; max-width: 260px;
+    box-shadow: var(--shadow-pop);
+    display: flex; flex-direction: column;
+    gap: 18px;
+    border-top: 4px solid var(--green-main);
+  }
+  .chapter-interstitial .end {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-disabled);
+    font-weight: 700;
+  }
+  .chapter-interstitial .end-title {
+    font-family: 'SmileyFace-Headline', Georgia, serif;
+    font-size: 26px; line-height: 1.1;
+    color: var(--green-text);
+  }
+  .chapter-interstitial .divider {
+    height: 1px;
+    background: var(--gray-segment);
+    margin: 2px 0;
+  }
+  .chapter-interstitial .next-up {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--green-main);
+    font-weight: 700;
+  }
+  .chapter-interstitial .next-title {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 16px;
+    color: var(--text-primary);
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     6. JOURNEY MAP
+     ════════════════════════════════════════════════════════════ */
+  .map-route {
+    position: relative;
+    width: 100%;
+    padding: 8px 6px 26px;
+  }
+  .map-route svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .map-route .route-line { stroke: var(--gray-segment); stroke-width: 3; stroke-dasharray: 4 4; fill: none; }
+  .map-route .route-filled { stroke: var(--green-bright); stroke-width: 3; fill: none; stroke-dasharray: 1000; stroke-dashoffset: var(--dash-off, 1000); transition: stroke-dashoffset 0.9s var(--easing-smooth); }
+  .map-route .pin {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--gray-segment);
+    display: flex; align-items: center; justify-content: center;
+    position: absolute;
+    transition: all 0.4s ease;
+    font-size: 14px;
+  }
+  .map-route .pin.done { background: var(--green-bright); border-color: var(--green-bright); color: #fff; }
+  .map-route .pin.current {
+    background: #fff;
+    border-color: var(--green-main);
+    box-shadow: 0 0 0 4px rgba(0, 137, 62, 0.18);
+    transform: scale(1.15);
+  }
+  .map-route .pin-lbl {
+    position: absolute;
+    font-size: 10px; font-weight: 700;
+    color: var(--text-disabled);
+    text-align: center;
+    width: 70px;
+    transform: translateX(-50%);
+  }
+  .map-route .pin-lbl.done { color: var(--green-bright); }
+  .map-route .pin-lbl.current { color: var(--green-text); }
+
+  .map-interstitial {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 18px 16px 22px;
+    width: 100%; max-width: 260px;
+    box-shadow: var(--shadow-pop);
+    text-align: center;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .map-interstitial .title {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 18px;
+    color: var(--green-text);
+    line-height: 1.2;
+  }
+  .map-interstitial .meta { font-size: 12px; color: var(--text-secondary); }
+
+  /* Vertical map for basket */
+  .map-vert { display: flex; flex-direction: column; gap: 12px; }
+  .map-vert .v-stop {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    position: relative;
+    padding: 4px 0;
+  }
+  .map-vert .v-rail {
+    position: absolute;
+    left: 16px; top: 36px; bottom: -4px; width: 2px;
+    border-left: 2px dashed var(--gray-segment);
+  }
+  .map-vert .v-rail.done { border-left-style: solid; border-left-color: var(--green-bright); }
+  .map-vert .pin-mini {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--gray-segment);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .map-vert .v-stop.done .pin-mini { background: var(--green-bright); border-color: var(--green-bright); color: #fff; }
+  .map-vert .v-stop.current .pin-mini { border-color: var(--green-main); box-shadow: 0 0 0 3px rgba(0, 137, 62, 0.18); }
+  .map-vert .v-content .h {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 13.5px;
+    color: var(--text-primary);
+  }
+  .map-vert .v-content .sub {
+    font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;
+  }
+  .map-vert .v-stop.done .v-content .h { color: var(--text-disabled); }
+  .map-vert .v-stop.current .v-content .h { color: var(--green-text); font-weight: 700; }
+
+  /* ════════════════════════════════════════════════════════════
+     7. AO SMILE (mascot-led)
+     ════════════════════════════════════════════════════════════ */
+  .ao-face {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--green-main);
+    position: relative;
+    transition: transform 0.6s var(--easing-snap), background 0.4s ease;
+  }
+  .ao-face::before, .ao-face::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    width: 8px; height: 8px;
+    top: 30%;
+  }
+  .ao-face::before { left: 28%; }
+  .ao-face::after { right: 28%; }
+  .ao-face .smile {
+    position: absolute;
+    width: 32px; height: 16px;
+    border: 3px solid #fff;
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    bottom: 28%; left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.5s var(--easing-snap);
+  }
+  .ao-face[data-mood="done"] .smile {
+    width: 38px;
+    height: 22px;
+    bottom: 24%;
+  }
+  .ao-face[data-mood="complete"] {
+    background: var(--green-bright);
+    transform: scale(1.05);
+  }
+  .ao-face .confetti {
+    position: absolute; inset: -16px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .ao-face[data-mood="complete"] .confetti { opacity: 1; }
+  .ao-face .confetti span {
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 2px;
+    background: var(--warning);
+    transform-origin: 50% 50%;
+    animation: pop 0.9s ease-out forwards;
+  }
+
+  .smile-dots {
+    display: flex; gap: 8px;
+  }
+  .smile-dots .d {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gray-segment);
+    transition: all 0.3s ease;
+  }
+  .smile-dots .d.done { background: var(--green-bright); }
+  .smile-dots .d.current { background: var(--green-main); transform: scale(1.4); }
+
+  .smile-interstitial {
+    background: #fff;
+    border-radius: var(--radius-md);
+    padding: 20px 18px;
+    width: 100%; max-width: 260px;
+    box-shadow: var(--shadow-pop);
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .smile-interstitial .bubble {
+    position: relative;
+    background: var(--green-soft);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 14px;
+    color: var(--green-text);
+    line-height: 1.3;
+  }
+  .smile-interstitial .bubble::after {
+    content: '';
+    position: absolute;
+    top: -6px; left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px; height: 12px;
+    background: var(--green-soft);
+  }
+  .smile-interstitial .next { font-size: 12px; color: var(--text-secondary); }
+  .smile-interstitial .next strong { font-family: 'SmileyFace', Georgia, serif; color: var(--green-text); }
+
+  .smile-stepper {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .smile-stepper .ao-face { width: 38px; height: 38px; }
+  .smile-stepper .ao-face::before, .smile-stepper .ao-face::after { width: 4px; height: 4px; top: 32%; }
+  .smile-stepper .ao-face::before { left: 30%; }
+  .smile-stepper .ao-face::after { right: 30%; }
+  .smile-stepper .ao-face .smile { width: 14px; height: 7px; border-width: 1.6px; border-radius: 0 0 8px 8px; bottom: 28%; }
+  .smile-stepper .info { flex: 1; }
+  .smile-stepper .info .h {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 13.5px; color: var(--green-text);
+  }
+  .smile-stepper .info .s { font-size: 11.5px; color: var(--text-disabled); }
+
+  .smile-basket .top {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--gray-30);
+    margin-bottom: 12px;
+  }
+  .smile-basket .top .ao-face { width: 44px; height: 44px; }
+  .smile-basket .top .ao-face::before, .smile-basket .top .ao-face::after { width: 5px; height: 5px; }
+  .smile-basket .top .ao-face .smile { width: 18px; height: 10px; border-width: 1.8px; }
+  .smile-basket .top .h {
+    font-family: 'SmileyFace', Georgia, serif;
+    font-size: 14px; color: var(--green-text);
+  }
+  .smile-basket .top .s { font-size: 11px; color: var(--text-disabled); }
+  .smile-basket .agenda {
+    display: flex; flex-direction: column; gap: 8px;
+    font-size: 12.5px;
+  }
+  .smile-basket .agenda .it {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .smile-basket .agenda .d {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gray-segment);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .smile-basket .agenda .it.done .d { background: var(--green-bright); }
+  .smile-basket .agenda .it.current .d { background: var(--green-main); transform: scale(1.3); }
+  .smile-basket .agenda .it.done .lbl { color: var(--text-disabled); }
+  .smile-basket .agenda .it.current .lbl { color: var(--green-text); font-weight: 700; }
+
+  @keyframes pop {
+    0% { transform: translate(0,0) scale(0); opacity: 1; }
+    100% { transform: translate(var(--tx, 20px), var(--ty, -20px)) scale(1); opacity: 0; }
+  }
+
+  /* End-of-page legend */
+  .legend {
+    max-width: 900px; margin: 56px auto 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+    font-size: 13px; color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .legend h3 {
+    font-family: 'SmileyFace', Georgia, serif;
+    color: var(--green-text);
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  .legend code {
+    font-family: ui-monospace, Menlo, monospace;
+    background: var(--gray-20);
+    padding: 1px 5px; border-radius: 4px;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ───────── Header ───────── -->
+<header class="page-header">
+  <h1>Handshake Playground</h1>
+  <p>
+    Seven directions for the unified <strong>handshake</strong> family — one progress model
+    expressed at three altitudes: the full-screen <em>interstitial</em> between flow sections,
+    the slim <em>stepper</em> persistent at the top of each screen, and the <em>basket card</em>
+    that previews what's ahead. Use the controls below to step through the journey and watch each
+    direction respond.
+  </p>
+</header>
+
+<!-- ───────── Sticky controls ───────── -->
+<div class="controls">
+  <span class="controls-label">Journey state</span>
+  <div class="step-btns" role="tablist">
+    <button class="step-btn" data-step="0">Pre-flight</button>
+    <button class="step-btn active" data-step="1">Finance done</button>
+    <button class="step-btn" data-step="2">Mobile done</button>
+    <button class="step-btn" data-step="3">All done</button>
+  </div>
+  <button class="play-btn" id="play-btn">▶ Play transition</button>
+</div>
+
+<main class="playground" id="playground">
+
+  <!-- ───────── 1. SEGMENTS ───────── -->
+  <section class="direction" data-step="1" data-style="segments">
+    <div class="direction-head">
+      <span class="direction-index">01</span>
+      <h2 class="direction-name">Segments</h2>
+      <p class="direction-desc">
+        Three horizontal pills fill left-to-right. Calm, geometric, plays nicely with status bars.
+        Closest to the current Figma — polished motion + shimmer on the current segment.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <!-- Interstitial -->
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="seg-interstitial" data-cmp="seg-card">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="ao-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="title">Nice, your AO Finance account is set up</div>
+              <div class="seg-bar"><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+              <div class="next-block">
+                <span class="next-label">Up next</span>
+                <strong class="next-title">Your AO Mobile plan</strong>
+                <span class="small-meta">Takes about 2 minutes</span>
+              </div>
+              <div class="auto-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Stepper -->
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div class="seg-stepper">
+            <div class="seg-stepper-top">
+              <span class="current-label" data-cmp="seg-step-label">Finance</span>
+              <span class="step-counter" data-cmp="seg-step-counter">Step 2 of 3</span>
+            </div>
+            <div class="seg-bar"><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Basket -->
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell">
+          <div class="seg-basket">
+            <div class="seg-basket-head">What happens next</div>
+            <div class="seg-bar"><div class="seg"></div><div class="seg"></div><div class="seg"></div></div>
+            <div class="seg-basket-list">
+              <div class="row"><div class="num">1</div><div class="lbl">Set up AO Finance</div><span class="small-meta">~3 min</span></div>
+              <div class="row"><div class="num">2</div><div class="lbl">Your AO Mobile plan</div><span class="small-meta">~2 min</span></div>
+              <div class="row"><div class="num">3</div><div class="lbl">D&G product insurance</div><span class="small-meta">~1 min</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 2. PIPS & RAIL ───────── -->
+  <section class="direction" data-step="1" data-style="pips">
+    <div class="direction-head">
+      <span class="direction-index">02</span>
+      <h2 class="direction-name">Pips &amp; rail</h2>
+      <p class="direction-desc">
+        Tube-map metaphor — connected dots, the rail "fills" as you complete stops. Strong sense
+        of journey, intuitive at every altitude, can rotate vertically for the basket card.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="pip-interstitial">
+              <div class="title">One down,<br>two to go.</div>
+              <div style="width:100%;">
+                <div class="pip-rail">
+                  <div class="pip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="pip"></div>
+                  <div class="pip"></div>
+                </div>
+                <div class="pip-rail-labels">
+                  <span>Finance</span><span>Mobile</span><span>Insurance</span>
+                </div>
+              </div>
+              <div class="next">
+                Up next
+                <strong>Your AO Mobile plan</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:12px;">
+            <span style="font-family:'SmileyFace',Georgia,serif;font-size:13px;color:var(--green-text);" data-cmp="pip-cur">Setting up Mobile</span>
+            <span class="step-counter" data-cmp="pip-counter">2 of 3</span>
+          </div>
+          <div class="pip-rail" style="padding:0 8px;">
+            <div class="pip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="pip"></div>
+            <div class="pip"></div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-family:'SmileyFace',Georgia,serif;font-size:14px;color:var(--text-primary);">Your journey today</div>
+          <div class="pip-rail-vert">
+            <div class="v-rail"></div>
+            <div class="v-row">
+              <div class="pip"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="v-content"><div class="h">Set up AO Finance</div><div class="sub">Short application · soft check · ~3 min</div></div>
+            </div>
+            <div class="v-row">
+              <div class="pip"></div>
+              <div class="v-content"><div class="h">Your AO Mobile plan</div><div class="sub">Monthly direct debit · ~2 min</div></div>
+            </div>
+            <div class="v-row">
+              <div class="pip"></div>
+              <div class="v-content"><div class="h">D&G product insurance</div><div class="sub">Optional · cancel anytime · ~1 min</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 3. RING COUNTER ───────── -->
+  <section class="direction" data-step="1" data-style="ring">
+    <div class="direction-head">
+      <span class="direction-index">03</span>
+      <h2 class="direction-name">Ring counter</h2>
+      <p class="direction-desc">
+        A single arc that fills from 0% → 100% with the count inside ("1 of 3"). Visually
+        compact, scales beautifully from 24px (stepper) to 100px (interstitial). One primitive
+        does all the work.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="ring-interstitial">
+              <div class="ring" style="--size:96px;--thick:9px;--pct:33;"><span class="label" data-cmp="ring-label">1<span class="denom">/3</span></span></div>
+              <div class="title" data-cmp="ring-title">Finance — done.</div>
+              <div class="meta" data-cmp="ring-meta">2 to go. You're flying.</div>
+              <div class="next-pill" data-cmp="ring-next">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Mobile plan
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div class="ring-stepper">
+            <div class="ring" style="--size:44px;--thick:5px;--pct:33;"><span class="label" data-cmp="ring-step-num">1<span class="denom">/3</span></span></div>
+            <div class="info">
+              <div class="h" data-cmp="ring-step-h">Finance done</div>
+              <div class="s" data-cmp="ring-step-s">Setting up Mobile next</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell">
+          <div style="display:flex;gap:14px;align-items:center;">
+            <div class="ring" style="--size:60px;--thick:6px;--pct:0;"><span class="label" style="font-size:18px;">0<span class="denom">/3</span></span></div>
+            <div>
+              <div style="font-family:'SmileyFace',Georgia,serif;font-size:15px;color:var(--green-text);">3 steps to switch</div>
+              <div class="small-meta">About 6 minutes total</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--text-secondary);">
+            <div>• Set up AO Finance</div>
+            <div>• Your AO Mobile plan</div>
+            <div>• D&G product insurance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 4. BOARDING PASS ───────── -->
+  <section class="direction" data-step="1" data-style="pass">
+    <div class="direction-head">
+      <span class="direction-index">04</span>
+      <h2 class="direction-name">Boarding pass</h2>
+      <p class="direction-desc">
+        Each step is a ticket-stub card; complete ones get stamped "DONE" and collapse into a
+        stack. Tactile and rewarding — works especially well on the interstitial as a "stage
+        cleared" moment.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="pass-interstitial">
+              <div class="header"><span>Trip progress</span>One stop down, two to go</div>
+              <div class="pass-stack">
+                <div class="pass" data-cmp="pass-0"><div class="badge">£</div><div class="lbl">AO Finance<span class="sub">Application complete</span></div><span class="stamp">DONE</span></div>
+                <div class="pass" data-cmp="pass-1"><div class="badge">📱</div><div class="lbl">AO Mobile plan<span class="sub">~2 min · monthly DD</span></div><span class="stamp">DONE</span></div>
+                <div class="pass" data-cmp="pass-2"><div class="badge">🛡</div><div class="lbl">D&G Insurance<span class="sub">~1 min · optional</span></div><span class="stamp">DONE</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:11.5px;">
+            <span style="font-family:'SmileyFace',Georgia,serif;color:var(--green-text);font-size:13px;" data-cmp="pass-step-h">Boarding: AO Mobile</span>
+            <span class="step-counter" data-cmp="pass-step-c">Stub 2 of 3</span>
+          </div>
+          <div class="pass-stack">
+            <div class="pass" style="padding:6px 12px;" data-cmp="pass-mini-0"><div class="badge" style="width:24px;height:24px;font-size:11px;">£</div><div class="lbl" style="font-size:12px;">Finance</div><span class="stamp" style="font-size:9px;">✓</span></div>
+            <div class="pass" style="padding:6px 12px;" data-cmp="pass-mini-1"><div class="badge" style="width:24px;height:24px;font-size:11px;">📱</div><div class="lbl" style="font-size:12px;">Mobile</div><span class="stamp" style="font-size:9px;">✓</span></div>
+            <div class="pass" style="padding:6px 12px;" data-cmp="pass-mini-2"><div class="badge" style="width:24px;height:24px;font-size:11px;">🛡</div><div class="lbl" style="font-size:12px;">Insurance</div><span class="stamp" style="font-size:9px;">✓</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell">
+          <div style="font-family:'SmileyFace',Georgia,serif;font-size:14px;color:var(--text-primary);margin-bottom:12px;">Your boarding pass</div>
+          <div class="pass-stack">
+            <div class="pass" data-cmp="passb-0"><div class="badge">£</div><div class="lbl">AO Finance<span class="sub">Short application</span></div><span class="stamp">DONE</span></div>
+            <div class="pass" data-cmp="passb-1"><div class="badge">📱</div><div class="lbl">AO Mobile plan<span class="sub">Monthly direct debit</span></div><span class="stamp">DONE</span></div>
+            <div class="pass" data-cmp="passb-2"><div class="badge">🛡</div><div class="lbl">D&G Insurance<span class="sub">Optional, cancel anytime</span></div><span class="stamp">DONE</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 5. CHAPTERS ───────── -->
+  <section class="direction" data-step="1" data-style="chapters">
+    <div class="direction-head">
+      <span class="direction-index">05</span>
+      <h2 class="direction-name">Chapters</h2>
+      <p class="direction-desc">
+        Typography-led. Frames the journey like a book — "End of Chapter 1" interstitial, an
+        underlined chapter heading as you read. Quiet, premium, leans into the Smiley typeface.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="chapter-interstitial">
+              <div>
+                <div class="end" data-cmp="chap-end">End of Chapter One</div>
+                <div class="end-title" data-cmp="chap-title">Finance, sorted.</div>
+              </div>
+              <div class="divider"></div>
+              <div>
+                <div class="next-up">Up next</div>
+                <div class="next-title" data-cmp="chap-next">Chapter Two — Your AO Mobile plan</div>
+                <div class="small-meta" style="margin-top:4px;" data-cmp="chap-sub">About 2 minutes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div style="font-family:'SmileyFace',Georgia,serif;font-size:13px;color:var(--green-text);margin-bottom:10px;">You're reading <span data-cmp="chap-step-h">Chapter Two</span></div>
+          <div class="chapters">
+            <div class="chapter-row"><span class="ix">CH 1</span><span class="ttl">Finance</span><span class="mark">✓</span></div>
+            <div class="chapter-row"><span class="ix">CH 2</span><span class="ttl">Mobile</span><span class="mark">✓</span></div>
+            <div class="chapter-row"><span class="ix">CH 3</span><span class="ttl">Insurance</span><span class="mark">✓</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell">
+          <div style="font-family:'SmileyFace-Headline',Georgia,serif;font-size:18px;color:var(--green-text);margin-bottom:4px;">Your three chapters</div>
+          <div class="small-meta" style="margin-bottom:14px;">About 6 minutes — read at your own pace</div>
+          <div class="chapters">
+            <div class="chapter-row"><span class="ix">CH 1</span><span class="ttl">Set up AO Finance</span><span class="mark">✓</span></div>
+            <div class="chapter-row"><span class="ix">CH 2</span><span class="ttl">Your AO Mobile plan</span><span class="mark">✓</span></div>
+            <div class="chapter-row"><span class="ix">CH 3</span><span class="ttl">D&G product insurance</span><span class="mark">✓</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 6. JOURNEY MAP ───────── -->
+  <section class="direction" data-step="1" data-style="map">
+    <div class="direction-head">
+      <span class="direction-index">06</span>
+      <h2 class="direction-name">Journey map</h2>
+      <p class="direction-desc">
+        A curved route with three destinations. Most illustrative of the seven — the literal
+        "you've reached the next stop" metaphor lands instantly. Risks looking childish if not
+        carefully art-directed.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="map-interstitial">
+              <div class="title" data-cmp="map-title">Arrived at Stop 1</div>
+              <div class="map-route">
+                <svg viewBox="0 0 240 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <path class="route-line" d="M 20 60 Q 70 10, 120 50 T 220 35"/>
+                  <path class="route-filled" d="M 20 60 Q 70 10, 120 50 T 220 35" pathLength="100" stroke-dasharray="100"/>
+                </svg>
+                <div class="pin" style="left:calc(8% - 16px); top:50px;">£</div>
+                <div class="pin" style="left:calc(50% - 16px); top:36px;">📱</div>
+                <div class="pin" style="right:calc(8% - 16px); top:23px;">🛡</div>
+                <div class="pin-lbl" style="left:8%; top:88px;">Finance</div>
+                <div class="pin-lbl" style="left:50%; top:74px;">Mobile</div>
+                <div class="pin-lbl" style="right:0; top:61px;">Insurance</div>
+              </div>
+              <div class="meta" data-cmp="map-meta">Next stop: AO Mobile plan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <span style="font-family:'SmileyFace',Georgia,serif;font-size:13px;color:var(--green-text);" data-cmp="map-step-h">Travelling to Mobile</span>
+            <span class="step-counter" data-cmp="map-step-c">Stop 2 of 3</span>
+          </div>
+          <div class="map-route" style="padding:4px 0 18px;">
+            <svg viewBox="0 0 240 30" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:30px;">
+              <path class="route-line" d="M 14 18 L 120 14 L 226 18"/>
+              <path class="route-filled" d="M 14 18 L 120 14 L 226 18" pathLength="100" stroke-dasharray="100"/>
+            </svg>
+            <div class="pin" style="left:calc(6% - 12px); top:6px; width:24px; height:24px; font-size:11px;">£</div>
+            <div class="pin" style="left:calc(50% - 12px); top:4px; width:24px; height:24px; font-size:11px;">📱</div>
+            <div class="pin" style="right:calc(6% - 12px); top:6px; width:24px; height:24px; font-size:11px;">🛡</div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell">
+          <div style="font-family:'SmileyFace',Georgia,serif;font-size:14px;color:var(--text-primary);margin-bottom:10px;">Your route</div>
+          <div class="map-vert">
+            <div class="v-stop"><div class="v-rail"></div><div class="pin-mini">£</div><div class="v-content"><div class="h">AO Finance</div><div class="sub">Set up the handset finance</div></div></div>
+            <div class="v-stop"><div class="v-rail"></div><div class="pin-mini">📱</div><div class="v-content"><div class="h">AO Mobile plan</div><div class="sub">Pick your data, set up monthly DD</div></div></div>
+            <div class="v-stop"><div class="pin-mini">🛡</div><div class="v-content"><div class="h">D&G Insurance</div><div class="sub">Optional cover, cancel anytime</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── 7. AO SMILE ───────── -->
+  <section class="direction" data-step="1" data-style="smile">
+    <div class="direction-head">
+      <span class="direction-index">07</span>
+      <h2 class="direction-name">AO smile</h2>
+      <p class="direction-desc">
+        The AO logo as protagonist — talks to the customer through a speech bubble, smile widens
+        with each milestone, confetti on completion. Most "AO" of the seven. Risk: leans on
+        mascot personality you may want to deploy elsewhere.
+      </p>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-cell">
+        <span class="preview-cell-label">Interstitial · between sections</span>
+        <div class="mini-phone">
+          <div class="mini-phone-content">
+            <div class="smile-interstitial">
+              <div class="ao-face" data-cmp="face-i" data-mood="happy">
+                <div class="smile"></div>
+                <div class="confetti">
+                  <span style="--tx:-24px;--ty:-18px;background:#FFB400;left:50%;top:50%;animation-delay:0s;"></span>
+                  <span style="--tx:20px;--ty:-22px;background:#12C35A;left:50%;top:50%;animation-delay:0.1s;"></span>
+                  <span style="--tx:-28px;--ty:8px;background:#001876;left:50%;top:50%;animation-delay:0.2s;"></span>
+                  <span style="--tx:26px;--ty:14px;background:#FFB400;left:50%;top:50%;animation-delay:0.15s;"></span>
+                </div>
+              </div>
+              <div class="bubble" data-cmp="smile-bubble">Nice one! Finance is all set.</div>
+              <div class="smile-dots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
+              <div class="next" data-cmp="smile-next">Up next: <strong>Your AO Mobile plan</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Stepper · top of every screen</span>
+        <div class="stepper-cell">
+          <div class="smile-stepper">
+            <div class="ao-face" data-cmp="face-s" data-mood="happy"><div class="smile"></div></div>
+            <div class="info">
+              <div class="h" data-cmp="smile-step-h">Mobile plan</div>
+              <div class="s" data-cmp="smile-step-s">Step 2 of 3 · about 2 min</div>
+            </div>
+            <div class="smile-dots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="preview-cell">
+        <span class="preview-cell-label">Basket · before you start</span>
+        <div class="basket-cell smile-basket">
+          <div class="top">
+            <div class="ao-face" data-mood="happy"><div class="smile"></div></div>
+            <div>
+              <div class="h">Here's what we'll do together</div>
+              <div class="s">Three quick steps · about 6 minutes</div>
+            </div>
+          </div>
+          <div class="agenda">
+            <div class="it"><div class="d"></div><div class="lbl">Set up AO Finance</div></div>
+            <div class="it"><div class="d"></div><div class="lbl">Your AO Mobile plan</div></div>
+            <div class="it"><div class="d"></div><div class="lbl">D&G product insurance</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── Legend ───────── -->
+  <div class="legend">
+    <h3>How to read this playground</h3>
+    <p>
+      The sticky control bar drives a single shared <code>step</code> value across every direction
+      (0 = pre-flight, 3 = all done). Press <code>▶ Play transition</code> to walk through the
+      whole journey and watch each direction breathe.
+    </p>
+    <p style="margin-top:10px;">
+      Each row is one design system — the same primitive (segments, rings, pips, etc.) at three
+      sizes. The question to answer when choosing: which one feels like AO, reads instantly at
+      the slim stepper size, and earns a "yes!" at the interstitial moment?
+    </p>
+  </div>
+
+</main>
+
+<script>
+/* ──────────────────────────────────────────────────────────────
+   Journey model — single source of truth
+   step 0 = pre-flight   (nothing done yet)
+   step 1 = finance done (mobile current)
+   step 2 = mobile done  (insurance current)
+   step 3 = all done
+   ────────────────────────────────────────────────────────────── */
+
+const STEPS = ['Finance', 'Mobile', 'Insurance'];
+
+// Copy banks per direction — keeps tone distinct between systems
+const COPY = {
+  segments: {
+    title: ['Let\'s get you set up', 'Nice, AO Finance is set up', 'Great, your AO Mobile is ready', 'You\'re all set — completing your order'],
+    nextTitle: ['Set up AO Finance', 'Your AO Mobile plan', 'D&G product insurance', 'Heading home'],
+    nextMeta: ['Takes about 3 min', 'Takes about 2 min', 'Takes about 1 min', 'Just a moment...'],
+    stepLabel: ['Starting', 'Mobile', 'Insurance', 'Done'],
+    stepCounter: ['Step 0 of 3', 'Step 2 of 3', 'Step 3 of 3', 'Step 3 of 3 ✓']
+  },
+  pips: {
+    title: ['Three quick stops ahead.', 'One down,<br>two to go.', 'Two down,<br>one to go.', 'Every stop reached.'],
+    next: ['<strong>Set up AO Finance</strong>', '<strong>Your AO Mobile plan</strong>', '<strong>D&G product insurance</strong>', '<strong>Heading home</strong>'],
+    stepH: ['Setting up Finance', 'Setting up Mobile', 'Setting up Insurance', 'All stops reached'],
+    counter: ['0 of 3', '2 of 3', '3 of 3', 'Done']
+  },
+  ring: {
+    title: ['Starting your switch', 'Finance — done.', 'Mobile — done.', 'You did it.'],
+    meta: ['3 quick steps ahead', '2 to go. You\'re flying.', '1 more. Almost there.', 'Sending you back to AO.com...'],
+    nextPill: ['Start with Finance', 'Mobile plan next', 'Insurance next', 'All wrapped up'],
+    stepH: ['Just getting started', 'Finance done', 'Mobile done', 'Everything done'],
+    stepS: ['Finance up next', 'Setting up Mobile next', 'Setting up Insurance next', 'You\'re all set'],
+    label: ['0', '1', '2', '3'],
+    pct: [0, 33, 66, 100]
+  },
+  pass: {
+    header: ['Trip not yet boarded', 'One stop down, two to go', 'Two stops down, one to go', 'All three stamps collected'],
+    stepH: ['Boarding: Finance', 'Boarding: AO Mobile', 'Boarding: Insurance', 'Travel complete'],
+    stepC: ['Stub 1 of 3', 'Stub 2 of 3', 'Stub 3 of 3', '3 of 3 ✓']
+  },
+  chapters: {
+    end: ['Opening pages', 'End of Chapter One', 'End of Chapter Two', 'End of Chapter Three'],
+    title: ['Your story starts here.', 'Finance, sorted.', 'Mobile, ready.', 'And… you\'re done.'],
+    nextLabel: ['Chapter One — AO Finance', 'Chapter Two — AO Mobile', 'Chapter Three — Insurance', 'The End'],
+    nextSub: ['About 3 minutes', 'About 2 minutes', 'About 1 minute', 'Returning to AO.com...'],
+    stepH: ['Chapter One', 'Chapter Two', 'Chapter Three', 'The End']
+  },
+  map: {
+    title: ['Plotting your route…', 'Arrived at Stop 1', 'Arrived at Stop 2', 'Arrived at the final stop'],
+    meta: ['Next stop: AO Finance', 'Next stop: AO Mobile plan', 'Next stop: D&G Insurance', 'Welcome home.'],
+    stepH: ['Travelling to Finance', 'Travelling to Mobile', 'Travelling to Insurance', 'Journey complete'],
+    stepC: ['Stop 1 of 3', 'Stop 2 of 3', 'Stop 3 of 3', '3 / 3']
+  },
+  smile: {
+    bubble: ['Let\'s get you switched.', 'Nice one! Finance is all set.', 'Brilliant! Mobile\'s sorted too.', 'You did it! Wrapping up...'],
+    next: ['Up next: <strong>AO Finance</strong>', 'Up next: <strong>Your AO Mobile plan</strong>', 'Up next: <strong>D&G product insurance</strong>', '<strong>All done — heading home</strong>'],
+    stepH: ['AO Finance', 'AO Mobile plan', 'D&G Insurance', 'All done'],
+    stepS: ['Step 1 of 3 · about 3 min', 'Step 2 of 3 · about 2 min', 'Step 3 of 3 · about 1 min', 'Sending you home...'],
+    mood: ['happy', 'happy', 'done', 'complete']
+  }
+};
+
+/* ───── Step-state helpers ───── */
+function setSegStates(row, step) {
+  const segs = row.querySelectorAll('.seg');
+  segs.forEach((seg, i) => {
+    seg.classList.remove('done', 'current');
+    if (i < step) seg.classList.add('done');
+    else if (i === step && step < 3) seg.classList.add('current');
+  });
+  // numbered list rows
+  row.querySelectorAll('.seg-basket-list .row').forEach((r, i) => {
+    r.classList.remove('done', 'current');
+    if (i < step) r.classList.add('done');
+    else if (i === step && step < 3) r.classList.add('current');
+  });
+}
+function setPipStates(row, step) {
+  row.querySelectorAll('.pip-rail').forEach(rail => {
+    const pips = rail.querySelectorAll('.pip');
+    pips.forEach((p, i) => {
+      p.classList.remove('done', 'current');
+      p.innerHTML = '';
+      if (i < step) {
+        p.classList.add('done');
+        p.innerHTML = '<svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      } else if (i === step && step < 3) {
+        p.classList.add('current');
+      }
+    });
+    // fill the connecting rail proportionally
+    const fillPct = step === 0 ? 0 : step >= 3 ? 76 : (step - 0.5) * (76 / 2.5);
+    rail.style.setProperty('--rail-fill', `${Math.min(76, Math.max(0, fillPct))}%`);
+  });
+  // labels under pips
+  row.querySelectorAll('.pip-rail-labels').forEach(labels => {
+    labels.querySelectorAll('span').forEach((s, i) => {
+      s.classList.remove('done', 'current');
+      if (i < step) s.classList.add('done');
+      else if (i === step && step < 3) s.classList.add('current');
+    });
+  });
+  // vertical rail basket variant
+  row.querySelectorAll('.pip-rail-vert').forEach(vert => {
+    vert.querySelectorAll('.v-row').forEach((vr, i) => {
+      vr.classList.remove('done', 'current');
+      const p = vr.querySelector('.pip');
+      p.classList.remove('done', 'current');
+      p.innerHTML = '';
+      if (i < step) {
+        p.classList.add('done');
+        vr.classList.add('done');
+        p.innerHTML = '<svg viewBox="0 0 24 24" fill="none" style="width:14px;height:14px;"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      } else if (i === step && step < 3) {
+        p.classList.add('current');
+        vr.classList.add('current');
+      }
+    });
+    const rail = vert.querySelector('.v-rail');
+    if (rail) rail.classList.toggle('done', step >= 1);
+  });
+}
+function setRingState(row, step) {
+  const pct = [0, 33, 66, 100][step];
+  row.querySelectorAll('.ring').forEach(r => r.style.setProperty('--pct', pct));
+  const lbl = row.querySelector('[data-cmp="ring-label"]');
+  if (lbl) lbl.innerHTML = `${step}<span class="denom">/3</span>`;
+  const stepNum = row.querySelector('[data-cmp="ring-step-num"]');
+  if (stepNum) stepNum.innerHTML = `${step}<span class="denom">/3</span>`;
+  const c = COPY.ring;
+  setText(row, 'ring-title', c.title[step]);
+  setText(row, 'ring-meta', c.meta[step]);
+  setText(row, 'ring-next', `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> ${c.nextPill[step]}`);
+  setText(row, 'ring-step-h', c.stepH[step]);
+  setText(row, 'ring-step-s', c.stepS[step]);
+}
+function setPassStates(row, step) {
+  // each pass element. .done = step > index, .current = step === index, .upcoming = step < index
+  ['pass-', 'pass-mini-', 'passb-'].forEach(prefix => {
+    [0,1,2].forEach(i => {
+      const el = row.querySelector(`[data-cmp="${prefix}${i}"]`);
+      if (!el) return;
+      el.classList.remove('done', 'current', 'upcoming');
+      if (i < step) el.classList.add('done');
+      else if (i === step && step < 3) el.classList.add('current');
+      else el.classList.add('upcoming');
+    });
+  });
+}
+function setChapterStates(row, step) {
+  row.querySelectorAll('.chapter-row').forEach((r, i) => {
+    r.classList.remove('done', 'current');
+    if (i < step) r.classList.add('done');
+    else if (i === step && step < 3) r.classList.add('current');
+  });
+}
+function setMapStates(row, step) {
+  const pct = [0, 38, 72, 100][step];
+  row.querySelectorAll('.route-filled').forEach(p => p.style.strokeDashoffset = (100 - pct));
+  row.querySelectorAll('.map-route').forEach(routeEl => {
+    const pins = routeEl.querySelectorAll('.pin');
+    pins.forEach((pin, i) => {
+      pin.classList.remove('done', 'current');
+      if (i < step) pin.classList.add('done');
+      else if (i === step && step < 3) pin.classList.add('current');
+    });
+    routeEl.querySelectorAll('.pin-lbl').forEach((l, i) => {
+      l.classList.remove('done', 'current');
+      if (i < step) l.classList.add('done');
+      else if (i === step && step < 3) l.classList.add('current');
+    });
+  });
+  // vertical map for basket
+  row.querySelectorAll('.map-vert .v-stop').forEach((s, i) => {
+    s.classList.remove('done', 'current');
+    const rail = s.querySelector('.v-rail');
+    if (i < step) { s.classList.add('done'); if (rail) rail.classList.add('done'); }
+    else if (i === step && step < 3) s.classList.add('current');
+    else if (rail) rail.classList.remove('done');
+  });
+}
+function setSmileStates(row, step) {
+  const c = COPY.smile;
+  row.querySelectorAll('.ao-face[data-cmp]').forEach(f => f.setAttribute('data-mood', c.mood[step]));
+  row.querySelectorAll('.ao-face').forEach(f => {
+    if (!f.hasAttribute('data-cmp')) {
+      // basket header smiley: also progress mood
+      f.setAttribute('data-mood', c.mood[step]);
+    }
+  });
+  row.querySelectorAll('.smile-dots').forEach(dots => {
+    dots.querySelectorAll('.d').forEach((d, i) => {
+      d.classList.remove('done', 'current');
+      if (i < step) d.classList.add('done');
+      else if (i === step && step < 3) d.classList.add('current');
+    });
+  });
+  row.querySelectorAll('.smile-basket .agenda .it').forEach((it, i) => {
+    it.classList.remove('done', 'current');
+    if (i < step) it.classList.add('done');
+    else if (i === step && step < 3) it.classList.add('current');
+  });
+  setText(row, 'smile-bubble', c.bubble[step]);
+  setText(row, 'smile-next', c.next[step]);
+  setText(row, 'smile-step-h', c.stepH[step]);
+  setText(row, 'smile-step-s', c.stepS[step]);
+  // re-trigger confetti animation on complete
+  const face = row.querySelector('.ao-face[data-cmp="face-i"]');
+  if (face && c.mood[step] === 'complete') {
+    const confetti = face.querySelector('.confetti');
+    if (confetti) {
+      confetti.querySelectorAll('span').forEach(s => {
+        s.style.animation = 'none';
+        void s.offsetWidth;
+        s.style.animation = '';
+      });
+    }
+  }
+}
+
+function setText(scope, cmp, html) {
+  const el = scope.querySelector(`[data-cmp="${cmp}"]`);
+  if (el) el.innerHTML = html;
+}
+
+function applyStep(step) {
+  step = Math.max(0, Math.min(3, step));
+  document.querySelectorAll('.direction').forEach(row => {
+    row.setAttribute('data-step', step);
+    const style = row.getAttribute('data-style');
+    switch (style) {
+      case 'segments': {
+        setSegStates(row, step);
+        const c = COPY.segments;
+        setText(row, 'seg-card', null); // no-op, structural
+        const card = row.querySelector('.seg-interstitial');
+        if (card) {
+          card.querySelector('.title').textContent = c.title[step];
+          card.querySelector('.next-title').textContent = c.nextTitle[step];
+          card.querySelector('.next-block .small-meta').textContent = c.nextMeta[step];
+          card.querySelector('.auto-bar').style.setProperty('--bar-width', `${[10,33,66,100][step]}%`);
+        }
+        setText(row, 'seg-step-label', c.stepLabel[step]);
+        setText(row, 'seg-step-counter', c.stepCounter[step]);
+        break;
+      }
+      case 'pips': {
+        setPipStates(row, step);
+        const c = COPY.pips;
+        const card = row.querySelector('.pip-interstitial');
+        if (card) {
+          card.querySelector('.title').innerHTML = c.title[step];
+          card.querySelector('.next').innerHTML = `Up next ${c.next[step]}`;
+          if (step === 3) card.querySelector('.next').innerHTML = c.next[step];
+        }
+        setText(row, 'pip-cur', c.stepH[step]);
+        setText(row, 'pip-counter', c.counter[step]);
+        break;
+      }
+      case 'ring': setRingState(row, step); break;
+      case 'pass': {
+        setPassStates(row, step);
+        const c = COPY.pass;
+        const card = row.querySelector('.pass-interstitial .header');
+        if (card) card.innerHTML = `<span>Trip progress</span>${c.header[step]}`;
+        setText(row, 'pass-step-h', c.stepH[step]);
+        setText(row, 'pass-step-c', c.stepC[step]);
+        break;
+      }
+      case 'chapters': {
+        setChapterStates(row, step);
+        const c = COPY.chapters;
+        setText(row, 'chap-end', c.end[step]);
+        setText(row, 'chap-title', c.title[step]);
+        setText(row, 'chap-next', c.nextLabel[step]);
+        setText(row, 'chap-sub', c.nextSub[step]);
+        setText(row, 'chap-step-h', c.stepH[step]);
+        break;
+      }
+      case 'map': {
+        setMapStates(row, step);
+        const c = COPY.map;
+        setText(row, 'map-title', c.title[step]);
+        setText(row, 'map-meta', c.meta[step]);
+        setText(row, 'map-step-h', c.stepH[step]);
+        setText(row, 'map-step-c', c.stepC[step]);
+        break;
+      }
+      case 'smile': setSmileStates(row, step); break;
+    }
+  });
+  document.querySelectorAll('.step-btn').forEach(b => b.classList.toggle('active', +b.dataset.step === step));
+}
+
+// Wire controls
+document.querySelectorAll('.step-btn').forEach(b => {
+  b.addEventListener('click', () => applyStep(+b.dataset.step));
+});
+document.getElementById('play-btn').addEventListener('click', () => {
+  let i = 0;
+  applyStep(0);
+  const tick = () => {
+    i++;
+    if (i > 3) return;
+    applyStep(i);
+    setTimeout(tick, 1400);
+  };
+  setTimeout(tick, 800);
+});
+
+// Initial render — start at step 1 (Finance done, Mobile up next)
+applyStep(1);
+</script>
+
+<script type="module" src="../../kit/agentation-loader.js"></script>
+</body>
+</html>
