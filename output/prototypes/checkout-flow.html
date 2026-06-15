@@ -371,16 +371,70 @@
        Component Styles — Notice
        ============================================================ */
     .notice {
-      display: flex; gap: 0.5rem; align-items: flex-start;
-      padding: 0.75rem; border-radius: var(--radius-sm);
-      font-size: 0.75rem; line-height: 1.625;
+      display: flex; gap: 0.75rem; align-items: center;
+      padding: 1rem 1.25rem; border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem; line-height: 1.625;
     }
-    .notice-icon { flex-shrink: 0; font-size: 1.5rem; line-height: 1; }
+    .notice-icon { flex-shrink: 0; font-size: 1.125rem; line-height: 1; }
     .notice-highlight { background: var(--ui-highlight-base); color: var(--type-secondary); }
-    .notice-success { background: var(--brand-primary-light); color: var(--type-secondary); }
-    .notice-warning { background: var(--palette-bread); color: var(--type-secondary); }
-    .notice-error { background: var(--palette-simmer); color: var(--type-secondary); }
-    .notice strong { font-weight: 700; color: var(--type-secondary); }
+    .notice-highlight .notice-icon { color: var(--action-secondary-base); }
+    .notice-success { background: var(--ui-success-base); color: var(--type-secondary); }
+    .notice-success .notice-icon { color: var(--action-primary-base); }
+    .notice-warning { background: var(--ui-warning-base); color: var(--type-secondary); }
+    .notice-warning .notice-icon { color: var(--ui-warning-accent); }
+    .notice-error { background: var(--ui-error-base); color: var(--type-secondary); }
+    .notice-error .notice-icon { color: var(--ui-error-accent); }
+    .notice strong { font-weight: 700; color: var(--type-primary); }
+
+    /* ============================================================
+       Delivery Calendar — Day pills + Time slots
+       ============================================================ */
+    .delivery-day-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+    .delivery-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex: 1;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .delivery-pills::-webkit-scrollbar { display: none; }
+    .delivery-pills .toggle-item {
+      flex: 1 0 0;
+      min-width: 5.5rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0.75rem 0.5rem;
+      border-radius: var(--radius-sm);
+      scroll-snap-align: start;
+    }
+    .delivery-pills .toggle-item input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .delivery-pills .toggle-item-body { align-items: center; }
+    .delivery-price {
+      font-size: 0.875rem;
+      color: var(--type-primary);
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+    }
+    .delivery-pills .toggle-item:has(:checked) .delivery-price { color: var(--type-primary); }
+    .delivery-nav-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 2.5rem; flex-shrink: 0;
+      background: var(--ui-highlight-base);
+      border: 1px solid var(--action-secondary-base);
+      border-radius: var(--radius-sm);
+      color: var(--action-secondary-base);
+      cursor: pointer;
+      transition: background 150ms;
+    }
+    .delivery-nav-btn:hover { background: var(--action-secondary-base); color: #fff; }
+    .delivery-nav-btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
 
     /* ============================================================
        Layout — Checkout Grid
@@ -403,80 +457,61 @@
     }
 
     /* ============================================================
-       Layout — Step Navigator
+       Layout — Step Navigator (AO chevron style)
        ============================================================ */
     .steps {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 4px;
-      padding: 8px;
+      gap: 8px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 16px;
       background-color: var(--ui-core-base);
-      border-bottom: 1px solid var(--gray-30);
     }
 
     .steps__tab {
+      position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      min-height: 44px;
+      padding: 12px 24px 12px 28px;
+      max-height: 24px;
       border: none;
-      border-radius: var(--radius-sm);
       background-color: var(--gray-20);
       font-family: 'SmileyFace', Georgia, serif;
       font-weight: 700;
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       line-height: 1.25;
       color: var(--type-tertiary);
       cursor: not-allowed;
       text-decoration: none;
       white-space: nowrap;
+      clip-path: polygon(0% 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 0% 100%, 14px 50%);
     }
 
+    /* First tab — also has left indent chevron */
+    .steps__tab:first-child {
+      clip-path: polygon(0% 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 0% 100%, 14px 50%);
+      padding-left: 28px;
+    }
+
+    /* Last tab — has right chevron too */
+    .steps__tab:last-child {
+      clip-path: polygon(0% 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 0% 100%, 14px 50%);
+    }
+
+    /* Active step — blue fill */
     .steps__tab[aria-selected="true"] {
       background-color: var(--action-secondary-base);
       color: var(--action-secondary-contrast);
       cursor: pointer;
     }
 
+    /* Completed step — light blue background + blue text */
     .steps__tab--completed {
+      background-color: var(--ui-highlight-base);
       color: var(--action-secondary-base);
-      cursor: pointer;
       font-weight: 700;
-    }
-
-    .steps__tab--completed::before {
-      content: '';
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: var(--action-secondary-base);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z'/%3E%3C/svg%3E");
-      background-size: 12px;
-      background-repeat: no-repeat;
-      background-position: center;
-      flex-shrink: 0;
-    }
-
-    .steps__tab-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background-color: var(--gray-30);
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 0.75rem;
-      color: var(--type-tertiary);
-      flex-shrink: 0;
-    }
-
-    .steps__tab[aria-selected="true"] .steps__tab-number {
-      background-color: var(--action-primary-contrast);
-      color: var(--type-primary);
+      cursor: pointer;
     }
 
     .steps__tab-label {
@@ -576,7 +611,7 @@
       justify-content: space-between;
       align-items: baseline;
       font-family: 'Inter', sans-serif;
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       line-height: 1.625;
       color: var(--type-secondary);
     }
@@ -612,33 +647,32 @@
        Touch Targets — Minimum 44×44px
        ============================================================ */
     button,
-    [role="tab"],
-    [type="checkbox"],
-    [type="radio"],
     select,
     a {
       min-height: 44px;
       min-width: 44px;
     }
 
+    /* Radio/checkbox touch targets handled by parent .toggle-item padding */
     input[type="checkbox"],
     input[type="radio"] {
-      width: 24px;
-      height: 24px;
-      /* Increase clickable area via padding/margin in parent or pseudo-element */
+      width: 20px;
+      height: 20px;
     }
 
     /* ============================================================
        Responsive — Mobile-first breakpoints
        ============================================================ */
 
-    /* Below 544px (base mobile): step labels collapsed */
-    .steps__tab-label {
-      display: none;
-    }
+    /* Below 544px (base mobile): step labels collapsed on inactive */
+    @media (max-width: 543px) {
+      .steps__tab-label {
+        display: none;
+      }
 
-    .steps__tab[aria-selected="true"] .steps__tab-label {
-      display: inline;
+      .steps__tab[aria-selected="true"] .steps__tab-label {
+        display: inline;
+      }
     }
 
     /* sm: 544px — Show step labels */
@@ -658,20 +692,15 @@
         padding: 32px 32px;
       }
 
-      .steps {
-        gap: 12px;
-      }
-
       .steps__tab {
-        padding: 8px 20px;
-        font-size: 1rem;
+        font-size: 0.9375rem;
       }
     }
 
     /* layout: 900px — Two-column grid + sticky sidebar */
     @media (min-width: 900px) {
       .checkout-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 3fr 2fr;
         gap: 40px;
         padding: 40px 32px;
       }
@@ -688,10 +717,6 @@
       .checkout-grid {
         padding: 40px 48px;
       }
-
-      .steps__tab {
-        padding: 8px 24px;
-      }
     }
 
     /* ============================================================
@@ -705,7 +730,7 @@
     .form-stack {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     @media (min-width: 544px) {
@@ -758,9 +783,12 @@
       position: sticky;
       top: 0;
       z-index: 20;
+      background: var(--ui-core-base);
     }
 
     .nav-mobile {
+      max-width: 1200px;
+      margin: 0 auto;
       background: var(--ui-core-base);
       display: flex;
       align-items: center;
@@ -770,6 +798,25 @@
 
     .nav-checkout {
       justify-content: space-between;
+    }
+
+    .nav-checkout-center {
+      flex: 1;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.4;
+    }
+
+    .nav-checkout-phone {
+      font-size: 0.8125rem;
+      color: var(--type-primary);
+      margin: 0;
+    }
+
+    .nav-checkout-sub {
+      font-size: 0.75rem;
+      color: var(--type-tertiary);
+      margin: 2px 0 0;
     }
 
     .nav-checkout-icons {
@@ -994,11 +1041,11 @@
       <a href="/" class="nav-logo" aria-label="AO Home">
         <i class="ico ico-ao-logo" aria-hidden="true"></i>
       </a>
+      <div class="nav-checkout-center">
+        <p class="nav-checkout-phone"><strong>0161 470 1600</strong> Open weekdays <strong>8am - 7pm</strong> (sales open at 8:30am), weekends <strong>8am - 5pm</strong></p>
+        <p class="nav-checkout-sub">We're here to help. Calls charged at standard rate, even on mobile</p>
+      </div>
       <div class="nav-checkout-icons">
-        <a href="/help" class="nav-icon">
-          <i class="ico ico-call nav-icon-img" aria-hidden="true"></i>
-          <span class="nav-icon-label">Help</span>
-        </a>
         <a href="/basket" class="nav-icon nav-icon--badge" aria-label="Basket, 1 item" data-count="1">
           <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
           <span class="nav-icon-label">Basket</span>
@@ -1011,15 +1058,12 @@
   <!-- Step Navigator -->
   <nav class="steps" role="tablist" aria-label="Checkout steps">
     <button class="steps__tab" role="tab" id="tab-delivery" aria-selected="true" aria-current="step" aria-controls="step-delivery">
-      <span class="steps__tab-number" aria-hidden="true">1</span>
       <span class="steps__tab-label">Delivery</span>
     </button>
     <button class="steps__tab" role="tab" id="tab-contact" aria-selected="false" aria-controls="step-contact">
-      <span class="steps__tab-number" aria-hidden="true">2</span>
       <span class="steps__tab-label">Contact</span>
     </button>
     <button class="steps__tab" role="tab" id="tab-payment" aria-selected="false" aria-controls="step-payment">
-      <span class="steps__tab-number" aria-hidden="true">3</span>
       <span class="steps__tab-label">Payment</span>
     </button>
   </nav>
@@ -1032,7 +1076,7 @@
       <section id="step-delivery" class="step-panel is-active" role="tabpanel" aria-labelledby="tab-delivery">
 
         <!-- Address Section -->
-        <h2 class="t-title-lg" style="margin-bottom: 24px;">Address</h2>
+        <h2 class="t-title-lg" style="margin-bottom: 16px;">Address</h2>
 
         <!-- Entry Phase -->
         <div data-phase="entry">
@@ -1098,56 +1142,110 @@
 
         <!-- Confirmed Phase -->
         <div data-phase="confirmed" style="display:none">
-          <div style="background: var(--gray-10); border-radius: var(--radius-md); padding: 24px;">
-            <p class="t-body" style="margin: 0 0 12px; color: var(--type-primary);"><span id="confirmed-street"></span>, <span id="confirmed-city"></span>, <span id="confirmed-postcode"></span></p>
+          <div style="background: var(--gray-10); border-radius: var(--radius-sm); padding: 16px 20px;">
+            <p class="t-body" style="margin: 0 0 8px; color: var(--type-primary);"><span id="confirmed-street"></span>, <span id="confirmed-city"></span>, <span id="confirmed-postcode"></span></p>
             <a href="#" class="t-link-sm" id="link-edit-address" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700;">Edit address <i class="ico ico-edit" aria-hidden="true" style="font-size: 1rem;"></i></a>
           </div>
         </div>
 
         <!-- Delivery Options (hidden until address is confirmed) -->
-        <div id="delivery-options" style="display:none; margin-top: 32px;">
-          <h3 class="t-title-lg" style="margin-bottom: 24px;">Delivery options</h3>
+        <div id="delivery-options" style="display:none; margin-top: 24px;">
+          <h3 class="t-title-lg" style="margin-bottom: 16px;">Choose your delivery</h3>
 
-          <div class="form-stack" style="gap: 24px;">
-            <!-- Date picker -->
-            <div class="field" data-aods="field">
-              <label class="field-label" for="delivery-date">Delivery date</label>
-              <div class="field-select-wrap">
-                <select id="delivery-date" class="field-input">
-                  <option value="thu-22-may" selected>Thursday 22 May</option>
-                  <option value="fri-23-may">Friday 23 May</option>
-                  <option value="sat-24-may">Saturday 24 May</option>
-                </select>
+          <!-- Day pills row -->
+          <fieldset data-aods="radio-button-group" style="border:0; padding:0; margin:0;">
+            <legend class="visually-hidden">Choose your delivery day</legend>
+            <div class="delivery-day-row">
+              <div class="delivery-pills">
+                <label class="toggle-item" data-aods="radio-button">
+                  <input type="radio" name="delivery-day" value="thu" checked>
+                  <div class="toggle-item-body">
+                    <strong class="toggle-item-line">Thu</strong>
+                    <span class="toggle-item-line toggle-item-sub">22nd May</span>
+                    <strong class="toggle-item-line delivery-price">FREE</strong>
+                  </div>
+                </label>
+                <label class="toggle-item" data-aods="radio-button">
+                  <input type="radio" name="delivery-day" value="fri">
+                  <div class="toggle-item-body">
+                    <strong class="toggle-item-line">Fri</strong>
+                    <span class="toggle-item-line toggle-item-sub">23rd May</span>
+                    <strong class="toggle-item-line delivery-price">FREE</strong>
+                  </div>
+                </label>
+                <label class="toggle-item" data-aods="radio-button">
+                  <input type="radio" name="delivery-day" value="sat">
+                  <div class="toggle-item-body">
+                    <strong class="toggle-item-line">Sat</strong>
+                    <span class="toggle-item-line toggle-item-sub">24th May</span>
+                    <strong class="toggle-item-line delivery-price">£30.00</strong>
+                  </div>
+                </label>
+                <label class="toggle-item" data-aods="radio-button">
+                  <input type="radio" name="delivery-day" value="sun">
+                  <div class="toggle-item-body">
+                    <strong class="toggle-item-line">Sun</strong>
+                    <span class="toggle-item-line toggle-item-sub">25th May</span>
+                    <strong class="toggle-item-line delivery-price">£30.00</strong>
+                  </div>
+                </label>
+                <label class="toggle-item" data-aods="radio-button">
+                  <input type="radio" name="delivery-day" value="mon">
+                  <div class="toggle-item-body">
+                    <strong class="toggle-item-line">Mon</strong>
+                    <span class="toggle-item-line toggle-item-sub">26th May</span>
+                    <strong class="toggle-item-line delivery-price">FREE</strong>
+                  </div>
+                </label>
               </div>
+              <button class="delivery-nav-btn" aria-label="Next days">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
             </div>
+          </fieldset>
 
-            <!-- Time picker -->
-            <div class="field" data-aods="field">
-              <label class="field-label" for="delivery-time">Delivery time</label>
-              <div class="field-select-wrap">
-                <select id="delivery-time" class="field-input">
-                  <option value="anytime" selected>Any time (7am–7pm)</option>
-                  <option value="morning">Morning (7am–12pm)</option>
-                  <option value="afternoon">Afternoon (12pm–5pm)</option>
-                </select>
-              </div>
+          <!-- Time-slot radio list -->
+          <fieldset data-aods="radio-button-group" style="border:0; padding:0; margin:1rem 0 0;">
+            <legend class="visually-hidden">Choose your delivery time slot</legend>
+            <div class="toggle-group">
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-slot" value="anytime" checked>
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Anytime — FREE</div>
+                  <div class="toggle-item-sub">7am – 7pm</div>
+                </div>
+              </label>
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-slot" value="morning">
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Morning — £5.00</div>
+                  <div class="toggle-item-sub">7am – 12pm</div>
+                </div>
+              </label>
+              <label class="toggle-item" data-aods="radio-button">
+                <input type="radio" name="delivery-slot" value="afternoon">
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Afternoon — £5.00</div>
+                  <div class="toggle-item-sub">12pm – 5pm</div>
+                </div>
+              </label>
             </div>
-          </div>
+          </fieldset>
 
           <!-- Delivery confirmation text -->
-          <div style="margin-top: 24px;">
-            <p class="t-body-sm" style="color: var(--type-tertiary); margin-bottom: 8px;">We'll text you by 8am with a 4-hour delivery window</p>
+          <div style="margin-top: 16px;">
+            <p class="t-body-sm" style="color: var(--type-tertiary); margin-bottom: 4px;">We'll text you by 8am with a 4-hour delivery window</p>
             <p class="t-body-sm" style="color: var(--type-tertiary);">Track your order online every step of the way</p>
           </div>
 
           <!-- Continue button -->
-          <div style="margin-top: 32px;">
+          <div style="margin-top: 24px;">
             <button type="button" class="btn btn-primary btn-full" data-aods="button" id="btn-delivery-continue">Continue</button>
           </div>
         </div>
 
         <!-- Five Star Membership Upsell -->
-        <div class="five-star-upsell" id="five-star-upsell" style="margin-top: 48px; display: none;">
+        <div class="five-star-upsell" id="five-star-upsell" style="margin-top: 32px; display: none;">
           <div style="background: var(--brand-primary-light); border-radius: var(--radius-md); padding: 24px; position: relative; overflow: hidden;">
             <!-- Star decoration -->
             <div style="position: absolute; top: -8px; right: 16px; font-size: 4rem; color: var(--brand-primary-base); opacity: 0.8; line-height: 1;">
@@ -1210,20 +1308,7 @@
           </div>
         </div>
 
-        <!-- PayPal payment option notice -->
-        <div style="margin-top: 24px;">
-          <p class="t-caption" style="text-align: center;">
-            <i class="ico ico-paypal" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"></i>
-            PayPal is also available as a payment option at the next step
-          </p>
-        </div>
 
-        <!-- Terms and privacy notice -->
-        <div style="margin-top: 16px;">
-          <p class="t-caption" style="text-align: center;">
-            By placing an order you agree to our <a href="#" class="t-link-sm" target="_blank" rel="noopener">terms &amp; conditions</a> and <a href="#" class="t-link-sm" target="_blank" rel="noopener">privacy policy</a>
-          </p>
-        </div>
 
       </section>
 
@@ -1563,8 +1648,17 @@
           <div class="summary-line"><span class="summary-line__label">Complete installation bundle</span><span class="summary-line__value">£35.00</span></div>
         </div>
 
+        <!-- Delivery -->
+        <div class="summary-lines" id="summary-delivery-section" style="margin-top: 16px; display: none;">
+          <div class="summary-line">
+            <span class="summary-line__label" id="summary-delivery-label">Delivery to M14 5RQ</span>
+            <span class="summary-line__value" id="summary-delivery">£0.00</span>
+          </div>
+          <div style="font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--type-tertiary); line-height: 1.625;" id="summary-delivery-date">Delivery on Thu 22nd May</div>
+        </div>
+
         <!-- Membership -->
-        <div class="summary-lines" style="margin-top: 16px;">
+        <div class="summary-lines" style="margin-top: 16px;" id="summary-fivestar" style="display: none;">
           <div class="summary-line">
             <span class="summary-line__label">AO Five Star Membership</span>
             <span class="summary-line__value">£39.99*<br><span style="font-size: 0.75rem; color: var(--type-tertiary);">per year*</span></span>
@@ -1579,7 +1673,7 @@
           </div>
           <div class="summary-line summary-line--total">
             <span class="summary-line__label">Total</span>
-            <span class="summary-line__value" id="summary-total">£1,192.99</span>
+            <span class="summary-line__value" id="summary-total">£1,153.00</span>
           </div>
         </div>
 
@@ -1778,22 +1872,24 @@
       // ==========================================================
       // Sync delivery date/time defaults on init
       // ==========================================================
-      var dateSelect = document.getElementById('delivery-date');
-      var timeSelect = document.getElementById('delivery-time');
-      if (dateSelect) state.deliveryDate = dateSelect.value;
-      if (timeSelect) state.deliveryTime = timeSelect.value;
+      var dayRadios = document.querySelectorAll('input[name="delivery-day"]');
+      var slotRadios = document.querySelectorAll('input[name="delivery-slot"]');
+
+      // Set initial state from checked radios
+      dayRadios.forEach(function (r) { if (r.checked) state.deliveryDate = r.value; });
+      slotRadios.forEach(function (r) { if (r.checked) state.deliveryTime = r.value; });
 
       // Listen for changes
-      if (dateSelect) {
-        dateSelect.addEventListener('change', function () {
+      dayRadios.forEach(function (r) {
+        r.addEventListener('change', function () {
           state.deliveryDate = this.value;
         });
-      }
-      if (timeSelect) {
-        timeSelect.addEventListener('change', function () {
+      });
+      slotRadios.forEach(function (r) {
+        r.addEventListener('change', function () {
           state.deliveryTime = this.value;
         });
-      }
+      });
 
       // ==========================================================
       // Address Lookup Flow Controller (Task 7.2)
@@ -1978,21 +2074,56 @@
       // ==========================================================
       // Order Summary Calculator (Task 8.1)
       // ==========================================================
-      var PRODUCT_PRICE = 999.00;
+      var PRODUCT_PRICE = 1193.00; // 589 + 125 + 0 + 444 + 35
       var FIVE_STAR_PRICE = 39.99;
+      var DISCOUNT = 40.00;
       var deliveryCost = 0;
       var deliveryConfirmed = false;
       var recalcTimer = null;
 
+      // Delivery pricing maps
+      var dayPrices = { thu: 0, fri: 0, sat: 30, sun: 30, mon: 0 };
+      var slotPrices = { anytime: 0, morning: 5, afternoon: 5 };
+      var dayLabels = { thu: 'Thu 22nd May', fri: 'Fri 23rd May', sat: 'Sat 24th May', sun: 'Sun 25th May', mon: 'Mon 26th May' };
+
       function formatCurrency(amount) {
-        return '£' + amount.toFixed(2);
+        if (amount === 0) return 'FREE';
+        return '£' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
+      function getSelectedDeliveryCost() {
+        var dayRadio = document.querySelector('input[name="delivery-day"]:checked');
+        var slotRadio = document.querySelector('input[name="delivery-slot"]:checked');
+        var dayCost = dayRadio ? (dayPrices[dayRadio.value] || 0) : 0;
+        var slotCost = slotRadio ? (slotPrices[slotRadio.value] || 0) : 0;
+        return dayCost + slotCost;
+      }
+
+      function getSelectedDayLabel() {
+        var dayRadio = document.querySelector('input[name="delivery-day"]:checked');
+        return dayRadio ? (dayLabels[dayRadio.value] || '') : '';
       }
 
       function updateDeliveryCost(confirmed) {
         deliveryConfirmed = confirmed;
+        deliveryCost = getSelectedDeliveryCost();
+
+        var section = document.getElementById('summary-delivery-section');
         var el = document.getElementById('summary-delivery');
+        var dateEl = document.getElementById('summary-delivery-date');
+        var labelEl = document.getElementById('summary-delivery-label');
+
+        if (section) {
+          section.style.display = confirmed ? '' : 'none';
+        }
         if (el) {
-          el.textContent = confirmed ? formatCurrency(deliveryCost) : 'TBC';
+          el.textContent = formatCurrency(deliveryCost);
+        }
+        if (dateEl) {
+          dateEl.textContent = 'Delivery on ' + getSelectedDayLabel();
+        }
+        if (labelEl && state.addressData.selectedAddress) {
+          labelEl.textContent = 'Delivery to ' + state.addressData.selectedAddress.postcode;
         }
         recalculateTotal();
       }
@@ -2001,7 +2132,7 @@
         // Debounce rapid toggles
         if (recalcTimer) clearTimeout(recalcTimer);
         recalcTimer = setTimeout(function () {
-          var total = PRODUCT_PRICE;
+          var total = PRODUCT_PRICE - DISCOUNT;
           if (deliveryConfirmed) total += deliveryCost;
           if (state.fiveStarSelected) total += FIVE_STAR_PRICE;
 
@@ -2024,6 +2155,15 @@
           recalculateTotal();
         });
       }
+
+      // Listen to delivery day/slot changes to update cost live
+      document.querySelectorAll('input[name="delivery-day"], input[name="delivery-slot"]').forEach(function (r) {
+        r.addEventListener('change', function () {
+          if (deliveryConfirmed) {
+            updateDeliveryCost(true);
+          }
+        });
+      });
 
       // ==========================================================
       // Form Validation Functions (Task 9.1)
@@ -2324,11 +2464,11 @@
         btn.parentNode.replaceChild(newBtn, btn);
 
         newBtn.addEventListener('click', function () {
-          // Sync delivery date/time
-          var ds = document.getElementById('delivery-date');
-          var ts = document.getElementById('delivery-time');
-          if (ds) state.deliveryDate = ds.value;
-          if (ts) state.deliveryTime = ts.value;
+          // Sync delivery date/time from radio buttons
+          var checkedDay = document.querySelector('input[name="delivery-day"]:checked');
+          var checkedSlot = document.querySelector('input[name="delivery-slot"]:checked');
+          if (checkedDay) state.deliveryDate = checkedDay.value;
+          if (checkedSlot) state.deliveryTime = checkedSlot.value;
 
           if (!canAdvanceDelivery()) return;
 

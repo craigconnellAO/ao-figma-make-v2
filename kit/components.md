@@ -473,29 +473,29 @@ Pill badges for status, categories, labels.
 
 ## 7 · Notice
 
-Inline alerts for info, success, warning, error. Smaller than a Card; sits in-flow.
+Inline feedback banners for info, success, warning, error. Single-line format: **bold title** followed by regular body text. Vertically centred icon + text. Sits in-flow, smaller than a Card.
 
 ### HTML
 
 ```html
-<div class="notice notice-highlight" role="note" data-aods="notice">
-  <i class="ico ico-info notice-icon" aria-hidden="true"></i>
-  <div><strong>Free delivery</strong> on orders over £50.</div>
-</div>
-
 <div class="notice notice-success" role="status" data-aods="notice">
   <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
-  Delivery confirmed for tomorrow, 8am–6pm.
+  <div><strong>Delivery confirmed.</strong> Your order will arrive tomorrow between 8am and 6pm.</div>
+</div>
+
+<div class="notice notice-highlight" role="note" data-aods="notice">
+  <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+  <div><strong>Professional installation available.</strong> Add fitting for £69 and our engineers will install and test your machine.</div>
 </div>
 
 <div class="notice notice-warning" role="note" data-aods="notice">
   <i class="ico ico-warning notice-icon" aria-hidden="true"></i>
-  Installation slots are limited this week. Book early.
+  <div><strong>Only 3 left in stock.</strong> Installation slots for this week are filling up fast.</div>
 </div>
 
 <div class="notice notice-error" role="alert" data-aods="notice">
   <i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i>
-  Your payment was declined. Check your card details and try again.
+  <div><strong>Payment declined.</strong> Check your card details and try again, or use a different payment method.</div>
 </div>
 ```
 
@@ -503,22 +503,44 @@ Inline alerts for info, success, warning, error. Smaller than a Card; sits in-fl
 
 ```css
 .notice {
-  display: flex; gap: 0.5rem; align-items: flex-start;
-  padding: 0.75rem; border-radius: var(--radius-sm);
-  font-size: 0.75rem; line-height: 1.625;
+  display: flex; gap: 0.75rem; align-items: center;
+  padding: 1rem 1.25rem; border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem; line-height: 1.625;
 }
-.notice-icon { flex-shrink: 0; font-size: 1.5rem; line-height: 1; }
+.notice-icon { flex-shrink: 0; font-size: 1.125rem; line-height: 1; }
+
+.notice-success   { background: var(--ui-success-base); color: var(--type-secondary); }
+.notice-success .notice-icon { color: var(--action-primary-base); }
+
 .notice-highlight { background: var(--ui-highlight-base); color: var(--type-secondary); }
-.notice-success   { background: var(--brand-primary-light); color: var(--type-secondary); }
-.notice-warning   { background: var(--palette-bread);       color: var(--type-secondary); }
-.notice-error     { background: var(--palette-simmer);      color: var(--type-secondary); }
-.notice strong    { font-weight: 700; color: var(--type-secondary); }
+.notice-highlight .notice-icon { color: var(--action-secondary-base); }
+
+.notice-warning   { background: var(--ui-warning-base); color: var(--type-secondary); }
+.notice-warning .notice-icon { color: var(--ui-warning-accent); }
+
+.notice-error     { background: var(--ui-error-base); color: var(--type-secondary); }
+.notice-error .notice-icon { color: var(--ui-error-accent); }
+
+.notice strong    { font-weight: 700; color: var(--type-primary); }
 ```
+
+### Icons per variant
+
+| Variant | Icon class | Colour token |
+|---------|-----------|--------------|
+| `notice-success` | `ico-tick-circle` | `--action-primary-base` (green) |
+| `notice-highlight` | `ico-info` | `--action-secondary-base` (blue) |
+| `notice-warning` | `ico-warning` | `--ui-warning-accent` (orange) |
+| `notice-error` | `ico-cancel-circle` | `--ui-error-accent` (red) |
 
 ### Rules
 
 - `role="alert"` for errors (assertive announcement). `role="status"` for confirmations. `role="note"` for everything else.
-- Keep notices to one sentence. If you need more, you need a Card.
+- Text format: **Bold statement.** Followed by supporting detail in regular weight — all on one line.
+- Keep notices to one or two sentences max. If you need more, use a Card.
+- Icons are vertically centred with the text, not top-aligned.
+- Background colours use the semantic `ui-*` surface tokens. Icon colour matches the variant's accent.
 
 ---
 
