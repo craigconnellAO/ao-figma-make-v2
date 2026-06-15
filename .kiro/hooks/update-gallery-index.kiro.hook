@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Update Prototype Gallery",
+  "description": "When a new HTML file is created in output/examples/ or output/prototypes/, automatically add it to the prototype gallery (output/examples/index.html) as a new card entry with the appropriate category, date, and thumbnail iframe.",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "output/examples/*.html",
+      "output/prototypes/*.html"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new HTML file was created in the output directory. Add it to the prototype gallery at output/examples/index.html as a card entry. Follow the existing card pattern: use an iframe thumbnail, extract the title from the HTML &lt;title&gt; tag, determine the category (component, page, pattern, or prototype) based on the file location and content, use today's date, and place it in the appropriate position among the existing cards. Do NOT add index.html itself to the gallery."
+  }
+}

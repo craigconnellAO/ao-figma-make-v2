@@ -77,7 +77,7 @@ The canonical validated-form pattern: helper text by default, switch to error/su
   <div class="field" style="margin-bottom: 1rem;">
     <label class="field-label" for="email">Email for delivery updates</label>
     <input class="field-input is-success" id="email" type="email" value="craig@example.com">
-    <p class="field-msg is-success">✓ Valid email address.</p>
+    <p class="field-msg is-success"><i class="ico ico-tick" aria-hidden="true"></i> Valid email address.</p>
   </div>
 
   <div class="field" style="margin-bottom: 1.5rem;">
@@ -129,9 +129,9 @@ Two-column on desktop (image pane + details), single-column on mobile. Specs and
     </div>
 
     <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap: 0.5rem;">
-      <li>✓ Free delivery tomorrow</li>
-      <li>✓ 2-year AO guarantee included</li>
-      <li>✓ Recycle your old appliance for £25</li>
+      <li><i class="ico ico-tick" aria-hidden="true"></i> Free delivery tomorrow</li>
+      <li><i class="ico ico-tick" aria-hidden="true"></i> 2-year AO guarantee included</li>
+      <li><i class="ico ico-tick" aria-hidden="true"></i> Recycle your old appliance for £25</li>
     </ul>
 
     <div style="display:flex; gap: 1rem; align-items:center;">
@@ -147,7 +147,7 @@ Two-column on desktop (image pane + details), single-column on mobile. Specs and
     <button class="btn btn-secondary btn-full" data-aods="button">Save to wishlist</button>
 
     <div class="notice notice-highlight" role="note" data-aods="notice">
-      <i class="notice-icon" aria-hidden="true">ℹ</i>
+      <i class="ico ico-info notice-icon" aria-hidden="true"></i>
       <div><strong>Professional installation available.</strong> Add fitting for £69.</div>
     </div>
   </div>
@@ -243,7 +243,7 @@ Two-column on desktop (line items + order summary card). Summary card is `card-r
     <button class="btn btn-primary btn-full btn-lg" data-aods="button">Checkout</button>
 
     <div class="notice notice-success" role="status" data-aods="notice" style="margin-top: 1rem;">
-      <i class="notice-icon" aria-hidden="true">✓</i>
+      <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
       You've qualified for free delivery.
     </div>
   </aside>
@@ -283,7 +283,7 @@ When there's nothing to show, give the user one clear next step.
 
 ```html
 <div class="card" data-aods="card" style="text-align:center; padding: 3rem 1.5rem;">
-  <div style="font-size: 3rem; margin-bottom: 0.75rem;" aria-hidden="true">🛒</div>
+  <i class="ico ico-basket ico-3x" style="margin-bottom: 0.75rem;" aria-hidden="true"></i>
   <h2 class="t-title-lg" style="margin-bottom: 0.5rem;">Your basket is empty</h2>
   <p class="t-body t-secondary" style="max-width: 40ch; margin: 0 auto 1.5rem;">
     Browse our latest appliances and add something you'll love.
@@ -308,7 +308,7 @@ Single-column centred layout, max 640px. The emotional peak of the purchase flow
     <div style="width:72px; height:72px; border-radius:50%;
                 background:var(--ui-success-base); border:2px solid var(--ui-success-accent);
                 display:flex; align-items:center; justify-content:center;
-                margin:0 auto 1.25rem; font-size:2rem;" aria-hidden="true">✓</div>
+                margin:0 auto 1.25rem; font-size:2rem;" aria-hidden="true"><i class="ico ico-tick"></i></div>
     <h1 class="t-display-headline" style="margin-bottom:0.5rem;">You're all set, Sarah.</h1>
     <p class="t-body t-secondary" style="max-width:44ch; margin:0 auto;">
       Your order is confirmed. We'll keep you updated every step of the way.
@@ -328,7 +328,7 @@ Single-column centred layout, max 640px. The emotional peak of the purchase flow
     <p class="t-body-sm t-secondary">14 Maple Close, Manchester, M14 5RQ</p>
     <div class="card-divider"></div>
     <div class="notice notice-success" role="status" data-aods="notice">
-      <i class="notice-icon" aria-hidden="true">✓</i>
+      <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
       Confirmation sent to <strong>sarah@example.com</strong>
     </div>
   </div>
@@ -412,7 +412,7 @@ Two-column desktop layout: filter sidebar (240px, sticky) + product grid (fluid,
                        font-size:0.8125rem; font-weight:500;
                        background:var(--ui-highlight-base); color:var(--ui-highlight-contrast);
                        border:1px solid var(--ui-highlight-accent); cursor:pointer;">
-          Bosch ✕
+          Bosch <i class="ico ico-close ico-xs" aria-hidden="true"></i>
         </button>
       </div>
       <select style="appearance:none; padding:0.5rem 2rem 0.5rem 0.875rem;

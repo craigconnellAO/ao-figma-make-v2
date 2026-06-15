@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Kit — Buttons & form fields example</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    /* ──────────────────────────────────────────────
+       Fonts — SmileyFace
+       ────────────────────────────────────────────── */
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 100;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 400;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 500;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+
+    /* ──────────────────────────────────────────────
+       Tokens — :root
+       ────────────────────────────────────────────── */
+    :root {
+      /* Neutrals */
+      --gray-10: #f8f9fa;  --gray-20: #f0f2f2;  --gray-30: #e2e7e8;
+      --gray-40: #d6dddf;  --gray-50: #c1c7c9;  --gray-60: #abb1b4;
+      --gray-70: #727677;  --gray-80: #595d5e;  --gray-90: #3f4344;  --gray-100: #212121;
+
+      /* Brand green */
+      --brand-primary-base: #12c35a;  --brand-primary-light: #befcc8;  --brand-primary-dark: #02422b;
+
+      /* Typography */
+      --type-primary: #011f44;  --type-secondary: #212121;  --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+
+      /* Action — primary (green) */
+      --action-primary-base: #00893e;  --action-primary-hover: #00560b;
+      --action-primary-focus: #00893e;  --action-primary-active: #003d00;
+      --action-primary-contrast: #ffffff;  --action-primary-glow: #12c35a;
+
+      /* Action — secondary (blue) */
+      --action-secondary-base: #0564c2;  --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0564c2;  --action-secondary-active: #001876;
+      --action-secondary-contrast: #ffffff;  --action-secondary-glow: #40a1f8;
+
+      /* Action — light / dark / inactive */
+      --action-light-base: #ffffff;  --action-light-contrast: #011f44;  --action-light-glow: #40a1f8;
+      --action-dark-base: #011f44;   --action-dark-contrast: #ffffff;   --action-dark-glow: #40a1f8;
+      --action-inactive-base: #727677;  --action-inactive-contrast: #ffffff;
+
+      /* UI surfaces */
+      --ui-core-base: #ffffff;       --ui-core-contrast: #212121;       --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2;    --ui-neutral-contrast: #212121;    --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff;  --ui-highlight-contrast: #00318f;  --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3;    --ui-success-contrast: #02422b;    --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6;    --ui-warning-contrast: #ad5a00;    --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6;      --ui-error-contrast: #b50016;      --ui-error-accent: #b50016;
+      --ui-light-base: #ffffff;      --ui-light-contrast: #011f44;      --ui-light-accent: #ffffff;
+      --ui-dark-base: #011f44;       --ui-dark-contrast: #ffffff;       --ui-dark-accent: #011f44;
+
+      /* Radius */
+      --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 16px;
+      --radius-xl: 24px; --radius-2xl: 40px;
+
+      /* Shadow */
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+      --shadow-xl: 0 20px 48px rgba(1,22,48,0.18), 0 8px 16px rgba(1,22,48,0.10);
+    }
+
+    /* ──────────────────────────────────────────────
+       Base + typography
+       ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.625;
+      background: var(--gray-10);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .t-display-lg { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;    line-height: 1.25; color: var(--type-primary); text-wrap: balance; margin: 0; }
+    .t-display    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.5rem;  line-height: 1.25; color: var(--type-primary); text-wrap: balance; margin: 0; }
+    .t-title-lg   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.25rem; line-height: 1.25; color: var(--type-primary); margin: 0; }
+    .t-title      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;    line-height: 1.25; color: var(--type-primary); margin: 0; }
+    .t-body       { font-family: 'Inter', sans-serif; font-size: 1rem;    line-height: 1.625; }
+    .t-body-sm    { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.625; }
+    .t-caption    { font-family: 'Inter', sans-serif; font-size: 0.75rem;  line-height: 1.625; color: var(--type-tertiary); }
+    .t-cta        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;    line-height: 1.25; }
+    .t-secondary  { color: var(--type-tertiary); }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ──────────────────────────────────────────────
+       Layout
+       ────────────────────────────────────────────── */
+    main { max-width: 880px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+    @media (min-width: 768px) { main { padding: 2.5rem 1.5rem 5rem; } }
+
+    .page-intro { margin-bottom: 2.5rem; max-width: 65ch; }
+    .page-intro p { margin: 0.75rem 0 0; color: var(--type-tertiary); }
+
+    section { margin-bottom: 3rem; }
+    .section-head { margin-bottom: 1.25rem; display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+    .section-head .t-caption { color: var(--type-tertiary); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
+
+    .stack > * + * { margin-top: 1rem; }
+    .row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+
+    /* ──────────────────────────────────────────────
+       Nav (Desktop + Mobile)
+       ────────────────────────────────────────────── */
+    [data-aods="nav"] { position: sticky; top: 0; z-index: 20; background: #fff; box-shadow: var(--shadow); }
+
+    .nav-mobile { background: #fff; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; }
+    .nav-mobile-spacer { flex: 1; }
+
+    .nav-desktop { background: #fff; display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.25rem 2rem 0; }
+    .nav-desktop-right { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
+    .nav-desktop-top { display: flex; align-items: center; gap: 2rem; }
+    .nav-desktop-icons { display: flex; gap: 1.5rem; flex-shrink: 0; }
+
+    .nav-icon {
+      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      text-decoration: none; cursor: pointer; background: none; border: none;
+      gap: 0.125rem; padding: 0.25rem;
+    }
+    .nav-icon:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; border-radius: var(--radius-xs); }
+    .nav-icon-img { font-size: 1.75rem; color: var(--type-primary); }
+    .nav-icon-label {
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 400;
+      color: var(--type-primary); line-height: 1.25;
+    }
+    .nav-icon--badge::after {
+      content: attr(data-count);
+      position: absolute; top: -4px; right: -4px;
+      min-width: 18px; height: 18px; padding: 0 4px;
+      border-radius: 50%; background: #cf1a30; color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.6875rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    @media (min-width: 991px) {
+      .nav-icon-label { font-family: 'SmileyFace', Georgia, serif; font-weight: 400; font-size: 0.8125rem; }
+    }
+
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-logo .ico { font-size: 3rem; color: var(--brand-primary-base); }
+    .nav-logo--lg .ico { font-size: 4rem; }
+
+    .nav-search { display: flex; flex: 1; max-width: 560px; }
+    .nav-search--mobile { padding: 0.5rem 1rem; background: #fff; }
+    .nav-search-input {
+      flex: 1; padding: 0.625rem 1rem;
+      border: 1px solid var(--gray-40); border-right: none;
+      border-radius: 1.5rem 0 0 1.5rem;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      color: var(--type-secondary); outline: none;
+      transition: border-color 150ms;
+    }
+    .nav-search-input:focus { border-color: var(--brand-primary-base); }
+    .nav-search-input::placeholder { color: var(--gray-60); }
+    .nav-search-btn {
+      padding: 0.625rem 1.5rem; background: var(--brand-primary-base); border: none;
+      border-radius: 0 1.5rem 1.5rem 0; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 0.875rem; color: #fff; white-space: nowrap;
+    }
+    .nav-search-btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .nav-search-btn .ico { font-size: 1.125rem; }
+    .nav-search--mobile .nav-search-input { border-radius: 1.5rem 0 0 1.5rem; }
+    .nav-search--mobile .nav-search-btn { padding: 0.625rem 1.25rem; border-radius: 0 1.5rem 1.5rem 0; font-size: 0; }
+    .nav-search--mobile .nav-search-btn .ico { font-size: 1.25rem; }
+
+    .nav-categories {
+      display: flex; align-items: center; gap: 1.5rem; padding: 0.75rem 0;
+      border-top: 1px solid var(--gray-30);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
+    }
+    .nav-categories a { color: var(--type-primary); text-decoration: none; white-space: nowrap; }
+    .nav-categories a:hover { text-decoration: underline; }
+    .nav-categories a:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; border-radius: var(--radius-xs); }
+    .nav-categories-deals { color: #cf1a30; }
+    .nav-categories-help { margin-left: auto; }
+
+    .nav-accent { height: 4px; background: var(--brand-primary-base); }
+
+    .nav-proposition {
+      background: var(--gray-10);
+      display: flex; align-items: center; justify-content: center; gap: 2.5rem;
+      padding: 0.5rem 2rem;
+      border-top: 1px solid var(--gray-30);
+    }
+    .nav-proposition-item {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--type-tertiary);
+      white-space: nowrap;
+    }
+    .nav-proposition-item .ico { font-size: 0.875rem; }
+
+    @media (max-width: 990px) {
+      .nav-desktop { display: none; }
+      .nav-proposition-item:not(:first-child) { display: none; }
+    }
+    @media (min-width: 991px) {
+      .nav-mobile { display: none; }
+      .nav-search--mobile { display: none; }
+    }
+
+    /* ──────────────────────────────────────────────
+       Buttons
+       ────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: background 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out, box-shadow 150ms ease-out, transform 150ms ease-out;
+    }
+    .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+
+    .btn-primary   { background: var(--action-primary-base); color: var(--action-primary-contrast); border-color: var(--action-primary-base); }
+    .btn-primary:hover   { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); border-color: var(--action-secondary-hover); }
+
+    .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover  { background: var(--gray-20); border-color: var(--gray-50); }
+
+    .btn-white     { background: var(--action-light-base); color: var(--action-light-contrast); border-color: var(--action-light-base); }
+    .btn-white:hover     { background: var(--gray-20); border-color: var(--gray-20); }
+
+    .btn-dark      { background: var(--action-dark-base); color: var(--action-dark-contrast); border-color: var(--action-dark-base); }
+    .btn-dark:hover      { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
+
+    .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
+
+    .btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-sm   { padding: 0.6875rem 1rem; font-size: 0.875rem; }
+    .btn-icon { padding: 0.6875rem; }
+    .btn-full { width: 100%; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .btn:active { transform: translateY(1px); box-shadow: none; }
+    }
+
+    /* Dark surface preview row */
+    .surface-dark {
+      background: var(--ui-dark-base);
+      color: var(--ui-dark-contrast);
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+    }
+
+    /* ──────────────────────────────────────────────
+       Field / Label / Input / Message
+       ────────────────────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
+    .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
+
+    .field-input {
+      height: 48px;
+      padding: 0 0.875rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
+      background: #fff; outline: none; width: 100%;
+      transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+    }
+    .field-input::placeholder { color: var(--gray-60); }
+    .field-input:focus { border-color: var(--action-secondary-base); box-shadow: 0 0 0 3px rgba(5,100,194,0.15); }
+    .field-input:disabled { background: var(--gray-10); color: var(--gray-70); cursor: not-allowed; border-color: var(--gray-30); }
+
+    .field-input.is-error     { border-color: var(--ui-error-accent);     background: var(--ui-error-base); }
+    .field-input.is-success   { border-color: var(--ui-success-accent);   background: var(--ui-success-base); }
+    .field-input.is-highlight { border-color: var(--ui-highlight-accent); background: var(--ui-highlight-base); }
+
+    textarea.field-input { height: auto; padding: 0.75rem 0.875rem; line-height: 1.5; resize: vertical; }
+
+    .field-msg { font-size: 0.8125rem; margin: 0; }
+    .field-msg.is-error     { color: var(--ui-error-contrast); }
+    .field-msg.is-success   { color: var(--ui-success-contrast); }
+    .field-msg.is-highlight { color: var(--ui-highlight-contrast); }
+    .field-msg.is-helper    { color: var(--type-tertiary); }
+
+    /* Select */
+    .field-select-wrap { position: relative; }
+    .field-select-wrap::after {
+      content: ''; pointer-events: none;
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-70);
+    }
+    select.field-input { appearance: none; -webkit-appearance: none; padding-right: 2.5rem; }
+
+    /* ──────────────────────────────────────────────
+       Toggle items (radio / checkbox)
+       ────────────────────────────────────────────── */
+    .toggle-group { display: flex; flex-direction: column; gap: 0.5rem; border: 0; padding: 0; margin: 0; }
+
+    .toggle-item {
+      position: relative;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms ease-out, background 150ms ease-out, box-shadow 150ms ease-out;
+    }
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: var(--radius-xs); }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked {
+      background-image: none;
+      box-shadow: inset 0 0 0 4px #fff;
+    }
+    .toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
+    .toggle-item-label { font-size: 0.9375rem; font-weight: 700; color: var(--type-secondary); }
+    .toggle-item-sub   { font-size: 0.8125rem; color: var(--type-tertiary); }
+
+    .toggle-item:hover               { border-color: var(--gray-60); background: var(--gray-10); }
+    .toggle-item:has(:focus-visible) { outline: 0; box-shadow: 0 0 0 4px var(--action-secondary-glow); border-color: var(--action-secondary-base); }
+    .toggle-item:has(:checked) {
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 8%, white);
+    }
+    .toggle-item:has(:checked) .toggle-item-label { color: var(--type-primary); }
+  </style>
+</head>
+<body>
+
+  <!-- ──────────────────────────────────────────
+       NAV — Mobile + Desktop variants
+       ────────────────────────────────────────── -->
+  <header data-aods="nav">
+    <!-- Mobile -->
+    <nav class="nav-mobile" aria-label="Primary mobile">
+      <a href="/" class="nav-logo" aria-label="AO Home">
+        <i class="ico ico-ao-logo" aria-hidden="true"></i>
+      </a>
+      <button class="nav-icon" type="button" aria-label="Open menu">
+        <i class="ico ico-menu nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Menu</span>
+      </button>
+      <div class="nav-mobile-spacer"></div>
+      <a href="/account" class="nav-icon">
+        <i class="ico ico-account nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Sign In</span>
+      </a>
+      <a href="/basket" class="nav-icon nav-icon--badge" data-count="1" aria-label="Basket — 1 item">
+        <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Basket</span>
+      </a>
+    </nav>
+    <div class="nav-search nav-search--mobile">
+      <label for="search-mobile" class="visually-hidden">Search products</label>
+      <input id="search-mobile" class="nav-search-input" type="search" placeholder="Search products, brands or advice">
+      <button class="nav-search-btn" type="submit" aria-label="Search"><i class="ico ico-search" aria-hidden="true"></i></button>
+    </div>
+
+    <!-- Desktop -->
+    <div class="nav-desktop">
+      <a href="/" class="nav-logo nav-logo--lg" aria-label="AO Home">
+        <i class="ico ico-ao-logo" aria-hidden="true"></i>
+      </a>
+      <div class="nav-desktop-right">
+        <div class="nav-desktop-top">
+          <div class="nav-search">
+            <label for="search-desktop" class="visually-hidden">Search products</label>
+            <input id="search-desktop" class="nav-search-input" type="search" placeholder="Search products, brands or advice">
+            <button class="nav-search-btn" type="submit"><i class="ico ico-search" aria-hidden="true"></i> Let's Go!</button>
+          </div>
+          <div class="nav-desktop-icons">
+            <a href="/track" class="nav-icon"><i class="ico ico-track-your-order nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Track Order</span></a>
+            <a href="/account" class="nav-icon"><i class="ico ico-account nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Sign In</span></a>
+            <a href="/basket" class="nav-icon nav-icon--badge" data-count="1" aria-label="Basket — 1 item"><i class="ico ico-basket nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Basket</span></a>
+          </div>
+        </div>
+        <nav class="nav-categories" aria-label="Categories">
+          <a href="/appliances">Appliances</a>
+          <a href="/tv">TV &amp; Audio</a>
+          <a href="/computing">Computing &amp; Gaming</a>
+          <a href="/mobile">Mobile Phones</a>
+          <a href="/smart-tech">Smart Tech</a>
+          <a href="/floorcare">Floorcare</a>
+          <a href="/deals" class="nav-categories-deals">Deals</a>
+          <a href="/membership">AO Membership</a>
+          <a href="/help" class="nav-categories-help">Help &amp; Advice</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="nav-accent"></div>
+    <div class="nav-proposition" aria-label="Service propositions">
+      <span class="nav-proposition-item"><i class="ico ico-price-match-gbp" aria-hidden="true"></i> Price Match Guarantee</span>
+      <span class="nav-proposition-item"><i class="ico ico-next-day-delivery" aria-hidden="true"></i> Next day delivery, 7 days a week</span>
+      <span class="nav-proposition-item"><i class="ico ico-five-star-approved" aria-hidden="true"></i> Rated Excellent</span>
+      <span class="nav-proposition-item"><i class="ico ico-five-star-membership" aria-hidden="true"></i> Join AO Five Star Membership and save</span>
+      <span class="nav-proposition-item"><i class="ico ico-finance-gbp" aria-hidden="true"></i> Pay with AO Finance</span>
+    </div>
+  </header>
+
+  <!-- ──────────────────────────────────────────
+       MAIN
+       ────────────────────────────────────────── -->
+  <main>
+    <div class="page-intro">
+      <h1 class="t-display-lg">Buttons and form fields</h1>
+      <p class="t-body">An example page showing the core interactive building blocks from the AO kit — button variants, sizes, and the accessibility-wired field pattern.</p>
+    </div>
+
+    <!-- BUTTONS ──────────────────────────── -->
+    <section aria-labelledby="buttons-heading">
+      <div class="section-head">
+        <h2 id="buttons-heading" class="t-display">Buttons</h2>
+        <span class="t-caption">Variants</span>
+      </div>
+
+      <div class="stack">
+        <div class="row">
+          <button class="btn btn-primary" type="button" data-aods="button">Add to basket</button>
+          <button class="btn btn-secondary" type="button" data-aods="button">View details</button>
+          <button class="btn btn-tertiary" type="button" data-aods="button">Compare</button>
+          <button class="btn btn-inactive" type="button" data-aods="button" disabled>Out of stock</button>
+        </div>
+
+        <div class="row">
+          <button class="btn btn-primary btn-lg" type="button" data-aods="button">Continue to checkout</button>
+          <button class="btn btn-secondary btn-sm" type="button" data-aods="button">Save for later</button>
+        </div>
+
+        <div class="surface-dark">
+          <h3 class="t-title" style="color: var(--ui-dark-contrast); margin-bottom: 0.75rem;">On dark surface</h3>
+          <div class="row">
+            <button class="btn btn-white" type="button" data-aods="button">Continue</button>
+            <button class="btn btn-dark" type="button" data-aods="button" style="background:#fff; color: var(--type-primary); border-color:#fff;">Sign in</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM FIELDS ──────────────────────────── -->
+    <section aria-labelledby="form-heading">
+      <div class="section-head">
+        <h2 id="form-heading" class="t-display">Form fields</h2>
+        <span class="t-caption">Field · Label · Input · Message</span>
+      </div>
+
+      <form class="stack" novalidate>
+        <div class="field" data-aods="field">
+          <label class="field-label" for="full-name">Full name</label>
+          <input class="field-input" id="full-name" type="text" placeholder="Alex Rivera" autocomplete="name">
+          <p class="field-msg is-helper">As it appears on your bank card.</p>
+        </div>
+
+        <div class="field" data-aods="field">
+          <label class="field-label field-label-required" for="email">Email address</label>
+          <input class="field-input is-success" id="email" type="email" value="alex@example.com" autocomplete="email">
+          <p class="field-msg is-success">Valid email address.</p>
+        </div>
+
+        <div class="field" data-aods="field">
+          <label class="field-label field-label-required" for="phone">Phone number</label>
+          <input class="field-input is-error" id="phone" type="tel" value="07-bad-number"
+                 aria-invalid="true" aria-describedby="phone-msg" autocomplete="tel">
+          <p class="field-msg is-error" id="phone-msg">Enter a valid UK mobile or landline number.</p>
+        </div>
+
+        <div class="field" data-aods="field">
+          <label class="field-label" for="delivery">Delivery option</label>
+          <div class="field-select-wrap">
+            <select class="field-input" id="delivery">
+              <option value="">Choose delivery option</option>
+              <option value="standard">Standard (3–5 days) — Free</option>
+              <option value="express" selected>Express (next day) — £5.99</option>
+              <option value="named">Named day — £7.99</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field" data-aods="field">
+          <label class="field-label" for="notes">Delivery notes</label>
+          <textarea class="field-input" id="notes" rows="3" placeholder="Additional instructions for the driver"></textarea>
+          <p class="field-msg is-helper">Optional — let us know if there's anything we should be aware of.</p>
+        </div>
+
+        <fieldset class="field" data-aods="radio-button-group" style="border:0; padding:0; margin:0;">
+          <legend class="field-label" style="padding:0; margin-bottom: 0.5rem;">Contact preference</legend>
+          <div class="toggle-group">
+            <label class="toggle-item" data-aods="radio-button">
+              <input type="radio" name="contact" value="email" checked>
+              <div class="toggle-item-body">
+                <div class="toggle-item-label">Email me updates</div>
+                <div class="toggle-item-sub">We'll send a confirmation and tracking link.</div>
+              </div>
+            </label>
+            <label class="toggle-item" data-aods="radio-button">
+              <input type="radio" name="contact" value="sms">
+              <div class="toggle-item-body">
+                <div class="toggle-item-label">Text message</div>
+                <div class="toggle-item-sub">Quick updates on the day of delivery.</div>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="toggle-item" data-aods="checkbox" style="max-width: 480px;">
+          <input type="checkbox" name="marketing" value="yes">
+          <div class="toggle-item-body">
+            <div class="toggle-item-label">Send me AO deals and offers</div>
+            <div class="toggle-item-sub">You can unsubscribe any time.</div>
+          </div>
+        </label>
+
+        <div class="row" style="margin-top: 0.5rem;">
+          <button class="btn btn-primary" type="submit" data-aods="button">Save details</button>
+          <button class="btn btn-tertiary" type="button" data-aods="button">Cancel</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+</body>
+</html>

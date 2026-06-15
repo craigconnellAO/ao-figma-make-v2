@@ -25,7 +25,6 @@ What's inside:
 | [`kit/patterns.md`](./kit/patterns.md) | Page-level recipes (sign in, basket, PDP, validated form) |
 | [`kit/anti-patterns.md`](./kit/anti-patterns.md) | The refuse-and-replace list — what Make should *never* output |
 | [`kit/tokens.json`](./kit/tokens.json) | DTCG tokens — useful for wiring Figma variables or sharing with engineering |
-| [`kit/screenshots/`](./kit/screenshots/) | Visual references — drag these in alongside prompts for visual matching |
 
 ### 2. Paste the master prompt
 
@@ -77,15 +76,20 @@ ao-figma-make-v2/
 │   ├── components.md
 │   ├── patterns.md
 │   ├── anti-patterns.md
-│   ├── tokens.json
-│   └── screenshots/
-└── examples/             ← open these in a browser to see the system rendered
-    ├── productPage.html
-    ├── componentLibrary.html
-    └── patternsGallery.html
+│   └── tokens.json
+├── output/               ← open these in a browser to see the system rendered
+│   ├── examples/         ← stable, polished showcases
+│   │   ├── productPage.html
+│   │   ├── componentLibrary.html
+│   │   ├── patternsGallery.html
+│   │   └── …
+│   └── prototypes/       ← in-progress explorations
+│       ├── checkout-flow.html
+│       ├── login-flow.html
+│       ├── bottom-sheet-variants.html
+│       └── trust-bridge-prototype.html
+└── tests/                ← token consistency and preservation tests
 ```
-
-> `examples/` is a symlink to the working folder one level up. When pushing this kit to GitHub, either commit the symlink (Git preserves it) or replace it with a copy of the HTML files for cross-platform safety.
 
 ---
 

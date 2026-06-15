@@ -14,6 +14,7 @@ This workspace is a design system kit for **Figma Make** (Figma's AI code-genera
 - Semantic HTML (`<nav>`, `<main>`, `<section>`, `<button>`, `<label>`)
 - Mobile-first layout with breakpoints: `sm: 544px`, `md: 768px`, `lg: 990px`, `xl: 1200px`
 - Every generated stylesheet includes the `:root` token block from `kit/tokens.md` and the `@font-face` block from `kit/typography.md`
+- Every generated HTML includes the Strata icons stylesheet: `<link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">`
 
 ## Token Rules (Non-Negotiable)
 
@@ -66,6 +67,7 @@ Before producing output, check against `kit/anti-patterns.md`. Key refusals:
 |---|---|
 | `kit/tokens.md` | Choosing any colour, spacing, radius, or shadow value |
 | `kit/typography.md` | Setting font, size, weight, or line-height |
+| `kit/icons.md` | Using any icon — class names, sizes, accessibility rules |
 | `kit/components.md` | Building any UI component (buttons, inputs, cards, etc.) |
 | `kit/patterns.md` | Assembling a full page layout (PDP, basket, sign-in, etc.) |
 | `kit/anti-patterns.md` | Validating output doesn't violate system rules |

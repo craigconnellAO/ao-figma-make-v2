@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design System — Visual Example</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --brand-primary-base: #12c35a; --brand-primary-light: #befcc8; --brand-primary-dark: #02422b;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+      --action-primary-base: #00893e; --action-primary-hover: #00560b;
+      --action-primary-active: #003d00; --action-primary-contrast: #ffffff;
+      --action-primary-glow: #12c35a;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --action-secondary-contrast: #ffffff;
+      --action-inactive-base: #727677; --action-inactive-contrast: #ffffff;
+      --ui-core-base: #ffffff; --ui-core-contrast: #212121; --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2; --ui-neutral-contrast: #212121; --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6; --ui-warning-contrast: #ad5a00; --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6; --ui-error-contrast: #b50016; --ui-error-accent: #b50016;
+      --palette-bread: #ffe3c2; --palette-toast: #ffa878; --palette-jam: #422439;
+      --palette-simmer: #ffd8d2; --palette-heat: #f96155; --palette-burn: #60222f;
+      --palette-steam: #c8d1ff; --palette-ice: #4a6dce; --palette-water: #011f44;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
+      --shadow: 0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+
+    /* ─── Type ─────────────────────────────────────────── */
+    .t-display    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;    line-height: 1.15; color: var(--type-primary); }
+    .t-title-lg   { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; line-height: 1.2;  color: var(--type-primary); }
+    .t-title      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; line-height: 1.25; color: var(--type-primary); }
+    .t-body       { font-size: 1rem;    line-height: 1.5; }
+    .t-body-sm    { font-size: 0.875rem; line-height: 1.45; }
+    .t-caption    { font-size: 0.75rem; line-height: 1.4; color: var(--type-tertiary); }
+    .t-secondary  { color: var(--type-tertiary); }
+
+    /* ─── Nav ───────────────────────────────────────────── */
+    .nav {
+      background: var(--type-primary);
+      padding: 0.875rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 20;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-logo {
+      display: flex; align-items: center; text-decoration: none;
+    }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms ease-out; }
+    .nav-links a:hover { color: #fff; }
+    .nav-end { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-basket {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--action-primary-base); color: #fff;
+      border: none; border-radius: var(--radius-sm);
+      padding: 0.5rem 1.125rem;
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
+      cursor: pointer; transition: background 150ms ease-out;
+    }
+    .nav-basket:hover { background: var(--action-primary-hover); }
+
+    /* ─── Page ──────────────────────────────────────────── */
+    .page { max-width: 1140px; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
+
+    /* ─── Breadcrumb ────────────────────────────────────── */
+    .crumb { display: flex; gap: 0.375rem; align-items: center; list-style: none; margin-bottom: 1.5rem; }
+    .crumb li { display: flex; align-items: center; gap: 0.375rem; }
+    .crumb a { color: var(--action-secondary-base); text-decoration: none; font-size: 0.8125rem; }
+    .crumb a:hover { text-decoration: underline; }
+    .crumb span { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .crumb-sep { color: var(--gray-60); font-size: 0.75rem; }
+
+    /* ─── Product grid ──────────────────────────────────── */
+    .product-grid { display: grid; grid-template-columns: 480px 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 900px) { .product-grid { grid-template-columns: 1fr; } }
+
+    /* ─── Image pane ────────────────────────────────────── */
+    .img-pane {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .img-pane::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 35% 30%, var(--ui-highlight-base) 0%, transparent 65%);
+    }
+    .img-placeholder { position: relative; text-align: center; color: var(--gray-60); }
+    .img-placeholder-icon { font-size: 5rem; display: block; margin-bottom: 0.75rem; }
+    .img-thumbs { display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: center; }
+    .img-thumb {
+      width: 52px; height: 52px; border-radius: var(--radius-xs);
+      border: 2px solid transparent; background: var(--gray-10); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+      transition: border-color 150ms ease-out;
+    }
+    .img-thumb.active { border-color: var(--action-secondary-base); }
+    .img-thumb:hover { border-color: var(--gray-50); }
+
+    /* ─── Detail pane ───────────────────────────────────── */
+    .detail { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    /* Tags */
+    .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4; border: 1px solid transparent;
+    }
+    .tag-success  { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .tag-highlight{ background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral  { background: var(--ui-neutral-base);   color: var(--type-secondary);        border-color: var(--gray-40); }
+    .tag-warning  { background: var(--ui-warning-base);   color: var(--ui-warning-contrast);   border-color: var(--ui-warning-accent); }
+    .tag-error    { background: var(--ui-error-base);     color: var(--ui-error-contrast);     border-color: var(--ui-error-accent); }
+
+    /* Rating */
+    .rating { display: flex; align-items: center; gap: 0.5rem; }
+    .stars { color: #f59e0b; letter-spacing: -0.05em; }
+    .rating a { color: var(--action-secondary-base); text-decoration: none; font-size: 0.875rem; }
+    .rating a:hover { text-decoration: underline; }
+
+    /* Price */
+    .price-block {
+      border-top: 1px solid var(--gray-30); border-bottom: 1px solid var(--gray-30);
+      padding: 1rem 0;
+    }
+    .price-main { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2.75rem; color: var(--type-primary); line-height: 1; }
+    .price-finance { font-size: 0.875rem; color: var(--type-tertiary); margin-top: 0.25rem; }
+    .price-finance strong { color: var(--action-secondary-base); font-weight: 500; }
+
+    /* Delivery checklist */
+    .delivery { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .delivery li { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .delivery-tick {
+      flex-shrink: 0; width: 20px; height: 20px; margin-top: 1px;
+      border-radius: 50%; background: var(--ui-success-base);
+      border: 1px solid var(--ui-success-accent); display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; color: var(--ui-success-accent);
+    }
+
+    /* Qty */
+    .qty-row { display: flex; align-items: center; gap: 1rem; }
+    .qty-control {
+      display: flex; align-items: stretch;
+      border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .qty-btn {
+      width: 40px; height: 40px; background: var(--gray-10); border: none;
+      font-size: 1.25rem; color: var(--type-secondary); cursor: pointer;
+      transition: background 150ms ease-out; display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--gray-20); }
+    .qty-val {
+      width: 48px; text-align: center; font-size: 1rem; font-weight: 500;
+      line-height: 40px; color: var(--type-primary);
+      border-left: 1px solid var(--gray-40); border-right: 1px solid var(--gray-40);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer;
+      transition: background 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out, box-shadow 150ms ease-out;
+      text-decoration: none; white-space: nowrap; letter-spacing: 0.01em;
+    }
+    .btn svg { flex-shrink: 0; }
+    .btn-primary   { background: var(--action-primary-base);   color: #fff; border-color: var(--action-primary-base); }
+    .btn-primary:hover { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-primary:focus-visible { outline: 3px solid var(--action-primary-glow); outline-offset: 2px; }
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); }
+    .btn-secondary:focus-visible { outline: 3px solid var(--action-secondary-base); outline-offset: 2px; }
+    .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-white     { background: #fff; color: var(--type-primary); border-color: #fff; }
+    .btn-dark      { background: var(--type-primary); color: #fff; border-color: var(--type-primary); }
+    .btn-dark:hover { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
+    .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
+    .btn-lg        { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-full      { width: 100%; }
+
+    .cta-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    /* Notice */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+    }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
+    .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
+    .notice-warning   { background: var(--palette-bread);     color: var(--type-secondary); }
+    .notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast); }
+    .notice-icon { flex-shrink: 0; }
+
+    /* ─── Lower ─────────────────────────────────────────── */
+    .lower { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .lower { grid-template-columns: 1fr; } }
+
+    /* Specs */
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table th {
+      text-align: left; padding: 0.625rem 1rem;
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--type-tertiary); background: var(--gray-10);
+      border-bottom: 1px solid var(--gray-30);
+    }
+    .spec-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--gray-30); font-size: 0.9375rem; }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table tr:nth-child(even) td { background: var(--gray-10); }
+    .spec-label { color: var(--type-tertiary); }
+    .spec-val { color: var(--type-primary); font-weight: 500; }
+
+    /* Card */
+    .card {
+      background: #fff; border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md); overflow: hidden;
+    }
+    .card-body { padding: 1.5rem; }
+    .card-raised { box-shadow: var(--shadow-md); }
+
+    /* Form */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 1rem; }
+    .field:last-of-type { margin-bottom: 0; }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
+    .field-input {
+      height: 48px;
+      padding: 0 0.875rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
+      background: #fff; outline: none;
+      transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
+    }
+    .field-input:focus { border-color: var(--action-secondary-base); box-shadow: 0 0 0 3px rgba(5,100,194,0.15); }
+    .field-input.is-error   { border-color: var(--ui-error-accent);   background: var(--ui-error-base); }
+    .field-input.is-success { border-color: var(--ui-success-accent); background: var(--ui-success-base); }
+    .field-msg { font-size: 0.8125rem; }
+    .field-msg.is-error   { color: var(--ui-error-contrast); }
+    .field-msg.is-success { color: var(--ui-success-contrast); }
+
+    /* ─── Token strip ────────────────────────────────────── */
+    .token-strip {
+      background: var(--type-primary); border-radius: var(--radius-md);
+      padding: 2.5rem; margin-top: 3rem;
+    }
+    .strip-title {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1.25rem; color: var(--brand-primary-base); margin-bottom: 2rem;
+    }
+    .strip-section { margin-bottom: 1.75rem; }
+    .strip-label {
+      font-size: 0.625rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-bottom: 0.625rem;
+    }
+    .swatch-row { display: flex; gap: 0.375rem; flex-wrap: wrap; }
+    .swatch {
+      flex: 1; min-width: 40px; max-width: 72px;
+      border-radius: var(--radius-xs); overflow: hidden;
+    }
+    .swatch-chip { height: 36px; }
+    .swatch-name { font-size: 0.5rem; color: rgba(255,255,255,0.4); padding-top: 0.25rem; line-height: 1.3; }
+
+    .component-showcase { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+    .component-showcase-col { display: flex; flex-direction: column; gap: 0.5rem; }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .page { padding: 1rem; }
+      .nav { padding: 0.75rem 1rem; }
+      .nav-links { display: none; }
+      .t-display { font-size: 1.5rem; }
+      .price-main { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ──────────────────────────────────────── -->
+<nav class="nav" data-aods="nav">
+  <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
+  <ul class="nav-links">
+    <li><a href="#">Washing Machines</a></li>
+    <li><a href="#">Dishwashers</a></li>
+    <li><a href="#">Fridge Freezers</a></li>
+    <li><a href="#">Tumble Dryers</a></li>
+  </ul>
+  <div class="nav-end">
+    <button class="nav-basket" data-aods="button">
+      <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Basket (2)
+    </button>
+  </div>
+</nav>
+
+<main class="page">
+
+  <!-- ─── Breadcrumb ──────────────────────────────────────── -->
+  <nav aria-label="Breadcrumbs">
+    <ol class="crumb t-body-sm">
+      <li><a href="#">Home</a><span class="crumb-sep"> › </span></li>
+      <li><a href="#">Washing Machines</a><span class="crumb-sep"> › </span></li>
+      <li><span>Samsung Series 5</span></li>
+    </ol>
+  </nav>
+
+  <!-- ─── Product ─────────────────────────────────────────── -->
+  <div class="product-grid">
+
+    <!-- Image -->
+    <div>
+      <div class="img-pane">
+        <div class="img-placeholder">
+          <span class="img-placeholder-icon">🫧</span>
+          <span class="t-body-sm t-secondary">Product image</span>
+        </div>
+      </div>
+      <div class="img-thumbs">
+        <div class="img-thumb active">🫧</div>
+        <div class="img-thumb">🔍</div>
+        <div class="img-thumb">📐</div>
+        <div class="img-thumb">⚡</div>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="detail">
+      <div class="tags">
+        <span class="tag tag-success" data-aods="tag"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> In stock</span>
+        <span class="tag tag-highlight" data-aods="tag">Free delivery</span>
+        <span class="tag tag-neutral" data-aods="tag">A+++ rated</span>
+      </div>
+
+      <h1 class="t-display">Samsung Series 5 9kg 1400rpm Washing Machine</h1>
+      <p class="t-body-sm t-secondary">Model WW90T4540AE/EU · White</p>
+
+      <div class="rating">
+        <span class="stars">★★★★★</span>
+        <span class="t-body-sm t-secondary">4.8</span>
+        <a href="#" class="t-body-sm">Read 1,247 reviews</a>
+      </div>
+
+      <div class="price-block">
+        <div class="price-main">£499</div>
+        <div class="price-finance">or from <strong>£20.79/month</strong> interest-free with AO Finance</div>
+      </div>
+
+      <ul class="delivery t-body-sm">
+        <li>
+          <i class="ico ico-tick ico-xs delivery-tick" aria-hidden="true"></i>
+          <div>
+            <div style="color:var(--type-secondary);">Free next-day delivery</div>
+            <div class="t-caption">Order before midnight — delivered tomorrow</div>
+          </div>
+        </li>
+        <li>
+          <i class="ico ico-tick ico-xs delivery-tick" aria-hidden="true"></i>
+          <div>
+            <div style="color:var(--type-secondary);">Free recycling of your old machine</div>
+            <div class="t-caption">We collect it on delivery</div>
+          </div>
+        </li>
+        <li>
+          <i class="ico ico-tick ico-xs delivery-tick" aria-hidden="true"></i>
+          <div>
+            <div style="color:var(--type-secondary);">2-year AO guarantee included</div>
+            <div class="t-caption">Extend to 5 years for £59</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="qty-row">
+        <span class="t-body-sm t-secondary">Quantity</span>
+        <div class="qty-control" data-aods="quantity">
+          <button class="qty-btn" aria-label="Decrease">−</button>
+          <span class="qty-val">1</span>
+          <button class="qty-btn" aria-label="Increase">+</button>
+        </div>
+      </div>
+
+      <div class="cta-stack">
+        <button class="btn btn-primary btn-lg btn-full" data-aods="button">
+          <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Add to basket
+        </button>
+        <button class="btn btn-secondary btn-full" data-aods="button">
+          <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Save to wishlist
+        </button>
+      </div>
+
+      <div class="notice notice-highlight" role="note">
+        <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+        <div>
+          <strong>Professional installation available.</strong>
+          Add fitting for £69 and our engineers will install, level, and test your machine.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Lower section ───────────────────────────────────── -->
+  <div class="lower">
+
+    <!-- Specs -->
+    <div>
+      <h2 class="t-title-lg" style="margin-bottom:1rem;">Key specifications</h2>
+      <div class="card">
+        <table class="spec-table">
+          <thead>
+            <tr><th>Feature</th><th>Detail</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="spec-label">Capacity</td><td class="spec-val">9 kg</td></tr>
+            <tr><td class="spec-label">Spin speed</td><td class="spec-val">1,400 rpm</td></tr>
+            <tr><td class="spec-label">Energy rating</td><td class="spec-val">A+++</td></tr>
+            <tr><td class="spec-label">Annual energy use</td><td class="spec-val">152 kWh</td></tr>
+            <tr><td class="spec-label">Noise (washing)</td><td class="spec-val">47 dB</td></tr>
+            <tr><td class="spec-label">Noise (spinning)</td><td class="spec-val">74 dB</td></tr>
+            <tr><td class="spec-label">Dimensions (H×W×D)</td><td class="spec-val">85 × 60 × 55 cm</td></tr>
+            <tr><td class="spec-label">Colour</td><td class="spec-val">White</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Validation states demo -->
+      <h2 class="t-title-lg" style="margin-top:2rem;margin-bottom:1rem;">Validation states</h2>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;">
+        <div class="notice notice-success" role="status"><i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i> Delivery confirmed for tomorrow, 8am–6pm</div>
+        <div class="notice notice-warning" role="note"><i class="ico ico-warning notice-icon" aria-hidden="true"></i> Installation slots are limited this week. Book early.</div>
+        <div class="notice notice-error" role="alert"><i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i> Your payment was declined. Check your card details and try again.</div>
+        <div class="notice notice-highlight" role="note"><i class="ico ico-info notice-icon" aria-hidden="true"></i> Price dropped £30 since you last viewed this product.</div>
+      </div>
+    </div>
+
+    <!-- Sidebar: form + button showcase -->
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+
+      <!-- Check delivery -->
+      <div class="card card-raised">
+        <div class="card-body">
+          <h3 class="t-title" style="margin-bottom:1.25rem;">Check delivery</h3>
+
+          <div class="field">
+            <label class="field-label" for="postcode">Postcode</label>
+            <input class="field-input" id="postcode" type="text" placeholder="e.g. M1 1AA">
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="email">Email for updates</label>
+            <input class="field-input is-success" id="email" type="email" value="craig@example.com">
+            <p class="field-msg is-success"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Valid email address</p>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="phone">Phone number</label>
+            <input class="field-input is-error" id="phone" type="tel" value="0777" aria-invalid="true" aria-describedby="phone-msg">
+            <p class="field-msg is-error" id="phone-msg">Enter a valid UK mobile or landline number</p>
+          </div>
+
+          <button class="btn btn-primary btn-full" style="margin-top:0.5rem;" data-aods="button">
+            Check availability
+            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Button variants -->
+      <div class="card">
+        <div class="card-body">
+          <h3 class="t-title" style="margin-bottom:1rem;">Button variants</h3>
+          <div style="display:flex;flex-direction:column;gap:0.625rem;">
+            <button class="btn btn-primary btn-full" data-aods="button">
+              <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              Primary — Add to basket
+            </button>
+            <button class="btn btn-secondary btn-full" data-aods="button">
+              Secondary — Compare
+              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <button class="btn btn-tertiary btn-full" data-aods="button">
+              Tertiary — View details
+              <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <button class="btn btn-dark btn-full" data-aods="button">
+              <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Dark — Sign in
+            </button>
+            <button class="btn btn-inactive btn-full" data-aods="button" disabled>Inactive — Out of stock</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ─── Token preview ────────────────────────────────────── -->
+  <div class="token-strip">
+    <div class="strip-title">AO Design System — Token Reference</div>
+
+    <div class="strip-section">
+      <div class="strip-label">Brand + Action (Green)</div>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-chip" style="background:#12c35a;"></div><div class="swatch-name">brand-primary-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#00893e;"></div><div class="swatch-name">action-primary-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#00560b;"></div><div class="swatch-name">action-primary-hover</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#02422b;"></div><div class="swatch-name">brand-primary-dark</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#befcc8;"></div><div class="swatch-name">brand-primary-light</div></div>
+      </div>
+    </div>
+
+    <div class="strip-section">
+      <div class="strip-label">Action (Blue) + Type</div>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-chip" style="background:#0564c2;"></div><div class="swatch-name">action-secondary-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#00318f;"></div><div class="swatch-name">action-secondary-hover</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#40a1f8;"></div><div class="swatch-name">action-secondary-glow</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#011f44;"></div><div class="swatch-name">type-primary</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#212121;"></div><div class="swatch-name">type-secondary</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#595d5e;"></div><div class="swatch-name">type-tertiary</div></div>
+      </div>
+    </div>
+
+    <div class="strip-section">
+      <div class="strip-label">Food Palette — Decorative Only</div>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-chip" style="background:#ffe3c2;"></div><div class="swatch-name">bread</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#ffa878;"></div><div class="swatch-name">toast</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#422439;"></div><div class="swatch-name">jam</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#ffd8d2;"></div><div class="swatch-name">simmer</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#f96155;"></div><div class="swatch-name">heat</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#60222f;"></div><div class="swatch-name">burn</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#c8d1ff;"></div><div class="swatch-name">steam</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#4a6dce;"></div><div class="swatch-name">ice</div></div>
+      </div>
+    </div>
+
+    <div class="strip-section">
+      <div class="strip-label">Neutrals</div>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-chip" style="background:#f8f9fa;border:1px solid rgba(255,255,255,0.1);"></div><div class="swatch-name">gray-10</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#f0f2f2;"></div><div class="swatch-name">gray-20</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#e2e7e8;"></div><div class="swatch-name">gray-30</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#d6dddf;"></div><div class="swatch-name">gray-40</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#c1c7c9;"></div><div class="swatch-name">gray-50</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#abb1b4;"></div><div class="swatch-name">gray-60</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#727677;"></div><div class="swatch-name">gray-70</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#595d5e;"></div><div class="swatch-name">gray-80</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#3f4344;"></div><div class="swatch-name">gray-90</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#212121;"></div><div class="swatch-name">gray-100</div></div>
+      </div>
+    </div>
+
+    <div class="strip-section" style="margin-bottom:0;">
+      <div class="strip-label">UI Semantic States</div>
+      <div class="swatch-row">
+        <div class="swatch"><div class="swatch-chip" style="background:#f4fce3;"></div><div class="swatch-name">success-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#00893e;"></div><div class="swatch-name">success-accent</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#fff4e6;"></div><div class="swatch-name">warning-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#ff9e36;"></div><div class="swatch-name">warning-accent</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#fff0f6;"></div><div class="swatch-name">error-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#b50016;"></div><div class="swatch-name">error-accent</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#edf2ff;"></div><div class="swatch-name">highlight-base</div></div>
+        <div class="swatch"><div class="swatch-chip" style="background:#00318f;"></div><div class="swatch-name">highlight-accent</div></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script type="module" src="../../kit/agentation-loader.js"></script>
+</body>
+</html>

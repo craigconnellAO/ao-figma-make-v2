@@ -45,7 +45,7 @@ Components, in order:
 <!-- Sizes -->
 <button class="btn btn-primary btn-lg" data-aods="button">Add to basket</button>
 <button class="btn btn-primary btn-full" data-aods="button">Checkout</button>
-<button class="btn btn-tertiary btn-icon" data-aods="button" aria-label="Close">✕</button>
+<button class="btn btn-tertiary btn-icon" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
 ```
 
 ### CSS
@@ -53,7 +53,7 @@ Components, in order:
 ```css
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  padding: 0.6875rem 1.5rem; border-radius: var(--radius-sm);
+  padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
   font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
   border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
   transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
@@ -79,8 +79,8 @@ Components, in order:
 
 .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
 
-.btn-lg   { padding: 0.9375rem 2rem; font-size: 1.0625rem; }
-.btn-sm   { padding: 0.4375rem 1rem; font-size: 0.875rem; }
+.btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+.btn-sm   { padding: 0.6875rem 1rem; font-size: 0.875rem; }
 .btn-icon { padding: 0.6875rem; }
 .btn-full { width: 100%; }
 ```
@@ -129,11 +129,12 @@ The accessibility-wired form pattern. Always wrap an input in a `.field` so the 
 
 ```css
 .field { display: flex; flex-direction: column; gap: 0.25rem; }
-.field-label { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); }
+.field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
 .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
 
 .field-input {
-  padding: 0.6875rem 0.875rem;
+  height: 48px;
+  padding: 0 0.875rem;
   border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
   font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
   background: #fff; outline: none; width: 100%;
@@ -341,15 +342,31 @@ The selected/recommended plan pattern. **Blue theme — never green.** Green is 
 /* Item — default (square card) */
 .toggle-item {
   position: relative;
-  display: flex; align-items: flex-start; gap: 0.625rem;
-  padding: 0.75rem 0.875rem; border-radius: var(--radius-sm);
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 1rem 1.125rem; border-radius: var(--radius-sm);
   border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
   transition: border-color 150ms, background 150ms, box-shadow 150ms;
 }
-.toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 0.875rem 1rem; }
+.toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 1rem 1.25rem; }
 
-/* Input — accent colour drives the dot/check */
-.toggle-item input { accent-color: var(--action-secondary-base); width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; }
+/* Input — custom radio/checkbox styling (blue selection theme) */
+.toggle-item input {
+  appearance: none; -webkit-appearance: none;
+  width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+  border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+}
+.toggle-item input[type="radio"] { border-radius: 50%; }
+.toggle-item input[type="checkbox"] { border-radius: var(--radius-xs); }
+.toggle-item input:checked {
+  border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+  background-size: 14px; background-position: center; background-repeat: no-repeat;
+}
+.toggle-item input[type="radio"]:checked {
+  background-image: none;
+  box-shadow: inset 0 0 0 4px #fff;
+}
 
 /* Body */
 .toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
@@ -456,29 +473,29 @@ Pill badges for status, categories, labels.
 
 ## 7 · Notice
 
-Inline alerts for info, success, warning, error. Smaller than a Card; sits in-flow.
+Inline feedback banners for info, success, warning, error. Single-line format: **bold title** followed by regular body text. Vertically centred icon + text. Sits in-flow, smaller than a Card.
 
 ### HTML
 
 ```html
-<div class="notice notice-highlight" role="note" data-aods="notice">
-  <i class="notice-icon" aria-hidden="true">ℹ</i>
-  <div><strong>Free delivery</strong> on orders over £50.</div>
+<div class="notice notice-success" role="status" data-aods="notice">
+  <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
+  <div><strong>Delivery confirmed.</strong> Your order will arrive tomorrow between 8am and 6pm.</div>
 </div>
 
-<div class="notice notice-success" role="status" data-aods="notice">
-  <i class="notice-icon" aria-hidden="true">✓</i>
-  Delivery confirmed for tomorrow, 8am–6pm.
+<div class="notice notice-highlight" role="note" data-aods="notice">
+  <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+  <div><strong>Professional installation available.</strong> Add fitting for £69 and our engineers will install and test your machine.</div>
 </div>
 
 <div class="notice notice-warning" role="note" data-aods="notice">
-  <i class="notice-icon" aria-hidden="true">⚠</i>
-  Installation slots are limited this week. Book early.
+  <i class="ico ico-warning notice-icon" aria-hidden="true"></i>
+  <div><strong>Only 3 left in stock.</strong> Installation slots for this week are filling up fast.</div>
 </div>
 
 <div class="notice notice-error" role="alert" data-aods="notice">
-  <i class="notice-icon" aria-hidden="true">✗</i>
-  Your payment was declined. Check your card details and try again.
+  <i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i>
+  <div><strong>Payment declined.</strong> Check your card details and try again, or use a different payment method.</div>
 </div>
 ```
 
@@ -486,21 +503,44 @@ Inline alerts for info, success, warning, error. Smaller than a Card; sits in-fl
 
 ```css
 .notice {
-  display: flex; gap: 0.75rem; align-items: flex-start;
-  padding: 0.75rem; border-radius: var(--radius-sm);
-  font-size: 0.75rem;
+  display: flex; gap: 0.75rem; align-items: center;
+  padding: 1rem 1.25rem; border-radius: var(--radius-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem; line-height: 1.625;
 }
-.notice-icon { flex-shrink: 0; font-style: normal; font-weight: 600; }
-.notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
-.notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
-.notice-warning   { background: var(--palette-bread);     color: var(--type-secondary); }
-.notice-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast); }
+.notice-icon { flex-shrink: 0; font-size: 1.125rem; line-height: 1; }
+
+.notice-success   { background: var(--ui-success-base); color: var(--type-secondary); }
+.notice-success .notice-icon { color: var(--action-primary-base); }
+
+.notice-highlight { background: var(--ui-highlight-base); color: var(--type-secondary); }
+.notice-highlight .notice-icon { color: var(--action-secondary-base); }
+
+.notice-warning   { background: var(--ui-warning-base); color: var(--type-secondary); }
+.notice-warning .notice-icon { color: var(--ui-warning-accent); }
+
+.notice-error     { background: var(--ui-error-base); color: var(--type-secondary); }
+.notice-error .notice-icon { color: var(--ui-error-accent); }
+
+.notice strong    { font-weight: 700; color: var(--type-primary); }
 ```
+
+### Icons per variant
+
+| Variant | Icon class | Colour token |
+|---------|-----------|--------------|
+| `notice-success` | `ico-tick-circle` | `--action-primary-base` (green) |
+| `notice-highlight` | `ico-info` | `--action-secondary-base` (blue) |
+| `notice-warning` | `ico-warning` | `--ui-warning-accent` (orange) |
+| `notice-error` | `ico-cancel-circle` | `--ui-error-accent` (red) |
 
 ### Rules
 
 - `role="alert"` for errors (assertive announcement). `role="status"` for confirmations. `role="note"` for everything else.
-- Keep notices to one sentence. If you need more, you need a Card.
+- Text format: **Bold statement.** Followed by supporting detail in regular weight — all on one line.
+- Keep notices to one or two sentences max. If you need more, use a Card.
+- Icons are vertically centred with the text, not top-aligned.
+- Background colours use the semantic `ui-*` surface tokens. Icon colour matches the variant's accent.
 
 ---
 
@@ -568,7 +608,7 @@ The default surface. 16px radius, 1px border, 24px padding. Use `card-raised` fo
 ```css
 .crumb { display: flex; gap: 0.375rem; align-items: center; list-style: none; }
 .crumb li { display: flex; align-items: center; gap: 0.375rem; }
-.crumb a { color: var(--action-secondary-base); text-decoration: none; font-size: 0.8125rem; }
+.crumb a { color: var(--action-secondary-base); text-decoration: none; font-size: 0.8125rem; font-weight: 700; }
 .crumb a:hover { text-decoration: underline; }
 .crumb span { font-size: 0.8125rem; color: var(--type-tertiary); }
 .crumb-sep { color: var(--gray-60); font-size: 0.75rem; }
@@ -618,14 +658,14 @@ Progressive disclosure for FAQ, product details, supplementary content. Not for 
   <div class="accordion-item">
     <button class="accordion-header" aria-expanded="true" aria-controls="acc-1">
       <span>Delivery information</span>
-      <span class="accordion-chevron" aria-hidden="true">▼</span>
+      <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
     </button>
     <div id="acc-1" class="accordion-body">We deliver within 2–3 working days.</div>
   </div>
   <div class="accordion-item">
     <button class="accordion-header" aria-expanded="false" aria-controls="acc-2">
       <span>Returns policy</span>
-      <span class="accordion-chevron" aria-hidden="true">▼</span>
+      <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
     </button>
     <div id="acc-2" class="accordion-body" hidden>Return within 30 days.</div>
   </div>
@@ -646,7 +686,6 @@ Progressive disclosure for FAQ, product details, supplementary content. Not for 
 .accordion-header[aria-expanded="true"] { background: var(--gray-10); }
 .accordion-chevron { color: var(--gray-70); transition: transform 200ms; }
 .accordion-header[aria-expanded="true"] .accordion-chevron { transform: rotate(180deg); }
-.accordion-body { padding: 0 1rem 1rem; background: #fff; font-size: 0.875rem; color: var(--type-secondary); line-height: 1.6; }
 .accordion-body[hidden] { display: none; }
 ```
 
@@ -713,40 +752,43 @@ Rule: show after a 300ms delay; under 300ms, show nothing. For waits over 2s, us
 
 ---
 
+---
+
 ## 14 · Nav (Header)
 
-White header with AO logo, icon navigation, and a green accent bar. Responsive: icons-only on mobile, full nav + search on desktop.
+White header with AO logo, icon navigation, search bar, and a green accent bar. Responsive: simplified icon bar + search row on mobile, full nav + search + categories on desktop.
 
-**Variants:** `mobile` (icon bar + proposition) · `desktop` (logo + search + categories + icons) · `checkout` (simplified, logo + back) · `basket` (simplified, logo + close)
+**Variants:** `mobile` (logo + menu + sign-in/basket, search below) · `desktop` (logo + search + icons + categories) · `checkout` (simplified, logo + help + basket) · `basket` (simplified, logo + account + help + basket)
 
 ### HTML — Mobile
 
 ```html
 <header data-aods="nav">
   <nav class="nav-mobile">
+    <a href="/" class="nav-logo" aria-label="AO Home">
+      <i class="ico ico-ao-logo" aria-hidden="true"></i>
+    </a>
     <button class="nav-icon" aria-label="Menu">
-      <span class="nav-icon-img" aria-hidden="true">☰</span>
+      <i class="ico ico-menu nav-icon-img" aria-hidden="true"></i>
       <span class="nav-icon-label">Menu</span>
     </button>
-    <button class="nav-icon" aria-label="Search">
-      <span class="nav-icon-img" aria-hidden="true">🔍</span>
-      <span class="nav-icon-label">Search</span>
-    </button>
-    <a href="/" class="nav-logo" aria-label="AO Home">
-      <span class="nav-logo-mark">ao.</span>
-    </a>
+    <div class="nav-mobile-spacer"></div>
     <a href="/account" class="nav-icon">
-      <span class="nav-icon-img" aria-hidden="true">👤</span>
-      <span class="nav-icon-label">Account</span>
+      <i class="ico ico-account nav-icon-img" aria-hidden="true"></i>
+      <span class="nav-icon-label">Sign In</span>
     </a>
-    <a href="/basket" class="nav-icon">
-      <span class="nav-icon-img" aria-hidden="true">🛒</span>
+    <a href="/basket" class="nav-icon nav-icon--badge" data-count="1">
+      <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
       <span class="nav-icon-label">Basket</span>
     </a>
   </nav>
+  <div class="nav-search nav-search--mobile">
+    <input class="nav-search-input" type="search" placeholder="Search products, brands or advice">
+    <button class="nav-search-btn" aria-label="Search"><i class="ico ico-search" aria-hidden="true"></i></button>
+  </div>
   <div class="nav-accent"></div>
   <div class="nav-proposition">
-    <span class="nav-proposition-item">Price match promise</span>
+    <span class="nav-proposition-item"><i class="ico ico-five-star-membership" aria-hidden="true"></i> Join AO Five Star Membership and save</span>
   </div>
 </header>
 ```
@@ -757,39 +799,92 @@ White header with AO logo, icon navigation, and a green accent bar. Responsive: 
 <header data-aods="nav">
   <div class="nav-desktop">
     <a href="/" class="nav-logo nav-logo--lg" aria-label="AO Home">
-      <span class="nav-logo-mark">ao.</span>
+      <i class="ico ico-ao-logo" aria-hidden="true"></i>
     </a>
     <div class="nav-desktop-right">
       <div class="nav-desktop-top">
         <div class="nav-search">
-          <input class="nav-search-input" type="search" placeholder="Search for products & brands">
-          <button class="nav-search-btn" aria-label="Search">🔍</button>
+          <input class="nav-search-input" type="search" placeholder="Search products, brands or advice">
+          <button class="nav-search-btn" aria-label="Search"><i class="ico ico-search" aria-hidden="true"></i> Let's Go!</button>
         </div>
         <div class="nav-desktop-icons">
-          <a href="/track" class="nav-icon"><span class="nav-icon-img" aria-hidden="true">📦</span><span class="nav-icon-label">Track order</span></a>
-          <a href="/account" class="nav-icon"><span class="nav-icon-img" aria-hidden="true">👤</span><span class="nav-icon-label">Account</span></a>
-          <a href="/basket" class="nav-icon"><span class="nav-icon-img" aria-hidden="true">🛒</span><span class="nav-icon-label">Basket</span></a>
+          <a href="/track" class="nav-icon"><i class="ico ico-track-your-order nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Track Order</span></a>
+          <a href="/account" class="nav-icon"><i class="ico ico-account nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Sign In</span></a>
+          <a href="/basket" class="nav-icon nav-icon--badge" data-count="1"><i class="ico ico-basket nav-icon-img" aria-hidden="true"></i><span class="nav-icon-label">Basket</span></a>
         </div>
       </div>
       <nav class="nav-categories">
         <a href="/appliances">Appliances</a>
-        <a href="/tv">TV & Entertainment</a>
-        <a href="/computing">Computing</a>
+        <a href="/tv">TV & Audio</a>
+        <a href="/computing">Computing & Gaming</a>
         <a href="/mobile">Mobile Phones</a>
         <a href="/smart-tech">Smart Tech</a>
         <a href="/floorcare">Floorcare</a>
         <a href="/deals" class="nav-categories-deals">Deals</a>
+        <a href="/summer-of-football" class="nav-categories-promo">Summer of Football</a>
+        <a href="/membership">AO Membership</a>
+        <a href="/help" class="nav-categories-help">Help & Advice</a>
       </nav>
     </div>
   </div>
   <div class="nav-accent"></div>
   <div class="nav-proposition">
-    <span class="nav-proposition-item">Price match promise</span>
-    <span class="nav-proposition-item">Free 100 days returns</span>
-    <span class="nav-proposition-item">Rated Excellent</span>
-    <span class="nav-proposition-item">Next day delivery, 7 days a week</span>
-    <span class="nav-proposition-item">Pay with AO Finance</span>
+    <span class="nav-proposition-item"><i class="ico ico-price-match-gbp" aria-hidden="true"></i> Price Match Guarantee</span>
+    <span class="nav-proposition-item"><i class="ico ico-next-day-delivery" aria-hidden="true"></i> Next day delivery, 7 days a week</span>
+    <span class="nav-proposition-item"><i class="ico ico-five-star-approved" aria-hidden="true"></i> Rated Excellent</span>
+    <span class="nav-proposition-item"><i class="ico ico-five-star-membership" aria-hidden="true"></i> Join AO Five Star Membership and save</span>
+    <span class="nav-proposition-item"><i class="ico ico-finance-gbp" aria-hidden="true"></i> Pay with AO Finance</span>
   </div>
+</header>
+```
+
+### HTML — Checkout (simplified)
+
+```html
+<header data-aods="nav">
+  <nav class="nav-mobile nav-checkout">
+    <a href="/" class="nav-logo" aria-label="AO Home">
+      <i class="ico ico-ao-logo" aria-hidden="true"></i>
+    </a>
+    <div class="nav-checkout-icons">
+      <a href="/help" class="nav-icon">
+        <i class="ico ico-call nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Help</span>
+      </a>
+      <a href="/basket" class="nav-icon">
+        <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Basket</span>
+      </a>
+    </div>
+  </nav>
+  <div class="nav-accent"></div>
+</header>
+```
+
+### HTML — Basket (simplified)
+
+```html
+<header data-aods="nav">
+  <nav class="nav-mobile nav-checkout">
+    <a href="/" class="nav-logo" aria-label="AO Home">
+      <i class="ico ico-ao-logo" aria-hidden="true"></i>
+    </a>
+    <div class="nav-checkout-icons">
+      <a href="/account" class="nav-icon">
+        <i class="ico ico-account nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Account</span>
+      </a>
+      <a href="/help" class="nav-icon">
+        <i class="ico ico-call nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Help</span>
+      </a>
+      <a href="/basket" class="nav-icon">
+        <i class="ico ico-basket nav-icon-img" aria-hidden="true"></i>
+        <span class="nav-icon-label">Basket</span>
+      </a>
+    </div>
+  </nav>
+  <div class="nav-accent"></div>
 </header>
 ```
 
@@ -799,95 +894,143 @@ White header with AO logo, icon navigation, and a green accent bar. Responsive: 
 /* Nav — Header */
 [data-aods="nav"] { position: sticky; top: 0; z-index: 20; }
 
+/* Mobile nav */
 .nav-mobile {
   background: #fff;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0.5rem 1.5rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1rem;
 }
+.nav-mobile-spacer { flex: 1; }
+
+/* Desktop nav */
 .nav-desktop {
   background: #fff;
-  display: flex; gap: 1.75rem; align-items: flex-start;
-  padding: 1.5rem 8.5rem 0;
+  display: flex; gap: 1.5rem; align-items: flex-start;
+  padding: 1.25rem 2rem 0;
 }
 .nav-desktop-right { flex: 1; display: flex; flex-direction: column; gap: 0.75rem; }
-.nav-desktop-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.nav-desktop-icons { display: flex; gap: 1.5rem; }
+.nav-desktop-top { display: flex; align-items: center; gap: 2rem; }
+.nav-desktop-icons { display: flex; gap: 1.5rem; flex-shrink: 0; }
 
+/* Nav icons (shared) */
 .nav-icon {
+  position: relative;
   display: flex; flex-direction: column; align-items: center;
   text-decoration: none; cursor: pointer; background: none; border: none;
+  gap: 0.125rem;
 }
-.nav-icon-img { font-size: 1.75rem; }
+.nav-icon-img { font-size: 1.75rem; color: var(--type-primary); }
 .nav-icon-label {
-  font-family: 'Inter', sans-serif; font-size: 0.75rem;
-  color: var(--type-primary); line-height: 1.25rem;
+  font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 400;
+  color: var(--type-primary); line-height: 1.25;
 }
 
-.nav-logo-mark {
-  font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
-  font-size: 2.5rem; color: var(--brand-primary-base); letter-spacing: -0.02em;
+/* Badge (red notification dot) */
+.nav-icon--badge::after {
+  content: attr(data-count);
+  position: absolute; top: -4px; right: -4px;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  border-radius: 50%; background: #cf1a30; color: #fff;
+  font-family: 'Inter', sans-serif; font-size: 0.6875rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
 }
-.nav-logo--lg .nav-logo-mark { font-size: 4rem; }
 
-.nav-search {
-  display: flex; width: 384px;
+/* Desktop icon labels use SmileyFace */
+@media (min-width: 991px) {
+  .nav-icon-label {
+    font-family: 'SmileyFace', Georgia, serif; font-weight: 400;
+    font-size: 0.8125rem;
+  }
 }
+
+/* Logo */
+.nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.nav-logo .ico { font-size: 3rem; color: var(--brand-primary-base); }
+.nav-logo--lg .ico { font-size: 4rem; }
+
+/* Search bar */
+.nav-search { display: flex; flex: 1; max-width: 560px; }
+.nav-search--mobile { padding: 0.5rem 1rem; background: #fff; }
 .nav-search-input {
-  flex: 1; padding: 0.5rem 1rem;
-  border: 1px solid var(--brand-primary-base); border-radius: 1.5rem 0 0 1.5rem;
+  flex: 1; padding: 0.625rem 1rem;
+  border: 1px solid var(--gray-40); border-right: none;
+  border-radius: 1.5rem 0 0 1.5rem;
   font-family: 'Inter', sans-serif; font-size: 0.875rem;
   color: var(--type-secondary); outline: none;
+  transition: border-color 150ms;
 }
-.nav-search-input::placeholder { color: var(--gray-70); }
+.nav-search-input:focus { border-color: var(--brand-primary-base); }
+.nav-search-input::placeholder { color: var(--gray-60); }
 .nav-search-btn {
-  width: 3rem; background: var(--brand-primary-base); border: none;
-  border-radius: 0 3.75rem 3.75rem 0; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
+  padding: 0.625rem 1.5rem; background: var(--brand-primary-base); border: none;
+  border-radius: 0 1.5rem 1.5rem 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+  font-size: 0.875rem; color: #fff; white-space: nowrap;
 }
+.nav-search-btn .ico { font-size: 1.125rem; }
+.nav-search--mobile .nav-search-input { border-radius: 1.5rem 0 0 1.5rem; }
+.nav-search--mobile .nav-search-btn { padding: 0.625rem 1.25rem; border-radius: 0 1.5rem 1.5rem 0; font-size: 0; }
+.nav-search--mobile .nav-search-btn .ico { font-size: 1.25rem; }
 
+/* Categories */
 .nav-categories {
-  display: flex; gap: 2rem; padding: 1rem 0;
+  display: flex; align-items: center; gap: 1.5rem; padding: 0.75rem 0;
+  border-top: 1px solid var(--gray-30);
   font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 0.875rem;
 }
-.nav-categories a { color: var(--type-primary); text-decoration: none; }
+.nav-categories a { color: var(--type-primary); text-decoration: none; white-space: nowrap; }
 .nav-categories a:hover { text-decoration: underline; }
 .nav-categories-deals { color: #cf1a30; }
+.nav-categories-promo { color: var(--brand-primary-base); }
+.nav-categories-help { margin-left: auto; }
 
+/* Checkout / Basket variant */
+.nav-checkout { justify-content: space-between; }
+.nav-checkout-icons { display: flex; gap: 1.5rem; }
+
+/* Green accent bar */
 .nav-accent { height: 4px; background: var(--brand-primary-base); }
 
+/* Proposition bar */
 .nav-proposition {
   background: var(--gray-10);
-  display: flex; align-items: center; justify-content: center; gap: 2rem;
-  padding: 0.5rem 1rem;
+  display: flex; align-items: center; justify-content: center; gap: 2.5rem;
+  padding: 0.5rem 2rem;
+  border-top: 1px solid var(--gray-30);
 }
 .nav-proposition-item {
-  font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-tertiary);
+  display: inline-flex; align-items: center; gap: 0.375rem;
+  font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--type-tertiary);
+  white-space: nowrap;
 }
+.nav-proposition-item .ico { font-size: 0.875rem; }
 
+/* Responsive */
 @media (max-width: 990px) {
   .nav-desktop { display: none; }
-  .nav-proposition { justify-content: center; gap: 0; }
   .nav-proposition-item:not(:first-child) { display: none; }
 }
 @media (min-width: 991px) {
   .nav-mobile { display: none; }
+  .nav-search--mobile { display: none; }
 }
 ```
 
 ### Rules
 
-- Mobile shows icon bar only — no text categories
-- Desktop shows full navigation with search, categories, and icon nav
+- Mobile: Logo (top-left, large) + Menu icon + spacer + Sign In + Basket (with badge). Search bar as a separate full-width row below.
+- Desktop: Logo (left, 4rem) + Search bar (flexible width, max 560px, gray-40 border) + Track Order / Sign In / Basket icons right-aligned
+- Search button: green bg, "Let's Go!" text + search icon on desktop. Icon-only on mobile (font-size: 0 hides text).
+- Categories row: SmileyFace Bold 14px. "Deals" = red (#cf1a30), "Summer of Football" = brand-primary-base green. "Help & Advice" pushed right with `margin-left: auto`.
 - Green accent bar (4px, brand-primary-base) separates header from proposition bar
-- Category labels use SmileyFace Bold 14px
-- Icon labels use Inter Regular 12px (mobile) or SmileyFace Regular 14px (desktop)
-- "Deals" link is red (#cf1a30) — only exception to type-primary colour
-- Search bar has green border and pill-shaped button
+- Basket icon has red notification badge via `.nav-icon--badge` + `data-count` attribute
+- Proposition bar: gray-10 bg, Inter 13px, each item prefixed with a Strata icon
+- Mobile proposition shows one rotating item; desktop shows all 5
+- Icon labels: Inter Regular 12px (mobile), SmileyFace Regular 13px (desktop)
 
 ---
 
-## 15 · Footer
 
 Two-tone dark footer with link columns and legal copy.
 
@@ -923,8 +1066,9 @@ Two-tone dark footer with link columns and legal copy.
     </div>
   </div>
   <div class="footer-legal">
-    <p>ao.com is operated by AO Retail Limited, registered in England with company number 03914998.</p>
-    <p>Credit is provided by NewDay Ltd. AO Retail Limited acts as a credit broker. Subject to status.</p>
+    <p>ao.com is operated by AO Retail Limited, registered in England with company number 03914998 whose registered office is at 5a, The Parklands, Lostock, Bolton, BL6 4SD.</p>
+    <p>The goods you buy from this site will be purchased from AO Retail Limited.</p>
+    <p>Credit is provided by NewDay Ltd. AO Retail Limited acts as a credit broker for NewDay Ltd on an exclusive basis and is not a lender. Subject to status. Terms apply.</p>
   </div>
 </footer>
 ```
@@ -970,9 +1114,11 @@ Two-tone dark footer with link columns and legal copy.
 }
 
 @media (min-width: 990px) {
-  .footer-links { padding: 2rem 8.5rem; grid-template-columns: repeat(4, 1fr); }
-  .footer-secondary { padding: 1.5rem 8.5rem; grid-template-columns: repeat(4, 1fr); }
-  .footer-legal { padding: 1rem 8.5rem 2rem; }
+  .footer-links { padding: 1rem 8.5rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .footer-links .footer-col { flex-direction: row; gap: 2rem; }
+  .footer-secondary { padding: 1.5rem 8.5rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .footer-secondary .footer-col { flex-direction: row; gap: 2rem; }
+  .footer-legal { padding: 1rem 9rem 2rem; }
 }
 ```
 

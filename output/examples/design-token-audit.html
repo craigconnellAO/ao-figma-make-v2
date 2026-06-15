@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design Token Audit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    /* @font-face — SmileyFace */
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 100;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Light.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 400;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Regular.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 500;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Medium.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+
+    /* Design Tokens — :root block from kit/tokens.md Section 8 */
+    :root {
+      /* Neutrals */
+      --gray-10: #f8f9fa;  --gray-20: #f0f2f2;  --gray-30: #e2e7e8;
+      --gray-40: #d6dddf;  --gray-50: #c1c7c9;  --gray-60: #abb1b4;
+      --gray-70: #727677;  --gray-80: #595d5e;  --gray-90: #3f4344;  --gray-100: #212121;
+
+      /* Brand green */
+      --brand-primary-base: #12c35a;  --brand-primary-light: #befcc8;  --brand-primary-dark: #02422b;
+
+      /* Typography */
+      --type-primary: #011f44;  --type-secondary: #212121;  --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+
+      /* Action — primary (green) */
+      --action-primary-base: #00893e;  --action-primary-hover: #00560b;
+      --action-primary-focus: #00893e;  --action-primary-active: #003d00;
+      --action-primary-contrast: #ffffff;  --action-primary-glow: #12c35a;
+
+      /* Action — secondary (blue / Action Main) */
+      --action-secondary-base: #0564c2;  --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0564c2;  --action-secondary-active: #001876;
+      --action-secondary-contrast: #ffffff;  --action-secondary-glow: #40a1f8;
+
+      /* Action — light / dark / inactive */
+      --action-light-base: #ffffff;  --action-light-contrast: #011f44;  --action-light-glow: #40a1f8;
+      --action-dark-base: #011f44;   --action-dark-contrast: #ffffff;   --action-dark-glow: #40a1f8;
+      --action-inactive-base: #727677;  --action-inactive-contrast: #ffffff;
+
+      /* UI surface groups (base / contrast / accent) */
+      --ui-core-base: #ffffff;       --ui-core-contrast: #212121;       --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2;    --ui-neutral-contrast: #212121;    --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff;  --ui-highlight-contrast: #00318f;  --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3;    --ui-success-contrast: #02422b;    --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6;    --ui-warning-contrast: #ad5a00;    --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6;      --ui-error-contrast: #b50016;      --ui-error-accent: #b50016;
+      --ui-light-base: #ffffff;      --ui-light-contrast: #011f44;      --ui-light-accent: #ffffff;
+      --ui-dark-base: #011f44;       --ui-dark-contrast: #ffffff;       --ui-dark-accent: #011f44;
+
+      /* Food palette — decorative only */
+      --palette-bread: #ffe3c2;  --palette-toast: #ffa878;  --palette-jam: #422439;
+      --palette-simmer: #ffd8d2; --palette-heat: #f96155;   --palette-burn: #60222f;
+      --palette-steam: #c8d1ff;  --palette-ice: #4a6dce;    --palette-water: #011f44;
+
+      /* Radius */
+      --radius-xs: 4px;  --radius-sm: 8px;  --radius-md: 16px;
+      --radius-xl: 24px; --radius-2xl: 40px;
+
+      /* Shadow */
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+      --shadow-xl: 0 20px 48px rgba(1,22,48,0.18), 0 8px 16px rgba(1,22,48,0.10);
+    }
+
+    /* Base styles */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Page layout */
+    .audit-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* Header */
+    .audit-header {
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--gray-40);
+    }
+
+    .audit-header h1 {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 2.5rem;
+      line-height: 1.1;
+      color: var(--type-primary);
+      margin: 0 0 0.5rem;
+    }
+
+    .audit-header .audit-meta {
+      font-size: 0.875rem;
+      color: var(--type-tertiary);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* Section styles */
+    .audit-section {
+      margin-bottom: 5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--gray-30);
+    }
+
+    .audit-section:last-child {
+      border-bottom: none;
+    }
+
+    .audit-section h2 {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 700;
+      font-size: 1.375rem;
+      line-height: 1.2;
+      color: var(--type-primary);
+      margin: 0 0 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--gray-20);
+    }
+
+    .audit-section .section-placeholder {
+      color: var(--type-tertiary);
+      font-size: 0.875rem;
+      font-style: italic;
+    }
+
+    /* Colour swatches */
+    .swatch-category h3 {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 500;
+      font-size: 1.125rem;
+      color: var(--type-primary);
+      margin: 2rem 0 1rem;
+    }
+
+    .swatch-category:first-child h3 {
+      margin-top: 0;
+    }
+
+    .swatch-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 80px;
+    }
+
+    .swatch-colour {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-40);
+    }
+
+    .swatch-hex {
+      margin-top: 0.5rem;
+      font-size: 0.6875rem;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-secondary);
+      text-align: center;
+    }
+
+    .swatch-name {
+      font-size: 0.625rem;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-tertiary);
+      text-align: center;
+      word-break: break-all;
+    }
+
+    /* Typography scale classes */
+    .t-display-headline { font-family: 'SmileyFace-Headline', Georgia, serif; font-size: 3rem;    line-height: 1.05; color: var(--type-primary); }
+    .t-display-lg      { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2.5rem;  line-height: 1.1;  color: var(--type-primary); }
+    .t-display         { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;    line-height: 1.15; color: var(--type-primary); }
+    .t-title-lg        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; line-height: 1.2;  color: var(--type-primary); }
+    .t-title           { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm        { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;    line-height: 1.3;  color: var(--type-primary); }
+    .t-cta             { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;    line-height: 1; }
+    .t-body            { font-family: 'Inter', sans-serif; font-size: 1rem;    line-height: 1.5; }
+    .t-body-sm         { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.45; }
+    .t-caption         { font-family: 'Inter', sans-serif; font-size: 0.75rem;  line-height: 1.4; color: var(--type-tertiary); }
+    .t-link            { font-family: 'Inter', sans-serif; font-size: 1rem;    font-weight: 700; text-decoration: underline; color: var(--action-secondary-base); }
+    .t-link-sm         { font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 700; text-decoration: underline; color: var(--action-secondary-base); }
+
+    /* Typography audit layout */
+    .type-scale-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .type-scale-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--gray-20);
+    }
+
+    .type-scale-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .type-scale-sample {
+      margin: 0;
+    }
+
+    .type-scale-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: var(--type-tertiary);
+    }
+
+    .type-scale-meta span {
+      background: var(--gray-10);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-xs);
+    }
+
+    /* Shadow demos */
+    .shadow-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+    }
+
+    .shadow-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .shadow-card {
+      width: 160px;
+      height: 120px;
+      background-color: #ffffff;
+      border-radius: var(--radius-md);
+    }
+
+    .shadow-label {
+      font-size: 0.75rem;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-tertiary);
+    }
+
+    /* Border Radius demos */
+    .radius-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .radius-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .radius-box {
+      width: 80px;
+      height: 80px;
+      background-color: var(--gray-30);
+      border: 2px solid var(--gray-40);
+    }
+
+    .radius-demo .radius-label {
+      font-size: 0.75rem;
+      color: var(--type-secondary);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .radius-demo .radius-value {
+      font-size: 0.6875rem;
+      color: var(--type-tertiary);
+      text-align: center;
+    }
+
+    /* Spacing tokens */
+    :root {
+      --spacing-1: 0.25rem;
+      --spacing-2: 0.5rem;
+      --spacing-3: 0.75rem;
+      --spacing-4: 1rem;
+      --spacing-5: 1.25rem;
+      --spacing-6: 1.5rem;
+      --spacing-8: 2rem;
+      --spacing-10: 2.5rem;
+      --spacing-12: 3rem;
+      --spacing-14: 3.5rem;
+      --spacing-16: 4rem;
+    }
+
+    /* Spacing blocks */
+    .spacing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .spacing-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .spacing-block {
+      width: 200px;
+      flex-shrink: 0;
+      background-color: var(--action-secondary-base);
+      border-radius: 2px;
+    }
+
+    .spacing-label {
+      font-size: 0.8125rem;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      color: var(--type-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .spacing-label .token-name {
+      font-weight: 600;
+      color: var(--type-primary);
+    }
+
+    /* Button component styles */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer; white-space: nowrap; text-decoration: none;
+      transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
+    }
+    .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+
+    .btn-primary   { background: var(--action-primary-base); color: var(--action-primary-contrast); border-color: var(--action-primary-base); }
+    .btn-primary:hover, .btn-primary.is-hover   { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-primary:active, .btn-primary.is-active { background: var(--action-primary-active); border-color: var(--action-primary-active); }
+
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover, .btn-secondary.is-hover { background: var(--ui-highlight-base); border-color: var(--action-secondary-hover); }
+    .btn-secondary:active, .btn-secondary.is-active { background: var(--action-secondary-active); color: var(--action-secondary-contrast); border-color: var(--action-secondary-active); }
+
+    .btn-tertiary  { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover, .btn-tertiary.is-hover  { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-tertiary:active, .btn-tertiary.is-active { background: var(--gray-30); border-color: var(--gray-60); }
+
+    .btn-white     { background: var(--action-light-base); color: var(--action-light-contrast); border-color: var(--action-light-base); }
+    .btn-white:hover, .btn-white.is-hover     { background: var(--gray-20); border-color: var(--gray-20); }
+    .btn-white:active, .btn-white.is-active   { background: var(--gray-30); border-color: var(--gray-30); }
+
+    .btn-dark      { background: var(--action-dark-base); color: var(--action-dark-contrast); border-color: var(--action-dark-base); }
+    .btn-dark:hover, .btn-dark.is-hover      { background: var(--action-secondary-hover); border-color: var(--action-secondary-hover); }
+    .btn-dark:active, .btn-dark.is-active    { background: var(--action-secondary-active); border-color: var(--action-secondary-active); }
+
+    .btn-inactive  { background: var(--gray-30); color: var(--gray-70); border-color: var(--gray-30); cursor: not-allowed; }
+
+    .btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-sm   { padding: 0.6875rem 1rem; font-size: 0.875rem; }
+    .btn-icon { padding: 0.6875rem; }
+    .btn-full { width: 100%; }
+
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+
+    /* Buttons audit layout */
+    .buttons-variant-group { margin-bottom: 2.5rem; }
+    .buttons-variant-group:last-child { margin-bottom: 0; }
+    .buttons-variant-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--type-secondary);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .buttons-row-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: var(--type-tertiary);
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    .buttons-dark-bg {
+      background: var(--type-primary);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+    }
+
+    /* Field / Input component styles */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-label { font-size: 0.875rem; font-weight: 400; color: var(--type-secondary); }
+    .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
+
+    .field-input {
+      height: 48px;
+      padding: 0 0.875rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; color: var(--type-secondary);
+      background: #fff; outline: none; width: 100%;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .field-input::placeholder { color: var(--gray-60); }
+    .field-input:focus { border-color: var(--action-secondary-base); box-shadow: 0 0 0 3px rgba(5,100,194,0.15); }
+    .field-input:disabled { background: var(--gray-10); color: var(--gray-70); cursor: not-allowed; border-color: var(--gray-30); }
+
+    .field-input.is-error     { border-color: var(--ui-error-accent);     background: var(--ui-error-base); }
+    .field-input.is-success   { border-color: var(--ui-success-accent);   background: var(--ui-success-base); }
+    .field-input.is-highlight { border-color: var(--ui-highlight-accent); background: var(--ui-highlight-base); }
+
+    .field-msg { font-size: 0.8125rem; }
+    .field-msg.is-error     { color: var(--ui-error-contrast); }
+    .field-msg.is-success   { color: var(--ui-success-contrast); }
+    .field-msg.is-highlight { color: var(--ui-highlight-contrast); }
+    .field-msg.is-helper    { color: var(--type-tertiary); }
+
+    /* Inputs audit layout */
+    .inputs-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 420px;
+    }
+
+    /* Select */
+    .field-select-wrap { position: relative; }
+    .field-select-wrap::after {
+      content: ''; pointer-events: none;
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-70);
+    }
+    select.field-input { appearance: none; padding-right: 2.5rem; }
+
+    /* Select & Textarea audit layout */
+    .select-textarea-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 420px;
+    }
+
+    /* Tag component */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4; border: 1px solid transparent;
+    }
+    .tag-core      { background: var(--ui-core-base);      color: var(--ui-core-contrast);      border-color: var(--ui-core-accent); }
+    .tag-neutral   { background: var(--ui-neutral-base);   color: var(--type-secondary);        border-color: var(--gray-40); }
+    .tag-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .tag-warning   { background: var(--ui-warning-base);   color: var(--ui-warning-contrast);   border-color: var(--ui-warning-accent); }
+    .tag-error     { background: var(--ui-error-base);     color: var(--ui-error-contrast);     border-color: var(--ui-error-accent); }
+    .tag-dark      { background: var(--type-primary);      color: #fff;                         border-color: var(--type-primary); }
+    .tag-lg { padding: 0.35rem 0.875rem; font-size: 0.875rem; }
+
+    /* Tags audit layout */
+    .tags-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .tags-section-block + .tags-section-block {
+      margin-top: 2rem;
+    }
+    .tags-size-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--type-tertiary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Toggle Items (Checkbox / Radio) component styles */
+    .toggle-group               { display: flex; flex-direction: column; gap: 0.5rem; border: 0; padding: 0; margin: 0; }
+    .toggle-group--inline       { flex-direction: row; flex-wrap: wrap; }
+    .toggle-group--inline > .toggle-item { flex: 1 1 0; min-width: 0; }
+    .toggle-group--full         { width: 100%; }
+
+    .toggle-item {
+      position: relative;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms, box-shadow 150ms;
+    }
+    .toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 1rem 1.25rem; }
+
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: var(--radius-xs); }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked {
+      background-image: none;
+      box-shadow: inset 0 0 0 4px #fff;
+    }
+
+    .toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
+    .toggle-item-line  { display: block; }
+    .toggle-item-label { font-size: 0.9375rem; font-weight: 700; color: var(--type-secondary); }
+    .toggle-item-sub      { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .toggle-item-sub--xs  { font-size: 0.75rem;   color: var(--type-tertiary); }
+
+    .toggle-item:hover                { border-color: var(--gray-60); background: var(--gray-10); }
+    .toggle-item:has(:focus-visible)  { outline: 0; box-shadow: 0 0 0 4px var(--action-secondary-glow); border-color: var(--action-secondary-base); }
+    .toggle-item:has(:checked) {
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 8%, white);
+    }
+    .toggle-item:has(:checked) .toggle-item-label,
+    .toggle-item:has(:checked) .toggle-item-line { color: var(--type-primary); }
+
+    .toggle-item.is-disabled,
+    .toggle-item:has(:disabled) {
+      background: var(--gray-20); border-color: var(--gray-30);
+      cursor: not-allowed; color: var(--gray-90);
+    }
+    .toggle-item.is-disabled .toggle-item-label { color: var(--gray-90); }
+
+    /* Hover state class (for audit display without user interaction) */
+    .toggle-item.is-hover { border-color: var(--gray-60); background: var(--gray-10); }
+
+    /* Highlighted / recommended card (blue — never green) */
+    .toggle-item--highlight {
+      border-width: 2px;
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 6%, white);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.125rem 1.125rem;
+    }
+    .toggle-item--highlight .tag-recommended {
+      position: absolute; top: -0.625rem; left: 1rem;
+      background: var(--action-secondary-base); color: var(--action-secondary-contrast);
+      border-color: var(--action-secondary-base);
+    }
+    .toggle-item-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .toggle-item-title { font-size: 1.25rem; color: var(--type-primary); }
+    .toggle-item-price { font-size: 1.25rem; color: var(--type-primary); }
+    .toggle-item-price-unit { font-size: 0.875rem; color: var(--type-tertiary); font-weight: 400; }
+    .toggle-item-desc { font-size: 0.9375rem; color: var(--type-secondary); margin: 0.5rem 0; }
+    .toggle-item-features { margin: 0.5rem 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+    .toggle-item-features li::before { content: "✓ "; color: var(--action-secondary-base); font-weight: 700; }
+
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Toggle audit layout */
+    .toggle-audit-group {
+      margin-bottom: 2.5rem;
+    }
+    .toggle-audit-group:last-child {
+      margin-bottom: 0;
+    }
+    .toggle-audit-group h3 {
+      font-family: 'SmileyFace', Georgia, serif;
+      font-weight: 500;
+      font-size: 1.125rem;
+      color: var(--type-primary);
+      margin: 0 0 1rem;
+    }
+
+    /* Quantity Stepper */
+    .qty-control {
+      display: inline-flex; align-items: stretch;
+      border: 1px solid var(--gray-40); border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .qty-btn {
+      width: 40px; height: 40px; background: var(--gray-10); border: none;
+      font-size: 1.25rem; color: var(--type-secondary); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 150ms;
+    }
+    .qty-btn:hover { background: var(--gray-20); }
+    .qty-val {
+      width: 48px; text-align: center; font-size: 1rem; font-weight: 500;
+      line-height: 40px; color: var(--type-primary);
+      border-left: 1px solid var(--gray-40); border-right: 1px solid var(--gray-40);
+    }
+
+    /* Loading Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block; width: 32px; height: 32px;
+      border: 3px solid var(--brand-primary-light);
+      border-top-color: var(--action-primary-base);
+      border-radius: 50%; animation: spin 0.75s linear infinite;
+    }
+    .spinner-sm    { width: 20px; height: 20px; border-width: 2px; }
+    .spinner-white { border-color: rgba(255,255,255,0.3); border-top-color: #fff; }
+
+    /* Nav */
+    .nav {
+      background: var(--type-primary);
+      padding: 0.875rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 20;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.875rem; transition: color 150ms; }
+    .nav-links a:hover { color: #fff; }
+    @media (max-width: 640px) { .nav { padding: 0.75rem 1rem; } .nav-links { display: none; } }
+
+    /* Screen-reader only utility */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Notice component */
+    .notice {
+      display: flex; gap: 0.5rem; align-items: flex-start;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem; line-height: 1.625;
+    }
+    .notice-icon { flex-shrink: 0; font-size: 1.5rem; line-height: 1; }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--type-secondary); }
+    .notice-success   { background: var(--brand-primary-light); color: var(--type-secondary); }
+    .notice-warning   { background: var(--palette-bread);       color: var(--type-secondary); }
+    .notice-error     { background: var(--palette-simmer);      color: var(--type-secondary); }
+    .notice strong    { font-weight: 700; color: var(--type-secondary); }
+  </style>
+</head>
+<body>
+  <div class="audit-page">
+
+    <!-- Page Header -->
+    <header class="audit-header">
+      <h1>AO Design Token Audit</h1>
+      <div class="audit-meta">
+        <span>Version 2.0.0</span>
+        <span>Generated 2025-07-15</span>
+      </div>
+    </header>
+
+    <!-- Colours -->
+    <section class="audit-section" id="colours">
+      <h2>Colours</h2>
+
+      <!-- Neutrals -->
+      <div class="swatch-category">
+        <h3>Neutrals</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-10);"></div>
+            <span class="swatch-hex">#f8f9fa</span>
+            <span class="swatch-name">gray-10</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-20);"></div>
+            <span class="swatch-hex">#f0f2f2</span>
+            <span class="swatch-name">gray-20</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-30);"></div>
+            <span class="swatch-hex">#e2e7e8</span>
+            <span class="swatch-name">gray-30</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-40);"></div>
+            <span class="swatch-hex">#d6dddf</span>
+            <span class="swatch-name">gray-40</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-50);"></div>
+            <span class="swatch-hex">#c1c7c9</span>
+            <span class="swatch-name">gray-50</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-60);"></div>
+            <span class="swatch-hex">#abb1b4</span>
+            <span class="swatch-name">gray-60</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-70);"></div>
+            <span class="swatch-hex">#727677</span>
+            <span class="swatch-name">gray-70</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-80);"></div>
+            <span class="swatch-hex">#595d5e</span>
+            <span class="swatch-name">gray-80</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-90);"></div>
+            <span class="swatch-hex">#3f4344</span>
+            <span class="swatch-name">gray-90</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--gray-100);"></div>
+            <span class="swatch-hex">#212121</span>
+            <span class="swatch-name">gray-100</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand -->
+      <div class="swatch-category">
+        <h3>Brand</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--brand-primary-base);"></div>
+            <span class="swatch-hex">#12c35a</span>
+            <span class="swatch-name">brand-primary-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--brand-primary-light);"></div>
+            <span class="swatch-hex">#befcc8</span>
+            <span class="swatch-name">brand-primary-light</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--brand-primary-dark);"></div>
+            <span class="swatch-hex">#02422b</span>
+            <span class="swatch-name">brand-primary-dark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Typography -->
+      <div class="swatch-category">
+        <h3>Typography</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--type-primary);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">type-primary</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--type-secondary);"></div>
+            <span class="swatch-hex">#212121</span>
+            <span class="swatch-name">type-secondary</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--type-tertiary);"></div>
+            <span class="swatch-hex">#595d5e</span>
+            <span class="swatch-name">type-tertiary</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--shadow-overlay);"></div>
+            <span class="swatch-hex">#011630</span>
+            <span class="swatch-name">shadow-overlay</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Primary -->
+      <div class="swatch-category">
+        <h3>Action Primary</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-primary-base);"></div>
+            <span class="swatch-hex">#00893e</span>
+            <span class="swatch-name">action-primary-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-primary-hover);"></div>
+            <span class="swatch-hex">#00560b</span>
+            <span class="swatch-name">action-primary-hover</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-primary-focus);"></div>
+            <span class="swatch-hex">#00893e</span>
+            <span class="swatch-name">action-primary-focus</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-primary-active);"></div>
+            <span class="swatch-hex">#003d00</span>
+            <span class="swatch-name">action-primary-active</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-primary-contrast);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">action-primary-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-primary-glow);"></div>
+            <span class="swatch-hex">#12c35a</span>
+            <span class="swatch-name">action-primary-glow</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Secondary -->
+      <div class="swatch-category">
+        <h3>Action Secondary</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-secondary-base);"></div>
+            <span class="swatch-hex">#0564c2</span>
+            <span class="swatch-name">action-secondary-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-secondary-hover);"></div>
+            <span class="swatch-hex">#00318f</span>
+            <span class="swatch-name">action-secondary-hover</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-secondary-focus);"></div>
+            <span class="swatch-hex">#0564c2</span>
+            <span class="swatch-name">action-secondary-focus</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-secondary-active);"></div>
+            <span class="swatch-hex">#001876</span>
+            <span class="swatch-name">action-secondary-active</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-secondary-contrast);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">action-secondary-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-secondary-glow);"></div>
+            <span class="swatch-hex">#40a1f8</span>
+            <span class="swatch-name">action-secondary-glow</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Light -->
+      <div class="swatch-category">
+        <h3>Action Light</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-light-base);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">action-light-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-light-contrast);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">action-light-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-light-glow);"></div>
+            <span class="swatch-hex">#40a1f8</span>
+            <span class="swatch-name">action-light-glow</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Dark -->
+      <div class="swatch-category">
+        <h3>Action Dark</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-dark-base);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">action-dark-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-dark-contrast);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">action-dark-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-dark-glow);"></div>
+            <span class="swatch-hex">#40a1f8</span>
+            <span class="swatch-name">action-dark-glow</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Inactive -->
+      <div class="swatch-category">
+        <h3>Action Inactive</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-inactive-base);"></div>
+            <span class="swatch-hex">#727677</span>
+            <span class="swatch-name">action-inactive-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--action-inactive-contrast);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">action-inactive-contrast</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI Surfaces -->
+      <div class="swatch-category">
+        <h3>UI Surfaces</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-core-base);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">ui-core-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-core-contrast);"></div>
+            <span class="swatch-hex">#212121</span>
+            <span class="swatch-name">ui-core-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-core-accent);"></div>
+            <span class="swatch-hex">#d6dddf</span>
+            <span class="swatch-name">ui-core-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-neutral-base);"></div>
+            <span class="swatch-hex">#f0f2f2</span>
+            <span class="swatch-name">ui-neutral-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-neutral-contrast);"></div>
+            <span class="swatch-hex">#212121</span>
+            <span class="swatch-name">ui-neutral-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-neutral-accent);"></div>
+            <span class="swatch-hex">#abb1b4</span>
+            <span class="swatch-name">ui-neutral-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-highlight-base);"></div>
+            <span class="swatch-hex">#edf2ff</span>
+            <span class="swatch-name">ui-highlight-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-highlight-contrast);"></div>
+            <span class="swatch-hex">#00318f</span>
+            <span class="swatch-name">ui-highlight-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-highlight-accent);"></div>
+            <span class="swatch-hex">#00318f</span>
+            <span class="swatch-name">ui-highlight-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-success-base);"></div>
+            <span class="swatch-hex">#f4fce3</span>
+            <span class="swatch-name">ui-success-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-success-contrast);"></div>
+            <span class="swatch-hex">#02422b</span>
+            <span class="swatch-name">ui-success-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-success-accent);"></div>
+            <span class="swatch-hex">#00893e</span>
+            <span class="swatch-name">ui-success-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-warning-base);"></div>
+            <span class="swatch-hex">#fff4e6</span>
+            <span class="swatch-name">ui-warning-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-warning-contrast);"></div>
+            <span class="swatch-hex">#ad5a00</span>
+            <span class="swatch-name">ui-warning-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-warning-accent);"></div>
+            <span class="swatch-hex">#ff9e36</span>
+            <span class="swatch-name">ui-warning-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-error-base);"></div>
+            <span class="swatch-hex">#fff0f6</span>
+            <span class="swatch-name">ui-error-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-error-contrast);"></div>
+            <span class="swatch-hex">#b50016</span>
+            <span class="swatch-name">ui-error-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-error-accent);"></div>
+            <span class="swatch-hex">#b50016</span>
+            <span class="swatch-name">ui-error-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-light-base);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">ui-light-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-light-contrast);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">ui-light-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-light-accent);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">ui-light-accent</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-dark-base);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">ui-dark-base</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-dark-contrast);"></div>
+            <span class="swatch-hex">#ffffff</span>
+            <span class="swatch-name">ui-dark-contrast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--ui-dark-accent);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">ui-dark-accent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Food Palette -->
+      <div class="swatch-category">
+        <h3>Food Palette</h3>
+        <div class="swatch-grid">
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-bread);"></div>
+            <span class="swatch-hex">#ffe3c2</span>
+            <span class="swatch-name">palette-bread</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-toast);"></div>
+            <span class="swatch-hex">#ffa878</span>
+            <span class="swatch-name">palette-toast</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-jam);"></div>
+            <span class="swatch-hex">#422439</span>
+            <span class="swatch-name">palette-jam</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-simmer);"></div>
+            <span class="swatch-hex">#ffd8d2</span>
+            <span class="swatch-name">palette-simmer</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-heat);"></div>
+            <span class="swatch-hex">#f96155</span>
+            <span class="swatch-name">palette-heat</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-burn);"></div>
+            <span class="swatch-hex">#60222f</span>
+            <span class="swatch-name">palette-burn</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-steam);"></div>
+            <span class="swatch-hex">#c8d1ff</span>
+            <span class="swatch-name">palette-steam</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-ice);"></div>
+            <span class="swatch-hex">#4a6dce</span>
+            <span class="swatch-name">palette-ice</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-colour" style="background-color: var(--palette-water);"></div>
+            <span class="swatch-hex">#011f44</span>
+            <span class="swatch-name">palette-water</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing -->
+    <section class="audit-section" id="spacing">
+      <h2>Spacing</h2>
+      <div class="spacing-list">
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-1);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-1</span> — 0.25rem / 4px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-2);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-2</span> — 0.5rem / 8px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-3);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-3</span> — 0.75rem / 12px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-4);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-4</span> — 1rem / 16px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-5);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-5</span> — 1.25rem / 20px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-6);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-6</span> — 1.5rem / 24px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-8);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-8</span> — 2rem / 32px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-10);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-10</span> — 2.5rem / 40px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-12);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-12</span> — 3rem / 48px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-14);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-14</span> — 3.5rem / 56px</span>
+        </div>
+        <div class="spacing-item">
+          <div class="spacing-block" style="height: var(--spacing-16);"></div>
+          <span class="spacing-label"><span class="token-name">spacing-16</span> — 4rem / 64px</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Border Radius -->
+    <section class="audit-section" id="border-radius">
+      <h2>Border Radius</h2>
+      <div class="radius-row">
+        <div class="radius-demo">
+          <div class="radius-box" style="border-radius: var(--radius-xs);"></div>
+          <span class="radius-label">--radius-xs</span>
+          <span class="radius-value">4px</span>
+        </div>
+        <div class="radius-demo">
+          <div class="radius-box" style="border-radius: var(--radius-sm);"></div>
+          <span class="radius-label">--radius-sm</span>
+          <span class="radius-value">8px</span>
+        </div>
+        <div class="radius-demo">
+          <div class="radius-box" style="border-radius: var(--radius-md);"></div>
+          <span class="radius-label">--radius-md</span>
+          <span class="radius-value">16px</span>
+        </div>
+        <div class="radius-demo">
+          <div class="radius-box" style="border-radius: var(--radius-xl);"></div>
+          <span class="radius-label">--radius-xl</span>
+          <span class="radius-value">24px</span>
+        </div>
+        <div class="radius-demo">
+          <div class="radius-box" style="border-radius: var(--radius-2xl);"></div>
+          <span class="radius-label">--radius-2xl</span>
+          <span class="radius-value">40px</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shadows -->
+    <section class="audit-section" id="shadows">
+      <h2>Shadows</h2>
+      <div class="shadow-row">
+        <div class="shadow-demo">
+          <div class="shadow-card" style="box-shadow: var(--shadow);"></div>
+          <span class="shadow-label">--shadow</span>
+        </div>
+        <div class="shadow-demo">
+          <div class="shadow-card" style="box-shadow: var(--shadow-md);"></div>
+          <span class="shadow-label">--shadow-md</span>
+        </div>
+        <div class="shadow-demo">
+          <div class="shadow-card" style="box-shadow: var(--shadow-lg);"></div>
+          <span class="shadow-label">--shadow-lg</span>
+        </div>
+        <div class="shadow-demo">
+          <div class="shadow-card" style="box-shadow: var(--shadow-xl);"></div>
+          <span class="shadow-label">--shadow-xl</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section class="audit-section" id="typography">
+      <h2>Typography</h2>
+      <div class="type-scale-list">
+
+        <!-- t-display-headline -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-display-headline">Display Headline</p>
+          <div class="type-scale-meta">
+            <span>.t-display-headline</span>
+            <span>SmileyFace-Headline</span>
+            <span>weight: —</span>
+            <span>size: 3rem (48px)</span>
+            <span>line-height: 1.05</span>
+          </div>
+        </div>
+
+        <!-- t-display-lg -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-display-lg">Display Large</p>
+          <div class="type-scale-meta">
+            <span>.t-display-lg</span>
+            <span>SmileyFace</span>
+            <span>weight: 700</span>
+            <span>size: 2.5rem (40px)</span>
+            <span>line-height: 1.1</span>
+          </div>
+        </div>
+
+        <!-- t-display -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-display">Display</p>
+          <div class="type-scale-meta">
+            <span>.t-display</span>
+            <span>SmileyFace</span>
+            <span>weight: 700</span>
+            <span>size: 2rem (32px)</span>
+            <span>line-height: 1.15</span>
+          </div>
+        </div>
+
+        <!-- t-title-lg -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-title-lg">Title Large</p>
+          <div class="type-scale-meta">
+            <span>.t-title-lg</span>
+            <span>SmileyFace</span>
+            <span>weight: 700</span>
+            <span>size: 1.375rem (22px)</span>
+            <span>line-height: 1.2</span>
+          </div>
+        </div>
+
+        <!-- t-title -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-title">Title</p>
+          <div class="type-scale-meta">
+            <span>.t-title</span>
+            <span>SmileyFace</span>
+            <span>weight: 700</span>
+            <span>size: 1.125rem (18px)</span>
+            <span>line-height: 1.25</span>
+          </div>
+        </div>
+
+        <!-- t-title-sm -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-title-sm">Title Small</p>
+          <div class="type-scale-meta">
+            <span>.t-title-sm</span>
+            <span>SmileyFace</span>
+            <span>weight: 700</span>
+            <span>size: 1rem (16px)</span>
+            <span>line-height: 1.3</span>
+          </div>
+        </div>
+
+        <!-- t-cta -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-cta">Call to Action</p>
+          <div class="type-scale-meta">
+            <span>.t-cta</span>
+            <span>SmileyFace</span>
+            <span>weight: 700</span>
+            <span>size: 1rem (16px)</span>
+            <span>line-height: 1</span>
+          </div>
+        </div>
+
+        <!-- t-body -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-body">Body text — the quick brown fox jumps over the lazy dog</p>
+          <div class="type-scale-meta">
+            <span>.t-body</span>
+            <span>Inter</span>
+            <span>weight: 400</span>
+            <span>size: 1rem (16px)</span>
+            <span>line-height: 1.5</span>
+          </div>
+        </div>
+
+        <!-- t-body-sm -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-body-sm">Body small — the quick brown fox jumps over the lazy dog</p>
+          <div class="type-scale-meta">
+            <span>.t-body-sm</span>
+            <span>Inter</span>
+            <span>weight: 400</span>
+            <span>size: 0.875rem (14px)</span>
+            <span>line-height: 1.45</span>
+          </div>
+        </div>
+
+        <!-- t-caption -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-caption">Caption — metadata and micro copy</p>
+          <div class="type-scale-meta">
+            <span>.t-caption</span>
+            <span>Inter</span>
+            <span>weight: 400</span>
+            <span>size: 0.75rem (12px)</span>
+            <span>line-height: 1.4</span>
+          </div>
+        </div>
+
+        <!-- t-link -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-link">Inline link at body size</p>
+          <div class="type-scale-meta">
+            <span>.t-link</span>
+            <span>Inter</span>
+            <span>weight: 700</span>
+            <span>size: 1rem (16px)</span>
+            <span>line-height: 1.5</span>
+          </div>
+        </div>
+
+        <!-- t-link-sm -->
+        <div class="type-scale-item">
+          <p class="type-scale-sample t-link-sm">Small inline link</p>
+          <div class="type-scale-meta">
+            <span>.t-link-sm</span>
+            <span>Inter</span>
+            <span>weight: 700</span>
+            <span>size: 0.875rem (14px)</span>
+            <span>line-height: 1.45</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Buttons -->
+    <section class="audit-section" id="buttons">
+      <h2>Buttons</h2>
+      <!-- Primary -->
+      <div class="buttons-variant-group">
+        <h3 class="buttons-variant-title">Primary</h3>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Sizes</span>
+          <button class="btn btn-primary btn-lg t-cta" data-aods="button">Large</button>
+          <button class="btn btn-primary t-cta" data-aods="button">Default</button>
+          <button class="btn btn-primary btn-sm t-cta" data-aods="button">Small</button>
+          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-primary t-cta" data-aods="button"><i class="ico ico-basket" aria-hidden="true"></i> Add to basket</button>
+          <button class="btn btn-primary btn-sm t-cta" data-aods="button"><i class="ico ico-delivery" aria-hidden="true"></i> Check delivery</button>
+          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Search"><i class="ico ico-search"></i></button>
+          <button class="btn btn-primary btn-icon t-cta" data-aods="button" aria-label="Menu"><i class="ico ico-menu"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Full width</span>
+          <button class="btn btn-primary btn-full t-cta" data-aods="button" style="max-width:400px;">Full width</button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">States</span>
+          <button class="btn btn-primary t-cta" data-aods="button">Default</button>
+          <button class="btn btn-primary is-hover t-cta" data-aods="button">Hover</button>
+          <button class="btn btn-primary t-cta" data-aods="button" style="outline:3px solid var(--action-secondary-glow);outline-offset:2px;">Focus</button>
+          <button class="btn btn-primary is-active t-cta" data-aods="button">Active</button>
+          <button class="btn btn-primary t-cta" data-aods="button" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Secondary -->
+      <div class="buttons-variant-group">
+        <h3 class="buttons-variant-title">Secondary</h3>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Sizes</span>
+          <button class="btn btn-secondary btn-lg t-cta" data-aods="button">Large</button>
+          <button class="btn btn-secondary t-cta" data-aods="button">Default</button>
+          <button class="btn btn-secondary btn-sm t-cta" data-aods="button">Small</button>
+          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-secondary t-cta" data-aods="button"><i class="ico ico-compare" aria-hidden="true"></i> Compare</button>
+          <button class="btn btn-secondary btn-sm t-cta" data-aods="button"><i class="ico ico-heart" aria-hidden="true"></i> Save</button>
+          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Share"><i class="ico ico-share"></i></button>
+          <button class="btn btn-secondary btn-icon t-cta" data-aods="button" aria-label="Download"><i class="ico ico-download"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Full width</span>
+          <button class="btn btn-secondary btn-full t-cta" data-aods="button" style="max-width:400px;">Full width</button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">States</span>
+          <button class="btn btn-secondary t-cta" data-aods="button">Default</button>
+          <button class="btn btn-secondary is-hover t-cta" data-aods="button">Hover</button>
+          <button class="btn btn-secondary t-cta" data-aods="button" style="outline:3px solid var(--action-secondary-glow);outline-offset:2px;">Focus</button>
+          <button class="btn btn-secondary is-active t-cta" data-aods="button">Active</button>
+          <button class="btn btn-secondary t-cta" data-aods="button" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Tertiary -->
+      <div class="buttons-variant-group">
+        <h3 class="buttons-variant-title">Tertiary</h3>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Sizes</span>
+          <button class="btn btn-tertiary btn-lg t-cta" data-aods="button">Large</button>
+          <button class="btn btn-tertiary t-cta" data-aods="button">Default</button>
+          <button class="btn btn-tertiary btn-sm t-cta" data-aods="button">Small</button>
+          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-tertiary t-cta" data-aods="button"><i class="ico ico-amend-edit" aria-hidden="true"></i> Edit</button>
+          <button class="btn btn-tertiary btn-sm t-cta" data-aods="button"><i class="ico ico-trashcan" aria-hidden="true"></i> Remove</button>
+          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="Settings"><i class="ico ico-settings"></i></button>
+          <button class="btn btn-tertiary btn-icon t-cta" data-aods="button" aria-label="More options"><i class="ico ico-more"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Full width</span>
+          <button class="btn btn-tertiary btn-full t-cta" data-aods="button" style="max-width:400px;">Full width</button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">States</span>
+          <button class="btn btn-tertiary t-cta" data-aods="button">Default</button>
+          <button class="btn btn-tertiary is-hover t-cta" data-aods="button">Hover</button>
+          <button class="btn btn-tertiary t-cta" data-aods="button" style="outline:3px solid var(--action-secondary-glow);outline-offset:2px;">Focus</button>
+          <button class="btn btn-tertiary is-active t-cta" data-aods="button">Active</button>
+          <button class="btn btn-tertiary t-cta" data-aods="button" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- White (shown on dark background) -->
+      <div class="buttons-variant-group">
+        <h3 class="buttons-variant-title">White (on dark surface)</h3>
+        <div class="buttons-dark-bg">
+          <div class="buttons-row">
+            <span class="buttons-row-label" style="color:var(--gray-50);">Sizes</span>
+            <button class="btn btn-white btn-lg t-cta" data-aods="button">Large</button>
+            <button class="btn btn-white t-cta" data-aods="button">Default</button>
+            <button class="btn btn-white btn-sm t-cta" data-aods="button">Small</button>
+            <button class="btn btn-white btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+          </div>
+          <div class="buttons-row">
+            <span class="buttons-row-label" style="color:var(--gray-50);">With icons</span>
+            <button class="btn btn-white t-cta" data-aods="button"><i class="ico ico-play" aria-hidden="true"></i> Watch video</button>
+            <button class="btn btn-white btn-icon t-cta" data-aods="button" aria-label="Enlarge"><i class="ico ico-enlarge"></i></button>
+          </div>
+          <div class="buttons-row">
+            <span class="buttons-row-label" style="color:var(--gray-50);">Full width</span>
+            <button class="btn btn-white btn-full t-cta" data-aods="button" style="max-width:400px;">Full width</button>
+          </div>
+          <div class="buttons-row">
+            <span class="buttons-row-label" style="color:var(--gray-50);">States</span>
+            <button class="btn btn-white t-cta" data-aods="button">Default</button>
+            <button class="btn btn-white is-hover t-cta" data-aods="button">Hover</button>
+            <button class="btn btn-white t-cta" data-aods="button" style="outline:3px solid var(--action-secondary-glow);outline-offset:2px;">Focus</button>
+            <button class="btn btn-white is-active t-cta" data-aods="button">Active</button>
+            <button class="btn btn-white t-cta" data-aods="button" disabled>Disabled</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dark -->
+      <div class="buttons-variant-group">
+        <h3 class="buttons-variant-title">Dark</h3>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Sizes</span>
+          <button class="btn btn-dark btn-lg t-cta" data-aods="button">Large</button>
+          <button class="btn btn-dark t-cta" data-aods="button">Default</button>
+          <button class="btn btn-dark btn-sm t-cta" data-aods="button">Small</button>
+          <button class="btn btn-dark btn-icon t-cta" data-aods="button" aria-label="Close"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">With icons</span>
+          <button class="btn btn-dark t-cta" data-aods="button"><i class="ico ico-lock" aria-hidden="true"></i> Sign in</button>
+          <button class="btn btn-dark btn-icon t-cta" data-aods="button" aria-label="Account"><i class="ico ico-account"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Full width</span>
+          <button class="btn btn-dark btn-full t-cta" data-aods="button" style="max-width:400px;">Full width</button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">States</span>
+          <button class="btn btn-dark t-cta" data-aods="button">Default</button>
+          <button class="btn btn-dark is-hover t-cta" data-aods="button">Hover</button>
+          <button class="btn btn-dark t-cta" data-aods="button" style="outline:3px solid var(--action-secondary-glow);outline-offset:2px;">Focus</button>
+          <button class="btn btn-dark is-active t-cta" data-aods="button">Active</button>
+          <button class="btn btn-dark t-cta" data-aods="button" disabled>Disabled</button>
+        </div>
+      </div>
+
+      <!-- Inactive -->
+      <div class="buttons-variant-group">
+        <h3 class="buttons-variant-title">Inactive</h3>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Sizes</span>
+          <button class="btn btn-inactive btn-lg t-cta" data-aods="button" disabled>Large</button>
+          <button class="btn btn-inactive t-cta" data-aods="button" disabled>Default</button>
+          <button class="btn btn-inactive btn-sm t-cta" data-aods="button" disabled>Small</button>
+          <button class="btn btn-inactive btn-icon t-cta" data-aods="button" disabled aria-label="Icon"><i class="ico ico-close"></i></button>
+        </div>
+        <div class="buttons-row">
+          <span class="buttons-row-label">Full width</span>
+          <button class="btn btn-inactive btn-full t-cta" data-aods="button" disabled style="max-width:400px;">Full width</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inputs -->
+    <section class="audit-section" id="inputs">
+      <h2>Inputs</h2>
+      <div class="inputs-grid">
+
+        <!-- Default state -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="input-default">Email address</label>
+          <input class="field-input" id="input-default" type="email" placeholder="you@example.com">
+        </div>
+
+        <!-- Helper text -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="input-helper">Delivery email</label>
+          <input class="field-input" id="input-helper" type="email" placeholder="you@example.com">
+          <p class="field-msg is-helper">We'll send delivery updates to this address.</p>
+        </div>
+
+        <!-- Error state -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="input-error">Phone number</label>
+          <input class="field-input is-error" id="input-error" type="tel" value="07abc" aria-invalid="true" aria-describedby="input-error-msg">
+          <p class="field-msg is-error" id="input-error-msg">Enter a valid UK mobile or landline number.</p>
+        </div>
+
+        <!-- Success state -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="input-success">Email address</label>
+          <input class="field-input is-success" id="input-success" type="email" value="craig@example.com">
+          <p class="field-msg is-success"><i class="ico ico-tick ico-xs" aria-hidden="true"></i> Valid email address.</p>
+        </div>
+
+        <!-- Disabled state -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="input-disabled">Account ID</label>
+          <input class="field-input" id="input-disabled" type="text" value="AO-29381" disabled>
+          <p class="field-msg is-helper">This field cannot be changed.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Select / Textarea -->
+    <section class="audit-section" id="select-textarea">
+      <h2>Select &amp; Textarea</h2>
+      <div class="select-textarea-grid">
+
+        <!-- Select — default -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="select-default">Delivery option</label>
+          <div class="field-select-wrap">
+            <select class="field-input" id="select-default">
+              <option value="">Choose delivery option</option>
+              <option value="standard">Standard (3–5 days)</option>
+              <option value="express">Express (next day)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Select — disabled -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="select-disabled">Delivery option (disabled)</label>
+          <div class="field-select-wrap">
+            <select class="field-input" id="select-disabled" disabled>
+              <option value="">Choose delivery option</option>
+              <option value="standard">Standard (3–5 days)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Textarea — default -->
+        <div class="field" data-aods="field">
+          <label class="field-label" for="textarea-default">Delivery notes</label>
+          <textarea class="field-input" id="textarea-default" rows="4" placeholder="Additional instructions for the driver"></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Toggle Items (Checkbox / Radio) -->
+    <section class="audit-section" id="toggle-items">
+      <h2>Toggle Items</h2>
+
+      <!-- Radio Button Group — stacked (default, checked, hover, disabled) -->
+      <div class="toggle-audit-group">
+        <h3>Radio Button Group (Stacked)</h3>
+        <fieldset data-aods="radio-button-group">
+          <legend class="field-label" style="margin-bottom:0.5rem;">Delivery options</legend>
+          <div class="toggle-group">
+            <label class="toggle-item" data-aods="radio-button">
+              <input type="radio" name="delivery-audit" value="next" checked>
+              <div class="toggle-item-body">
+                <div class="toggle-item-label">Next day — Free</div>
+                <div class="toggle-item-sub">Order before midnight</div>
+              </div>
+            </label>
+            <label class="toggle-item" data-aods="radio-button">
+              <input type="radio" name="delivery-audit" value="named">
+              <div class="toggle-item-body">
+                <div class="toggle-item-label">Named day</div>
+                <div class="toggle-item-sub">Choose your slot — £5.99</div>
+              </div>
+            </label>
+            <label class="toggle-item is-hover" data-aods="radio-button">
+              <input type="radio" name="delivery-audit" value="express">
+              <div class="toggle-item-body">
+                <div class="toggle-item-label">Express (hover state)</div>
+                <div class="toggle-item-sub">Same-day delivery — £9.99</div>
+              </div>
+            </label>
+            <label class="toggle-item is-disabled" data-aods="radio-button">
+              <input type="radio" name="delivery-audit" value="sat" disabled>
+              <div class="toggle-item-body">
+                <div class="toggle-item-label">Saturday</div>
+                <div class="toggle-item-sub toggle-item-sub--xs">Unavailable</div>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Checkbox Group — default, checked -->
+      <div class="toggle-audit-group">
+        <h3>Checkbox Group</h3>
+        <div class="toggle-group" data-aods="checkbox-group">
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="warranty" checked>
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">3-year AO guarantee</div>
+              <div class="toggle-item-sub">Extend your cover — from £29</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="recycling">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Recycle my old appliance</div>
+              <div class="toggle-item-sub">We'll take it away when we deliver — Free</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Inline Pill Variant — multi-line content -->
+      <div class="toggle-audit-group">
+        <h3>Inline Pill Variant (Multi-line Content)</h3>
+        <fieldset data-aods="radio-button-group" class="toggle-group toggle-group--inline toggle-group--pill toggle-group--full">
+          <legend class="visually-hidden">Choose a delivery day</legend>
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="day-audit" value="sun" checked>
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Sun</strong>
+              <span class="toggle-item-line toggle-item-sub">12th Oct</span>
+              <strong class="toggle-item-line">£5.00</strong>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="day-audit" value="mon">
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Mon</strong>
+              <span class="toggle-item-line toggle-item-sub">13th Oct</span>
+              <strong class="toggle-item-line">Free</strong>
+            </div>
+          </label>
+          <label class="toggle-item is-disabled" data-aods="radio-button">
+            <input type="radio" name="day-audit" value="tue" disabled>
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Tues</strong>
+              <span class="toggle-item-line toggle-item-sub">14th Oct</span>
+              <span class="toggle-item-line toggle-item-sub--xs">Unavailable</span>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="day-audit" value="wed">
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Wed</strong>
+              <span class="toggle-item-line toggle-item-sub">15th Oct</span>
+              <strong class="toggle-item-line">Free</strong>
+            </div>
+          </label>
+        </fieldset>
+      </div>
+
+      <!-- Highlighted / Recommended Card Variant -->
+      <div class="toggle-audit-group">
+        <h3>Highlighted / Recommended Card</h3>
+        <div class="toggle-group" data-aods="radio-button-group">
+          <label class="toggle-item toggle-item--highlight" data-aods="radio-button" aria-current="true">
+            <input type="radio" name="plan-audit" value="25gb" checked class="visually-hidden">
+            <span class="tag tag-recommended">Recommended</span>
+            <div class="toggle-item-body">
+              <div class="toggle-item-head">
+                <strong class="toggle-item-title">25GB</strong>
+                <strong class="toggle-item-price">£12<span class="toggle-item-price-unit">/month</span></strong>
+              </div>
+              <p class="toggle-item-desc">Plenty of data for streaming, social and everyday browsing.</p>
+              <ul class="toggle-item-features">
+                <li>UK 5G coverage included</li>
+                <li>30-day rolling, cancel any time</li>
+                <li>Roaming in 40+ EU countries</li>
+              </ul>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="plan-audit" value="10gb" class="visually-hidden">
+            <div class="toggle-item-body">
+              <div class="toggle-item-head">
+                <strong class="toggle-item-title">10GB</strong>
+                <strong class="toggle-item-price">£8<span class="toggle-item-price-unit">/month</span></strong>
+              </div>
+              <p class="toggle-item-desc">Great for lighter use — calls, messaging and occasional streaming.</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Tags -->
+    <section class="audit-section" id="tags">
+      <h2>Tags</h2>
+
+      <!-- Default size -->
+      <div class="tags-section-block">
+        <p class="tags-size-label">Default</p>
+        <div class="tags-group">
+          <span class="tag tag-core" data-aods="tag">Core</span>
+          <span class="tag tag-neutral" data-aods="tag">Neutral</span>
+          <span class="tag tag-highlight" data-aods="tag">New</span>
+          <span class="tag tag-success" data-aods="tag">In stock</span>
+          <span class="tag tag-warning" data-aods="tag">Limited stock</span>
+          <span class="tag tag-error" data-aods="tag">Out of stock</span>
+          <span class="tag tag-dark" data-aods="tag">Dark</span>
+        </div>
+      </div>
+
+      <!-- Large size -->
+      <div class="tags-section-block">
+        <p class="tags-size-label">Large (tag-lg)</p>
+        <div class="tags-group">
+          <span class="tag tag-core tag-lg" data-aods="tag">Core</span>
+          <span class="tag tag-neutral tag-lg" data-aods="tag">Neutral</span>
+          <span class="tag tag-highlight tag-lg" data-aods="tag">New</span>
+          <span class="tag tag-success tag-lg" data-aods="tag">In stock</span>
+          <span class="tag tag-warning tag-lg" data-aods="tag">Limited stock</span>
+          <span class="tag tag-error tag-lg" data-aods="tag">Out of stock</span>
+          <span class="tag tag-dark tag-lg" data-aods="tag">Dark</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notices -->
+    <section class="audit-section" id="notices">
+      <h2>Notices</h2>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="notice notice-success" role="status" data-aods="notice">
+          <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
+          <div><strong>Delivery confirmed.</strong> Your order will arrive tomorrow between 8am and 6pm.</div>
+        </div>
+
+        <div class="notice notice-highlight" role="note" data-aods="notice">
+          <i class="ico ico-info notice-icon" aria-hidden="true"></i>
+          <div><strong>Professional installation available.</strong> Add fitting for £69 and our engineers will install and test your machine.</div>
+        </div>
+
+        <div class="notice notice-warning" role="note" data-aods="notice">
+          <i class="ico ico-warning notice-icon" aria-hidden="true"></i>
+          <div><strong>Only 3 left in stock.</strong> Installation slots for this week are filling up fast.</div>
+        </div>
+
+        <div class="notice notice-error" role="alert" data-aods="notice">
+          <i class="ico ico-cancel-circle notice-icon" aria-hidden="true"></i>
+          <div><strong>Payment declined.</strong> Check your card details and try again, or use a different payment method.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section class="audit-section" id="cards">
+      <h2>Cards</h2>
+      <div class="component-grid">
+        <!-- Default card -->
+        <div class="card" data-aods="card">
+          <h3 class="t-title">Default Card</h3>
+          <p class="t-body">The standard surface with 16px radius, 1px border, and 24px padding. Use for general content grouping.</p>
+        </div>
+
+        <!-- Raised card -->
+        <div class="card card-raised" data-aods="card">
+          <h3 class="t-title">Raised Card</h3>
+          <p class="t-body">Elevated surface for sticky panels, dropdowns, or content that needs visual prominence.</p>
+        </div>
+
+        <!-- Success card -->
+        <div class="card card-success" data-aods="card">
+          <h3 class="t-title">Success Card</h3>
+          <p class="t-body">Payment confirmed. Your order is on its way and will arrive within 2–3 working days.</p>
+        </div>
+
+        <!-- Highlight card -->
+        <div class="card card-highlight" data-aods="card">
+          <h3 class="t-title">Highlight Card</h3>
+          <p class="t-body">Recommended option. This plan includes unlimited data and 5G coverage at no extra cost.</p>
+        </div>
+
+        <!-- Error card -->
+        <div class="card card-error" data-aods="card">
+          <h3 class="t-title">Error Card</h3>
+          <p class="t-body">Card declined. Please check your payment details and try again or use a different method.</p>
+        </div>
+
+        <!-- Card with divider -->
+        <div class="card" data-aods="card">
+          <h3 class="t-title">Order Summary</h3>
+          <div class="card-divider"></div>
+          <p class="t-body">Subtotal · £499.00</p>
+          <p class="t-body">Delivery · Free</p>
+          <div class="card-divider"></div>
+          <p class="t-body"><strong>Total · £499.00</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Breadcrumb / Tabs / Accordion -->
+    <section class="audit-section" id="breadcrumb-tabs-accordion">
+      <h2>Breadcrumb, Tabs &amp; Accordion</h2>
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" data-aods="breadcrumb">
+        <ol class="crumb">
+          <li><a href="/">Home</a><span class="crumb-sep" aria-hidden="true">›</span></li>
+          <li><a href="/appliances">Appliances</a><span class="crumb-sep" aria-hidden="true">›</span></li>
+          <li><span aria-current="page">Washing machines</span></li>
+        </ol>
+      </nav>
+
+      <!-- Tabs -->
+      <div data-aods="tabs" style="margin-top: 2rem;">
+        <div class="tab-list" role="tablist">
+          <button class="tab-item active" role="tab" aria-selected="true">Description</button>
+          <button class="tab-item" role="tab" aria-selected="false">Specifications</button>
+          <button class="tab-item" role="tab" aria-selected="false">Reviews</button>
+        </div>
+        <div class="tab-panel" role="tabpanel">
+          <p class="t-body" style="padding: 1rem 0;">This is the active tab panel content for Description.</p>
+        </div>
+      </div>
+
+      <!-- Accordion -->
+      <div class="accordion" data-aods="accordion" style="margin-top: 2rem;">
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="true" aria-controls="acc-1">
+            <span>Delivery information</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
+          </button>
+          <div id="acc-1" class="accordion-body">We deliver within 2–3 working days across the UK mainland.</div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false" aria-controls="acc-2">
+            <span>Returns policy</span>
+            <i class="ico ico-chevron-down accordion-chevron" aria-hidden="true"></i>
+          </button>
+          <div id="acc-2" class="accordion-body" hidden>Return within 30 days for a full refund.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quantity Stepper / Spinner / Nav -->
+    <section class="audit-section" id="quantity-spinner-nav">
+      <h2>Quantity Stepper, Spinner &amp; Nav</h2>
+      <!-- Quantity Stepper -->
+      <h3>Quantity Stepper</h3>
+      <div class="qty-control" data-aods="quantity">
+        <button class="qty-btn" aria-label="Decrease">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn" aria-label="Increase">+</button>
+      </div>
+
+      <!-- Loading Spinner -->
+      <h3 style="margin-top: 2rem;">Loading Spinner</h3>
+      <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+        <div>
+          <div class="spinner" role="status" aria-live="polite" data-aods="loading-spinner">
+            <span class="sr-only">Loading…</span>
+          </div>
+          <p class="t-caption" style="margin-top: 0.5rem;">Default</p>
+        </div>
+        <div>
+          <div class="spinner spinner-sm" role="status" data-aods="loading-spinner">
+            <span class="sr-only">Loading…</span>
+          </div>
+          <p class="t-caption" style="margin-top: 0.5rem;">Small (spinner-sm)</p>
+        </div>
+        <div style="background: var(--type-primary); padding: 1.5rem; border-radius: var(--radius-sm);">
+          <div class="spinner spinner-white" role="status" data-aods="loading-spinner">
+            <span class="sr-only">Loading…</span>
+          </div>
+          <p class="t-caption" style="margin-top: 0.5rem; color: #fff;">White (spinner-white)</p>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <h3 style="margin-top: 2rem;">Nav</h3>
+      <nav class="nav" data-aods="nav" style="position: relative; top: auto;">
+        <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
+        <ul class="nav-links">
+          <li><a href="#">Appliances</a></li>
+          <li><a href="#">TV &amp; Audio</a></li>
+          <li><a href="#">Computing</a></li>
+        </ul>
+        <button class="btn btn-primary btn-sm" data-aods="button">Basket (2)</button>
+      </nav>
+    </section>
+
+  </div>
+<script type="module" src="../../kit/agentation-loader.js"></script>
+</body>
+</html>

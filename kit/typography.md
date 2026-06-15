@@ -73,8 +73,8 @@ Loading Inter (Google Fonts):
 | `t-body` | Inter | 400 | 1rem (16px) | 1.625 | Default body copy |
 | `t-body-sm` | Inter | 400 | 0.875rem (14px) | 1.625 | Supporting copy, helper text |
 | `t-caption` | Inter | 400 | 0.75rem (12px) | 1.625 | Captions, metadata, micro copy |
-| `t-link` | Inter | 500 | 1rem (16px) | 1.625 | Inline links — underlined |
-| `t-link-sm` | Inter | 500 | 0.875rem (14px) | 1.625 | Small inline links |
+| `t-link` | Inter | 700 | 1rem (16px) | 1.625 | Inline links — underlined |
+| `t-link-sm` | Inter | 700 | 0.875rem (14px) | 1.625 | Small inline links |
 
 ---
 
@@ -102,8 +102,8 @@ body {
 .t-body       { font-family: 'Inter', sans-serif; font-size: 1rem;    line-height: 1.625; }
 .t-body-sm    { font-family: 'Inter', sans-serif; font-size: 0.875rem; line-height: 1.625; }
 .t-caption    { font-family: 'Inter', sans-serif; font-size: 0.75rem;  line-height: 1.625; color: var(--type-tertiary); }
-.t-link       { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1rem;    text-decoration: underline; color: var(--action-secondary-base); }
-.t-link-sm    { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); }
+.t-link       { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1rem;    text-decoration: underline; color: var(--action-secondary-base); }
+.t-link-sm    { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); }
 .t-secondary  { color: var(--type-tertiary); }
 ```
 

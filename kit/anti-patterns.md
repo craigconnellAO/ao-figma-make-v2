@@ -80,6 +80,7 @@ If you see the "Don't" on the left in input or output, refuse to produce it, exp
 | Form inputs with no `<label>` | Always pair an input with a visible label |
 | Error inputs without `aria-invalid="true"` | Auto-applied; ensure it's present in your output |
 | Decorative icons without `aria-hidden="true"` | Add it. Icons paired with text are decorative. |
+| Using emoji/Unicode symbols (☰, 🔍, ✓, ✗, ⚠) for icons | Use Strata icon font: `<i class="ico ico-{name}" aria-hidden="true"></i>`. See `kit/icons.md`. |
 | Removing focus outlines | Keep `:focus-visible` styling on every interactive element |
 | Colour-only state indication ("the green row is approved") | Pair colour with an icon and/or text |
 

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO — Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --brand-primary-base: #12c35a; --brand-primary-light: #befcc8; --brand-primary-dark: #02422b;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --shadow-overlay: #011630;
+      --action-primary-base: #00893e; --action-primary-hover: #00560b;
+      --action-primary-focus: #00893e; --action-primary-active: #003d00;
+      --action-primary-contrast: #ffffff; --action-primary-glow: #12c35a;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --action-secondary-focus: #0564c2; --action-secondary-active: #001876;
+      --action-secondary-contrast: #ffffff; --action-secondary-glow: #40a1f8;
+      --action-light-base: #ffffff; --action-light-contrast: #011f44; --action-light-glow: #40a1f8;
+      --action-dark-base: #011f44; --action-dark-contrast: #ffffff; --action-dark-glow: #40a1f8;
+      --action-inactive-base: #727677; --action-inactive-contrast: #ffffff;
+      --ui-core-base: #ffffff; --ui-core-contrast: #212121; --ui-core-accent: #d6dddf;
+      --ui-neutral-base: #f0f2f2; --ui-neutral-contrast: #212121; --ui-neutral-accent: #abb1b4;
+      --ui-highlight-base: #edf2ff; --ui-highlight-contrast: #00318f; --ui-highlight-accent: #00318f;
+      --ui-success-base: #f4fce3; --ui-success-contrast: #02422b; --ui-success-accent: #00893e;
+      --ui-warning-base: #fff4e6; --ui-warning-contrast: #ad5a00; --ui-warning-accent: #ff9e36;
+      --ui-error-base: #fff0f6; --ui-error-contrast: #b50016; --ui-error-accent: #b50016;
+      --palette-bread: #ffe3c2; --palette-toast: #ffa878; --palette-jam: #422439;
+      --palette-simmer: #ffd8d2; --palette-heat: #f96155; --palette-burn: #60222f;
+      --palette-steam: #c8d1ff; --palette-ice: #4a6dce; --palette-water: #011f44;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
+      --shadow:    0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+      --shadow-md: 0 4px 8px rgba(1,22,48,0.10), 0 2px 4px rgba(1,22,48,0.06);
+      --shadow-lg: 0 10px 28px rgba(1,22,48,0.13), 0 4px 8px rgba(1,22,48,0.07);
+      --shadow-xl: 0 20px 48px rgba(1,22,48,0.18), 0 8px 16px rgba(1,22,48,0.10);
+    }
+
+    @font-face {
+      font-family: 'SmileyFace';
+      font-weight: 700;
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'SmileyFace-Headline';
+      font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff2') format('woff2'),
+           url('https://media.ao.com/fonts/smiley-face/SmileyFace-Headline.woff') format('woff');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: var(--gray-10);
+      color: var(--type-secondary);
+      font-size: 1rem;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ─── Type ─────────────────────────────────────────── */
+    .t-display     { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 2rem;     line-height: 1.15; color: var(--type-primary); }
+    .t-title-lg    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.375rem; line-height: 1.2;  color: var(--type-primary); }
+    .t-title       { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1.125rem; line-height: 1.25; color: var(--type-primary); }
+    .t-title-sm    { font-family: 'SmileyFace', Georgia, serif; font-weight: 700; font-size: 1rem;     line-height: 1.3;  color: var(--type-primary); }
+    .t-body        { font-size: 1rem;     line-height: 1.5; }
+    .t-body-sm     { font-size: 0.875rem; line-height: 1.45; }
+    .t-caption     { font-size: 0.75rem;  line-height: 1.4; color: var(--type-tertiary); }
+    .t-link        { font-size: 1rem;     text-decoration: underline; color: var(--action-secondary-base); cursor: pointer; }
+    .t-link-sm     { font-size: 0.875rem; text-decoration: underline; color: var(--action-secondary-base); cursor: pointer; }
+    .t-secondary   { color: var(--type-tertiary); }
+
+    /* ─── Nav ───────────────────────────────────────────── */
+    .nav {
+      background: var(--type-primary);
+      padding: 0.875rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 20;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-logo {
+      display: flex; align-items: center; text-decoration: none;
+    }
+    .nav-logo .ico { font-size: 1.75rem; color: var(--brand-primary-base); }
+    .nav-secure {
+      display: flex; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.6); font-size: 0.8125rem;
+    }
+    .nav-secure-icon {
+      width: 16px; height: 16px; opacity: 0.7;
+    }
+    @media (max-width: 640px) {
+      .nav { padding: 0.75rem 1rem; }
+    }
+
+    /* ─── Progress steps ─────────────────────────────── */
+    .steps {
+      background: #fff;
+      border-bottom: 1px solid var(--gray-30);
+      padding: 0 2rem;
+    }
+    .steps-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: stretch;
+    }
+    .step {
+      display: flex; align-items: center; gap: 0.625rem;
+      padding: 1rem 1.25rem 1rem 0;
+      margin-right: 1.25rem;
+      border-bottom: 3px solid transparent;
+      font-size: 0.875rem; color: var(--type-tertiary);
+      font-weight: 500; white-space: nowrap;
+    }
+    .step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 600; flex-shrink: 0;
+      background: var(--gray-30); color: var(--gray-70);
+    }
+    .step.done {
+      color: var(--action-secondary-base);
+    }
+    .step.done .step-num {
+      background: var(--ui-success-base);
+      color: var(--ui-success-contrast);
+    }
+    .step.active {
+      color: var(--type-primary);
+      border-bottom-color: var(--brand-primary-base);
+    }
+    .step.active .step-num {
+      background: var(--action-primary-base);
+      color: #fff;
+    }
+    @media (max-width: 640px) {
+      .steps { padding: 0 1rem; overflow-x: auto; }
+      .step { padding: 0.75rem 0.875rem 0.75rem 0; font-size: 0.8125rem; }
+      .step-label { display: none; }
+      .step.active .step-label { display: inline; }
+    }
+
+    /* ─── Page container ────────────────────────────── */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      .summary-col { order: -1; }
+    }
+    @media (max-width: 640px) {
+      .page { padding: 1rem; }
+    }
+
+    /* ─── Card ──────────────────────────────────────── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--gray-40);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .card-raised { box-shadow: var(--shadow-md); }
+    .card-success { background: var(--ui-success-base); border-color: var(--ui-success-accent); }
+    .card-divider { height: 1px; background: var(--gray-30); margin: 1.25rem -1.5rem; }
+
+    /* ─── Summary card / edit row ────────────────────── */
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1rem;
+    }
+    .summary-row .summary-content { flex: 1; }
+    .summary-row .summary-edit {
+      font-size: 0.875rem; text-decoration: underline;
+      color: var(--action-secondary-base); cursor: pointer;
+      flex-shrink: 0; white-space: nowrap;
+      background: none; border: none; padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ─── Form fields ───────────────────────────────── */
+    .field { display: flex; flex-direction: column; gap: 0.25rem; }
+    .field-label {
+      font-size: 0.875rem; font-weight: 500; color: var(--type-secondary);
+    }
+    .field-label-required::after { content: ' *'; color: var(--ui-error-accent); }
+    .field-input {
+      height: 48px;
+      padding: 0 0.875rem;
+      border: 1px solid var(--gray-50); border-radius: var(--radius-sm);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      color: var(--type-secondary); background: #fff;
+      outline: none; width: 100%;
+      transition: border-color 150ms, box-shadow 150ms;
+    }
+    .field-input::placeholder { color: var(--gray-60); }
+    .field-input:focus {
+      border-color: var(--action-secondary-base);
+      box-shadow: 0 0 0 3px rgba(5,100,194,0.15);
+    }
+    .field-input:disabled {
+      background: var(--gray-10); color: var(--gray-70);
+      cursor: not-allowed; border-color: var(--gray-30);
+    }
+    .field-input.is-error { border-color: var(--ui-error-accent); background: var(--ui-error-base); }
+    .field-msg { font-size: 0.8125rem; }
+    .field-msg.is-error   { color: var(--ui-error-contrast); }
+    .field-msg.is-helper  { color: var(--type-tertiary); }
+
+    .field-select-wrap { position: relative; }
+    .field-select-wrap::after {
+      content: ''; pointer-events: none;
+      position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 6px solid var(--gray-70);
+    }
+    select.field-input { appearance: none; padding-right: 2.5rem; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Toggle group (radio/checkbox) ─────────────── */
+    .toggle-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .toggle-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.875rem 1rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item:hover { border-color: var(--gray-60); background: var(--gray-10); }
+    .toggle-item.is-selected {
+      border-color: var(--action-secondary-base);
+      background: var(--ui-highlight-base);
+    }
+    .toggle-item input[type="radio"] {
+      accent-color: var(--action-secondary-base);
+      width: 18px; height: 18px; flex-shrink: 0;
+      margin: 0;
+    }
+    .toggle-item-body { flex: 1; }
+    .toggle-item-label { font-size: 0.9375rem; color: var(--type-secondary); font-weight: 500; }
+    .toggle-item-sub   { font-size: 0.8125rem; color: var(--type-tertiary); margin-top: 0.125rem; }
+    .toggle-item-price {
+      font-size: 0.9375rem; font-weight: 600; color: var(--type-primary);
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ─── Button ────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.875rem 1.5rem; border-radius: var(--radius-sm);
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1rem; line-height: 1;
+      border: 1px solid transparent; cursor: pointer;
+      white-space: nowrap; text-decoration: none;
+      transition: background 150ms, color 150ms, border-color 150ms, box-shadow 150ms;
+    }
+    .btn:focus-visible { outline: 3px solid var(--action-secondary-glow); outline-offset: 2px; }
+    .btn-primary { background: var(--action-primary-base); color: #fff; border-color: var(--action-primary-base); }
+    .btn-primary:hover { background: var(--action-primary-hover); border-color: var(--action-primary-hover); }
+    .btn-secondary { background: transparent; color: var(--action-secondary-base); border-color: var(--action-secondary-base); }
+    .btn-secondary:hover { background: var(--ui-highlight-base); }
+    .btn-tertiary { background: transparent; color: var(--type-secondary); border-color: var(--gray-40); }
+    .btn-tertiary:hover { background: var(--gray-20); border-color: var(--gray-50); }
+    .btn-lg   { padding: 1.125rem 2rem; font-size: 1.0625rem; }
+    .btn-full { width: 100%; }
+
+    /* ─── Tag ───────────────────────────────────────── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.2rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 500; line-height: 1.4;
+      border: 1px solid transparent;
+    }
+    .tag-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast);   border-color: var(--ui-success-accent); }
+    .tag-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); border-color: var(--ui-highlight-accent); }
+    .tag-neutral   { background: var(--ui-neutral-base);   color: var(--type-secondary);        border-color: var(--gray-40); }
+
+    /* ─── Notice ────────────────────────────────────── */
+    .notice {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.75rem; border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+    }
+    .notice-icon { flex-shrink: 0; }
+    .notice-success   { background: var(--ui-success-base);   color: var(--ui-success-contrast); }
+    .notice-highlight { background: var(--ui-highlight-base); color: var(--ui-highlight-contrast); }
+
+    /* ─── Order line items ──────────────────────────── */
+    .order-item {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+    }
+    .order-item-img {
+      width: 56px; height: 56px; flex-shrink: 0;
+      background: var(--gray-10);
+      border: 1px solid var(--gray-30);
+      border-radius: var(--radius-sm);
+      object-fit: contain; padding: 4px;
+    }
+    .order-item-img-placeholder {
+      width: 56px; height: 56px; flex-shrink: 0;
+      background: var(--gray-20);
+      border: 1px solid var(--gray-30);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .order-item-detail { flex: 1; min-width: 0; }
+    .order-item-name { font-size: 0.875rem; font-weight: 500; color: var(--type-secondary); line-height: 1.35; }
+    .order-item-sub  { font-size: 0.75rem; color: var(--type-tertiary); margin-top: 0.125rem; }
+    .order-item-price {
+      font-size: 0.9375rem; font-weight: 600; color: var(--type-primary);
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ─── Order totals ──────────────────────────────── */
+    .totals { display: flex; flex-direction: column; gap: 0.5rem; }
+    .totals-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.9375rem; color: var(--type-secondary);
+    }
+    .totals-row.grand {
+      font-size: 1rem;
+    }
+    .totals-row.grand .totals-label {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1rem; color: var(--type-primary);
+    }
+    .totals-row.grand .totals-value {
+      font-family: 'SmileyFace', Georgia, serif; font-weight: 700;
+      font-size: 1.375rem; color: var(--type-primary);
+    }
+    .totals-row .totals-free {
+      color: var(--ui-success-contrast); font-weight: 500;
+    }
+
+    /* ─── Payment icons ─────────────────────────────── */
+    .payment-icons {
+      display: flex; gap: 0.5rem; align-items: center;
+    }
+    .payment-icon {
+      height: 22px; padding: 3px 6px;
+      border: 1px solid var(--gray-30);
+      border-radius: var(--radius-xs);
+      background: #fff;
+      font-size: 0.625rem; font-weight: 600;
+      color: var(--type-tertiary); letter-spacing: 0.02em;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ─── Security trust bar ─────────────────────────── */
+    .trust-bar {
+      display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.375rem;
+      font-size: 0.8125rem; color: var(--type-tertiary);
+    }
+    .trust-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--brand-primary-base); flex-shrink: 0;
+    }
+
+    /* ─── Section heading ────────────────────────────── */
+    .section-heading {
+      display: flex; align-items: center; gap: 0.625rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      background: var(--type-primary); color: #fff;
+      font-size: 0.75rem; font-weight: 700;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ─── Utility ────────────────────────────────────── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" data-aods="nav">
+    <a href="/" class="nav-logo" aria-label="AO Home"><i class="ico ico-ao-logo" aria-hidden="true"></i></a>
+    <div class="nav-secure" aria-label="Secure checkout">
+      <svg class="nav-secure-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M8 1L2 3.5v4C2 11 5 14 8 15c3-1 6-4 6-7.5v-4L8 1z" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.25"/>
+        <path d="M5.5 8l1.75 1.75L10.5 6" stroke="var(--brand-primary-base)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Secure checkout
+    </div>
+  </nav>
+
+  <!-- Progress steps -->
+  <div class="steps" aria-label="Checkout progress">
+    <div class="steps-inner">
+      <div class="step done" aria-label="Step 1: Basket, completed">
+        <div class="step-num" aria-hidden="true">✓</div>
+        <span class="step-label">Basket</span>
+      </div>
+      <div class="step done" aria-label="Step 2: Delivery, completed">
+        <div class="step-num" aria-hidden="true">✓</div>
+        <span class="step-label">Delivery</span>
+      </div>
+      <div class="step active" aria-current="step" aria-label="Step 3: Payment, current">
+        <div class="step-num" aria-hidden="true">3</div>
+        <span class="step-label">Payment</span>
+      </div>
+      <div class="step" aria-label="Step 4: Review, not yet reached">
+        <div class="step-num" aria-hidden="true">4</div>
+        <span class="step-label">Review</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="checkout-grid">
+
+      <!-- Left: forms -->
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+
+        <!-- Delivery address: completed/summary -->
+        <div class="card" data-aods="card">
+          <div class="section-heading">
+            <div class="section-num" aria-hidden="true">1</div>
+            <h2 class="t-title">Delivery address</h2>
+          </div>
+          <div class="summary-row">
+            <div class="summary-content">
+              <p class="t-body-sm" style="color: var(--type-secondary);">Sarah Mitchell</p>
+              <p class="t-body-sm t-secondary">14 Maple Close, Manchester, M14 5RQ</p>
+              <p class="t-body-sm t-secondary">07700 900 123</p>
+            </div>
+            <button class="summary-edit" aria-label="Edit delivery address">Edit</button>
+          </div>
+        </div>
+
+        <!-- Delivery slot -->
+        <div class="card" data-aods="card">
+          <div class="section-heading">
+            <div class="section-num" aria-hidden="true">2</div>
+            <h2 class="t-title">Choose a delivery slot</h2>
+          </div>
+
+          <div class="notice notice-success" role="status" data-aods="notice" style="margin-bottom:1.25rem;">
+            <i class="ico ico-tick-circle notice-icon" aria-hidden="true"></i>
+            <div>Free next-day delivery available to M14 5RQ.</div>
+          </div>
+
+          <fieldset style="border:none; padding:0;">
+            <legend class="sr-only">Delivery options</legend>
+            <div class="toggle-group" data-aods="radio-button-group">
+              <label class="toggle-item is-selected">
+                <input type="radio" name="delivery" value="tomorrow" checked>
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Tomorrow, Thursday 16 May</div>
+                  <div class="toggle-item-sub">8am–6pm — choose your 2-hour window at checkout</div>
+                </div>
+                <div class="toggle-item-price">Free</div>
+              </label>
+              <label class="toggle-item">
+                <input type="radio" name="delivery" value="friday">
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Friday 17 May</div>
+                  <div class="toggle-item-sub">8am–6pm</div>
+                </div>
+                <div class="toggle-item-price">Free</div>
+              </label>
+              <label class="toggle-item">
+                <input type="radio" name="delivery" value="saturday">
+                <div class="toggle-item-body">
+                  <div class="toggle-item-label">Saturday 18 May</div>
+                  <div class="toggle-item-sub">8am–1pm</div>
+                </div>
+                <div class="toggle-item-price">Free</div>
+              </label>
+            </div>
+          </fieldset>
+
+          <div style="margin-top:1rem;">
+            <div class="field-select-wrap" style="max-width:280px;">
+              <label class="field-label" for="time-slot" style="margin-bottom:0.25rem; display:block;">Preferred time window</label>
+              <select class="field-input" id="time-slot">
+                <option value="">Any time (8am–6pm)</option>
+                <option value="am">Morning (8am–12pm)</option>
+                <option value="pm-early">Afternoon (12pm–4pm)</option>
+                <option value="pm-late">Late afternoon (4pm–6pm)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="card" data-aods="card">
+          <div class="section-heading" style="margin-bottom:0.75rem;">
+            <div class="section-num" aria-hidden="true">3</div>
+            <h2 class="t-title">Payment</h2>
+          </div>
+          <div class="payment-icons" style="margin-bottom:1.25rem;">
+            <span class="payment-icon">VISA</span>
+            <span class="payment-icon">MC</span>
+            <span class="payment-icon">AMEX</span>
+            <span class="payment-icon">PP</span>
+          </div>
+
+          <form novalidate style="display:flex; flex-direction:column; gap:1rem;">
+            <div class="field" data-aods="field">
+              <label class="field-label field-label-required" for="name-on-card">Name on card</label>
+              <input class="field-input" id="name-on-card" type="text"
+                     autocomplete="cc-name" placeholder="As it appears on your card">
+            </div>
+
+            <div class="field" data-aods="field">
+              <label class="field-label field-label-required" for="card-number">Card number</label>
+              <input class="field-input is-error" id="card-number" type="text"
+                     inputmode="numeric" maxlength="19"
+                     autocomplete="cc-number" placeholder="1234 5678 9012 3456"
+                     aria-invalid="true" aria-describedby="card-number-msg">
+              <p class="field-msg is-error" id="card-number-msg">Enter a valid 16-digit card number.</p>
+            </div>
+
+            <div class="form-row">
+              <div class="field" data-aods="field">
+                <label class="field-label field-label-required" for="expiry">Expiry date</label>
+                <input class="field-input" id="expiry" type="text"
+                       inputmode="numeric" maxlength="5"
+                       autocomplete="cc-exp" placeholder="MM / YY">
+              </div>
+              <div class="field" data-aods="field">
+                <label class="field-label field-label-required" for="cvv">Security code</label>
+                <input class="field-input" id="cvv" type="text"
+                       inputmode="numeric" maxlength="4"
+                       autocomplete="cc-csc" placeholder="CVV">
+                <p class="field-msg is-helper" id="cvv-hint">3 digits on the back of your card.</p>
+              </div>
+            </div>
+
+            <label style="display:flex; align-items:flex-start; gap:0.625rem; cursor:pointer; padding:0.75rem 0;">
+              <input type="checkbox" style="accent-color: var(--action-secondary-base); width:16px; height:16px; flex-shrink:0; margin-top:2px;">
+              <span class="t-body-sm">Save this card for faster checkout next time.</span>
+            </label>
+          </form>
+        </div>
+
+        <!-- Delivery notes (optional) -->
+        <div class="card" data-aods="card">
+          <div class="section-heading" style="margin-bottom:0.75rem;">
+            <div class="section-num" aria-hidden="true">4</div>
+            <h2 class="t-title">Delivery notes <span style="font-family:'Inter',sans-serif; font-weight:400; font-size:0.875rem; color:var(--type-tertiary);">Optional</span></h2>
+          </div>
+          <div class="field" data-aods="field">
+            <label class="field-label" for="notes">Instructions for the driver</label>
+            <textarea class="field-input" id="notes" rows="3"
+                      placeholder="Leave at the side gate, ring the bell, etc."></textarea>
+            <p class="field-msg is-helper">Max 200 characters.</p>
+          </div>
+        </div>
+
+        <!-- Trust signals (mobile only CTA area) -->
+        <div class="trust-bar" aria-label="Security assurances" style="padding:0.25rem 0;">
+          <div class="trust-item"><div class="trust-dot"></div>SSL encrypted payment</div>
+          <div class="trust-item"><div class="trust-dot"></div>30-day returns</div>
+          <div class="trust-item"><div class="trust-dot"></div>AO guarantee</div>
+        </div>
+
+      </div><!-- end left col -->
+
+      <!-- Right: order summary -->
+      <aside class="summary-col" style="position:sticky; top:80px;">
+        <div class="card card-raised" data-aods="card">
+          <h2 class="t-title-sm" style="margin-bottom:1.25rem;">Order summary</h2>
+
+          <!-- Items -->
+          <div style="display:flex; flex-direction:column; gap:1rem; margin-bottom:1rem;">
+            <div class="order-item">
+              <div class="order-item-img-placeholder" aria-hidden="true">🫧</div>
+              <div class="order-item-detail">
+                <div class="order-item-name">Bosch Series 6 9kg Washing Machine</div>
+                <div class="order-item-sub">WAJ28008GB · Energy A+++</div>
+                <span class="tag tag-success" data-aods="tag" style="margin-top:0.375rem;">In stock</span>
+              </div>
+              <div class="order-item-price">£549</div>
+            </div>
+
+            <div class="order-item">
+              <div class="order-item-img-placeholder" aria-hidden="true">🔧</div>
+              <div class="order-item-detail">
+                <div class="order-item-name">Professional installation</div>
+                <div class="order-item-sub">Install, level, and test</div>
+              </div>
+              <div class="order-item-price">£69</div>
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <!-- Totals -->
+          <div class="totals" style="margin-bottom:1.25rem;">
+            <div class="totals-row">
+              <span class="totals-label">Subtotal</span>
+              <span>£618.00</span>
+            </div>
+            <div class="totals-row">
+              <span class="totals-label">Delivery</span>
+              <span class="totals-free">Free</span>
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <div class="totals-row grand" style="margin-bottom:1.25rem;">
+            <span class="totals-label">Total</span>
+            <span class="totals-value">£618.00</span>
+          </div>
+
+          <p class="t-caption" style="margin-bottom:1rem; color:var(--type-tertiary);">
+            Prices include VAT.
+          </p>
+
+          <button class="btn btn-primary btn-lg btn-full" data-aods="button">
+            Place order
+          </button>
+
+          <p class="t-caption" style="text-align:center; margin-top:0.75rem; color:var(--type-tertiary); line-height:1.5;">
+            By placing your order you agree to our
+            <a href="#" class="t-link-sm">Terms and conditions</a>.
+          </p>
+        </div>
+
+        <!-- Apply promo code -->
+        <div class="card" style="margin-top:1rem;" data-aods="card">
+          <h3 class="t-title-sm" style="margin-bottom:0.875rem;">Promo code</h3>
+          <div style="display:flex; gap:0.5rem;">
+            <div class="field" style="flex:1;" data-aods="field">
+              <label class="sr-only" for="promo-code">Promo code</label>
+              <input class="field-input" id="promo-code" type="text" placeholder="Enter code">
+            </div>
+            <button class="btn btn-secondary" data-aods="button" style="flex-shrink:0;">Apply</button>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+<script type="module" src="../../kit/agentation-loader.js"></script>
+</body>
+</html>

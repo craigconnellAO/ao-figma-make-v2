@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AO Design System — RadioButton showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://assets.ao.com/design-system/assets/icons/latest/strata-icons.css">
+  <style>
+    /* ─── Tokens ────────────────────────────────────────── */
+    :root {
+      --gray-10: #f8f9fa; --gray-20: #f0f2f2; --gray-30: #e2e7e8;
+      --gray-40: #d6dddf; --gray-50: #c1c7c9; --gray-60: #abb1b4;
+      --gray-70: #727677; --gray-80: #595d5e; --gray-90: #3f4344; --gray-100: #212121;
+      --type-primary: #011f44; --type-secondary: #212121; --type-tertiary: #595d5e;
+      --action-primary-base: #00893e; --action-primary-contrast: #ffffff;
+      --action-secondary-base: #0564c2; --action-secondary-hover: #00318f;
+      --action-secondary-active: #001876; --action-secondary-contrast: #ffffff;
+      --action-secondary-glow: #40a1f8;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 16px; --radius-xl: 24px; --radius-2xl: 40px;
+      --shadow: 0 1px 3px rgba(1,22,48,0.08), 0 1px 2px rgba(1,22,48,0.05);
+    }
+
+    @font-face {
+      font-family: 'SmileyFace'; font-weight: 700; font-display: swap;
+      src: url('https://media.ao.com/fonts/smiley-face/SmileyFace-Bold.woff2') format('woff2');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--type-secondary);
+      background: var(--gray-10);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3 { font-family: 'SmileyFace', 'Inter', sans-serif; color: var(--type-primary); margin: 0; }
+    h1 { font-size: 2.25rem; line-height: 1.15; }
+    h2 { font-size: 1.5rem;  line-height: 1.2; margin-bottom: 0.25rem; }
+    h3 { font-size: 1.0625rem; line-height: 1.3; }
+    p  { margin: 0; }
+
+    .page  { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+    .lead  { color: var(--type-tertiary); max-width: 60ch; margin-top: 0.75rem; }
+
+    .section { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--gray-30); }
+    .section-head { margin-bottom: 1.5rem; }
+    .section-head p { color: var(--type-tertiary); margin-top: 0.25rem; }
+
+    .demo {
+      background: #fff; border: 1px solid var(--gray-30); border-radius: var(--radius-md);
+      padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1rem;
+    }
+    .demo-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--type-tertiary); font-weight: 600; margin-bottom: 0.875rem;
+    }
+
+    .field-label { font-size: 0.875rem; font-weight: 600; color: var(--type-primary); display: block; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    /* Side-by-side demo columns */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    /* ─── Tag (for "Recommended") ────────────────────── */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.25rem 0.625rem; border-radius: var(--radius-2xl);
+      font-size: 0.75rem; font-weight: 600; line-height: 1.4;
+      border: 1px solid transparent;
+    }
+    .tag-recommended {
+      background: var(--action-secondary-base);
+      color: var(--action-secondary-contrast);
+      border-color: var(--action-secondary-base);
+    }
+
+    /* ═══════════════════════════════════════════════════
+       RadioButton / Checkbox — kit components.md §5
+       ═══════════════════════════════════════════════════ */
+
+    /* Group layouts */
+    .toggle-group               { display: flex; flex-direction: column; gap: 0.5rem; border: 0; padding: 0; margin: 0; }
+    .toggle-group--inline       { flex-direction: row; flex-wrap: wrap; }
+    .toggle-group--inline > .toggle-item { flex: 1 1 0; min-width: 0; }
+    .toggle-group--full         { width: 100%; }
+
+    /* Item — default (square card) */
+    .toggle-item {
+      position: relative;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 1rem 1.125rem; border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms, box-shadow 150ms;
+    }
+    .toggle-group--pill .toggle-item { border-radius: var(--radius-md); padding: 0.875rem 1rem; }
+
+    /* Input */
+    .toggle-item input {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--gray-50); background: #fff; cursor: pointer;
+      transition: border-color 150ms, background 150ms;
+    }
+    .toggle-item input[type="radio"] { border-radius: 50%; }
+    .toggle-item input[type="checkbox"] { border-radius: 4px; }
+    .toggle-item input:checked {
+      border-color: var(--action-secondary-base); background: var(--action-secondary-base);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 11.5L3 8l1-1 2.5 2.5 5-5 1 1z' fill='white'/%3E%3C/svg%3E");
+      background-size: 14px; background-position: center; background-repeat: no-repeat;
+    }
+    .toggle-item input[type="radio"]:checked { background-image: none; box-shadow: inset 0 0 0 4px #fff; }
+
+    /* Body */
+    .toggle-item-body  { display: flex; flex-direction: column; gap: 0.125rem; min-width: 0; flex: 1; }
+    .toggle-item-line  { display: block; }
+    .toggle-item-label { font-size: 0.9375rem; font-weight: 700; color: var(--type-secondary); }
+    .toggle-item-sub      { font-size: 0.8125rem; color: var(--type-tertiary); }
+    .toggle-item-sub--xs  { font-size: 0.75rem;   color: var(--type-tertiary); }
+
+    /* States */
+    .toggle-item:hover                { border-color: var(--gray-60); background: var(--gray-10); }
+    .toggle-item:has(:focus-visible)  { outline: 0; box-shadow: 0 0 0 4px var(--action-secondary-glow); border-color: var(--action-secondary-base); }
+    .toggle-item:has(:checked) {
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 8%, white);
+    }
+    .toggle-item:has(:checked) .toggle-item-label,
+    .toggle-item:has(:checked) .toggle-item-line { color: var(--type-primary); }
+
+    .toggle-item.is-disabled,
+    .toggle-item:has(:disabled) {
+      background: var(--gray-20); border-color: var(--gray-30);
+      cursor: not-allowed; color: var(--gray-90);
+    }
+    .toggle-item.is-disabled .toggle-item-label,
+    .toggle-item.is-disabled .toggle-item-line { color: var(--gray-90); }
+
+    /* Highlighted / recommended card (blue — never green) */
+    .toggle-item--highlight {
+      border-width: 2px;
+      border-color: var(--action-secondary-base);
+      background: color-mix(in srgb, var(--action-secondary-base) 6%, white);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.125rem 1.125rem;
+    }
+    .toggle-item--highlight > .tag-recommended {
+      position: absolute; top: -0.625rem; left: 1rem;
+    }
+    .toggle-item-head      { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+    .toggle-item-title     { font-size: 1.25rem; color: var(--type-primary); }
+    .toggle-item-price     { font-size: 1.25rem; color: var(--type-primary); }
+    .toggle-item-price-unit{ font-size: 0.875rem; color: var(--type-tertiary); font-weight: 400; }
+    .toggle-item-desc      { font-size: 0.9375rem; color: var(--type-secondary); margin: 0.625rem 0 0; }
+    .toggle-item-features  { margin: 0.875rem 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.375rem; font-size: 0.9375rem; color: var(--type-secondary); }
+    .toggle-item-features li::before { content: "✓  "; color: var(--action-secondary-base); font-weight: 700; }
+
+    /* Header chip */
+    .pill {
+      display: inline-block; font-size: 0.6875rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.25rem 0.625rem; border-radius: var(--radius-2xl);
+      background: color-mix(in srgb, var(--action-secondary-base) 10%, white);
+      color: var(--action-secondary-base); border: 1px solid color-mix(in srgb, var(--action-secondary-base) 25%, white);
+    }
+  </style>
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ─── Header ─────────────────────────────────────── -->
+  <header>
+    <span class="pill">Kit v2.0.1 · §5 RadioButton</span>
+    <h1 style="margin-top: 0.75rem;">RadioButton showcase</h1>
+    <p class="lead">
+      Every variant and state of the AO RadioButton / Checkbox component, as documented in
+      <code>kit/components.md</code>. All selection styling uses <strong>action-secondary blue</strong> —
+      green is reserved for the primary CTA.
+    </p>
+  </header>
+
+  <!-- ─── 1. States — single radio in every state ─────── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>1 · States</h2>
+      <p>Default, hover (move your cursor over the row), focus (tab into it), selected, and disabled.</p>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label">Default radio group — all states</div>
+      <fieldset data-aods="radio-button-group">
+        <legend class="field-label" style="margin-bottom: 0.5rem;">Delivery options</legend>
+        <div class="toggle-group">
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="states-demo" value="next" checked>
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Next day — Free</div>
+              <div class="toggle-item-sub">Order before midnight</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="states-demo" value="named">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Named day</div>
+              <div class="toggle-item-sub">Choose your slot — £5.99</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button">
+            <input type="radio" name="states-demo" value="standard">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Standard (3–5 days)</div>
+              <div class="toggle-item-sub">Free</div>
+            </div>
+          </label>
+          <label class="toggle-item is-disabled" data-aods="radio-button">
+            <input type="radio" name="states-demo" value="sat" disabled>
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Saturday delivery</div>
+              <div class="toggle-item-sub toggle-item-sub--xs">Unavailable in your postcode</div>
+            </div>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ─── 2. Checkbox group ──────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>2 · Checkbox group</h2>
+      <p>Same component family — pick more than one. Uses the same selection theme.</p>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label">Add extras (CheckboxGroup)</div>
+      <fieldset data-aods="checkbox-group">
+        <legend class="visually-hidden">Add extras</legend>
+        <div class="toggle-group">
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="warranty" checked>
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">3-year AO guarantee</div>
+              <div class="toggle-item-sub">Extend your cover — from £29</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="install">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Professional installation</div>
+              <div class="toggle-item-sub">Engineers will fit and test — £69</div>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="checkbox">
+            <input type="checkbox" value="recycle">
+            <div class="toggle-item-body">
+              <div class="toggle-item-label">Recycle old appliance</div>
+              <div class="toggle-item-sub">We collect on delivery — Free</div>
+            </div>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ─── 3. Inline pill row — day picker ────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>3 · Inline pill row · 3-line content</h2>
+      <p>
+        Equal-width cards in a row, more-rounded pill corners, three text lines (label · meta · price).
+        Useful for day pickers, slot pickers, size pickers.
+      </p>
+    </div>
+
+    <div class="demo">
+      <div class="demo-label">Choose a delivery day · <code>inline · pill · full-width</code></div>
+      <fieldset data-aods="radio-button-group" class="toggle-group toggle-group--inline toggle-group--pill toggle-group--full">
+        <legend class="visually-hidden">Choose a delivery day</legend>
+
+        <label class="toggle-item" data-aods="radio-button">
+          <input type="radio" name="day-picker" value="sun" checked>
+          <div class="toggle-item-body">
+            <strong class="toggle-item-line">Sun</strong>
+            <span   class="toggle-item-line toggle-item-sub">12th Oct</span>
+            <strong class="toggle-item-line">£5.00</strong>
+          </div>
+        </label>
+
+        <label class="toggle-item" data-aods="radio-button">
+          <input type="radio" name="day-picker" value="mon">
+          <div class="toggle-item-body">
+            <strong class="toggle-item-line">Mon</strong>
+            <span   class="toggle-item-line toggle-item-sub">11th Oct</span>
+            <strong class="toggle-item-line">Free</strong>
+          </div>
+        </label>
+
+        <label class="toggle-item is-disabled" data-aods="radio-button">
+          <input type="radio" name="day-picker" value="tue" disabled>
+          <div class="toggle-item-body">
+            <strong class="toggle-item-line">Tues</strong>
+            <span   class="toggle-item-line toggle-item-sub">13th Oct</span>
+            <span   class="toggle-item-line toggle-item-sub--xs">Unavailable</span>
+          </div>
+        </label>
+
+        <label class="toggle-item" data-aods="radio-button">
+          <input type="radio" name="day-picker" value="wed">
+          <div class="toggle-item-body">
+            <strong class="toggle-item-line">Wed</strong>
+            <span   class="toggle-item-line toggle-item-sub">14th Oct</span>
+            <strong class="toggle-item-line">Free</strong>
+          </div>
+        </label>
+      </fieldset>
+    </div>
+
+    <!-- Two more inline rows so you can see selection moving around -->
+    <div class="grid-2">
+      <div class="demo">
+        <div class="demo-label">Size picker · <code>inline · pill</code></div>
+        <fieldset data-aods="radio-button-group" class="toggle-group toggle-group--inline toggle-group--pill toggle-group--full">
+          <legend class="visually-hidden">Choose a size</legend>
+          <label class="toggle-item" data-aods="radio-button"><input type="radio" name="size" value="s">
+            <div class="toggle-item-body" style="align-items:center;text-align:center;"><strong class="toggle-item-line">S</strong></div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button"><input type="radio" name="size" value="m" checked>
+            <div class="toggle-item-body" style="align-items:center;text-align:center;"><strong class="toggle-item-line">M</strong></div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button"><input type="radio" name="size" value="l">
+            <div class="toggle-item-body" style="align-items:center;text-align:center;"><strong class="toggle-item-line">L</strong></div>
+          </label>
+          <label class="toggle-item is-disabled" data-aods="radio-button"><input type="radio" name="size" value="xl" disabled>
+            <div class="toggle-item-body" style="align-items:center;text-align:center;"><strong class="toggle-item-line">XL</strong></div>
+          </label>
+        </fieldset>
+      </div>
+
+      <div class="demo">
+        <div class="demo-label">Slot picker · <code>inline</code> (default radius)</div>
+        <fieldset data-aods="radio-button-group" class="toggle-group toggle-group--inline toggle-group--full">
+          <legend class="visually-hidden">Choose a slot</legend>
+          <label class="toggle-item" data-aods="radio-button"><input type="radio" name="slot" value="am">
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Morning</strong>
+              <span class="toggle-item-line toggle-item-sub">8am – 12pm</span>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button"><input type="radio" name="slot" value="pm" checked>
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Afternoon</strong>
+              <span class="toggle-item-line toggle-item-sub">12pm – 5pm</span>
+            </div>
+          </label>
+          <label class="toggle-item" data-aods="radio-button"><input type="radio" name="slot" value="ev">
+            <div class="toggle-item-body">
+              <strong class="toggle-item-line">Evening</strong>
+              <span class="toggle-item-line toggle-item-sub">5pm – 9pm</span>
+            </div>
+          </label>
+        </fieldset>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 4. Recommended / highlighted card ──────────── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>4 · Recommended / highlighted card</h2>
+      <p>
+        The "popular plan" pattern — a single radio rendered as a feature card.
+        Blue theme (<code>action-secondary</code>) so it doesn't compete with the green primary CTA.
+      </p>
+    </div>
+
+    <div class="demo" style="max-width: 480px;">
+      <div class="demo-label">Plan picker · highlighted</div>
+      <fieldset data-aods="radio-button-group">
+        <legend class="visually-hidden">Choose a plan</legend>
+        <label class="toggle-item toggle-item--highlight" data-aods="radio-button" aria-current="true">
+          <input type="radio" name="plan" value="25gb" checked class="visually-hidden">
+          <span class="tag tag-recommended">Recommended</span>
+          <div class="toggle-item-body">
+            <div class="toggle-item-head">
+              <strong class="toggle-item-title">25GB</strong>
+              <strong class="toggle-item-price">£12<span class="toggle-item-price-unit">/month</span></strong>
+            </div>
+            <p class="toggle-item-desc">Plenty of data for streaming, social and everyday browsing.</p>
+            <ul class="toggle-item-features">
+              <li>UK 5G coverage included</li>
+              <li>30-day rolling, cancel any time</li>
+              <li>Roaming in 40+ EU countries</li>
+            </ul>
+          </div>
+        </label>
+      </fieldset>
+    </div>
+  </section>
+
+  <!-- ─── Notes ──────────────────────────────────────── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Notes</h2>
+    </div>
+    <ul style="color: var(--type-tertiary); padding-left: 1.125rem; line-height: 1.7; max-width: 70ch;">
+      <li><strong>Naming.</strong> All groups/items carry <code>data-aods="radio-button-group" | "radio-button" | "checkbox-group" | "checkbox"</code> so prototype tooling can map back to <code>@ao/components</code>.</li>
+      <li><strong>Selection theme.</strong> Always blue (<code>action-secondary</code>). Green stays reserved for the primary CTA in the same view.</li>
+      <li><strong>Disabled items.</strong> Stay visible and explain why (<em>"Unavailable"</em>) — don't hide them.</li>
+      <li><strong>Inline rows.</strong> Use <code>flex: 1 1 0</code> so columns stay equal width even with different content lengths.</li>
+      <li><strong>Focus ring.</strong> 4px <code>action-secondary-glow</code> halo via <code>:has(:focus-visible)</code> on the row — never suppress it.</li>
+    </ul>
+  </section>
+
+</main>
+
+<script type="module" src="../../kit/agentation-loader.js"></script>
+</body>
+</html>
